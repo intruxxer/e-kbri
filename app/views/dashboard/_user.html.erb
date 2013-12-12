@@ -1,0 +1,36 @@
+<li class="dropdown current-user">
+	<a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+		<img src="assets/images/dashboard/avatar-1-small.jpg" class="circle-img" alt="">
+		<span class="username"><%= "#{current_user.first_name}" %> <%= "#{current_user.last_name}" %>
+		</span><i class="clip-chevron-down"></i>
+	</a>
+	<ul class="dropdown-menu">
+								<li>
+									<a href="#">
+										<i class="clip-user-2"></i>
+										&nbsp;Laman Profil
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="clip-calendar"></i>
+										&nbsp;Kalender Agenda
+									</a>
+								<li>
+									<a href="#">
+										<i class="clip-bubble-4"></i>
+										&nbsp;Kotak Masuk (3)
+									</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="#"><i class="clip-locked"></i>
+										&nbsp;Kunci Dashboard </a>
+								</li>
+								<li>
+									<%= link_to destroy_user_session_path, :method=>'delete' do %>
+										<i class="clip-exit"></i>&nbsp; Log out
+									<% end %>
+								</li>
+	</ul>
+</li>

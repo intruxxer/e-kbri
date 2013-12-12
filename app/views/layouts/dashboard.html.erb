@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+	<!--<![endif]-->
+	<!-- start: HEAD -->
+	<head>
+		<title>E-KBRI Administration & Management Panel</title>
+		<!-- start: META -->
+		<%= render "dashboard/meta" %>
+		<!-- end: META -->
+		<!-- start: MAIN CSS -->
+		<%= render "dashboard/stylesheet" %>
+		<!-- end: MAIN CSS -->
+		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+		
+	</head>
+	<!-- end: HEAD -->
+	<!-- start: BODY -->
+	<body>
+		<!-- start: HEADER -->
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<!-- start: TOP NAVIGATION CONTAINER -->
+			<div class="container">
+				<div class="navbar-header">
+					<!-- start: RESPONSIVE MENU TOGGLER -->
+					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+						<span class="clip-list-2"></span>
+					</button>
+					<!-- end: RESPONSIVE MENU TOGGLER -->
+					<!-- start: LOGO -->
+					<a class="navbar-brand" href="#">
+						E-<img src="assets/images/dashboard/garuda-small.png">KBRI
+					</a>
+					<!-- end: LOGO -->
+				</div>
+				<div class="navbar-tools">
+					<!-- start: TOP NAVIGATION MENU -->
+					<ul class="nav navbar-right">
+						<% if user_signed_in? %>
+						<!-- start: NOTIFICATION DROPDOWN -->
+						  <%= render "dashboard/notification" %>
+						<!-- end: NOTIFICATION DROPDOWN -->
+						<!-- start: MESSAGE DROPDOWN -->
+						  <%= render "dashboard/message" %>
+						<!-- end: MESSAGE DROPDOWN -->
+						<!-- start: USER DROPDOWN -->
+						  <%= render "dashboard/user" %>
+						<!-- end: USER DROPDOWN -->
+						<% end %>
+					</ul>
+					<!-- end: TOP NAVIGATION MENU -->
+				</div>
+			</div>
+			<!-- end: TOP NAVIGATION CONTAINER -->
+		</div>
+		<!-- end: HEADER -->
+		
+		<!-- start: MAIN CONTAINER -->
+		<div class="main-container">
+			<div class="navbar-content">
+				<!-- start: SIDEBAR -->
+				<div class="main-navigation navbar-collapse collapse">
+					<!-- start: MAIN MENU TOGGLER BUTTON -->
+					<div class="navigation-toggler">
+						<i class="clip-chevron-left"></i>
+						<i class="clip-chevron-right"></i>
+					</div>
+					<!-- end: MAIN MENU TOGGLER BUTTON -->
+					<!-- start: MAIN NAVIGATION MENU -->
+					<%= render "dashboard/sidenavigation" %>
+					<!-- end: MAIN NAVIGATION MENU -->
+				</div>
+				<!-- end: SIDEBAR -->
+			</div>
+			<!-- start: PAGE -->
+			<div class="main-content">
+				
+				<div class="container">
+					<!-- start: PAGE HEADER -->
+					<%= render "dashboard/pageheader" %>
+					<!-- end: PAGE HEADER -->
+					
+					<!-- PAGE CONTENTS -->
+					<%= render "dashboard/contents" %>
+					
+
+			</div><!-- end: CONTAINER -->
+		</div><!-- end: MAIN CONTAINER -->
+		
+		<!-- start: FOOTER -->
+		<%= render "dashboard/footer" %>
+		<!-- end: FOOTER -->
+		<%= render "dashboard/javascript" %>
+		
+		
+	</body>
+	<!-- end: BODY -->
+</html>

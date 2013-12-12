@@ -1,0 +1,2 @@
+module Immigration::VisaHelper
+end

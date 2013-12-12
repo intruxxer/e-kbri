@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+	<!--<![endif]-->
+	<!-- start: HEAD -->
+	<head>
+		<title>E-KBRI Administration & Management Panel</title>
+		<!-- start: META -->
+		<meta charset="utf-8" />
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- end: META -->
+		<!-- start: MAIN CSS -->
+		<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/fonts/style.css">
+		<link rel="stylesheet" href="assets/css/main.css">
+		<link rel="stylesheet" href="assets/css/main-responsive.css">
+		<link rel="stylesheet" href="assets/plugins/iCheck/skins/all.css">
+		<link rel="stylesheet" href="assets/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css">
+		<link rel="stylesheet" href="assets/plugins/perfect-scrollbar/src/perfect-scrollbar.css">
+		<!--<link rel="stylesheet/less" type="text/css" href="assets/css/styles.less">-->
+		<link rel="stylesheet" href="assets/css/theme_light.css" type="text/css" id="skin_color">
+		<!--[if IE 7]>
+		<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome-ie7.min.css">
+		<![endif]-->
+		<!-- end: MAIN CSS -->
+		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<link rel="stylesheet" href="assets/plugins/fullcalendar/fullcalendar/fullcalendar.css">
+		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<link rel="shortcut icon" href="favicon.ico" />
+	</head>
+	<!-- end: HEAD -->
+	<!-- start: BODY -->
+	<body>
+		<!-- start: HEADER -->
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<!-- start: TOP NAVIGATION CONTAINER -->
+			<div class="container">
+				<div class="navbar-header">
+					<!-- start: RESPONSIVE MENU TOGGLER -->
+					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+						<span class="clip-list-2"></span>
+					</button>
+					<!-- end: RESPONSIVE MENU TOGGLER -->
+					<!-- start: LOGO -->
+					<a class="navbar-brand" href="index.html">
+						E-<img src="assets/images/garuda-small.png">KBRI
+					</a>
+					<!-- end: LOGO -->
+				</div>
+				<div class="navbar-tools">
+					<!-- start: TOP NAVIGATION MENU -->
+					<ul class="nav navbar-right">
+						
+						<!-- start: NOTIFICATION DROPDOWN -->
+						<li class="dropdown">
+							<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="index.html#">
+								<i class="clip-notification-2"></i>
+								<span class="badge"> 10</span>
+							</a>
+							<ul class="dropdown-menu notifications">
+								<li>
+									<span class="dropdown-menu-title"> Anda memiliki 10 Notifikasi</span>
+								</li>
+								<li>
+									<div class="drop-down-wrapper">
+										<ul>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success">Imigrasi</span>
+													<span class="message"> Permohonan Visa</span>
+													<span class="label label-danger time" style="opacity: 1;"> 50</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-info">Konsuler</span>
+													<span class="message"> Permohonan Surat Nikah</span>
+													<span class="label label-warning time" style="opacity: 1;"> 20</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-warning">Ketenagakerjaan</span>
+													<span class="message"> Pendataan TKI</span>
+													<span class="label label-danger time"> 140</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success">Imigrasi</span>
+													<span class="message"> Permohonan Paspor</span>
+													<span class="label label-danger time" style="opacity: 1;"> 70</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success">Imigrasi</span>
+													<span class="message"> Permohonan Visa</span>
+													<span class="label label-danger time" style="opacity: 1;"> 50</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-info">Konsuler</span>
+													<span class="message"> Permohonan Surat Nikah</span>
+													<span class="label label-warning time" style="opacity: 1;"> 20</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-warning">Ketenagakerjaan</span>
+													<span class="message"> Pendataan TKI</span>
+													<span class="label label-danger time"> 140</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success">Imigrasi</span>
+													<span class="message"> Permohonan Paspor</span>
+													<span class="label label-danger time" style="opacity: 1;"> 70</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-info">Konsuler</span>
+													<span class="message"> Permohonan Surat Lahir</span>
+													<span class="label label-warning time" style="opacity: 1;"> 17</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-info">Konsuler</span>
+													<span class="message"> Permohonan Legalisasi</span>
+													<span class="label label-danger time"> 13</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="view-all">
+									<a href="javascript:void(0)">
+										Lihat seluruh notifikasi. <i class="fa fa-arrow-circle-o-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- end: NOTIFICATION DROPDOWN -->
+						<!-- start: MESSAGE DROPDOWN -->
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="index.html#">
+								<i class="clip-bubble-3"></i>
+								<span class="badge"> 9</span>
+							</a>
+							<ul class="dropdown-menu posts">
+								<li>
+									<span class="dropdown-menu-title"> Anda memiliki 9 pesan baru</span>
+								</li>
+								<li>
+									<div class="drop-down-wrapper">
+										<ul>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="assets/images/avatar-2.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Damayanti</span>
+															<span class="preview">Pak Didik, Dubes mengagendakan rapat Rabu, 18 Desember 2013.</span>
+															<span class="time"> Just Now</span>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="assets/images/avatar-1.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Bambang Witjaksono</span>
+															<span class="preview">Pak, fungsi konsuler dan politik diagendakan bertemu imigrasi korea minggu depan, 19 Desember 2013 di COEX.</span>
+															<span class="time">2 mins</span>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="assets/images/avatar-3.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Deni Sugandi</span>
+															<span class="preview">Jadwal protokoler kedatangan BPK kapan ya Pak?</span>
+															<span class="time">8 hrs</span>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="assets/images/avatar-5.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">John A. Prasetio</span>
+															<span class="preview">Pak Didik, rapat tanggal 20 Desember 2013 dengan Kemenlu Korea. Tolong dampingi saya.</span>
+															<span class="time">14 hrs</span>
+														</div>
+													</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="view-all">
+									<a href="pages_messages.html">
+										Liat semua pesan. <i class="fa fa-arrow-circle-o-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- end: MESSAGE DROPDOWN -->
+						<!-- start: USER DROPDOWN -->
+						<li class="dropdown current-user">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+								<img src="assets/images/avatar-1-small.jpg" class="circle-img" alt="">
+								<span class="username">Didik Eko Pujiyanto</span>
+								<i class="clip-chevron-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="pages_user_profile.html">
+										<i class="clip-user-2"></i>
+										&nbsp;Laman Profil
+									</a>
+								</li>
+								<li>
+									<a href="pages_calendar.html">
+										<i class="clip-calendar"></i>
+										&nbsp;Kalender Agenda
+									</a>
+								<li>
+									<a href="pages_messages.html">
+										<i class="clip-bubble-4"></i>
+										&nbsp;Kotak Masuk (3)
+									</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="utility_lock_screen.html"><i class="clip-locked"></i>
+										&nbsp;Kunci Dashboard </a>
+								</li>
+								<li>
+									<a href="login_example1.html">
+										<i class="clip-exit"></i>
+										&nbsp;Log Out
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- end: USER DROPDOWN -->
+					</ul>
+					<!-- end: TOP NAVIGATION MENU -->
+				</div>
+			</div>
+			<!-- end: TOP NAVIGATION CONTAINER -->
+		</div>
+		<!-- end: HEADER -->
+		
+		<!-- start: MAIN CONTAINER -->
+		<div class="main-container">
+			<div class="navbar-content">
+				<!-- start: SIDEBAR -->
+				<div class="main-navigation navbar-collapse collapse">
+					<!-- start: MAIN MENU TOGGLER BUTTON -->
+					<div class="navigation-toggler">
+						<i class="clip-chevron-left"></i>
+						<i class="clip-chevron-right"></i>
+					</div>
+					<!-- end: MAIN MENU TOGGLER BUTTON -->
+					<!-- start: MAIN NAVIGATION MENU -->
+					<ul class="main-navigation-menu">
+						<li class="active open">
+							<a href="index.html"><i class="clip-home-3"></i>
+								<span class="title"> Dashboard E-KBRI</span><span class="selected"></span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<i class="clip-data"></i>
+								<span class="title"> Pelayanan E-KBRI </span><i class="icon-arrow"></i>
+								<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="javascript:;">
+										Konsuler <i class="icon-arrow"></i>
+									</a>
+									<ul class="sub-menu">
+										<li>
+											<a href="javascript:;">
+												Surat-Surat <i class="icon-arrow"></i>
+											</a>
+											<ul class="sub-menu">
+												<li>
+													<a href="#">
+														Keterangan Lahir</a>
+												</li>
+												<li>
+													<a href="#">
+														Keterangan Nikah</a>
+												</li>
+												<li>
+													<a href="#">
+														Keterangan Talak</a>
+												</li>
+												<li>
+													<a href="#">
+														Keterangan Cerai</a>
+												</li>
+												<li>
+													<a href="#">
+														Keterangan Rujuk</a>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a href="#">
+												Lain-Lain
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Legalisasi Dokumen
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="javascript:;">
+										Imigrasi <i class="icon-arrow"></i>
+									</a>
+									<ul class="sub-menu">
+										<li>
+											<a href="#">
+												Dokumen Perjalanan
+											</a>
+											<ul class="sub-menu">
+												<li>
+													<a href="#"><i class="fa fa-times"></i>
+														Paspor</a>
+												</li>
+												<li>
+													<a href="#"><i class="fa fa-pencil"></i>
+														SPLP</a>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a href="#">
+												Aplikasi Visa
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Lapor Diri
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#">
+										Pendataan WNI
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-pencil"></i>
+								<span class="title"> Formulir Aplikasi </span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="#">
+										<span class="title">Aplikasi Visa</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="title">Aplikasi Paspor/SPLP</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="title">Aplikasi Surat</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-file"></i>
+								<span class="title">Dokumen</span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="pages_user_profile.html">
+										<span class="title">Profil WNI Korea</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-attachment-2"></i>
+								<span class="title">File</span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="#">
+										<span class="title">Visa (Pending)</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="title">Visa (Approved)</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="title">Visa (Reject)</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-user-3"></i>
+								<span class="title">Ketenagakerjaan</span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="#">
+										<span class="title">BNP2TKI</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="title">HRD Korea</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="charts.html"><i class="clip-bars"></i>
+								<span class="title">Statistika E-KBRI</span>
+								<span class="selected"></span>
+							</a>
+						</li>
+					</ul>
+					<!-- end: MAIN NAVIGATION MENU -->
+				</div>
+				<!-- end: SIDEBAR -->
+			</div>
+			<!-- start: PAGE -->
+			<div class="main-content">
+				
+				<div class="container">
+					<!-- start: PAGE HEADER -->
+					<div class="row">
+						<div class="col-sm-12">
+							<!-- start: PAGE TITLE & BREADCRUMB -->
+							<ol class="breadcrumb">
+								<li>
+									<i class="clip-home-3"></i>
+									<a href="#">
+										Home
+									</a>
+								</li>
+								<li class="active">
+									Dashboard
+								</li>
+								<li class="search-box">
+									<form class="sidebar-search">
+										<div class="form-group">
+											<input type="text" placeholder="Start Searching...">
+											<button class="submit">
+												<i class="clip-search-3"></i>
+											</button>
+										</div>
+									</form>
+								</li>
+							</ol>
+							<div class="page-header">
+								<h1>Dashboard <small>Overview &amp; Stats </small></h1>
+							</div>
+							<!-- end: PAGE TITLE & BREADCRUMB -->
+						</div>
+					</div>
+					<!-- end: PAGE HEADER -->
+					
+					<!-- PAGE CONTENTS -->
+					<!-- start: PAGE CONTENT -->
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="core-box">
+								<div class="heading">
+									<i class="clip-book circle-icon circle-green"></i>
+									<h2>Aplikasi Online</h2>
+								</div>
+								<div class="content">
+									Gunakan E-KBRI untuk mengelola dan melakukan pelayanan dokumen-dokumen seperti 
+									visa, paspor, SPLP, dan surat-surat keterangan secara real-time, terpadu, dan efektif. 
+									Kini, pelayanan aplikasi kekonsuleran, keimigrasian, dan ketenagakerjaan akan dialihkan 
+									ke pengguna/aplikan sehingga staf KBRI akan fokus kepada pemrosesan data.
+								</div>
+								<a class="view-more" href="#">
+									Lebih Lanjut <i class="clip-arrow-right-2"></i>
+								</a>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="core-box">
+								<div class="heading">
+									<i class="clip-user circle-icon circle-teal"></i>
+									<h2>Data WNI se-Korea</h2>
+								</div>
+								<div class="content">
+									Gunakan E-KBRI untuk mengetahui dan mengelola data-data mengenai WNI se-Korea yg terintegrasi 
+									dengan sistem pelayanan KBRI. Setiap aplikasi masuk yang dibuat oleh WNI akan otomatis 
+									mendeteksi/mencatat data WNI di Korea. Data ini tersedia dengan format rapi dan terstruktur 
+									dimana data akan ditampilkan secara intuitif via E-KBRI.
+								</div>
+								<a class="view-more" href="index.html#">
+									Lebih Lanjut <i class="clip-arrow-right-2"></i>
+								</a>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="core-box">
+								<div class="heading">
+									<i class="clip-database circle-icon circle-bricky"></i>
+									<h2>Manajemen Data</h2>
+								</div>
+								<div class="content">
+									Gunakan E-KBRI agar dengan mudahnya staff KBRI Seoul melakukan pengelolaan data-data WNI
+									 se-Korea sehingga dapat meminimalisir waktu yg terbuang melalui proses manual. E-KBRI 
+									 memudahkan WNI untuk mengupdate datanya sendiri dan juga membantu staff KBRI untuk 
+									 mengelolanya sewaktu-waktu. Tersedia juga fitur pembuatan laporan bagi staf KBRI.
+								</div>
+								<a class="view-more" href="index.html#">
+									Lebih Lanjut <i class="clip-arrow-right-2"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- end: PAGE CONTENT-->
+					
+				</div><!-- end: CONTAINER -->
+		</div>
+		<!-- end: MAIN CONTAINER -->
+		<!-- start: FOOTER -->
+		<div class="footer clearfix">
+			<div class="footer-inner">
+				2013-2014 &copy; E-KBRI Mockup by Hasanah WWW Labs (A Subsidiary of Hasanah International Holdings).
+			</div>
+			<div class="footer-items">
+				<span class="go-top"><i class="clip-chevron-up"></i></span>
+			</div>
+		</div>
+		<!-- end: FOOTER -->
+		<!-- start: MAIN JAVASCRIPTS -->
+		<!--[if lt IE 9]>
+		<script src="assets/plugins/respond.min.js"></script>
+		<script src="assets/plugins/excanvas.min.js"></script>
+		<![endif]-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="assets/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+		<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="assets/plugins/blockUI/jquery.blockUI.js"></script>
+		<script src="assets/plugins/iCheck/jquery.icheck.min.js"></script>
+		<script src="assets/plugins/perfect-scrollbar/src/jquery.mousewheel.js"></script>
+		<script src="assets/plugins/perfect-scrollbar/src/perfect-scrollbar.js"></script>
+		<script src="assets/plugins/less/less-1.5.0.min.js"></script>
+		<script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+		<script src="assets/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js"></script>
+		<script src="assets/js/main.js"></script>
+		<!-- end: MAIN JAVASCRIPTS -->
+		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script src="assets/plugins/flot/jquery.flot.js"></script>
+		<script src="assets/plugins/flot/jquery.flot.pie.js"></script>
+		<script src="assets/plugins/flot/jquery.flot.resize.min.js"></script>
+		<script src="assets/plugins/jquery.sparkline/jquery.sparkline.js"></script>
+		<script src="assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+		<script src="assets/plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+		<script src="assets/plugins/fullcalendar/fullcalendar/fullcalendar.js"></script>
+		<script src="assets/js/index.js"></script>
+		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script>
+			jQuery(document).ready(function() {
+				Main.init();
+				Index.init();
+			});
+		</script>
+	</body>
+	<!-- end: BODY -->
+</html>
