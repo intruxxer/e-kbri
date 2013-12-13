@@ -7,7 +7,8 @@ body, .main-container, .footer, .main-navigation, ul.main-navigation-menu > li >
 	border-right-color: #C8C7CC;
 }
 .navbar-inverse {
-	background: rgba(255, 255, 255, 0.9);
+	/*background: rgba(255, 255, 255, 0.9);*/
+	background: rgba(169, 10, 10, 1.0);
 	border-color: #C8C7CC;
 }
 /* ie8 fixes */
@@ -16,46 +17,79 @@ body, .main-container, .footer, .main-navigation, ul.main-navigation-menu > li >
 }
 /**/
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand:hover, .navbar-inverse .nav > li > a {
-	color: #666666;
+	/*color: #666666;*/
+	color: #FFFFFF;
 }
 .navbar-inverse .navbar-brand i, .navbar-inverse .navbar-brand:hover i {
 	color: #007AFF;
 }
 
 .navbar-inverse .nav > li > a {
-	color: #999999;
+	color: #FFFFFF;
 }
 .navbar-inverse .nav > li.current-user > a {
-	color: #666666 !important;
+	color: #FFFFFF !important;
 }
 .navbar-inverse .nav > li.current-user > a i {
 	display: inline-block;
 	text-align: center;
 	width: 1.25em;
-	color: #007AFF !important;
+	color: #FFFFFF !important;
 	font-size: 12px;
 }
+.navbar-inverse .nav > li.current-user:hover {
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
+}
+.navbar-inverse .nav > li.current-user:active, .navbar-inverse .nav > li.current-user:visited {
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
+}
+.navbar-inverse .nav > li.current-user > a:hover {
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
+}
+.navbar-inverse .nav > li.current-user > a:hover i:hover {
+	color: #FFFFFF !important;	
+	background: rgba(169, 10, 10, 1.0);
+}
+.navbar-inverse .nav > li.current-user > a:active {
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
+}
+.navbar-inverse .nav > li.current-user > i:active {
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
+}
+.navbar-inverse .nav > li.current-user > a:visited {
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
+}
+.navbar-inverse .nav > li.current-user > i:visited {
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
+}
 .navbar-inverse .nav > li:hover > a, .navbar-inverse .nav > li:active > a {
-	color: #555555;
-	background: #F5F5F5;
+	color: #FFFFFF !important;
+	background: rgba(169, 10, 10, 1.0);
 }
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
-	background: #D9D9D9;
-	color: #555555;
+	background: rgba(166, 10, 10, 0.2);
+	color: #000;
 }
 
 .navbar-tools .dropdown-menu li .dropdown-menu-title {
-	background: #D9D9D9;
-	color: #555555;
+	background: #000;
+	color: #FFF;
 }
 .navbar-inverse .btn-navbar {
-	background-color: #D9D9D9;
+	background: rgba(169, 10, 10, 1.0);
 	background: -moz-linear-gradient(top, #34485e 0%, #283b52 100%); /* firefox */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#34485e), color-stop(100%,#283b52)); /* webkit */
 }
 
 .nav > li.dropdown .dropdown-toggle .badge {
-	background-color: #007AFF;
+	background-color: #000;
 	border: none;
 }
 .navbar-toggle {
@@ -74,19 +108,19 @@ body, .main-container, .footer, .main-navigation, ul.main-navigation-menu > li >
 ul.main-navigation-menu > li a {
 	border-bottom: none;
 	border-top-color: #C8C7CC;
-	color: #555555;
+	color: #000;
 }
 ul.main-navigation-menu > li a > i {
-	color: #007AFF;
+	color: #000;
 	font-weight: normal;
 }
 ul.main-navigation-menu > li.active > a {
-	background: #007AFF !important;
+	background: #A60A0A !important;
 	border-top: none !important;
 	color: #fff;
 }
 ul.main-navigation-menu > li.active > a .selected:before {
-	color: #007AFF !important;
+	color: #A60A0A !important;
 }
 ul.main-navigation-menu > li.active > a i {
 	color: #fff;
@@ -95,8 +129,8 @@ ul.main-navigation-menu > li.open > a, ul.main-navigation-menu > li > a:hover, u
 	background-color: #D9D9D9;
 }
 .navigation-toggler, .go-top {
-	background-color: #E4E5E6 !important;
-	color:#b1b1b1;
+	background-color: #A60A0A !important;
+	color:#FFF;
 }
 .navigation-toggler:hover i:first-child, .go-top:hover {
 	color: #555555;
@@ -119,7 +153,10 @@ ul.main-navigation-menu li > ul.sub-menu > li.open > a, ul.main-navigation-menu 
 	color: #cccccc;
 }
 .breadcrumb a {
-	color: #007AFF;
+	color: #A60A0A;
+}
+.view-more{
+	color: #A60A0A;
 }
 .footer-fixed .footer {
 	background: rgba(255, 255, 255, 0.9) !important;

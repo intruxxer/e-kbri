@@ -1,4 +1,11 @@
 @import "bootstrap";
 body { padding-top: 40px; padding-bottom: 40px; }
+.navbar-default{ background-color: #A60A0A; color: #ffffff; }
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand, .navbar-default .navbar-text { color: #ffffff; } 
+.navbar-default .navbar-nav > .dropdown > a .caret, .navbar-default .navbar-nav > .dropdown > a .caret:hover { 
+	color: #ffffff;
+	border-top-color: #ffffff;
+	border-bottom-color: #ffffff;
+}
 
 
