@@ -31,9 +31,9 @@
 					</button>
 					<!-- end: RESPONSIVE MENU TOGGLER -->
 					<!-- start: LOGO -->
-					<a class="navbar-brand" href="#">
-						E-<img src="assets/images/dashboard/garuda-small.png">KBRI
-					</a>
+					<%= link_to dashboard_path, class: "navbar-brand" do %>
+						E-<%= image_tag("/assets/images/dashboard/garuda-small.png") %>KBRI
+					<% end %>
 					<!-- end: LOGO -->
 				</div>
 				<div class="navbar-tools">
@@ -84,7 +84,7 @@
 					<!-- end: PAGE HEADER -->
 					
 					<!-- PAGE CONTENTS -->
-					<%= render "dashboard/contents" %>
+					<%= yield %>
 
 				</div><!-- end: CONTAINER -->
 			</div><!-- end: MAIN CONTAINER -->
@@ -93,8 +93,13 @@
 		<%= render "dashboard/footer" %>
 		<!-- end: FOOTER -->
 		<%= render "dashboard/javascript" %>
-		
-		
+		<%= render "dashboard/javascriptindex" %>
+		<script>
+			jQuery(document).ready(function() {
+				Main.init();
+				Index.init();
+			});
+		</script>
 	</body>
 	<!-- end: BODY -->
 </html>

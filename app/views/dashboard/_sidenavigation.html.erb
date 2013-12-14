@@ -1,180 +1,209 @@
 <ul class="main-navigation-menu">
 						<li class="active open">
-							<a href="#"><i class="clip-home-3"></i>
-								<span class="title"> Dashboard E-KBRI</span><span class="selected"></span>
-							</a>
+							<%= link_to dashboard_path do %>
+								<i class="clip-home-3"></i>
+								<span class="title"> Dashboard E-KBRI</span>
+								<span class="selected"></span>
+							<% end %>
 						</li>
 						<li>
-							<a href="javascript:;">
+							<%= link_to "#" do %>
 								<i class="clip-data"></i>
 								<span class="title"> Pelayanan E-KBRI </span><i class="icon-arrow"></i>
 								<span class="arrow "></span>
-							</a>
+							<% end %>
 							<ul class="sub-menu">
 								<li>
-									<a href="javascript:;">
+									<%= link_to "#" do %>
+										<i class="fa fa-flag"></i> 
 										Konsuler <i class="icon-arrow"></i>
-									</a>
+									<% end %>
 									<ul class="sub-menu">
 										<li>
-											<a href="javascript:;">
+											<%= link_to "#;" do %>
+												<i class="fa fa-files-o"></i> 
 												Surat-Surat <i class="icon-arrow"></i>
-											</a>
+											<% end %>
 											<ul class="sub-menu">
 												<li>
-													<a href="#">
-														Keterangan Lahir</a>
+													<%= link_to dashboard_counsel_path do %>
+														<i class="fa fa-file-o"></i> Keterangan Lahir
+													<% end %>
 												</li>
 												<li>
-													<a href="#">
-														Keterangan Nikah</a>
+													<%= link_to dashboard_counsel_path do %>
+														<i class="fa fa-file-o"></i> Keterangan Nikah
+													<% end %>
 												</li>
 												<li>
-													<a href="#">
-														Keterangan Talak</a>
+													<%= link_to dashboard_counsel_path do %>
+														<i class="fa fa-file-o"></i> Keterangan Talak
+													<% end %>
 												</li>
 												<li>
-													<a href="#">
-														Keterangan Cerai</a>
+													<%= link_to dashboard_counsel_path do %>
+														<i class="fa fa-file-o"></i> Keterangan Cerai
+													<% end %>
 												</li>
 												<li>
-													<a href="#">
-														Keterangan Rujuk</a>
+													<%= link_to dashboard_counsel_path do %>
+														<i class="fa fa-file-o"></i> Keterangan Rujuk
+													<% end %>
 												</li>
 											</ul>
 										</li>
 										<li>
-											<a href="#">
-												Lain-Lain
-											</a>
+											<%= link_to dashboard_counsel_path do %>
+												<i class="fa fa-bookmark-o"></i> Lain-Lain
+											<% end %>
 										</li>
 										<li>
-											<a href="#">
-												Legalisasi Dokumen
-											</a>
+											<%= link_to dashboard_counsel_path do %>
+												<i class="fa fa-certificate"></i> Legalisasi Dokumen
+											<% end %>
 										</li>
 									</ul>
 								</li>
 								<li>
-									<a href="javascript:;">
+									<%= link_to "#" do %>
+										<i class="fa fa-check-square"></i> 
 										Imigrasi <i class="icon-arrow"></i>
-									</a>
+									<% end %>
 									<ul class="sub-menu">
 										<li>
-											<a href="#">
-												Dokumen Perjalanan
-											</a>
+											<%= link_to "#" do %>
+												<i class="fa fa-book"></i>
+												Dokumen Travel<i class="icon-arrow"></i>
+											<% end %>
 											<ul class="sub-menu">
 												<li>
-													<a href="#"><i class="fa fa-times"></i>
-														Paspor</a>
+													<%= link_to dashboard_immigration_path do %>
+														<i class="fa fa-book"></i>
+														Paspor
+													<% end %>
 												</li>
 												<li>
-													<a href="#"><i class="fa fa-pencil"></i>
-														SPLP</a>
+													<%= link_to dashboard_immigration_path do %>
+													  	<i class="fa fa-book"></i>
+														SPLP
+													<% end %>
 												</li>
 											</ul>
 										</li>
 										<li>
-											<a href="#">
-												Aplikasi Visa
-											</a>
+											<%= link_to dashboard_immigration_path do %>
+												<i class="fa fa-file-text-o"></i> Aplikasi Visa
+											<% end %>
 										</li>
 										<li>
-											<a href="#">
-												Lapor Diri
-											</a>
+											<%= link_to dashboard_immigration_path do %>
+												<i class="fa fa-file-o"></i> Lapor Diri
+											<% end %>
 										</li>
 									</ul>
 								</li>
 								<li>
-									<a href="#">
-										Pendataan WNI
-									</a>
+									<%= link_to "#" do %>
+										<i class="fa fa-users"></i> Pendataan WNI
+									<% end %>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="javascript:void(0)"><i class="clip-pencil"></i>
+							<%= link_to "#" do %>
+								<i class="clip-pencil"></i>
 								<span class="title"> Formulir Aplikasi </span><i class="icon-arrow"></i>
 								<span class="selected"></span>
-							</a>
+							<% end %>
 							<ul class="sub-menu">
 								<li>
-									<a href="#">
+									<%= link_to "#{dev_url}dashboard/immigration/visa" do %>
+										<i class="fa fa-file-o"></i>
 										<span class="title">Aplikasi Visa</span>
-									</a>
+									<% end %>
 								</li>
 								<li>
-									<a href="#">
+									<%= link_to "#{dev_url}dashboard/immigration/passport" do %>
+										<i class="fa fa-book"></i>
 										<span class="title">Aplikasi Paspor/SPLP</span>
-									</a>
+									<% end %>
 								</li>
 								<li>
-									<a href="#">
+									<%= link_to "#" do %>
+										<i class="fa fa-files-o"></i>
 										<span class="title">Aplikasi Surat</span>
-									</a>
+									<% end %>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="javascript:void(0)"><i class="clip-file"></i>
+							<%= link_to "#" do %>
+								<i class="clip-file"></i>
 								<span class="title">Dokumen</span><i class="icon-arrow"></i>
 								<span class="selected"></span>
-							</a>
+							<% end %>
 							<ul class="sub-menu">
 								<li>
-									<a href="#">
+									<%= link_to "#" do %>
+										<i class="fa fa-user"></i>
 										<span class="title">Profil WNI Korea</span>
-									</a>
+									<% end %>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="javascript:void(0)"><i class="clip-attachment-2"></i>
+							<%= link_to "#" do %>
+								<i class="clip-attachment-2"></i>
 								<span class="title">File</span><i class="icon-arrow"></i>
 								<span class="selected"></span>
-							</a>
+							<% end %>
 							<ul class="sub-menu">
 								<li>
-									<a href="#">
-										<span class="title">Visa (Pending)</span>
-									</a>
+									<%= link_to "#" do %>
+										<i class="fa fa-question"></i>
+										<span class="title">&nbsp; Visa (Pending)</span>
+									<% end %>
 								</li>
 								<li>
-									<a href="#">
+									<%= link_to "#" do %>
+										<i class="fa fa-check"></i>
 										<span class="title">Visa (Approved)</span>
-									</a>
+									<% end %>
 								</li>
 								<li>
-									<a href="#">
-										<span class="title">Visa (Reject)</span>
-									</a>
+									<%= link_to "#" do %>
+										<i class="fa fa-times"></i>
+										<span class="title">&nbsp; Visa (Reject)</span>
+									<% end %>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="javascript:void(0)"><i class="clip-user-3"></i>
+							<%= link_to "#" do %>
+								<i class="clip-user-3"></i>
 								<span class="title">Ketenagakerjaan</span><i class="icon-arrow"></i>
 								<span class="selected"></span>
-							</a>
+							<% end %>
 							<ul class="sub-menu">
 								<li>
-									<a href="#">
+									<%= link_to dashboard_employment_indonesia_path do %>
+										<i class="fa fa-list"></i>
 										<span class="title">BNP2TKI</span>
-									</a>
+									<% end %>
 								</li>
 								<li>
-									<a href="#">
+									<%= link_to dashboard_employment_korea_path do %>
+										<i class="fa fa-briefcase"></i>
 										<span class="title">HRD Korea</span>
-									</a>
+									<% end %>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="#"><i class="clip-bars"></i>
-								<span class="title">Statistika E-KBRI</span>
-								<span class="selected"></span>
-							</a>
+							<%= link_to dashboard_statistics_path do %>
+							  <i class="clip-bars"></i>
+							  <span class="title">Statistika E-KBRI</span>
+							  <span class="selected"></span>
+							<% end %>
 						</li>
 </ul>

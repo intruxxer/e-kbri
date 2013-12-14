@@ -1,6 +1,12 @@
 <!-- Red color scheme -->
 			<form action="" class="sky-form">
-				<header>Visa Application Form for Gaining Entry/Extension Re-Entry Permit to Republic of Indonesia</header>
+				<header>
+				<% if action_name == "immigration" then %>
+					Visa Application Form to Republic of Indonesia
+				<% else %>
+					Visa Application Form for Gaining Entry/Extension Re-Entry Permit to Republic of Indonesia
+				<% end %>
+				</header>
 				<fieldset>
 					<div class="row">
 						<section class="col col-6">
@@ -298,13 +304,18 @@
 				
 				<fieldset class="newVisa specialFieldType no-show">
 				<div class="row">
-					<section>
+					<section class="col col-6">
 					<div class="inline-group">
 					<label class="label">Other Information (Tick each item that applies)</label>
 					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever been to Indonesia before?</label>
 					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever been convicted in other country?</label>
 					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Are you in posession of any other country?</label>
 					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Do you have previous visa to enter Indonesia?</label>
+					</div>
+					</section>
+					<section class="col col-6">
+					<div class="inline-group">
+					<label class="label">&nbsp;</label>
 					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Has your visa application been refused before?</label>
 					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever been deported from Indonesia before?</label>
 					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever committed crime or any offense?</label>
@@ -316,16 +327,6 @@
 				<fieldset class="newVisa specialFieldType no-show">
 					<section><p style="text-align: right; font-weight: bold;">Seoul, <%= Date.current.strftime("%A, %v") %></p></section>
 				</fieldset>
-				
-				<fieldset class="newVisa specialFieldType no-show">
-					<section class="col col-10">
-					I hereby declare that statements given above are true and I understand that even if granted a visa, 
-					the admission at the airport fully remains the discretion of the immigration authorities in Indonesia.
-					</section>
-					
-					<section class="col col-2">
-					<pre>	(Signature)</pre>
-					</section>				</fieldset>
 				
 				<fieldset id="transit" class="specialFieldCat no-show">
 				<div class="row">
@@ -537,6 +538,17 @@
 								  
 				</fieldset>
 				
+				<fieldset class="newVisa specialFieldType no-show">
+					<section class="col col-9">
+					I hereby declare that statements given above are true and I understand that even if granted a visa, 
+					the admission at the airport fully remains the discretion of the immigration authorities in Indonesia.
+					</section>
+					
+					<section class="col col-3">
+					<pre>(Signature & Full Name)</pre>
+					</section>				
+				</fieldset>
+				
 				<%= render 'forms/visareentry' %>
 				<footer>
 					<button type="submit" class="button">Submit</button>
@@ -544,6 +556,8 @@
 				</footer>
 			</form>
 <!--/ Red color scheme -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
 <script type="text/javascript">
 	$(function()
 		{

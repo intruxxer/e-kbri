@@ -10,6 +10,12 @@ EKbri::Application.routes.draw do
   get "passport", :to => "immigration/passport#index"
   
   get "dashboard/index"
+  get "dashboard/counsel"
+  get "dashboard/immigration"
+  get "dashboard/immigration/:document" => "dashboard#immigration" 
+  get "dashboard/employment_indonesia"
+  get "dashboard/employment_korea"
+  get "dashboard/statistics"
   get "dashboard", :to => "dashboard#index"
   
   get "welcome/concept"
@@ -34,6 +40,7 @@ EKbri::Application.routes.draw do
   end
 
   resources :users
+  #resources :dashboard_immigration, path: "dashboard/immigration"
   
 
   # The priority is based upon order of creation: first created -> highest priority.

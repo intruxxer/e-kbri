@@ -1,6 +1,6 @@
 <li class="dropdown current-user">
-	<a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-		<img src="assets/images/dashboard/avatar-1-small.jpg" class="circle-img" alt="">
+	<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+		<%= image_tag("/assets/images/dashboard/avatar-1-small.jpg", class: "circle-img") %>
 		<span class="username"><%= "#{current_user.first_name}" %> <%= "#{current_user.last_name}" %>
 		</span><i class="fa fa-chevron-down"></i>
 	</a>
@@ -28,7 +28,7 @@
 										&nbsp;Kunci Dashboard </a>
 								</li>
 								<li>
-									<%= link_to destroy_user_session_path, :method=>'delete' do %>
+									<%= link_to destroy_user_session_path, method: :delete do %>
 										<i class="clip-exit"></i>&nbsp; Log out
 									<% end %>
 								</li>
