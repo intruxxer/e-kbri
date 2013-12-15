@@ -202,7 +202,7 @@ var Main = function () {
                 overlayCSS: {
                     backgroundColor: '#fff'
                 },
-                message: '<img src="assets/images/loading.gif" /> Just a moment...',
+                message: '<img src="/assets/images/dashboard/loading.gif" /> Just a moment...',
                 css: {
                     border: 'none',
                     color: '#333',

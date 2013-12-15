@@ -70,10 +70,10 @@ var Index = function () {
         ];
         var plot = $.plot($("#placeholder-h1"), [{
             data: pageviews,
-            label: "Unique Visits"
+            label: "Aplikasi Visa"
         }, {
             data: visitors,
-            label: "Page Views"
+            label: "Aplikasi Paspor"
         }], {
             series: {
                 lines: {
@@ -148,7 +148,7 @@ var Index = function () {
             series = Math.floor(Math.random() * 6) + 3;
         for (var i = 0; i < series; i++) {
             data_pie[i] = {
-                label: "Series" + (i + 1),
+                label: "e-KBRI_" + (i + 1),
                 data: Math.floor(Math.random() * 100) + 1
             };
         }

@@ -15,11 +15,13 @@ EKbri::Application.routes.draw do
   get "dashboard/immigration/:document" => "dashboard#immigration" 
   get "dashboard/employment_indonesia"
   get "dashboard/employment_korea"
+  get "dashboard/tabulation"
   get "dashboard/statistics"
   get "dashboard", :to => "dashboard#index"
   
   get "welcome/concept"
-  get "concept", :to => "welcome#concept"
+  get "concept/index"
+  get "concept", :to => "concept#index"
   
   authenticated :user do
     root to: 'welcome#index', as: :authenticated_root

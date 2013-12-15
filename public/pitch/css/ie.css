@@ -1,0 +1,5 @@
+body,
+.nav-holder{min-width:1000px;}
+* +html #nav li a,
+* +html #nav li a span {display:block;}
+* +html #nav li a span{ margin-top: expression(this.parentNode.offsetHeight > this.offsetHeight ? ((this.parentNode.offsetHeight-this.offsetHeight)/2 + "px") : "0"); }

@@ -8,7 +8,7 @@
 						</li>
 						<li>
 							<%= link_to "#" do %>
-								<i class="clip-data"></i>
+								<i class="clip-screen"></i>
 								<span class="title"> Pelayanan E-KBRI </span><i class="icon-arrow"></i>
 								<span class="arrow "></span>
 							<% end %>
@@ -138,13 +138,13 @@
 						</li>
 						<li>
 							<%= link_to "#" do %>
-								<i class="clip-file"></i>
-								<span class="title">Dokumen</span><i class="icon-arrow"></i>
+								<i class="clip-data"></i>
+								<span class="title">Rekap Data</span><i class="icon-arrow"></i>
 								<span class="selected"></span>
 							<% end %>
 							<ul class="sub-menu">
 								<li>
-									<%= link_to "#" do %>
+									<%= link_to dashboard_tabulation_path do %>
 										<i class="fa fa-user"></i>
 										<span class="title">Profil WNI Korea</span>
 									<% end %>
