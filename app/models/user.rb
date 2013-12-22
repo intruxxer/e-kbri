@@ -5,6 +5,8 @@ class User
   include User::Roles
 
   has_many :identities
+  has_many :visas
+  has_one :profile
 
 
   field :email, type: String

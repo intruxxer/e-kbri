@@ -42,6 +42,7 @@ EKbri::Application.routes.draw do
   end
 
   resources :users
+  resources :visa_processing
   #resources :dashboard_immigration, path: "dashboard/immigration"
   
 

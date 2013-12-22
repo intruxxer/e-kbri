@@ -11,7 +11,7 @@ eeb4a88bd77514e8aeb99866794b0d8132a0ac12		branch '3.0.0-stable' of git://github.
 7185c4362a1af0461b904e0a6951d78730dee912		branch 'context_mongo_cache' of git://github.com/mongoid/mongoid
 761b6b9ba0b9c769f29099aece767ef63fc326c3		branch 'eager_load' of git://github.com/mongoid/mongoid
 7b3cfd92c5aba0b985ed1b9c1018a9b9982d3823		branch 'legacy' of git://github.com/mongoid/mongoid
-bbc0df51f9c1fec19dd15e4c5d478d6474adefdc		branch 'master' of git://github.com/mongoid/mongoid
+fc589421bf8bcc85769400563ac43afa3fa6af29		branch 'master' of git://github.com/mongoid/mongoid
 458aaddab63f5c7c77fdfbff6a36245a85e1148d		branch 'moped-2-integration' of git://github.com/mongoid/mongoid
 6c57e6f90cecfb906feac54abc000f6d2e1a50b5		branch 'query_cache' of git://github.com/mongoid/mongoid
 d0b39edfb64abced3ab4a59fdf7f83fe231cc6da	not-for-merge	tag '1.9.5' of git://github.com/mongoid/mongoid
