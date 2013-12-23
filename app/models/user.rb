@@ -5,7 +5,9 @@ class User
   include User::Roles
 
   has_many :identities
-  has_one :report, dependent: :destroy
+  has_many :visas
+  has_one :profile
+
 
   field :email, type: String
   field :image, type: String

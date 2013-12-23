@@ -34,7 +34,7 @@ user = User.new(
 user.skip_confirmation!
 user.save!
 
-user = User.new(
+moderator = User.new(
   email: 'permatarizki@gmail.com',
   first_name: 'Permata Nur', 
   last_name: 'Miftahurizki',

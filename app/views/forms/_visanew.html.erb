@@ -1,5 +1,5 @@
 <!-- Red color scheme -->
-			<form action="" class="sky-form">
+			<form id="" action="/visa_processing" class="sky-form" method="post">
 				<header>
 				<% if action_name == "immigration" then %>
 					Visa Application Form to Republic of Indonesia
@@ -12,7 +12,7 @@
 						<section class="col col-6">
 							<label class="label">Purpose</label>
 							<label class="select">
-							<select id="applicationType">
+							<select id="applicationType" name="application_type">
 								<option value="0">Application Type</option>
 								<option value="3">New Visa Application</option>
 								<option value="4">Extension of Re-Entry Permit</option>
@@ -23,7 +23,7 @@
 						<section class="col col-6 newVisa specialFieldType no-show">
 							<label class="label">Visa</label>
 							<label class="select">
-							<select id="categoryType">
+							<select id="categoryType" name="category_type">
 								<option value="none">Category</option>
 								<option value="transit">Transit Visa</option>
 								<option value="visit">Visit Visa</option>
@@ -43,7 +43,7 @@
 							<label class="label">Full Name</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text">
+								<input type="text" name="full_name">
 							</label>
 						</section>	
 									
@@ -51,7 +51,7 @@
 							<label class="label">Picture Attachment</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-								  <input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Upload
+								  <input type="file" id="file" name="picture_path" onchange="this.parentNode.nextSibling.value = this.value">Upload
 								</div>
 								<input type="text" readonly>
 							</label>
@@ -60,8 +60,8 @@
 						<section class="col col-3">
 						  <div class="inline-group">
 						  <label class="label">Sex</label>
-							<label class="radio"><input type="radio" name="radio"><i></i>Male</label>
-							<label class="radio"><input type="radio" name="radio"><i></i>Female</label>
+							<label class="radio"><input type="radio" name="sex" value="M"><i></i>Male</label>
+							<label class="radio"><input type="radio" name="sex" value="F"><i></i>Female</label>
 						  </div>
 						</section>
 					</div>
@@ -86,8 +86,9 @@
 						<section class="col col-3">
 						  <div class="inline-group">
 						  <label class="label">Marital Status</label>
-							<label class="radio"><input type="radio" name="radio"><i></i>Married</label>
-							<label class="radio"><input type="radio" name="radio"><i></i>Single</label>
+							<label class="radio"><input type="radio" name="marital_status" value="M"><i></i>Married</label>
+							<label class="radio"><input type="radio" name="marital_status" value="S"><i></i>Single</label>
+							<label class="radio"><input type="radio" name="marital_status" value="W"><i></i>Widowed</label>
 						  </div>
 						</section>
 					</div>
@@ -97,14 +98,14 @@
 							<label class="label">Nationality</label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
-								<input type="text">
+								<input type="text" name="nationality">
 							</label>
 						</section>
 						
 						<section class="col col-6">
 							<label class="label">Profession</label>
 							<label class="select">
-							<select>
+							<select name="profession">
 								<option value="">Profession Type</option>
 								<option value="professional">Professional</option>
 								<option value="government">Government</option>
@@ -124,7 +125,7 @@
 							<label class="label">Passport No</label>
 							<label class="input">
 								<i class="icon-append icon-book"></i>
-								<input type="text">
+								<input type="text" name="passport_no">
 							</label>
 						</section>
 						
@@ -132,14 +133,14 @@
 							<label class="label">Place of Issue</label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
-								<input type="text">
+								<input type="text" name="passport_issued">
 							</label>
 						</section>
 						
 						<section class="col col-4">
 							<label class="label">Type of Passport</label>
 							<label class="select">
-							<select>
+							<select name="passport_type">
 								<option value="">Type</option>
 								<option value="1">Ordinary</option>
 								<option value="2">Official</option>
@@ -157,7 +158,7 @@
 							<label class="label">Date of Issuance</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-							<input type="text" name="dateIssued" id="dateIssued" class="datePick">
+							<input type="text" name="passport_date_issued" id="dateIssued" class="datePick">
 							</label>
 						</section>
 						
@@ -165,7 +166,7 @@
 							<label class="label">Date of Expiry</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-							<input type="text" name="dateIssued" id="dateIssued" class="datePick">
+							<input type="text" name="passport_date_expired" id="dateIssued" class="datePick">
 							</label>
 						</section>
 						
@@ -178,7 +179,7 @@
 					  <section class="col col-2">
 						<label class="label">Type of Sponsor</label>
 						<label class="select">
-							<select id="" name="">
+							<select id="" name="sponsor_type_kr">
 								<option value="work">Individual</option>
 								<option value="family">Government</option>
 								<option value="social">International Institution</option>
@@ -194,15 +195,15 @@
 					  	<label class="label">Name of Reference in Korea</label>
 						<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text">
+								<input type="text" name="sponsor_name_kr">
 						</label>
 					  </section>
 					  
 					  <section class="col col-4">
-					  	<label class="label">Referece's Address in Korea</label>
+					  	<label class="label">Reference's Address in Korea</label>
 							<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<textarea rows="5"></textarea>
+							<textarea rows="5" name="sponsor_address_kr"></textarea>
 						</label>
 						<div class="note"><strong></strong></div>
 					  </section>
@@ -210,7 +211,7 @@
 					  	<label class="label">Phone No in Korea</label>
 						<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<input type="text">
+								<input type="text" name="sponsor_phone_kr">
 						</label>
 					  </section>
 					</div>
@@ -219,7 +220,7 @@
 					  <section class="col col-2">
 						<label class="label">Type of Sponsor</label>
 						<label class="select">
-							<select id="" name="">
+							<select id="" name="sponsor_type_id">
 								<option value="work">Individual</option>
 								<option value="family">Government</option>
 								<option value="social">International Institution</option>
@@ -235,7 +236,7 @@
 					  	<label class="label">Name of Reference in Indonesia</label>
 						<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text">
+								<input type="text" name="sponsor_name_id">
 						</label>
 					  </section>
 					  
@@ -243,7 +244,7 @@
 					  	<label class="label">Referece's Address in Indonesia</label>
 							<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<textarea rows="5"></textarea>
+							<textarea rows="5" name="sponsor_address_id"></textarea>
 						</label>
 						<div class="note"><strong></strong></div>
 					  </section>
@@ -252,7 +253,7 @@
 					  	<label class="label">Phone No in Indonesia</label>
 						<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<input type="text">
+								<input type="text" name="sponsor_phone_id">
 						</label>
 					  </section>
 					</div>
@@ -264,7 +265,7 @@
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-								<input type="text" name="dateArrival" id="dateArrival">
+								<input type="text" name="duration_stays_day" id="durationStaysDay">
 							</label>
 							<div class="note">In <strong>DAYS</strong></div>
 						</section>
@@ -273,7 +274,7 @@
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-								<input type="text" name="dateArrival" id="dateArrival">
+								<input type="text" name="duration_stays_month" id="durationStaysMonth">
 							</label>
 							<div class="note">In <strong>MONTHS</strong></div>
 						</section>
@@ -282,7 +283,7 @@
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-								<input type="text" name="dateArrival" id="dateArrival">
+								<input type="text" name="duration_stays_year" id="durationStaysYear">
 							</label>
 							<div class="note">In <strong>YEARS</strong></div>
 						</section>
@@ -290,7 +291,7 @@
 						<section class="col col-3">
 							<label class="label">Visa Type</label>
 							<label class="select">
-							<select id="noEntry">
+							<select id="numEntry" name="num_entry">
 								<option value="0">Type</option>
 								<option value="1">Single Entry</option>
 								<option value="2">Multiple Entry</option>
@@ -307,18 +308,18 @@
 					<section class="col col-6">
 					<div class="inline-group">
 					<label class="label">Other Information (Tick each item that applies)</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever been to Indonesia before?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever been convicted in other country?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Are you in posession of any other country?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Do you have previous visa to enter Indonesia?</label>
+					<label class="checkbox"><input type="checkbox" name="checkbox1"><i></i>Have you ever been to Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="checkbox2"><i></i>Have you ever been convicted in other country?</label>
+					<label class="checkbox"><input type="checkbox" name="checkbox3"><i></i>Are you in posession of any other country?</label>
+					<label class="checkbox"><input type="checkbox" name="checkbox4"><i></i>Do you have previous visa to enter Indonesia?</label>
 					</div>
 					</section>
 					<section class="col col-6">
 					<div class="inline-group">
 					<label class="label">&nbsp;</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Has your visa application been refused before?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever been deported from Indonesia before?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Have you ever committed crime or any offense?</label>
+					<label class="checkbox"><input type="checkbox" name="checkbox5"><i></i>Has your visa application been refused before?</label>
+					<label class="checkbox"><input type="checkbox" name="checkbox6"><i></i>Have you ever been deported from Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="checkbox7"><i></i>Have you ever committed crime or any offense?</label>
 					</div>
 					</section>
 				</div>
@@ -334,7 +335,7 @@
 					<label class="label">Country of Destination</label>
 					<label class="input">
 						<i class="icon-append icon-globe"></i>
-						<input type="text">
+						<input type="text" name="tr_country_destination">
 					</label>
 				  </section>
 				  
@@ -342,7 +343,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text">
+						<input type="text" name="tr_flight_vessel">
 					</label>
 				  </section>
 				  
@@ -350,7 +351,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text">
+						<input type="text" name="tr_air_sea_port">
 					</label>
 				  </section>
 				  
@@ -358,7 +359,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="dateEntry" id="dateEntry" class="datePick">
+						<input type="text" name="tr_date_entry" id="dateEntry" class="datePick">
 					</label>
 				  </section>
 				</div>  
@@ -369,7 +370,7 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Limited Stay</label>
 					<label class="select">
-							<select id="" name="">
+							<select id="" name="lim_s_purpose">
 								<option value="work">Work</option>
 								<option value="family">Joint Family</option>
 								<option value="social">Social</option>
@@ -384,7 +385,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text">
+						<input type="text" name="lim_s_flight_vessel">
 					</label>
 				  </section>
 				  
@@ -392,7 +393,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text">
+						<input type="text" name="lim_s_air_sea_port">
 					</label>
 				  </section>
 				  
@@ -400,7 +401,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="dateEntry" id="dateEntry" class="datePick">
+						<input type="text" name="lim_s_date_entry" id="dateEntry" class="datePick">
 					</label>
 				  </section>
 				</div>
@@ -412,7 +413,7 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
-							<select id="" name="">
+							<select id="" name="v_purpose">
 								<option value="tourism">Tourism</option>
 								<option value="study">Study</option>
 								<option value="convention">Convention</option>
@@ -431,7 +432,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text">
+						<input type="text" name="v_flight_vessel">
 					</label>
 				  </section>
 				  
@@ -439,7 +440,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text">
+						<input type="text" name="v_air_sea_port">
 					</label>
 				  </section>
 				  
@@ -447,7 +448,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="dateEntry" id="dateEntry" class="datePick">
+						<input type="text" name="v_date_entry" id="dateEntry" class="datePick">
 					</label>
 				  </section>
 				</div>
@@ -459,7 +460,7 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
-							<select id="" name="">
+							<select id="" name="dip_purpose">
 								<option value="posting">Posting</option>
 								<option value="training">Training</option>
 								<option value="family">Joint Family</option>
@@ -473,7 +474,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text">
+						<input type="text" name="dip_flight_vessel">
 					</label>
 				  </section>
 				  
@@ -481,7 +482,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text">
+						<input type="text" name="dip_air_sea_port">
 					</label>
 				  </section>
 				  
@@ -489,7 +490,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="dateEntry" id="dateEntry" class="datePick">
+						<input type="text" name="dip_date_entry" id="dateEntry" class="datePick">
 					</label>
 				  </section>
 				</div>
@@ -501,7 +502,7 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
-							<select id="" name="">
+							<select id="" name="o_purpose">
 								<option value="posting">Posting</option>
 								<option value="training">Training</option>
 								<option value="family">Joint Family</option>
@@ -515,7 +516,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text">
+						<input type="text" name="o_flight_vessel">
 					</label>
 				  </section>
 				  
@@ -523,7 +524,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text">
+						<input type="text" name="o_air_sea_port">
 					</label>
 				  </section>
 				  
@@ -531,7 +532,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="dateEntry" id="dateEntry" class="datePick">
+						<input type="text" name="o_date_entry" id="dateEntry" class="datePick">
 					</label>
 				  </section>
 				</div>

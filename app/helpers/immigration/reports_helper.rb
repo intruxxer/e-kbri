@@ -1,2 +1,0 @@
-module Immigration::ReportsHelper
-end
