@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "4.0.0"
-gem "mongoid", github: "mongoid/mongoid"
+gem "mongoid"
 gem "bson"
 gem "bson_ext"
 gem "simple_form"
@@ -10,7 +10,7 @@ gem "cancan"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
-gem "hashugar", github: "alex-klepa/hashugar"
+gem "hashugar"
 
 gem "bootstrap-sass", "~> 3.0.2.0"
 gem "sass-rails", "~> 4.0.0"
@@ -22,13 +22,14 @@ gem "jquery-rails"
 gem "turbolinks"
 gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
+gem 'bcrypt-ruby', :require => 'bcrypt'
 
 group :development do
   gem "guard-rspec"
   gem "pry"
   gem "quiet_assets"
   gem "thin"
-  gem "zeus"
+  
   gem "rspec-rails"
   gem "factory_girl_rails"
 end
