@@ -24,6 +24,7 @@ gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
+
 group :development do
   gem "guard-rspec"
   gem "pry"

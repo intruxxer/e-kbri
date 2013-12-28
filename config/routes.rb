@@ -4,7 +4,7 @@ EKbri::Application.routes.draw do
   get "visa", :to => "immigration/visa#index"
   
   get "immigration/report/index"
-  get "report", :to => "immigration/report#index"
+  get "report", :to => "immigration/report#index"  
   
   get "immigration/passport/index"
   get "passport", :to => "immigration/passport#index"
@@ -39,10 +39,12 @@ EKbri::Application.routes.draw do
   
   devise_scope :user do 
     get "/users/sign_out" => "devise/sessions#destroy" 
-  end
+  end 
 
   resources :users
   resources :visa_processing
+  resources :report, controller: 'immigration/report'
+  
   #resources :dashboard_immigration, path: "dashboard/immigration"
   
 

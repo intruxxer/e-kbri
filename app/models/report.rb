@@ -1,6 +1,6 @@
 class Report
   include Mongoid::Document
-  
+   
   belongs_to :user  
   
   field :name, type: String
@@ -53,7 +53,7 @@ class Report
   field :arrivaldate, type:Date
   field :indonesianinstance, type:String
   
-  
+  field :avatarname, type:String
   
   
 end

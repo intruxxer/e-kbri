@@ -3,7 +3,7 @@
 			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 			</div>		
 			<!-- Red color scheme -->
-			<%= simple_form_for :post, url: report_path, :html => { :class => "sky-form" } do |f| %>
+			<%= simple_form_for :post, url: report_path, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
 				<fieldset>
 					<legend style="float:left;margin-bottom:28px;">Informasi Diri dan Kelengkapan Dokumen</legend>
@@ -26,8 +26,8 @@
 							<label class="label">Pas Foto Digital</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-									<input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Unggah</div>
-									<input type="text" readonly>
+									<%= f.input_field :avatar, as: :file %>Unggah</div>
+									<%= f.input_field :avatarname, readonly: true %>
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
 						</section>			
@@ -437,6 +437,11 @@
 					dateFormat: 'dd.mm.yy',
 					prevText: '<i class="icon-chevron-left"></i>',
 					nextText: '<i class="icon-chevron-right"></i>'
+				});
+				
+				$('#post_avatar').change(function(){	
+					filename = $(this).val();
+					$('#post_avatarname').val(filename.split("\\").pop());
 				});
 				
 			});			
