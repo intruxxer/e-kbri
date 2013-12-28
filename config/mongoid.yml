@@ -62,6 +62,22 @@ development:
 
     # Ensure all times are UTC in the app side. (default: false)
     # use_utc: false
+production:
+  sessions:
+    default:
+      database: e_kbri_production
+      hosts:
+        - localhost:27017
+      options:
+        read: primary
+        consistency: :strong
+        # In the test environment we lower the retries and retry interval to
+        # low amounts for fast failures.
+        max_retries: 2
+        retry_interval: 0
+    options:
+      raise_not_found_error: false
+      
 test:
   sessions:
     default:
@@ -70,7 +86,10 @@ test:
         - localhost:27017
       options:
         read: primary
+        consistency: :strong
         # In the test environment we lower the retries and retry interval to
         # low amounts for fast failures.
-        max_retries: 1
+        max_retries: 2
         retry_interval: 0
+    options:
+      raise_not_found_error: false
