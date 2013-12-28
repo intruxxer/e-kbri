@@ -53,10 +53,6 @@ development:
     # existing method. (default: false)
     # scope_overwrite_exception: false
 
-    # Skip the database version check, used when connecting to a db without
-    # admin access. (default: false)
-    # skip_version_check: false
-
     # Use Active Support's time zone in conversions. (default: true)
     # use_activesupport_time_zone: true
 
@@ -70,14 +66,10 @@ production:
         - localhost:27017
       options:
         read: primary
-        consistency: :strong
         # In the test environment we lower the retries and retry interval to
         # low amounts for fast failures.
-        max_retries: 2
+        max_retries: 1
         retry_interval: 0
-    options:
-      raise_not_found_error: false
-      
 test:
   sessions:
     default:
@@ -86,10 +78,7 @@ test:
         - localhost:27017
       options:
         read: primary
-        consistency: :strong
         # In the test environment we lower the retries and retry interval to
         # low amounts for fast failures.
-        max_retries: 2
+        max_retries: 1
         retry_interval: 0
-    options:
-      raise_not_found_error: false
