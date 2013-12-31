@@ -1,0 +1,450 @@
+<div class="body" style="padding-top: 20px;">
+			<div style="text-align: center;">
+			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+			</div>		
+			<!-- Red color scheme -->
+			
+		
+			<%= simple_form_for :post, url: report_path(@editid), :html => { :class => "sky-form", :multipart => true } do |f| %>
+				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
+				<fieldset>
+					<legend style="float:left;margin-bottom:28px;">Informasi Diri dan Kelengkapan Dokumen</legend>
+					<div class="row">
+						<section class="col col-4">							
+							<label class="label">Nama Lengkap</label>
+							<label class="input">
+								<i class="icon-append icon-user"></i>
+								<%= f.input_field :name %>
+							</label>
+						</section>	
+						<section class="col col-4">
+							<label class="label">Tinggi Badan</label>
+							<label class="input">
+								<i class="icon-append icon-user"></i>
+								<%= f.input_field :height %>
+							</label>
+						</section>
+						<section class="col col-4">
+							<label class="label">Pas Foto Digital</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :avatar, as: :file %>Unggah</div>
+									<%= f.input_field :avatarname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>			
+					</div>
+					<div class="row">
+					</div>
+					<div class="row">
+						<section class="col col-4">
+							<label class="label">Tempat Lahir</label>	
+							<label class="input">
+									<i class="icon-append icon-globe"></i>
+							<%= f.input_field :birthplace %>
+							</label>
+						</section>
+
+						<section class="col col-4">
+							<label class="label">Tanggal Lahir</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :datebirth, class: 'datePick' %>							
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="label" for='statuskawin' >Status Perkawinan</label>
+							<label class="select">
+							<%= f.input_field :statuskawin, collection: { 'Kawin'=>1 ,'Belum Kawin'=>2 ,'Cerai'=>3 } %>							
+							<i></i>
+							</label>
+						</section>
+					</div>
+					
+					<div class="row">
+						<section class="col col-4">
+							<label class="label">No Paspor/SPLP</label>
+							<label class="input">
+								<i class="icon-append icon-book"></i>
+								<%= f.input_field :nopaspor %>
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="label">Tanggal Terbit Paspor</label>
+							<label class="input">
+								<i class="icon-append icon-calendar"></i>
+								<%= f.input_field :dateissued, class: 'datePick' %>
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="label">Tanggal Berakhir Paspor</label>
+							<label class="input">
+								<i class="icon-append icon-calendar"></i>
+								<%= f.input_field :dateend, class: 'datePick' %>
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="label">Tempat Pengeluaran Paspor</label>
+							<label class="input">
+								<i class="icon-append icon-globe"></i>
+								<%= f.input_field :tempatpaspor %>
+							</label>
+						</section>
+					</div>
+					
+					<div class="row">
+						<section class="col col-4">
+							<label class="label">Jenis Visa</label>
+							<label class="select">								
+								<%= f.input_field :visatype, collection: { 'A-1' => 'a1', 'A-2' => 'a2', 'A-3' => 'a3', 'C-1' => 'c1', 'C-2' => 'c2', 'C-3' => 'c3', 'C-4' => 'c4', 'D-1' => 'd1', 'D-2' => 'd2', 'D-3' => 'd3', 'D-4' => 'd4', 'D-8' => 'd8', 'E-3' => 'e3', 'E-5' => 'e5', 'E-6' => 'e6', 'E-7' => 'e7', 'E-9' => 'e9', 'F-2' => 'f2', 'F-3' => 'f3', 'F-5' => 'f5', 'F-6' => 'f6' } %>
+								<i></i>
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="label">Tanggal Terbit Visa</label>
+							<label class="input">
+								<i class="icon-append icon-calendar"></i>
+								<%= f.input_field :visadateissued, class: 'datePick' %>
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="label">Tanggal Berakhir Visa</label>
+							<label class="input">
+								<i class="icon-append icon-calendar"></i>
+								<%= f.input_field :visadateend, class: 'datePick' %>
+							</label>
+						</section>						
+						
+					</div>		
+					
+					</fieldset>
+					<fieldset>
+					<legend style="float:left;margin-bottom:28px;">Keterangan di Korea</legend>
+					
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">Status di Korea</label>
+							<label class="select">								
+								<%= f.input_field :koreanjob, collection: { 'Pekerja' =>  1, 'Mahasiswa/Pelajar' => 2, 'Penduduk Tetap' => 3} %>
+								<i></i>
+							</label>							
+						</section>
+						
+						<section class="col col-3">
+							<label class="label">Nama Perusahaan/Sekolah/Instansi</label>
+							<label class="input">
+								<i class="icon-append icon-home"></i>
+								<%= f.input_field :koreaninstancename %>
+							</label>
+							<div class="note"><strong>Note:</strong> Tuliskan pula nama hangeulnya bila ada.</div>
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">No. Telepon Instansi</label>
+							<label class="input">		
+								<i class="icon-append icon-phone"></i>
+								<%= f.input_field :koreaninstancephone %>
+							</label>							
+						</section>
+					</div>
+					
+					<div class="row">							
+						<section class="col col-6">
+						<label class="label">Alamat Perusahaan/Sekolah/Instansi</label>
+						<label class="textarea textarea-expandable">
+							<i class="icon-append icon-road"></i>
+							<%= f.input_field :koreaninstanceaddress, as: :text %>
+						</label>
+						<div class="note"><strong>Note:</strong> Harap tulis dalam hangeul jika memungkinkan.</div>
+						</section>						
+							
+						<section class="col col-3">
+						<label class="label">Kota</label>
+							<label class="input">								
+								<%= f.input_field :koreaninstancecity %>
+							</label>							
+						</section>	
+
+						<section class="col col-3">
+						<label class="label">Propinsi</label>
+							<label class="select">								
+								<%= f.input_field :koreaninstanceprovince, collection: { 'North Chungcheong' => 1, 'South Chungcheong' => 2, 'Gangwon' => 3, 'Gyeonggi' => 4, 'North Gyeongsang' => 5, 'South Gyeongsang' => 6, 'Jeju' => 7, 'North Jeolla' => 8, 'South Jeolla' => 9 } %>
+							<i></i>
+							</label>														
+						</section>		
+					</div>
+					
+					<div class="row">
+						<section class="col col-6"></section>
+						
+						<section class="col col-3">
+						<label class="label">Kode Pos</label>
+							<label class="input">								
+								<%= f.input_field :koreaninstancepostalcode %>
+							</label>							
+						</section>
+					</div>
+					
+					</fieldset>
+					<fieldset>					
+					
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">No Telepon di Korea</label>
+							<label class="input">
+								<i class="icon-append icon-phone"></i>
+								<%= f.input_field :koreanphone %>
+							</label>
+						</section>
+					</div>
+					<div class="row">
+						
+						<section class="col col-6">
+						<label class="label">Alamat Tinggal di Korea</label>
+						<label class="textarea textarea-expandable">
+							<i class="icon-append icon-road"></i>
+							<%= f.input_field :koreanaddress, as: :text %>
+						</label>
+						<div class="note"><strong>Note:</strong> Harap tulis dalam hangeul jika memungkinkan.</div>
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Kota</label>
+							<label class="input">								
+								<%= f.input_field :koreanaddresscity %>
+							</label>							
+						</section>	
+
+						<section class="col col-3">
+						<label class="label">Propinsi</label>
+							<label class="select">								
+								<%= f.input_field :koreanaddressprovince, collection: { 'North Chungcheong' => 1, 'South Chungcheong' => 2, 'Gangwon' => 3, 'Gyeonggi' => 4, 'North Gyeongsang' => 5, 'South Gyeongsang' => 6, 'Jeju' => 7, 'North Jeolla' => 8, 'South Jeolla' => 9 } %>
+							<i></i>
+							</label>														
+						</section>		
+					</div>
+					
+					<div class="row">
+						<section class="col col-6"></section>
+						
+						<section class="col col-3">
+						<label class="label">Kode Pos</label>
+							<label class="input">								
+								<%= f.input_field :koreanaddresspostalcode %>
+							</label>							
+						</section>
+					</div>
+					</fieldset>
+					
+					<fieldset>
+					<legend style="float:left;margin-bottom:28px;">Keterangan di Indonesia</legend>
+					
+				    <div class="row">
+				    <section class="col col-3">
+							<label class="label">No Telepon di Indonesia</label>
+							<label class="input">
+								<i class="icon-append icon-phone"></i>
+								<%= f.input_field :indonesianphone %>
+							</label>
+						</section>
+					
+					</div>
+					<div class="row">
+					
+					<section class="col col-6">
+						<label class="label">Alamat di Indonesia</label>
+						<label class="textarea textarea-expandable">
+							<i class="icon-append icon-home"></i>
+							<%= f.input_field :indonesianaddress, as: :text %>
+						</label>						
+					</section>
+					
+						<section class="col col-3">
+						<label class="label">Kelurahan/Desa</label>
+							<label class="input">								
+								<%= f.input_field :indonesianaddresskelurahan %>
+							</label>							
+						</section>	
+
+						<section class="col col-3">
+						<label class="label">Kecamatan</label>
+							<label class="input">								
+								<%= f.input_field :indonesianaddresskecamatan%>
+							<i></i>
+							</label>														
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Kabupaten</label>
+							<label class="input">								
+								<%= f.input_field :indonesianaddresskabupaten%>
+							<i></i>
+							</label>														
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Propinsi</label>
+							<label class="input">								
+								<%= f.input_field :indonesianaddressprovince%>
+							<i></i>
+							</label>														
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Kode Pos</label>
+							<label class="input">								
+								<%= f.input_field :indonesianaddresspostalcode%>
+							<i></i>
+							</label>														
+						</section>
+					
+					</div>
+
+				</fieldset>
+				
+				<fieldset>
+				<legend style="float:left;margin-bottom:28px;">Keluarga/Kerabat yang bisa dihubungi</legend>
+				
+				<div class="row">
+					<section class="col col-3">
+						<label class="label">Nama</label>
+							<label class="input">	
+								<i class="icon-append icon-user"></i>
+								<%= f.input_field :relationname%>
+							<i></i>
+							</label>														
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Hubungan</label>
+							<label class="input">								
+								<%= f.input_field :relationstatus%>
+							<i></i>
+							</label>														
+						</section>
+				</div>
+				<div class="row">
+				    <section class="col col-3">
+							<label class="label">No Telepon di Indonesia</label>
+							<label class="input">
+								<i class="icon-append icon-phone"></i>
+								<%= f.input_field :relationphone %>
+							</label>
+						</section>
+					
+					</div>
+					<div class="row">
+					
+					<section class="col col-6">
+						<label class="label">Alamat di Indonesia</label>
+						<label class="textarea textarea-expandable">
+							<i class="icon-append icon-home"></i>
+							<%= f.input_field :relationaddress, as: :text %>
+						</label>						
+					</section>
+					
+						<section class="col col-3">
+						<label class="label">Kelurahan/Desa</label>
+							<label class="input">								
+								<%= f.input_field :relationaddresskelurahan %>
+							</label>							
+						</section>	
+
+						<section class="col col-3">
+						<label class="label">Kecamatan</label>
+							<label class="input">								
+								<%= f.input_field :relationaddresskecamatan%>
+							<i></i>
+							</label>														
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Kabupaten</label>
+							<label class="input">								
+								<%= f.input_field :relationaddresskabupaten%>
+							<i></i>
+							</label>														
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Propinsi</label>
+							<label class="input">								
+								<%= f.input_field :relationaddressprovince%>
+							<i></i>
+							</label>														
+						</section>
+						
+						<section class="col col-3">
+						<label class="label">Kode Pos</label>
+							<label class="input">								
+								<%= f.input_field :relationaddresspostalcode%>
+							<i></i>
+							</label>														
+						</section>
+					
+					</div>
+				
+				</fieldset>
+				
+				<fieldset>
+					<legend style="float:left;margin-bottom:28px;">Lainnya</legend>
+					<div class="row">
+
+						<section class="col col-6">
+							<label class="label">Tiba di Korea</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :arrivaldate, class: 'datePick' %>
+							</label>
+							<div class="note"><strong>Note:</strong> Hanya diisi oleh WNI yang bekerja via skema G2G/EPS.</div>
+						</section>
+
+						<section class="col col-6">
+							<label class="label">Dikirim oleh</label>
+							<label class="select">
+							<%= f.input_field :indonesianinstance, collection: { 'PJTKI' => 1, 'BNP2TKI' => 2, 'Lain-lain' => 3 } %>							
+							<i></i>
+							</label>							
+							<div class="note"><strong>Note:</strong> Hanya diisi oleh WNI yang bekerja via skema G2G/EPS.</div>
+						</section>
+					</div>
+				</fieldset>
+				
+				<fieldset>
+					<legend style="float:left;margin-bottom:28px;">Disclaimer</legend>
+					<p align="justify">
+						Dengan melaporkan data - data di atas kepada KBRI anda telah menjamin dan memastikan bahwa informasi yang dikirimkan adalah yang sebenar-benarnya. Kesalahan maupun ketidaksesuaian informasi adalah tanggung jawab pengisi sepenuhnya. Kerahasiaan data pengisi akan kami jaga sebaik-baiknya dan akan dipergunakan untuk kepentingan yang sesuai.
+						Jika terjadi perubahan data harap hubungi staff KBRI Korea melalui kontak yang telah disediakan
+					</p>
+				</fieldset>
+				
+				<footer>
+					<button type="submit" class="button">Laporkan ke KBRI</button>
+					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+				</footer>
+			<% end %>
+			<!--/ Red color scheme -->			
+</div>
+<script type="text/javascript">
+			$(function()
+			{
+				// Regular datepicker
+				$('.datePick').datepicker({
+					dateFormat: 'dd.mm.yy',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>'
+				});
+				
+				$('#post_avatar').change(function(){	
+					filename = $(this).val();
+					$('#post_avatarname').val(filename.split("\\").pop());
+				});
+				
+			});			
+</script>

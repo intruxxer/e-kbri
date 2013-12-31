@@ -1,7 +1,6 @@
 class Report
   include Mongoid::Document
-   
-  belongs_to :user  
+  include Mongoid::Timestamps
   
   field :name, type: String
   field :height, type: String
@@ -53,7 +52,8 @@ class Report
   field :arrivaldate, type:Date
   field :indonesianinstance, type:String
   
-  field :avatarname, type:String
+  field :avatarname, type:String  
   
+   belongs_to :user , :class_name => "User", :inverse_of => :report
   
 end
