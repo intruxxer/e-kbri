@@ -18,9 +18,9 @@
 /tmp
 
 
-Gemfile*
-Gemfile.lock
-/config/mongoid*
+#Gemfile*
+#Gemfile.lock
+#/config/mongoid*
 
 .project
 
