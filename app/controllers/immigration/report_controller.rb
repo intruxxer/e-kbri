@@ -41,7 +41,7 @@ class Immigration::ReportController < ApplicationController
 	    @post = Report.find(params[:id])
 	
     	if @post.update(post_params)
-    	  redirect_to report_path, :notice => 'Data Berhasil Diubah!'
+    	  redirect_to report_index_path, :notice => 'Data Berhasil Diubah!'
     	else
     	  render 'edit'
     	end
