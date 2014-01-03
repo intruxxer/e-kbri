@@ -6,12 +6,12 @@ class Report
   field :height, type: String
   field :birthplace, type: String
   field :datebirth, type: Date
-  field :statuskawin, type: String
+  field :marriagestatus, type: String
   
   field :nopaspor, type: String
   field :dateissued, type: Date
   field :dateend, type: Date
-  field :tempatpaspor, type: String
+  field :pasporplace, type: String
   
   field :visatype, type: String
   field :visadateissued, type:Date 
@@ -52,7 +52,9 @@ class Report
   field :arrivaldate, type:Date
   field :indonesianinstance, type:String
   
-  field :avatarname, type:String  
+  field :pasporname, type:String
+  field :aliencardname, type:String 
+  field :photoname, type:String 
   
    belongs_to :user , :class_name => "User", :inverse_of => :report
   
