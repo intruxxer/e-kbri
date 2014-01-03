@@ -9,6 +9,8 @@ EKbri::Application.routes.draw do
   get "immigration/passport/index"
   get "passport", :to => "immigration/passport#index"
   
+  get "marriage/info", :to => "immigration/marriage#info"
+  
   get "dashboard/index"
   get "dashboard/counsel"
   get "dashboard/immigration"
@@ -44,6 +46,7 @@ EKbri::Application.routes.draw do
   resources :users
   resources :visa_processing
   resources :report, controller: 'immigration/report'
+  resources :marriage, controller: 'immigration/marriage'
   
   #resources :dashboard_immigration, path: "dashboard/immigration"
   

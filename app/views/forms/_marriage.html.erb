@@ -1,0 +1,201 @@
+<div class="body" style="padding-top: 20px;">
+			<div style="text-align: center;">
+			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+			</div>		
+			<!-- Red color scheme -->
+			<%= simple_form_for :post, url: marriage_index_path, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				<header>Pengajuan Surat Keterangan Nikah</header>
+				<fieldset>
+					<br />
+					<p>
+						<b>Persyaratan :</b><br />
+						<ol>
+							<li>Paspor Indonesia dengan ijin tinggal (visa pelajar/visa kerja professional/visa sosia/Pelancong 30 hari)</li>
+							<li>Surat dari kantor kepala kelurahan/kepala desa tempat tinggal pemohon (Surat N1 : Surat Keterangan Status , Surat N2 : Surat Keterangan Asal Usul, Surat N4 : Surat Keterangan Asal Usul orang tua)</li>
+							<li>Surat Rekomendasi dari KUA Kecamatan tempat tinggal pemohon</li>
+							<li>Untuk Perempuan, harap melampirkan Surat Wali Nikah yang dicap dan ditanda tangani oleh Kepala KUA Kecamatan</li>
+						</ol>
+						<br />
+						Catatan :<br />
+						<ul>
+							<li>Pemohon dengan status Janda/Duda Mati dilengkapi dengan N6, yaitu surat kematian dari Kepala desa/Akta Kematian dari Dinas Kependudukan dan Catatan Sipil dan Buku Nikah pemohon</li>
+							<li>Pemohon dengan status Janda/Duda Cerai, dilengkapi dengan Akta Cerai dari Pengadilan Agama</li>
+							<li>Pemohon dengan status Poligami, putusan poligami dari Pengadilan Agama</li>
+							<li>Pemohon pemegang IC (identification card), lengkapi dengan Paspor Indonesia dan persyatan sama dengan Warga Negara Malaysia.</li>
+							<li>Pemohon harus datang dengan membawa dokumen Asli dan Photocopy</li>
+						</ul>
+					</p>
+					<br />
+					<legend style="float:left;margin-bottom:28px;">Form Pengajuan Surat Keterangan Nikah (Sesama WNI)</legend>
+					<div class="row">
+						<section class="col col-4">							
+							<label class="label">Nama Lengkap (Calon Suami)</label>
+							<label class="input">
+								<i class="icon-append icon-user"></i>
+								<%= f.input_field :namesuami %>
+							</label>
+						</section>			
+						<section class="col col-4"></section>			
+						<section class="col col-4">
+							<label class="label">Scan Paspor (Calon Suami)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :pasporsuami, as: :file %>Unggah</div>
+									<%= f.input_field :pasporsuaminame, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>			
+					</div>
+					<div class="row">
+						<section class="col col-4"></section>	
+						<section class="col col-4"></section>	
+						<section class="col col-4">
+							<label class="label">Alien Card (Calon Suami)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :aliencardsuami, as: :file %>Unggah</div>
+									<%= f.input_field :aliencardsuaminame, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+					</div>
+					<div class="row">
+						<section class="col col-4">							
+							<label class="label">Nama Lengkap (Calon Istri)</label>
+							<label class="input">
+								<i class="icon-append icon-user"></i>
+								<%= f.input_field :nameistri %>
+							</label>
+						</section>			
+						<section class="col col-4"></section>			
+						<section class="col col-4">
+							<label class="label">Scan Paspor (Calon Istri)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :pasporistri, as: :file %>Unggah</div>
+									<%= f.input_field :pasporistriname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>			
+					</div>
+					<div class="row">
+						<section class="col col-4"></section>	
+						<section class="col col-4"></section>	
+						<section class="col col-4">
+							<label class="label">Alien Card (Calon Istri)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :aliencardistri, as: :file %>Unggah</div>
+									<%= f.input_field :aliencardistriname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend style="float:left;margin-bottom:28px;">Lampiran</legend>
+						<section class="col col-4">
+							<label class="label">Surat Keterangan Status Calon Suami (N1)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :skssuami, as: :file %>Unggah</div>
+									<%= f.input_field :skssuaminame, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+						<section class="col col-4">
+							<label class="label">Surat Keterangan Status Calon Istri (N1)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :sksistri, as: :file %>Unggah</div>
+									<%= f.input_field :sksistriname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+						<section class="col col-4">
+							<label class="label">Surat Keterangan Asal Usul Calon Suami (N2)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :skasuami, as: :file %>Unggah</div>
+									<%= f.input_field :skasuaminame, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+						<section class="col col-4">
+							<label class="label">Surat Keterangan Asal Usul Calon Istri (N2)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :skaistri, as: :file %>Unggah</div>
+									<%= f.input_field :skaistriname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+						<section class="col col-4">
+							<label class="label">Surat Persetujuan Mempelai(N3)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :spm, as: :file %>Unggah</div>
+									<%= f.input_field :spmname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+						<section class="col col-4">
+							<label class="label">Surat Keterangan Asal Usul Orang Tua Calon Suami (N4)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :skaortusuami, as: :file %>Unggah</div>
+									<%= f.input_field :skaortusuaminame, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+						<section class="col col-4">
+							<label class="label">Surat Keterangan Asal Usul Orang Tua Calon Istri (N4)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :skaortuistri, as: :file %>Unggah</div>
+									<%= f.input_field :skaortuistriname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+						<section class="col col-4">
+							<label class="label">Lampiran lainnya (Surat Kematian/Cerai/Poligami)</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :lainnya, as: :file %>Unggah</div>
+									<%= f.input_field :lainnyaname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+				</fieldset>
+				<fieldset>
+					<legend style="float:left;margin-bottom:28px;">Disclaimer</legend>
+					<p align="justify">
+						Dengan melaporkan data - data di atas kepada KBRI anda telah menjamin dan memastikan bahwa informasi yang dikirimkan adalah yang sebenar-benarnya. Kesalahan maupun ketidaksesuaian informasi adalah tanggung jawab pengisi sepenuhnya. Kerahasiaan data pengisi akan kami jaga sebaik-baiknya dan akan dipergunakan untuk kepentingan yang sesuai.
+						Jika terjadi perubahan data harap hubungi staff KBRI Korea melalui kontak yang telah disediakan
+					</p>
+				</fieldset>
+				
+				<footer>
+					<button type="submit" class="button">Laporkan ke KBRI</button>
+					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+				</footer>
+			<% end %>
+			<!--/ Red color scheme -->			
+</div>
+<script type="text/javascript">
+			$(function()
+			{
+				// Regular datepicker
+				$('.datePick').datepicker({
+					dateFormat: 'dd.mm.yy',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>'
+				});
+				
+				$('#post_avatar').change(function(){	
+					filename = $(this).val();
+					$('#post_avatarname').val(filename.split("\\").pop());
+				});
+				
+			});			
+</script>

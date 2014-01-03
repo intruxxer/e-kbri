@@ -18,24 +18,37 @@
 <ul class="nav navbar-nav">  
   <% if user_signed_in? %>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">e-Service <b class="caret"></b></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visa<b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><%= link_to 'Visa/Extension of Re-Entry Permit (For Foreigners)', visa_path %></li>
-      <li><%= link_to 'Document Legalization (For Investment/Administrative/Legal)', '#' %></li> 
-      <li class="divider"></li>
+      <li><%= link_to 'Visa Info', '#' %></li>	
+      <li><%= link_to 'Online Visa/Extension of Re-Entry Permit', visa_path %></li>      
+    </ul>
+  </li>
+  <li class="dropdown">
+  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Paspor dan Lapor Diri<b class="caret"></b></a>
+  	<ul class="dropdown-menu">      
       <li><%= link_to 'Perpanjang Paspor/Pembuatan SPLP', passport_path %></li>
       <li><%= link_to 'Lapor Diri ke KBRI Seoul', report_path %></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dokumen<b class="caret"></b></a>
+  	<ul class="dropdown-menu">      
+      <li><%= link_to 'Surat Keterangan Nikah', 'marriage/info' %></li>            
       <li class="divider"></li>
       <li><%= link_to 'Surat Keterangan Pindah Barang', '#' %></li>
       <li><%= link_to 'Surat Keterangan Pengantar Permohonan SIM', '#' %></li> 
-      <li class="divider"></li>
-      <li><%= link_to 'Surat Keterangan Nikah dengan WNI', '#' %></li>
-      <li><%= link_to 'Surat Keterangan Nikah dengan WNA', '#' %></li>
-      <li><%= link_to 'Surat Keterangan Orang Tua', '#' %></li> 
-      <li><%= link_to 'Surat Keterangan Asal-Usul', '#' %></li>
-      <li><%= link_to 'Surat Persetujuan Mempelai', '#' %></li>
-    </ul>
+      <li class="divider"></li>     
+      </ul> 
   </li>
+  <li class="dropdown">
+  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Legalization<b class="caret"></b></a>
+  	<ul class="dropdown-menu">      
+      <li><%= link_to 'Academic Document', '#' %></li>    
+      <li><%= link_to 'Other Indonesian Document (Businesses/Administrative/Legal)', '#' %></li>      
+    </ul> 
+  </li>
+  
   <% else %>
   <li><%= link_to 'Daftar', new_user_registration_path %></li>
   <% end %>
