@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
   
   def visa_received_email(visa)
   	@url = "http://kbri.seoul.kr"
-  	@email = visa.email
+  	@email = current_user.email
   	attachments["garuda.png"] = File.read("#{Rails.root}/public/assets/images/garuda.png")
   	#attachments["ot-presentation-small.png"] = File.read("#{Rails.root}/public/images/ot-presentation-small.png")
   	mail(
