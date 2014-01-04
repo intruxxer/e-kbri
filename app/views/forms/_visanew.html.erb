@@ -55,26 +55,29 @@
 							<label class="label">Scanned Passport</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-									<%= f.input_field :passport, as: :file %>Upload</div>
+									<%= f.input_field :passport, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<%= f.input_field :passportpath, readonly: true %>
 							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
 						</section>
 						
 						<section class="col col-4">
 							<label class="label">Scanned ID Card</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-									<%= f.input_field :idcard, as: :file %>Upload</div>
+									<%= f.input_field :idcard, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<%= f.input_field :idcardpath, readonly: true %>
 							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
 						</section>
 						<section class="col col-4">
 							<label class="label">Passport Portrait Picture</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-									<%= f.input_field :photo, as: :file %>Upload</div>
+									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<%= f.input_field :photopath, readonly: true %>
 							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
 						</section>	
 					</div>
 
@@ -91,7 +94,7 @@
 							<label class="label">Date of Birth</label>	
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
-									<%= f.input_field :dateBirth, input_html: { class: 'datePick' } %>
+									<%= f.input_field :dateBirth, class: 'datePick' %>
 							</label>
 						</section>
 						
@@ -162,7 +165,7 @@
 							<label class="label">Date of Issuance</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-							<%= f.input_field :passport_date_issued, input_html: { class: 'datePick' } %>
+							<%= f.input_field :passport_date_issued, class: 'datePick' %>
 							</label>
 						</section>
 						
@@ -170,7 +173,7 @@
 							<label class="label">Date of Expiry</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-							<%= f.input_field :passport_date_expired, input_html: { class: 'datePick' } %>
+							<%= f.input_field :passport_date_expired, class: 'datePick' %>
 							</label>
 						</section>
 						
@@ -350,7 +353,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :tr_date_entry, input_html: {class: 'datePick'} %>
+						<%= f.input_field :tr_date_entry, class: 'datePick' %>
 					</label>
 				  </section>
 				</div>  
@@ -389,7 +392,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :lim_s_date_entry, input_html: {class: 'datePick'} %>
+						<%= f.input_field :lim_s_date_entry, class: 'datePick' %>
 					</label>
 				  </section>
 				</div>
@@ -431,7 +434,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :v_date_entry, input_html: {class: 'datePick'} %>
+						<%= f.input_field :v_date_entry, class: 'datePick' %>
 					</label>
 				  </section>
 				</div>
@@ -470,7 +473,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :dip_date_entry, input_html: {class: 'datePick'} %>
+						<%= f.input_field :dip_date_entry, class: 'datePick' %>
 					</label>
 				  </section>
 				</div>
@@ -509,7 +512,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :o_date_entry, input_html: {class: 'datePick'} %>
+						<%= f.input_field :o_date_entry, class: 'datePick' %>
 					</label>
 				  </section>
 				</div>
@@ -534,8 +537,8 @@
 				</footer>
 			<% end %>
 <!--/ Red color scheme -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript">
 	$(function()
 		{
@@ -571,8 +574,13 @@
 					prevText: '<i class="icon-chevron-left"></i>',
 					nextText: '<i class="icon-chevron-right"></i>'
 				});
+				
+				$('.fileplaceholder').change(function(){					
+					filename = $(this).val();
+					$(this).parent().next().val(filename.split("\\").pop());
+				});
 								
-								//console.log();
+				//console.log();
 				
 		});			
 </script>
