@@ -32,30 +32,50 @@
 				
 				<fieldset class="newVisa specialFieldType no-show">
 					<div class="row">
-						<section class="col col-6">
+						<section class="col col-8">
 							<label class="label">Full Name</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :full_name %>
 							</label>
 						</section>	
-									
-						<section class="col col-3">
-							<label class="label">Passport Picture</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :picture_path, as: :file %>Upload</div>
-									<%= f.input_field :picturepath, readonly: true %>
-							</label>
-						</section>
 						
-						<section class="col col-3">
+						<section class="col col-2">
 						  <div class="inline-group">
 						  <label class="label">Sex</label>
 							<label class="radio"><input type="radio" name="visa[sex]" value="M"><i></i>Male</label>
 							<label class="radio"><input type="radio" name="Visa[sex]" value="F"><i></i>Female</label>
 						  </div>
 						</section>
+						
+					</div>
+					
+					<div class="row">
+						<section class="col col-4">
+							<label class="label">Scanned Passport</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :passport, as: :file %>Upload</div>
+									<%= f.input_field :passportpath, readonly: true %>
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="label">Scanned ID Card</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :idcard, as: :file %>Upload</div>
+									<%= f.input_field :idcardpath, readonly: true %>
+							</label>
+						</section>
+						<section class="col col-4">
+							<label class="label">Passport Portrait Picture</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :photo, as: :file %>Upload</div>
+									<%= f.input_field :photopath, readonly: true %>
+							</label>
+						</section>	
 					</div>
 
 					<div class="row">
@@ -183,9 +203,8 @@
 					  	<label class="label">Reference's Address in Korea</label>
 							<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<%= f.input :sponsor_address_kr, as: :text, input_html: { row: 5 } %>
+							<%= f.input_field :sponsor_address_kr, as: :text, input_html: { row: 5 } %>
 						</label>
-						<div class="note"><strong></strong></div>
 					  </section>
 					  <section class="col col-2">
 					  	<label class="label">Phone No in Korea</label>
@@ -217,12 +236,11 @@
 					  </section>
 					  
 					  <section class="col col-4">
-					  	<label class="label">Referece's Address in Indonesia</label>
+					  	<label class="label">Reference's Address in Indonesia</label>
 							<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<%= f.input :sponsor_address_id, input_html: { row: 5 }, as: :text %>
+							<%= f.input_field :sponsor_address_id, input_html: { row: 5 }, as: :text %>
 						</label>
-						<div class="note"><strong></strong></div>
 					  </section>
 					  
 					  <section class="col col-2">

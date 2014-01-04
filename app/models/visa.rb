@@ -70,4 +70,8 @@ class Visa
   field :o_air_sea_port,			   type: String 
   field :o_date_entry, 				   type: Date
   
+  field :passportpath,           type: String
+  field :idcardpath,             type: String 
+  field :photopath,              type: String
+  
 end
