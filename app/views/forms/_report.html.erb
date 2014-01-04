@@ -3,7 +3,7 @@
 			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 			</div>		
 			<!-- Red color scheme -->
-			<%= simple_form_for :post, url: report_path, :html => { :class => "sky-form", :multipart => true } do |f| %>
+			<%= simple_form_for :post, url: report_index_path, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
 				<fieldset>
 					<legend style="float:left;margin-bottom:28px;">Informasi Diri dan Kelengkapan Dokumen</legend>
@@ -23,16 +23,38 @@
 							</label>
 						</section>
 						<section class="col col-4">
-							<label class="label">Pas Foto Digital</label>
+							<label class="label">Scan Paspor</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-									<%= f.input_field :avatar, as: :file %>Unggah</div>
-									<%= f.input_field :avatarname, readonly: true %>
+									<%= f.input_field :paspor, as: :file, class: 'fileplaceholder'  %>Unggah</div>
+									<%= f.input_field :pasporname, readonly: true %>
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
 						</section>			
 					</div>
 					<div class="row">
+						<section class="col col-4"></section><section class="col col-4"></section>
+						<section class="col col-4">
+							<label class="label">Scan Alien Card</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :aliencard, as: :file, class: 'fileplaceholder'  %>Unggah</div>
+									<%= f.input_field :aliencardname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
+					</div>
+					<div class="row">
+						<section class="col col-4"></section><section class="col col-4"></section>
+						<section class="col col-4">
+							<label class="label">Pas Foto</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :photo, as: :file, class: 'fileplaceholder'  %>Unggah</div>
+									<%= f.input_field :photoname, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+						</section>
 					</div>
 					<div class="row">
 						<section class="col col-4">
@@ -89,7 +111,11 @@
 							<label class="label">Tempat Pengeluaran Paspor</label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
+<<<<<<< HEAD
 								<%= f.input_field :passportplace %>
+=======
+								<%= f.input_field :pasporplace %>
+>>>>>>> 3e4c36d4cc0c27138245fa340450b27d1282364c
 							</label>
 						</section>
 					</div>
@@ -441,9 +467,9 @@
 					nextText: '<i class="icon-chevron-right"></i>'
 				});
 				
-				$('#post_avatar').change(function(){	
+				$('.fileplaceholder').change(function(){					
 					filename = $(this).val();
-					$('#post_avatarname').val(filename.split("\\").pop());
+					$(this).parent().next().val(filename.split("\\").pop());
 				});
 				
 			});			

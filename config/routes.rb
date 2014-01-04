@@ -3,8 +3,7 @@ EKbri::Application.routes.draw do
   get "immigration/visa/index"
   get "visa", :to => "immigration/visa#index"
   
-  get "immigration/report/index"
-  get "report", :to => "immigration/report#index"  
+  get "immigration/report/index"  
   
   get "immigration/passport/index"
   get "passport", :to => "immigration/passport#index"

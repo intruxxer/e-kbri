@@ -11,7 +11,11 @@ class Report
   field :nopaspor, type: String
   field :dateissued, type: Date
   field :dateend, type: Date
+<<<<<<< HEAD
   field :passportplace, type: String
+=======
+  field :pasporplace, type: String
+>>>>>>> 3e4c36d4cc0c27138245fa340450b27d1282364c
   
   field :visatype, type: String
   field :visadateissued, type:Date 
@@ -52,7 +56,9 @@ class Report
   field :arrivaldate, type:Date
   field :indonesianinstance, type:String
   
-  field :avatarname, type:String  
+  field :pasporname, type:String
+  field :aliencardname, type:String 
+  field :photoname, type:String 
   
   belongs_to :user , :class_name => "User", :inverse_of => :report
   
