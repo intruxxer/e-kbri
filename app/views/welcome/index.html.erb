@@ -3,7 +3,7 @@
 <h1>Welcome to electronic KBRI Seoul services (E-KBRI)</h1>
 <hr />
 
-<% if !@latestdata.empty? %>
+<% if !@latestvisadata.empty? || !@latestreportdata.empty?  %>
 	<% if !@latestdata[:lapordiri] %>
 		<div class="row">
 		<div class="col-md-12">
@@ -42,7 +42,7 @@
 								</div>
 								<!-- end: TABLE WITH IMAGES PANEL -->
 		</div>
-		</div>
+		git</div>
 	<% end %>
 	
 	<% if !@latestdata[:visaapply] %>
