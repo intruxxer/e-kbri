@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
   	attachments["garuda.png"] = File.read("#{Rails.root}/public/assets/images/garuda.png")
   	#attachments["ot-presentation-small.png"] = File.read("#{Rails.root}/public/images/ot-presentation-small.png")
   	mail(
-  		:to => visa.email, 
+  		:to => @email, 
   		:subject => "Thank you for using e-KBRI to gain entry to Indonesia!", 
   		:from => "Administrator of e-KBRI <admin@kbri.seoul.kr>",
   		:reply_to => "Visa Counsel of KBRI <visa@kbri.seoul.kr>" 
