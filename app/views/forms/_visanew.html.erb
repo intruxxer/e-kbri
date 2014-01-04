@@ -1,5 +1,5 @@
 <!-- Red color scheme -->
-			<form id="" action="/visa_processing" class="sky-form" method="post">
+	<%= simple_form_for :visa, url: visa_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>
 				<% if action_name == "immigration" then %>
 					Visa Application Form to Republic of Indonesia
@@ -12,25 +12,18 @@
 						<section class="col col-6">
 							<label class="label">Purpose</label>
 							<label class="select">
-							<select id="applicationType" name="application_type">
-								<option value="0">Application Type</option>
-								<option value="3">New Visa Application</option>
-								<option value="4">Extension of Re-Entry Permit</option>
-							</select>
+							<%= f.input_field :applicationType, 
+							collection: { 'New Visa Application' => 3, 'Extension of Re-Entry Permit' => 4}  %>
 							<i></i>
 							</label>
 						</section>
 						<section class="col col-6 newVisa specialFieldType no-show">
 							<label class="label">Visa</label>
 							<label class="select">
-							<select id="categoryType" name="category_type">
-								<option value="none">Category</option>
-								<option value="transit">Transit Visa</option>
-								<option value="visit">Visit Visa</option>
-								<option value="limited-stay">Limited Stay Visa</option>
-								<option value="diplomatic">Diplomatic Visa</option>
-								<option value="official">Official Visa</option>
-							</select>
+							<%= f.input_field :categoryType, 
+							collection: { 'Transit Visa' => 'transit', 'Visit Visa' => 'visit', 
+								          'Limited Stay Visa' => 'limited-stay', 'Diplomatic Visa' => 'diplomatic', 
+								          'Official Visa' => 'official' } %>
 							<i></i>
 							</label>
 						</section>
@@ -43,25 +36,24 @@
 							<label class="label">Full Name</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text" name="full_name">
+								<%= f.input_field :full_name %>
 							</label>
 						</section>	
 									
 						<section class="col col-3">
-							<label class="label">Picture Attachment</label>
+							<label class="label">Passport Picture</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-								  <input type="file" id="file" name="picture_path" onchange="this.parentNode.nextSibling.value = this.value">Upload
-								</div>
-								<input type="text" readonly>
+									<%= f.input_field :picture_path, as: :file %>Upload</div>
+									<%= f.input_field :picturepath, readonly: true %>
 							</label>
 						</section>
 						
 						<section class="col col-3">
 						  <div class="inline-group">
 						  <label class="label">Sex</label>
-							<label class="radio"><input type="radio" name="sex" value="M"><i></i>Male</label>
-							<label class="radio"><input type="radio" name="sex" value="F"><i></i>Female</label>
+							<label class="radio"><input type="radio" name="visa[sex]" value="M"><i></i>Male</label>
+							<label class="radio"><input type="radio" name="Visa[sex]" value="F"><i></i>Female</label>
 						  </div>
 						</section>
 					</div>
@@ -71,7 +63,7 @@
 							<label class="label">Place of Birth</label>	
 							<label class="input">
 									<i class="icon-append icon-globe"></i>
-							<input type="text" name="placeBirth" id="place">
+									<%= f.input_field :placeBirth %>
 							</label>
 						</section>
 
@@ -79,16 +71,16 @@
 							<label class="label">Date of Birth</label>	
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
-							<input type="text" name="dateBirth" id="dateBirth" class="datePick">
+									<%= f.input_field :dateBirth, input_html: { class: 'datePick' } %>
 							</label>
 						</section>
 						
 						<section class="col col-3">
 						  <div class="inline-group">
 						  <label class="label">Marital Status</label>
-							<label class="radio"><input type="radio" name="marital_status" value="M"><i></i>Married</label>
-							<label class="radio"><input type="radio" name="marital_status" value="S"><i></i>Single</label>
-							<label class="radio"><input type="radio" name="marital_status" value="W"><i></i>Widowed</label>
+							<label class="radio"><input type="radio" name="visa[marital_status]" value="M"><i></i>Married</label>
+							<label class="radio"><input type="radio" name="visa[marital_status]" value="S"><i></i>Single</label>
+							<label class="radio"><input type="radio" name="visa[marital_status]" value="W"><i></i>Widowed</label>
 						  </div>
 						</section>
 					</div>
@@ -98,22 +90,17 @@
 							<label class="label">Nationality</label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
-								<input type="text" name="nationality">
+								<%= f.input_field :nationality %>
 							</label>
 						</section>
 						
 						<section class="col col-6">
 							<label class="label">Profession</label>
 							<label class="select">
-							<select name="profession">
-								<option value="">Profession Type</option>
-								<option value="professional">Professional</option>
-								<option value="government">Government</option>
-								<option value="businessman">Businessman</option>
-								<option value="student">Student</option>
-								<option value="housewife">Businessman</option>
-								<option value="other">Others</option>
-							</select>
+							<%= f.input_field :profession, 
+							collection: { 'Professional' => 'professional', 'Government' => 'government',
+								          'Businessman' => 'businessman', 'Student' => 'student', 
+								          'Housewife' => 'housewife', 'Others' => 'other' } %>
 							<i></i>
 							</label>
 						</section>
@@ -125,7 +112,7 @@
 							<label class="label">Passport No</label>
 							<label class="input">
 								<i class="icon-append icon-book"></i>
-								<input type="text" name="passport_no">
+								<%= f.input_field :passport_no %>
 							</label>
 						</section>
 						
@@ -133,19 +120,16 @@
 							<label class="label">Place of Issue</label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
-								<input type="text" name="passport_issued">
+								<%= f.input_field :passport_issued %>
 							</label>
 						</section>
 						
 						<section class="col col-4">
 							<label class="label">Type of Passport</label>
 							<label class="select">
-							<select name="passport_type">
-								<option value="">Type</option>
-								<option value="1">Ordinary</option>
-								<option value="2">Official</option>
-								<option value="3">Government</option>
-							</select>
+							<%= f.input_field :passport_type, 
+							collection: { 'Ordinary' => 1, 'Official' => 2,
+								          'Government' => 3 } %>
 							<i></i>
 							</label>
 						</section>
@@ -158,7 +142,7 @@
 							<label class="label">Date of Issuance</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-							<input type="text" name="passport_date_issued" id="dateIssued" class="datePick">
+							<%= f.input_field :passport_date_issued, input_html: { class: 'datePick' } %>
 							</label>
 						</section>
 						
@@ -166,7 +150,7 @@
 							<label class="label">Date of Expiry</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-							<input type="text" name="passport_date_expired" id="dateIssued" class="datePick">
+							<%= f.input_field :passport_date_expired, input_html: { class: 'datePick' } %>
 							</label>
 						</section>
 						
@@ -179,14 +163,10 @@
 					  <section class="col col-2">
 						<label class="label">Type of Sponsor</label>
 						<label class="select">
-							<select id="" name="sponsor_type_kr">
-								<option value="work">Individual</option>
-								<option value="family">Government</option>
-								<option value="social">International Institution</option>
-								<option value="company">Company</option>
-								<option value="ngo">NGO</option>
-								<option value="other">Others</option>
-							</select>
+							<%= f.input_field :sponsor_type_kr, 
+							collection: { 'Individual' => 'individual', 'Government' => 'government',
+								          'International Institution' => 'interinstitute', 'Company' => 'company',
+								          'NGO' => 'ngo' , 'Others' => 'other'} %>
 							<i></i>
 					    </label>
 					  </section>
@@ -195,7 +175,7 @@
 					  	<label class="label">Name of Reference in Korea</label>
 						<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text" name="sponsor_name_kr">
+								<%= f.input_field :sponsor_name_kr %>
 						</label>
 					  </section>
 					  
@@ -203,7 +183,7 @@
 					  	<label class="label">Reference's Address in Korea</label>
 							<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<textarea rows="5" name="sponsor_address_kr"></textarea>
+							<%= f.input :sponsor_address_kr, as: :text, input_html: { row: 5 } %>
 						</label>
 						<div class="note"><strong></strong></div>
 					  </section>
@@ -211,7 +191,7 @@
 					  	<label class="label">Phone No in Korea</label>
 						<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<input type="text" name="sponsor_phone_kr">
+								<%= f.input_field :sponsor_phone_kr %>
 						</label>
 					  </section>
 					</div>
@@ -220,14 +200,10 @@
 					  <section class="col col-2">
 						<label class="label">Type of Sponsor</label>
 						<label class="select">
-							<select id="" name="sponsor_type_id">
-								<option value="work">Individual</option>
-								<option value="family">Government</option>
-								<option value="social">International Institution</option>
-								<option value="company">Company</option>
-								<option value="ngo">NGO</option>
-								<option value="other">Others</option>
-							</select>
+							<%= f.input_field :sponsor_type_id, 
+							collection: { 'Individual' => 'individual', 'Government' => 'government',
+								          'International Institution' => 'interinstitute', 'Company' => 'company',
+								          'NGO' => 'ngo', 'Others' => 'other'} %>
 							<i></i>
 					    </label>
 					  </section>
@@ -236,7 +212,7 @@
 					  	<label class="label">Name of Reference in Indonesia</label>
 						<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text" name="sponsor_name_id">
+								<%= f.input_field :sponsor_name_id %>
 						</label>
 					  </section>
 					  
@@ -244,7 +220,7 @@
 					  	<label class="label">Referece's Address in Indonesia</label>
 							<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<textarea rows="5" name="sponsor_address_id"></textarea>
+							<%= f.input :sponsor_address_id, input_html: { row: 5 }, as: :text %>
 						</label>
 						<div class="note"><strong></strong></div>
 					  </section>
@@ -253,7 +229,7 @@
 					  	<label class="label">Phone No in Indonesia</label>
 						<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<input type="text" name="sponsor_phone_id">
+								<%= f.input_field :sponsor_phone_id %>
 						</label>
 					  </section>
 					</div>
@@ -265,7 +241,7 @@
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-								<input type="text" name="duration_stays_day" id="durationStaysDay">
+								<%= f.input_field :duration_stays_day %>
 							</label>
 							<div class="note">In <strong>DAYS</strong></div>
 						</section>
@@ -274,7 +250,7 @@
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-								<input type="text" name="duration_stays_month" id="durationStaysMonth">
+								<%= f.input_field :duration_stays_month %>
 							</label>
 							<div class="note">In <strong>MONTHS</strong></div>
 						</section>
@@ -283,7 +259,7 @@
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-								<input type="text" name="duration_stays_year" id="durationStaysYear">
+								<%= f.input_field :duration_stays_year %>
 							</label>
 							<div class="note">In <strong>YEARS</strong></div>
 						</section>
@@ -291,14 +267,11 @@
 						<section class="col col-3">
 							<label class="label">Visa Type</label>
 							<label class="select">
-							<select id="numEntry" name="num_entry">
-								<option value="0">Type</option>
-								<option value="1">Single Entry</option>
-								<option value="2">Multiple Entry</option>
-							</select>
+							<%= f.input_field :num_entry, 
+							collection: { 'Single Entry' => 1, 'Multiple Entry' => 2 } %>
 							<i></i>
 							</label>
-							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia.</div>
+							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
 						</section>
 					</div>
 				</fieldset>
@@ -308,18 +281,18 @@
 					<section class="col col-6">
 					<div class="inline-group">
 					<label class="label">Other Information (Tick each item that applies)</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox1"><i></i>Have you ever been to Indonesia before?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox2"><i></i>Have you ever been convicted in other country?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox3"><i></i>Are you in posession of any other country?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox4"><i></i>Do you have previous visa to enter Indonesia?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox1]"><i></i>Have you ever been to Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox2]"><i></i>Have you ever been convicted in other country?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox3]"><i></i>Are you in posession of any other country?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox4]"><i></i>Do you have previous visa to enter Indonesia?</label>
 					</div>
 					</section>
 					<section class="col col-6">
 					<div class="inline-group">
 					<label class="label">&nbsp;</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox5"><i></i>Has your visa application been refused before?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox6"><i></i>Have you ever been deported from Indonesia before?</label>
-					<label class="checkbox"><input type="checkbox" name="checkbox7"><i></i>Have you ever committed crime or any offense?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox5]"><i></i>Has your visa application been refused before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox6]"><i></i>Have you ever been deported from Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox7]"><i></i>Have you ever committed crime or any offense?</label>
 					</div>
 					</section>
 				</div>
@@ -335,7 +308,7 @@
 					<label class="label">Country of Destination</label>
 					<label class="input">
 						<i class="icon-append icon-globe"></i>
-						<input type="text" name="tr_country_destination">
+						<%= f.input_field :tr_count_dest %>
 					</label>
 				  </section>
 				  
@@ -343,7 +316,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text" name="tr_flight_vessel">
+						<%= f.input_field :tr_flight_vessel %>
 					</label>
 				  </section>
 				  
@@ -351,7 +324,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text" name="tr_air_sea_port">
+						<%= f.input_field :tr_air_sea_port %>
 					</label>
 				  </section>
 				  
@@ -359,7 +332,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="tr_date_entry" id="dateEntry" class="datePick">
+						<%= f.input_field :tr_date_entry, input_html: {class: 'datePick'} %>
 					</label>
 				  </section>
 				</div>  
@@ -370,12 +343,9 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Limited Stay</label>
 					<label class="select">
-							<select id="" name="lim_s_purpose">
-								<option value="work">Work</option>
-								<option value="family">Joint Family</option>
-								<option value="social">Social</option>
-								<option value="other">Others</option>
-							</select>
+						<%= f.input_field :lim_s_purpose, 
+						collection: { 'Work' => 'work', 'Joint Family' => 'family',
+								      'Social' => 'social', 'Others' => 'other'} %>
 							<i></i>
 					</label>
 					<div class="note">Please bring supporting <strong>Documents</strong> (if any) during interview session.</div>
@@ -385,7 +355,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text" name="lim_s_flight_vessel">
+						<%= f.input_field :lim_s_flight_vessel %>
 					</label>
 				  </section>
 				  
@@ -393,7 +363,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text" name="lim_s_air_sea_port">
+						<%= f.input_field :lim_s_air_sea_port %>
 					</label>
 				  </section>
 				  
@@ -401,7 +371,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="lim_s_date_entry" id="dateEntry" class="datePick">
+						<%= f.input_field :lim_s_date_entry, input_html: {class: 'datePick'} %>
 					</label>
 				  </section>
 				</div>
@@ -413,16 +383,11 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
-							<select id="" name="v_purpose">
-								<option value="tourism">Tourism</option>
-								<option value="study">Study</option>
-								<option value="convention">Convention</option>
-								<option value="art">Arts</option>
-								<option value="family-visit">Family Visit</option>
-								<option value="commercial">Commercial</option>
-								<option value="sports">Sports</option>
-								<option value="other">Others</option>
-							</select>
+						<%= f.input_field :v_purpose, 
+						collection: { 'Tourism' => 'tourism', 'Study' => 'study',
+								      'Convention' => 'convention', 'Arts' => 'art',
+								      'Family Visit' => 'family-visit', 'Commercial' => 'commercial',
+								      'Sports' => 'sport', 'Others' => 'other'} %>
 							<i></i>
 					</label>
 					<div class="note">Please bring supporting <strong>Documents</strong> (if any) during interview session.</div>
@@ -432,7 +397,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text" name="v_flight_vessel">
+						<%= f.input_field :v_flight_vessel %>
 					</label>
 				  </section>
 				  
@@ -440,7 +405,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text" name="v_air_sea_port">
+						<%= f.input_field :v_air_sea_port %>
 					</label>
 				  </section>
 				  
@@ -448,7 +413,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="v_date_entry" id="dateEntry" class="datePick">
+						<%= f.input_field :v_date_entry, input_html: {class: 'datePick'} %>
 					</label>
 				  </section>
 				</div>
@@ -460,12 +425,9 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
-							<select id="" name="dip_purpose">
-								<option value="posting">Posting</option>
-								<option value="training">Training</option>
-								<option value="family">Joint Family</option>
-								<option value="other">Others</option>
-							</select>
+						<%= f.input_field :dip_purpose, 
+						collection: { 'Posting' => 'posting', 'Training' => 'training',
+								      'Joint Family' => 'family', 'Others' => 'other' } %>
 							<i></i>
 					</label>
 				  </section>
@@ -474,7 +436,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text" name="dip_flight_vessel">
+						<%= f.input_field :dip_flight_vessel %>
 					</label>
 				  </section>
 				  
@@ -482,7 +444,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text" name="dip_air_sea_port">
+						<%= f.input_field :dip_air_sea_port %>
 					</label>
 				  </section>
 				  
@@ -490,7 +452,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="dip_date_entry" id="dateEntry" class="datePick">
+						<%= f.input_field :dip_date_entry, input_html: {class: 'datePick'} %>
 					</label>
 				  </section>
 				</div>
@@ -502,12 +464,9 @@
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
-							<select id="" name="o_purpose">
-								<option value="posting">Posting</option>
-								<option value="training">Training</option>
-								<option value="family">Joint Family</option>
-								<option value="other">Others</option>
-							</select>
+						<%= f.input_field :o_purpose, 
+						collection: { 'Posting' => 'posting', 'Training' => 'training',
+								      'Joint Family' => 'family', 'Others' => 'other' } %>
 							<i></i>
 					</label>
 				  </section>
@@ -516,7 +475,7 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<input type="text" name="o_flight_vessel">
+						<%= f.input_field :o_flight_vessel %>
 					</label>
 				  </section>
 				  
@@ -524,7 +483,7 @@
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="input">
 						<i class="icon-append icon-anchor"></i>
-						<input type="text" name="o_air_sea_port">
+						<%= f.input_field :o_air_sea_port %>
 					</label>
 				  </section>
 				  
@@ -532,7 +491,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<input type="text" name="o_date_entry" id="dateEntry" class="datePick">
+						<%= f.input_field :o_date_entry, input_html: {class: 'datePick'} %>
 					</label>
 				  </section>
 				</div>
@@ -555,7 +514,7 @@
 					<button type="submit" class="button">Submit</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
 				</footer>
-			</form>
+			<% end %>
 <!--/ Red color scheme -->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
@@ -566,9 +525,9 @@
 									//console.log();
 									
 				// Adjusting suitable form
-				$( "#applicationType" ).change(function() {
+				$( "#visa_applicationType" ).change(function() {
   					var str = "";
-    				str = $( "#applicationType option:selected" ).val();
+    				str = $( "#visa_applicationType option:selected" ).val();
     				if(str == 3){
     					var aClass = ".newVisa";
     				}else if(str == 4){
@@ -578,9 +537,9 @@
 					$( aClass ).removeClass("no-show").css("display","block");
 				});
 				
-				$( "#categoryType" ).change(function() {
+				$( "#visa_categoryType" ).change(function() {
   					var str = "";
-    				str = $( "#categoryType option:selected" ).val();
+    				str = $( "#visa_categoryType option:selected" ).val();
     				var id = "#"+str;
     				$( ".specialFieldCat" ).addClass("no-show").css("display", "none");
 					if(id != "none") {

@@ -45,7 +45,7 @@ class Immigration::ReportController < ApplicationController
   
   private
 	def post_params	    
-		params.require(:post).permit(:name, :height, :birthplace, :datebirth, :statuskawin, :nopaspor, :dateissude, :dateend, :tempatpaspor, :visatype, :visadateissued, :visadateend,
+		params.require(:post).permit(:name, :height, :birthplace, :datebirth, :marriagestatus, :nopaspor, :dateissued, :dateend, :passportplace, :visatype, :visadateissued, :visadateend,
 		:koreanjob, :koreaninstancename, :koreaninstanceaddress, :koreaninstancephone, :koreaninstancecity, :koreaninstanceprovince, :koreaninstancepostalcode,
 		:koreanphone, :koreanaddress, :koreanaddresscity, :koreanaddressprovince, :koreanaddresspostalcode, :indonesianphone, :indonesianaddress, :indonesianaddresskelurahan, 
 		:indonesianaddresskecamatan, :indonesianaddresskabupaten, :indonesianaddressprovince, :indonesianaddresspostalcode, :relationname, :relationstatus, :relationaddress,

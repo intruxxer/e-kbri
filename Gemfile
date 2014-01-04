@@ -4,6 +4,7 @@ gem "rails", "4.0.0"
 gem "mongoid", github: "mongoid/mongoid"
 gem "bson"
 gem "bson_ext"
+
 gem "simple_form"
 gem "devise", "~> 3.0.0"
 gem "cancan"
@@ -31,6 +32,8 @@ group :development do
   gem "zeus"
   gem "rspec-rails"
   gem "factory_girl_rails"
+  gem "better_errors"
+  gem 'binding_of_caller'
 end
 
 group :test do

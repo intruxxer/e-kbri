@@ -6,12 +6,12 @@ class Report
   field :height, type: String
   field :birthplace, type: String
   field :datebirth, type: Date
-  field :statuskawin, type: String
+  field :marriagestatus, type: String
   
   field :nopaspor, type: String
   field :dateissued, type: Date
   field :dateend, type: Date
-  field :tempatpaspor, type: String
+  field :passportplace, type: String
   
   field :visatype, type: String
   field :visadateissued, type:Date 
@@ -54,6 +54,6 @@ class Report
   
   field :avatarname, type:String  
   
-   belongs_to :user , :class_name => "User", :inverse_of => :report
+  belongs_to :user , :class_name => "User", :inverse_of => :report
   
 end
