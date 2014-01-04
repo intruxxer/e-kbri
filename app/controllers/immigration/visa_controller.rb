@@ -1,7 +1,9 @@
 class Immigration::VisaController < ApplicationController
   #GET /visa
   def index
-    
+    if Visa.where(user_id: current_user).count > 0
+        redirect_to edit_visa_path(current_user)
+     end
   end
   
   #GET /new
@@ -41,14 +43,14 @@ class Immigration::VisaController < ApplicationController
       current_user.visa = @visa 
       UserMailer.visa_received_email(@visa).deliver
       respond_to do |format|
-        format.html { redirect_to :back, :notice => "Your visa application is successfully saved!" }
+        format.html { redirect_to :back, :notice => "Your visa application is successfully received!" }
         format.json { render json: {action: "JSON Creating Visa", result: "Saved"} }
         format.js #if being asked by AJAX to return "script" <-->
             #visa_processing/create.js.erb -->to execute script JS,
             #like stopping loading.gif, hiding the element, alerting user
       end
     else
-    redirect_to :back, :notice => "Unfortunately, your visa application fails to be submitted."
+    redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
     #do something further 
     end
   

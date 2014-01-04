@@ -44,7 +44,6 @@ EKbri::Application.routes.draw do
 
   resources :users
   resources :visa, controller: 'immigration/visa'
-  resources :visa_processing
   resources :report, controller: 'immigration/report'
   resources :marriage, controller: 'immigration/marriage'
   

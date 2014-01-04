@@ -1,14 +1,22 @@
 class WelcomeController < ApplicationController
   def index	
     @latestdata = {}
-	if user_signed_in?
-		reportdata = Report.where(user_id: current_user)
-		if reportdata.count > 0
-			reportdata.each do |t|
-				@latestdata["lapordiri" + t.id] = {'status' => 'success', 'link' => edit_report_path(current_user), 'name' => 'Pelaporan Data Diri', 'timestamp' => t.updated_at}
-			end
-		end
-	end
+  	if user_signed_in?
+  	  #visadata = Visa.where(user_id: current_user)
+  		reportdata = Report.where(user_id: current_user)
+  		#if visadata.count > 0
+      #  visadata.each do |t|
+      #    @latestdata["visaapply" + t.id] = {'status' => 'success', 'link' => edit_visa_path(current_user), 'name' => 'Visa Application', 'timestamp' => t.updated_at}
+      #  end
+      #end
+  		
+  		if reportdata.count > 0
+  			reportdata.each do |t|
+  				@latestdata["lapordiri" + t.id] = {'status' => 'success', 'link' => edit_report_path(current_user), 'name' => 'Pelaporan Data Diri', 'timestamp' => t.updated_at}
+  			end
+  		end
+  	end
+	
   end
   
   def concept
