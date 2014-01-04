@@ -41,7 +41,7 @@ class Immigration::VisaController < ApplicationController
     @visa = Visa.new(post_params)
     if @visa.save then
       #current_user.visa = @visa 
-      UserMailer.visa_received_email(@visa).deliver
+      UserMailer.visa_received_email(current_user).deliver
       respond_to do |format|
         format.html { redirect_to :back, :notice => "Your visa application is successfully received!" }
         format.json { render json: {action: "JSON Creating Visa", result: "Saved"} }

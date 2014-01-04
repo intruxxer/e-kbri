@@ -1,9 +1,9 @@
 class UserMailer < ActionMailer::Base
   # default from: "welcome-no-reply@openticket.net"
   
-  def visa_received_email(visa)
+  def visa_received_email(user)
   	@url = "http://kbri.seoul.kr"
-  	@email = current_user.email
+  	@email = user.email
   	attachments["garuda.png"] = File.read("#{Rails.root}/public/assets/images/garuda.png")
   	#attachments["ot-presentation-small.png"] = File.read("#{Rails.root}/public/images/ot-presentation-small.png")
   	mail(
