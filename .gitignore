@@ -16,9 +16,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/public/uploads/*
 
-
-#Gemfile*
+Gemfile*
 #Gemfile.lock
 #/config/mongoid*
 
