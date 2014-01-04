@@ -11,20 +11,44 @@ class Immigration::VisaController < ApplicationController
 
   #POST /visa
   def create
-    #if category A, params a,b,c elsif category B, params d,e,f, and so on 
+    
+   uploaded_passport = params[:visa][:passport]
+   if (uploaded_passport != nil)
+      new_passport = uploaded_passport.read
+      File.open(Rails.root.join('public', 'uploads', uploaded_passport.original_filename), 'wb') do |file|
+        file.write(new_passport)
+      end
+   end
+   
+   uploaded_idcard = params[:visa][:idcard]
+   if (uploaded_idcard != nil)
+      new_idcard = uploaded_idcard.read
+      File.open(Rails.root.join('public', 'uploads', uploaded_idcard.original_filename), 'wb') do |file|
+        file.write(uploaded_idcard)
+      end
+   end
+   
+   uploaded_passport_picture = params[:visa][:photo]
+   if (uploaded_passport_picture != nil)
+      new_pass_picture = uploaded_passport_picture.read
+      File.open(Rails.root.join('public', 'uploads', uploaded_passport_picture.original_filename), 'wb') do |file|
+        file.write(uploaded_passport_picture)
+      end
+   end
+   
     @visa = Visa.new(post_params)
     if @visa.save then
-      flash[:notice] = "Your visa application is successfully saved!"
+      current_user.visa = @visa 
       UserMailer.visa_received_email(@visa).deliver
       respond_to do |format|
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, :notice => "Your visa application is successfully saved!" }
         format.json { render json: {action: "JSON Creating Visa", result: "Saved"} }
         format.js #if being asked by AJAX to return "script" <-->
             #visa_processing/create.js.erb -->to execute script JS,
             #like stopping loading.gif, hiding the element, alerting user
       end
     else
-    flash[:notice] = "Unfortunately, your visa application fails to be submitted."
+    redirect_to :back, :notice => "Unfortunately, your visa application fails to be submitted."
     #do something further 
     end
   

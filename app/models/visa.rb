@@ -45,7 +45,7 @@ class Visa
   field :checkbox_6,				     type: Boolean
   field :checkbox_7,				     type: Boolean
   
-  field :tr_count_dest, type: String 
+  field :tr_count_dest,          type: String 
   field :tr_flight_vessel,			 type: String 
   field :tr_air_sea_port,			   type: String 
   field :tr_date_entry, 			   type: Date 
