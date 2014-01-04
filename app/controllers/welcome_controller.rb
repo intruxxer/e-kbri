@@ -13,6 +13,7 @@ class WelcomeController < ApplicationController
           @latestvisadata["visaapply" + t.id] = {'status' => 'success', 'link' => edit_visa_path(current_user), 'name' => 'Visa Application', 'timestamp' => t.updated_at}
         end
       end
+  		puts "latestVisadata=>"+@latestvisadata.inspect
   		
   		if reportdata.count > 0
   			reportdata.each do |t|
