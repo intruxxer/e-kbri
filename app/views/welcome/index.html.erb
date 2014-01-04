@@ -4,7 +4,7 @@
 <hr />
 
 <% if !@latestvisadata.empty? || !@latestreportdata.empty?  %>
-	<% if !@latestreportdata[:lapordiri] %>
+	<% if !@latestreportdata.empty? %>
 		<div class="row">
 		<div class="col-md-12">
 								<!-- start: TABLE WITH IMAGES PANEL -->
@@ -42,10 +42,10 @@
 								</div>
 								<!-- end: TABLE WITH IMAGES PANEL -->
 		</div>
-		git</div>
+		</div>
 	<% end %>
 	
-	<% if !@latestvisadata[:visaapply] %>
+	<% if !@latestvisadata.empty? %>
 		<div class="row">
 		<div class="col-md-12">
 								<!-- start: TABLE WITH IMAGES PANEL -->
