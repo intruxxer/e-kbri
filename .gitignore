@@ -19,7 +19,7 @@
 
 
 #Gemfile*
-#Gemfile.lock
+Gemfile.lock
 #/config/mongoid*
 
 .project
