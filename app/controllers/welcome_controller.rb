@@ -3,12 +3,14 @@ class WelcomeController < ApplicationController
     @latestvisadata = {}
     @latestreportdata = {}
   	if user_signed_in?
-  	  
+  	  puts "Cuser=>"+current_user.inspect
   	  visadata = Visa.where(user_id: current_user)
   	  puts "Visadata=>"+visadata.inspect
   		reportdata = Report.where(user_id: current_user)
+  		puts "Reportdata=>"+reportdata.inspect
   		
   		if visadata.count > 0
+  		  puts "Visadata=>1 or more"
         visadata.each do |t|
           @latestvisadata["visaapply" + t.id] = {'status' => 'success', 'link' => edit_visa_path(current_user), 'name' => 'Visa Application', 'timestamp' => t.updated_at}
         end

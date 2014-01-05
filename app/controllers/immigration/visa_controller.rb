@@ -55,15 +55,14 @@ class Immigration::VisaController < ApplicationController
     end
   
     #debugging
-    logger.debug "We are inspecting VISA PROCESSING PARAMS as follows:"
-    puts params.inspect
-    puts @visa.inspect
+    #logger.debug "We are inspecting VISA PROCESSING PARAMS as follows:"
+    #puts params.inspect
+    #puts @visa.inspect
   end
 
   #GET visa/:id
   def show
-    user_id = params[:id]
-    @visa = Visa.find(user_id)
+    @visa = Visa.find(params[:id])
       respond_to do |format|
       format.html #visa_processing/show.html.erb
       format.json { render json: @visa }
@@ -73,11 +72,16 @@ class Immigration::VisaController < ApplicationController
 
   #GET /visa/:id/edit
   def edit
-  
+    @visa = Visa.find(params[:id])
+    if @visa.update(post_params)
+      redirect_to visa_path, :notice => 'You have updated your application data!'
+    else
+      #render 'edit'
+    end
   end
   
   #PATCH, PUT /visa
-  def update 
+  def update
   
   end
   

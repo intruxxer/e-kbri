@@ -2,7 +2,7 @@ class Visa
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  belongs_to :user
+  belongs_to :user, :class_name => "User", :inverse_of => :visa
   
   field :full_name,					     type: String
   field :sex,						         type: String  
