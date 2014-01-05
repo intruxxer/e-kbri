@@ -4,9 +4,9 @@ class User
   include User::AuthDefinitions
   include User::Roles
 
-  has_many :identities
-  has_many :visas, :class_name => 'Visa'
-  has_one :report, :class_name => "Report", :inverse_of => :user
+  has_many :identities, :class_name => "Identity", :inverse_of => :user
+  has_many :visas, :class_name => "Visa", :inverse_of => :user
+  has_one :report
   #has_one :profile
   
 

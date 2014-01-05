@@ -38,9 +38,10 @@ class Immigration::VisaController < ApplicationController
       end
    end
    
-    @visa = Visa.new(post_params)
-    if @visa.save then
-      current_user.visa = @visa 
+     
+    @visa = [ Visa.new(post_params) ]    
+    if current_user.visas = @visa then
+      
       UserMailer.visa_received_email(current_user).deliver
       respond_to do |format|
         format.html { redirect_to root_path, :notice => "Your visa application is successfully received!" }

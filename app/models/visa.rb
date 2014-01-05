@@ -2,7 +2,7 @@ class Visa
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  belongs_to :user, :class_name => "User", :inverse_of => :visa
+  belongs_to :user, :class_name => "User", :inverse_of => :visas
   
   field :full_name,					     type: String
   field :sex,						         type: String  
@@ -73,5 +73,7 @@ class Visa
   field :passportpath,           type: String
   field :idcardpath,             type: String 
   field :photopath,              type: String
+  
+  
   
 end
