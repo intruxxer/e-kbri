@@ -5,7 +5,8 @@ class User
   include User::Roles
 
   has_many :identities
-  #has_many :visas
+  has_many :visas, :class_name => 'Visa'
+  has_one :report, :class_name => "Report", :inverse_of => :user
   #has_one :profile
   
 
@@ -22,7 +23,7 @@ class User
   
   validates_presence_of :email, :first_name, :last_name
 
-  has_one :report, :class_name => "Report", :inverse_of => :user
+  
   
   def full_name
     "#{first_name} #{last_name}"
