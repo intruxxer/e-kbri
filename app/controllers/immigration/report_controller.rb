@@ -38,13 +38,12 @@ class Immigration::ReportController < ApplicationController
   end
   
   def update
-	    @post = Report.find(params[:id])
-	
-    	if @post.update(post_params)
-    	  redirect_to report_index_path, :notice => 'Data Berhasil Diubah!'
-    	else
-    	  render 'edit'
-    	end
+	  @post = Report.find(params[:id])
+    if @post.update(post_params)
+    	 redirect_to report_index_path, :notice => 'Data Berhasil Diubah!'
+    else
+    	 render 'edit'
+    end
 	
   end
   
@@ -54,7 +53,7 @@ class Immigration::ReportController < ApplicationController
   
   private
 	def post_params	    
-		params.require(:post).permit(:name, :height, :birthplace, :datebirth, :statuskawin, :nopaspor, :dateissude, :dateend, :tempatpaspor, :visatype, :visadateissued, :visadateend,
+		params.require(:post).permit(:name, :height, :birthplace, :datebirth, :marriagestatus, :nopaspor, :dateissued, :dateend, :passportplace, :visatype, :visadateissued, :visadateend,
 		:koreanjob, :koreaninstancename, :koreaninstanceaddress, :koreaninstancephone, :koreaninstancecity, :koreaninstanceprovince, :koreaninstancepostalcode,
 		:koreanphone, :koreanaddress, :koreanaddresscity, :koreanaddressprovince, :koreanaddresspostalcode, :indonesianphone, :indonesianaddress, :indonesianaddresskelurahan, 
 		:indonesianaddresskecamatan, :indonesianaddresskabupaten, :indonesianaddressprovince, :indonesianaddresspostalcode, :relationname, :relationstatus, :relationaddress,

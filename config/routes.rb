@@ -43,7 +43,7 @@ EKbri::Application.routes.draw do
   end 
 
   resources :users
-  resources :visa_processing
+  resources :visa, controller: 'immigration/visa'
   resources :report, controller: 'immigration/report'
   resources :marriage, controller: 'immigration/marriage'
   
