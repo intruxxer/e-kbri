@@ -11,10 +11,9 @@
 							<label class="label">Tujuan Aplikasi</label>
 							<label class="select">
 							<select>
-								<option value="">Pilih Tujuan</option>
-								<option value="perpanjang-paspor">Perpanjang Paspor</option>
-								<option value="pembuatan-paspor">Pembuatan Paspor Baru</option>
-								<option value="pembuatan-splp">Pembuatan SPLP</option>
+								<%= f.input_field :applicationType, 
+								collection: { 'Perpanjang Paspor' => 'perpanjang-paspor', 
+								          	  'Pembuatan Paspor' => 'pembuatan-paspor', 'Pembuatan SPLP' => 'pembuatan-splp' } %>
 							</select>
 							<i></i>
 							</label>
@@ -23,11 +22,9 @@
 							<label class="label">Alasan Permohonan</label>
 							<label class="select">
 							<select>
-								<option value="">Alasan</option>
-								<option value="habis-masa">Paspor habis masa berlaku</option>
-								<option value="habis-halaman">Paspor habis halaman</option>
-								<option value="perpanjang-kontrak">Memperpanjang kontrak</option>
-								<option value="pulang-indonesia">Pulang ke Indonesia</option>
+								<%= f.input_field :applicationReason, 
+								collection: { 'Paspor Habis (Masa Berlakunya)' => 'habis-masa', 'Paspor Habis (Halamannya)' => 'habis-halaman',
+								          	  'Memperpanjang Kontrak' => 'perpanjang-kontrak', 'Akan Pulang ke Indonesia' => 'pulang-indonesia' } %>
 							</select>
 							<i></i>
 							</label>
@@ -41,22 +38,23 @@
 							<label class="label">Nama Lengkap</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text">
+								<%= f.input_field :full_name %>
 							</label>
 						</section>	
 						<section class="col col-4">
 							<label class="label">Tinggi Badan</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
-								<input type="text">
+								<%= f.input_field :height %>
 							</label>
 						</section>
 						<section class="col col-4">
 							<label class="label">Pas Foto Digital</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-									<input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Unggah</div>
-									<input type="text" readonly>
+								<div class="button">
+									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<%= f.input_field :photopath, readonly: true %>
 							</label>
 						</section>			
 					</div>
@@ -66,7 +64,7 @@
 							<label class="label">Tempat Lahir</label>	
 							<label class="input">
 									<i class="icon-append icon-globe"></i>
-							<input type="text" name="placeBirth" id="place">
+									<%= f.input_field :placeBirth %>
 							</label>
 						</section>
 
@@ -74,7 +72,7 @@
 							<label class="label">Tanggal Lahir</label>	
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
-							<input type="text" name="dateBirth" id="dateBirth" class="datePick">
+									<%= f.input_field :dateBirth, class: 'datePick' %>
 							</label>
 						</section>
 						
@@ -82,10 +80,8 @@
 							<label class="label">Status Perkawinan</label>
 							<label class="select">
 							<select>
-								<option value="0">Pilih Status:</option>
-								<option value="1">Kawin</option>
-								<option value="2">Belum Kawin</option>
-								<option value="3">Cerai</option>
+								<%= f.input_field :marriageStatus, 
+								collection: { 'Belum Kawin' => '1', 'Kawin' => '2', 'Cerai' => '3' } %>
 							</select>
 							<i></i>
 							</label>
@@ -97,7 +93,7 @@
 							<label class="label">No Paspor Terakhir (Paspor Sebelumnya)</label>
 							<label class="input">
 								<i class="icon-append icon-book"></i>
-								<input type="text">
+								<%= f.input_field :lastPassportNo %>
 							</label>
 						</section>
 						
@@ -105,7 +101,7 @@
 							<label class="label">Tanggal Terbit Paspor Terakhir</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-							<input type="text" name="dateIssued" id="dateIssued" class="datePick">
+								<%= f.input_field :dateIssued, class: 'datePick' %>
 							</label>
 						</section>
 						
@@ -113,7 +109,7 @@
 							<label class="label">Tempat Pengeluaran Paspor yang Terakhir</label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
-								<input type="text">
+								<%= f.input_field :placeIssued %>
 							</label>
 						</section>
 					</div>
@@ -123,7 +119,7 @@
 							<label class="label">Pekerjaan di Korea (dan Jenisnya)</label>
 							<label class="input">
 								<i class="icon-append icon-wrench"></i>
-								<input type="text">
+								<%= f.input_field :jobStudyInKorea %>
 							</label>
 						</section>
 						
@@ -131,7 +127,7 @@
 							<label class="label">Nama Perusahaan/Sekolah/Instansi</label>
 							<label class="input">
 								<i class="icon-append icon-home"></i>
-								<input type="text">
+								<%= f.input_field :jobStudyOrganization %>
 							</label>
 							<div class="note"><strong>Note:</strong> Tuliskan pula nama hangeulnya bila ada.</div>
 						</section>
@@ -141,7 +137,7 @@
 						<label class="label">Alamat Perusahaan/Sekolah/Instansi</label>
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<textarea rows="3"></textarea>
+							<%= f.input_field :jobStudyAddress, input_html: { row: 5 }, as: :text %>
 						</label>
 						<div class="note"><strong>Note:</strong> Tuliskan dalam huruf hangeul.</div>
 						</section>
@@ -152,7 +148,7 @@
 							<label class="label">No Telepon di Korea</label>
 							<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<input type="text">
+								<%= f.input_field :phoneKorea %>
 							</label>
 						</section>
 						
@@ -160,7 +156,7 @@
 						<label class="label">Alamat Tinggal di Korea</label>
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<textarea rows="3"></textarea>
+							<%= f.input_field :addressKorea, input_html: { row: 5 }, as: :text %>
 						</label>
 						<div class="note"><strong>Note:</strong> Cantumkan alamat yang benar-benar bisa dihubungi, dalam hangeul (bila bisa).</div>
 						</section>
@@ -171,14 +167,14 @@
 							<label class="label">No Telepon di Indonesia</label>
 							<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<input type="text" name="placeBirth" id="place">
+								<%= f.input_field :phoneIndonesia %>
 							</label>
 						</section>
 					<section class="col col-9">
 						<label class="label">Alamat di Indonesia</label>
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-home"></i>
-							<textarea rows="3"></textarea>
+							<%= f.input_field :addressIndonesia, input_html: { row: 5 }, as: :text %>
 						</label>
 						<div class="note"><strong>Note:</strong> Tuliskan alamat yang benar-benar bisa dihubungi saat darurat.</div>
 					</section>
@@ -192,7 +188,7 @@
 							<label class="label">Tiba di Korea</label>	
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
-							<input type="text" name="dateArrival" id="dateArrival" class="datePick">
+									<%= f.input_field :dateArrival, class: 'datePick' %>
 							</label>
 							<div class="note"><strong>Note:</strong> Hanya diisi oleh WNI yang bekerja via skema G2G/EPS.</div>
 						</section>
@@ -200,12 +196,8 @@
 						<section class="col col-6">
 							<label class="label">Dikirim oleh</label>
 							<label class="select">
-							<select>
-								<option value="0">Pilih Pihak Pengirim:</option>
-								<option value="1">PJTKI</option>
-								<option value="2">BNP2TKI</option>
-								<option value="3">Lain-Lain</option>
-							</select>
+								<%= f.input_field :sendingParty, 
+								collection: { 'BNP2TKI' => '1', 'PJTKI' => '2', 'Perusahaan Korea di Indonesia' => '3', 'Lain-Lain' => '4' } %>
 							<i></i>
 							</label>
 							<div class="note"><strong>Note:</strong> Hanya diisi oleh WNI yang bekerja via skema G2G/EPS.</div>
