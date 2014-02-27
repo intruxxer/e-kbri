@@ -1,6 +1,8 @@
 class Accessdb
     attr_accessor :mdb, :connection, :data, :fields
     
+    require 'win32ole'
+    
     #USAGE : db = Accessdb.new( Rails.root.to_s + '/mdblocation.mdb' )
 
     def initialize(mdb=nil)
@@ -10,9 +12,12 @@ class Accessdb
         @fields = nil
     end
 
-    def open
-        connection_string =  'Provider=Microsoft.Jet.OLEDB.4.0;Data Source='
+    def open(pwd=nil)
+        connection_string =  'Provider=Microsoft.Jet.OLEDB.4.0;Data Source='        
         connection_string << @mdb
+        if pwd != nil
+          connection_string += ';Jet OLEDB:Database Password=' + pwd
+        end
         @connection = WIN32OLE.new('ADODB.Connection')
         @connection.Open(connection_string)
     end

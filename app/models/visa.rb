@@ -32,7 +32,7 @@ class Visa
   field :duration_stays_day,		 type: Integer
   field :duration_stays_month,	 type: Integer
   field :duration_stays_year,		 type: Integer 
-  field :num_entry,					     type: Integer
+  field :num_entry,					     type: String
     
   field :application_type,			 type: Integer 
   field :category_type,				   type: Integer
@@ -74,6 +74,6 @@ class Visa
   field :idcardpath,             type: String 
   field :photopath,              type: String
   
-  
+  field :is_sync,                type: Integer,     default: 0
   
 end

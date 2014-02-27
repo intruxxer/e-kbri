@@ -8,7 +8,10 @@ EKbri::Application.routes.draw do
   get "immigration/passport/index"
   get "passport", :to => "immigration/passport#index"
   
-  get "marriage/info", :to => "immigration/marriage#info"
+  get "marriage/info", :to => "immigration/marriage#info"  
+  
+  get "visasync", :to => "batch#syncvisamongotoaccess"
+  get "reversevisasync", :to => "batch#reversesyncvisamongotoaccess"  
   
   get "dashboard/index"
   get "dashboard/counsel"
@@ -43,7 +46,8 @@ EKbri::Application.routes.draw do
   end 
 
   resources :users
-  resources :batch
+  resources :batch 
+  
   resources :visa, controller: 'immigration/visa'
   resources :report, controller: 'immigration/report'
   resources :marriage, controller: 'immigration/marriage'
