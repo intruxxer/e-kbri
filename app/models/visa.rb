@@ -32,6 +32,7 @@ class Visa
   field :duration_stays_day,		 type: Integer
   field :duration_stays_month,	 type: Integer
   field :duration_stays_year,		 type: Integer 
+
   field :num_entry,					     type: Integer
   
   field :checkbox_1,				     type: Boolean 
@@ -72,5 +73,7 @@ class Visa
   field :photopath,              type: String
   
   belongs_to :user, :class_name => "User", :inverse_of => :visa
-  
+
+  field :is_sync,                type: Integer,     default: 0
+
 end
