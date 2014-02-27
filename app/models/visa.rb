@@ -2,12 +2,12 @@ class Visa
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  belongs_to :user, :class_name => "User", :inverse_of => :visas
+  field :application_type,       type: Integer 
+  field :category_type,          type: Integer
   
   field :full_name,					     type: String
   field :sex,						         type: String  
   field :email,						       type: String
-  field :picture_path,				   type: String
   field :placeBirth,				     type: String 
   field :dateBirth, 				     type: Date
   field :marital_status,			   type: String 
@@ -33,9 +33,6 @@ class Visa
   field :duration_stays_month,	 type: Integer
   field :duration_stays_year,		 type: Integer 
   field :num_entry,					     type: Integer
-    
-  field :application_type,			 type: Integer 
-  field :category_type,				   type: Integer
   
   field :checkbox_1,				     type: Boolean 
   field :checkbox_2,				     type: Boolean
@@ -74,6 +71,6 @@ class Visa
   field :idcardpath,             type: String 
   field :photopath,              type: String
   
-  
+  belongs_to :user, :class_name => "User", :inverse_of => :visa
   
 end

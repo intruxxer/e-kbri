@@ -1,5 +1,9 @@
-<!-- Red color scheme -->
-	<%= simple_form_for :visa, url: visa_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
+<div class="body" style="padding-top: 20px;">
+			<div style="text-align: center;">
+			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+			</div>		
+			<!-- Red color scheme -->
+			<%= simple_form_for :visa, url: visa_path(@visa), method: :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>
 				<% if action_name == "immigration" then %>
 					Visa Application Form to Republic of Indonesia
@@ -17,7 +21,7 @@
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-6 newVisa specialFieldType no-show">
+						<section class="col col-6 newVisa specialFieldType">
 							<label class="label">Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
@@ -302,18 +306,18 @@
 					<section class="col col-6">
 					<div class="inline-group">
 					<label class="label">Other Information (Tick each item that applies)</label>
-					<label class="checkbox"><input type="checkbox" name="visa[checkbox_1]"><i></i>Have you ever been to Indonesia before?</label>
-					<label class="checkbox"><input type="checkbox" name="visa[checkbox_2]"><i></i>Have you ever been convicted in other country?</label>
-					<label class="checkbox"><input type="checkbox" name="visa[checkbox_3]"><i></i>Are you in posession of any other country?</label>
-					<label class="checkbox"><input type="checkbox" name="visa[checkbox_4]"><i></i>Do you have previous visa to enter Indonesia?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox1]"><i></i>Have you ever been to Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox2]"><i></i>Have you ever been convicted in other country?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox3]"><i></i>Are you in posession of any other country?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox4]"><i></i>Do you have previous visa to enter Indonesia?</label>
 					</div>
 					</section>
 					<section class="col col-6">
 					<div class="inline-group">
 					<label class="label">&nbsp;</label>
-					<label class="checkbox"><input type="checkbox" name="visa[checkbox_5]"><i></i>Has your visa application been refused before?</label>
-					<label class="checkbox"><input type="checkbox" name="visa[checkbox_6]"><i></i>Have you ever been deported from Indonesia before?</label>
-					<label class="checkbox"><input type="checkbox" name="visa[checkbox_7]"><i></i>Have you ever committed crime or any offense?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox5]"><i></i>Has your visa application been refused before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox6]"><i></i>Have you ever been deported from Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox7]"><i></i>Have you ever committed crime or any offense?</label>
 					</div>
 					</section>
 				</div>
@@ -522,7 +526,7 @@
 				<fieldset class="newVisa specialFieldType no-show">
 					<section class="col col-9">
 					I hereby declare that statements given above are true and I understand that even if granted a visa, 
-					the admission at the airport remains fully the discretion of the immigration authorities in Indonesia.
+					the admission at the airport fully remains the discretion of the immigration authorities in Indonesia.
 					</section>
 					
 					<section class="col col-3">
@@ -537,6 +541,7 @@
 				</footer>
 			<% end %>
 <!--/ Red color scheme -->
+</div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript">
@@ -548,7 +553,7 @@
 				// Adjusting suitable form
 				$( "#visa_application_type" ).change(function() {
   					var str = "";
-    				str = $( "#visa_application_type option:selected" ).val();
+    				str = $( "#visa_applicationType option:selected" ).val();
     				if(str == 3){
     					var aClass = ".newVisa";
     				}else if(str == 4){
@@ -560,7 +565,7 @@
 				
 				$( "#visa_category_type" ).change(function() {
   					var str = "";
-    				str = $( "#visa_category_type option:selected" ).val();
+    				str = $( "#visa_categoryType option:selected" ).val();
     				var id = "#"+str;
     				$( ".specialFieldCat" ).addClass("no-show").css("display", "none");
 					if(id != "none") {

@@ -4,7 +4,6 @@
 			</div>		
 			<!-- Red color scheme -->
 			
-		
 			<%= simple_form_for :post, url: report_path(@post), method: :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
 				<fieldset>
@@ -122,7 +121,8 @@
 						<section class="col col-4">
 							<label class="label">Jenis Visa</label>
 							<label class="select">								
-								<%= f.input_field :visatype, collection: { 'A-1' => 'a1', 'A-2' => 'a2', 'A-3' => 'a3', 'C-1' => 'c1', 'C-2' => 'c2', 'C-3' => 'c3', 'C-4' => 'c4', 'D-1' => 'd1', 'D-2' => 'd2', 'D-3' => 'd3', 'D-4' => 'd4', 'D-8' => 'd8', 'E-3' => 'e3', 'E-5' => 'e5', 'E-6' => 'e6', 'E-7' => 'e7', 'E-9' => 'e9', 'F-2' => 'f2', 'F-3' => 'f3', 'F-5' => 'f5', 'F-6' => 'f6' } %>
+								<%= f.input_field :visatype, collection: { 'A-1' => 'a1', 'A-2' => 'a2', 'A-3' => 'a3', 'C-1' => 'c1', 'C-2' => 'c2', 'C-3' => 'c3', 'C-4' => 'c4', 'D-1' => 'd1', 'D-2' => 'd2', 'D-3' => 'd3', 
+									'D-4' => 'd4', 'D-8' => 'd8', 'E-3' => 'e3', 'E-5' => 'e5', 'E-6' => 'e6', 'E-7' => 'e7', 'E-9' => 'e9', 'F-2' => 'f2', 'F-3' => 'f3', 'F-5' => 'f5', 'F-6' => 'f6' } %>
 								<i></i>
 							</label>
 						</section>

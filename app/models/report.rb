@@ -58,6 +58,5 @@ class Report
   field :aliencardname, type:String 
   field :photoname, type:String 
   
-  belongs_to :user , :class_name => "User", :inverse_of => :report
-  
+  belongs_to :user, :class_name => "User", :inverse_of => :report
 end

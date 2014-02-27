@@ -1,9 +1,10 @@
 class Immigration::VisaController < ApplicationController
   #GET /visa
   def index
-    if Visa.where(user_id: current_user).count > 0
-        redirect_to root_path
-     end
+    #if individual
+    #if Visa.where(user_id: current_user).count > 0
+        #redirect_to root_path
+     #end
   end
   
   #GET /new
@@ -70,20 +71,20 @@ class Immigration::VisaController < ApplicationController
       format.xml { render xml: @visa }
     end
   end
-
-  #GET /visa/:id/edit
-  def edit
-    @visa = Visa.find(params[:id])
-    if @visa.update(post_params)
-      redirect_to visa_path, :notice => 'You have updated your application data!'
+  
+  #PATCH, PUT /visa/:id
+  def update
+    @post = Visa.find(params[:id])
+    if @post.update(post_params)
+      redirect_to visa_index_path, :notice => 'You have updated your application data!'
     else
-      #render 'edit'
+      render 'edit'
     end
   end
   
-  #PATCH, PUT /visa
-  def update
-  
+  #GET /visa/:id/edit
+  def edit
+    @post = Visa.find_by(user_id: params[:id])
   end
   
   #DELETE /visa
@@ -93,7 +94,7 @@ class Immigration::VisaController < ApplicationController
   
   private
     def post_params
-      params.require(:visa).permit(:application_type, :category_type, :full_name, :sex, :email, :picture_path,
+      params.require(:post).permit(:application_type, :category_type, :full_name, :sex, :email,
       :placeBirth, :dateBirth, :marital_status, :nationality, :profession, :passport_no, :passport_no,
       :passport_issued, :passport_type, :passport_date_issued, :passport_date_expired, :sponsor_type_kr,
       :sponsor_name_kr, :sponsor_address_kr, :sponsor_phone_kr, :sponsor_type_id, :sponsor_name_id, 

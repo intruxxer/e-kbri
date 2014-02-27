@@ -4,28 +4,24 @@
 			</div>		
 			<!-- Red color scheme -->
 			<%= simple_form_for :passport, url: passport_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
-				<header>Formulir Pengurusan Dokumen Perjalanan (Paspor/SPLP) untuk WNI di Korea Selatan</header>
+				<header>Formulir Pengurusan Paspor/SPLP untuk WNI di Korea Selatan</header>
 				<fieldset>
 					<div class="row">
 						<section class="col col-6">
 							<label class="label">Tujuan Aplikasi</label>
 							<label class="select">
-							<select>
 								<%= f.input_field :applicationType, 
 								collection: { 'Perpanjang Paspor' => 'perpanjang-paspor', 
 								          	  'Pembuatan Paspor' => 'pembuatan-paspor', 'Pembuatan SPLP' => 'pembuatan-splp' } %>
-							</select>
 							<i></i>
 							</label>
 						</section>
 						<section class="col col-6">
 							<label class="label">Alasan Permohonan</label>
 							<label class="select">
-							<select>
 								<%= f.input_field :applicationReason, 
 								collection: { 'Paspor Habis (Masa Berlakunya)' => 'habis-masa', 'Paspor Habis (Halamannya)' => 'habis-halaman',
 								          	  'Memperpanjang Kontrak' => 'perpanjang-kontrak', 'Akan Pulang ke Indonesia' => 'pulang-indonesia' } %>
-							</select>
 							<i></i>
 							</label>
 						</section>
@@ -52,10 +48,10 @@
 							<label class="label">Pas Foto Digital</label>
 							<label for="file" class="input input-file">
 								<div class="button">
-								<div class="button">
 									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<%= f.input_field :photopath, readonly: true %>
 							</label>
+							<div class="note"><strong>Catatan:</strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB</div>
 						</section>			
 					</div>
 
@@ -79,10 +75,8 @@
 						<section class="col col-4">
 							<label class="label">Status Perkawinan</label>
 							<label class="select">
-							<select>
 								<%= f.input_field :marriageStatus, 
 								collection: { 'Belum Kawin' => '1', 'Kawin' => '2', 'Cerai' => '3' } %>
-							</select>
 							<i></i>
 							</label>
 						</section>
@@ -210,7 +204,7 @@
 					<button type="submit" class="button">Kirim Aplikasi</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
 				</footer>
-			</form>
+			<% end %>
 			<!--/ Red color scheme -->			
 </div>
 <script type="text/javascript">
