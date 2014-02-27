@@ -23,6 +23,7 @@ gem "jquery-rails"
 gem "turbolinks"
 gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
+gem 'jquery-turbolinks'
 
 group :development do
   gem "guard-rspec"
