@@ -74,9 +74,9 @@ class Immigration::VisaController < ApplicationController
   
   #PATCH, PUT /visa/:id
   def update
-    @post = Visa.find(params[:id])
-    if @post.update(post_params)
-      redirect_to visa_index_path, :notice => 'You have updated your application data!'
+    @visa = Visa.find(params[:id])
+    if @visa.update(post_params)
+      redirect_to root_path, :notice => 'You have updated your visa application data!'
     else
       render 'edit'
     end
@@ -84,7 +84,7 @@ class Immigration::VisaController < ApplicationController
   
   #GET /visa/:id/edit
   def edit
-    @post = Visa.find_by(user_id: params[:id])
+    @visa = Visa.find_by(user_id: params[:id])
   end
   
   #DELETE /visa
@@ -94,7 +94,7 @@ class Immigration::VisaController < ApplicationController
   
   private
     def post_params
-      params.require(:post).permit(:application_type, :category_type, :full_name, :sex, :email,
+      params.require(:visa).permit(:application_type, :category_type, :full_name, :sex, :email,
       :placeBirth, :dateBirth, :marital_status, :nationality, :profession, :passport_no, :passport_no,
       :passport_issued, :passport_type, :passport_date_issued, :passport_date_expired, :sponsor_type_kr,
       :sponsor_name_kr, :sponsor_address_kr, :sponsor_phone_kr, :sponsor_type_id, :sponsor_name_id, 

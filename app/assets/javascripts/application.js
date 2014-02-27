@@ -9,10 +9,12 @@
 //
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
+// Sequence of loading here IS VERY IMPORTANT: jQ, jQ-tlinks, jQ_ujs,.... tlinks!
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap
 //= require introjs
+//= require turbolinks
 //= require_tree .

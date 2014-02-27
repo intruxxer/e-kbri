@@ -3,7 +3,7 @@ class Visa
   include Mongoid::Timestamps
   
   field :application_type,       type: Integer 
-  field :category_type,          type: Integer
+  field :category_type,          type: String
   
   field :full_name,					     type: String
   field :sex,						         type: String  
