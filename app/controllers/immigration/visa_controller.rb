@@ -1,7 +1,7 @@
 class Immigration::VisaController < ApplicationController
   #GET /visa
   def index
-    #if individual
+    #if individual 1 person, 1 application
     #if Visa.where(user_id: current_user).count > 0
         #redirect_to root_path
      #end
@@ -74,7 +74,7 @@ class Immigration::VisaController < ApplicationController
   
   #PATCH, PUT /visa/:id
   def update
-    @visa = Visa.find(params[:id])
+    @visa = Visa.find_by(user_id: params[:id])
     if @visa.update(post_params)
       redirect_to root_path, :notice => 'You have updated your visa application data!'
     else

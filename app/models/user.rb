@@ -5,9 +5,10 @@ class User
   include User::Roles
 
   has_many :identities, :class_name => "Identity", :inverse_of => :user
-  has_many :passports, :class_name => "Passport", :inverse_of => :user
   has_many :visas, :class_name => "Visa", :inverse_of => :user
+  has_many :passports, :class_name => "Passport", :inverse_of => :user
   has_one :report
+  #has_one :passport
   #has_one :profile
   
 

@@ -39,7 +39,7 @@ class Immigration::ReportController < ApplicationController
   
   #PATCH, PUT /report/:id
   def update
-	  @post = Report.find(params[:id])
+	  @post = Report.find_by(user_id: params[:id])
     if @post.update(post_params)
     	 redirect_to root_path, :notice => 'Data Berhasil Diubah!'
     else

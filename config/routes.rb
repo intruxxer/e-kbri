@@ -7,6 +7,7 @@ EKbri::Application.routes.draw do
   get "passport", :to => "immigration/passport#index"
   
   get "immigration/report/index"  
+  get "report", :to => "immigration/report#index"
   
   get "marriage/info", :to => "immigration/marriage#info"  
   
