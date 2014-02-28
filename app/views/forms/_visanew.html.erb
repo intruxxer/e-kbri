@@ -41,11 +41,12 @@
 						</section>	
 						
 						<section class="col col-2">
-						  <div class="inline-group">
 						  <label class="label">Sex</label>
-							<label class="radio"><input type="radio" name="visa[sex]" value="M"><i></i>Male</label>
-							<label class="radio"><input type="radio" name="Visa[sex]" value="F"><i></i>Female</label>
-						  </div>
+						  <label class="select">
+						  		<%= f.input_field :sex, 
+								collection: { 'Male' => 'M', 'Female' => 'F' } %>
+								<i></i>
+						  </label>
 						</section>
 						
 					</div>
@@ -99,12 +100,12 @@
 						</section>
 						
 						<section class="col col-3">
-						  <div class="inline-group">
 						  <label class="label">Marital Status</label>
-							<label class="radio"><input type="radio" name="visa[marital_status]" value="M"><i></i>Married</label>
-							<label class="radio"><input type="radio" name="visa[marital_status]" value="S"><i></i>Single</label>
-							<label class="radio"><input type="radio" name="visa[marital_status]" value="W"><i></i>Widowed</label>
-						  </div>
+						  <label class="select">
+						  		<%= f.input_field :marital_status, 
+								collection: { 'Married' => 'M', 'Single' => 'S', 'Widow' => 'W' } %>
+								<i></i>
+						  </label>
 						</section>
 					</div>
 					
