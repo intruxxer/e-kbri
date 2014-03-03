@@ -34,14 +34,15 @@ class Immigration::ReportController < ApplicationController
    end
 		
 	 current_user.report = Report.new(post_params)
-	 redirect_to edit_report_path(current_user), :notice => 'Data Berhasil Disimpan!'
+	 redirect_to root_path(current_user), :notice => 'Data Diri Anda Berhasil Disimpan!'
   end
   
   #PATCH, PUT /report/:id
   def update
-	  @post = Report.find_by(user_id: params[:id])
+	  #@post = Report.find_by(user_id: params[:id])
+	  @post = Report.find(params[:id])
     if @post.update(post_params)
-    	 redirect_to root_path, :notice => 'Data Berhasil Diubah!'
+    	 redirect_to root_path, :notice => 'Data Diri Anda Berhasil Diubah!'
     else
     	 render 'edit'
     end
@@ -49,6 +50,7 @@ class Immigration::ReportController < ApplicationController
   
   def edit   
 	   @post = Report.find_by(user_id: params[:id])
+	   #@post = Report.find(params[:id])
   end
   
   private
@@ -58,8 +60,14 @@ class Immigration::ReportController < ApplicationController
 		:koreanphone, :koreanaddress, :koreanaddresscity, :koreanaddressprovince, :koreanaddresspostalcode, :indonesianphone, :indonesianaddress, :indonesianaddresskelurahan, 
 		:indonesianaddresskecamatan, :indonesianaddresskabupaten, :indonesianaddressprovince, :indonesianaddresspostalcode, :relationname, :relationstatus, :relationaddress,
 		:relationphone, :relationaddresskelurahan, :relationaddresskecamatan, :relationaddresskabupaten, :relationaddressprovince, :relationaddresspostalcode, :arrivaldate, :indonesianinstance,
-		:pasporname, :aliencardname, :photoname)
+		:pasporname, :aliencardname, :photoname).merge(owner_id: current_user.id, ref_id: 'R-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
 	end
- 
+  
+  def generate_string(length=5)
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789'
+      password = ''
+      length.times { |i| password << chars[rand(chars.length)] }
+      password = password.upcase
+  end
   
 end

@@ -4,11 +4,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
-    	u.permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    	u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :passport, :id_card, :citizenship, :origin, :individual)
     end
     
     devise_parameter_sanitizer.for(:account_update) do |u|
-    	u.permit(:first_name, :last_name, :email, :passport, :id_card, :citizenship, :password, :password_confirmation, :current_password)
+    	u.permit(:first_name, :last_name, :email, :passport, :id_card, :citizenship, :origin, :individual, :password, :password_confirmation, :current_password)
     end
   end
   

@@ -12,14 +12,14 @@
 										<h4>Rekapitulasi Lapor Diri via e-KBRI</h4>										
 									</div>
 									<div class="panel-body">
-										<% if @userreport then %>
+										<% if @userreport.count > 0 then %>
 										<table class="table table-striped table-bordered table-hover" id="sample-table-2">
 											<thead>
 												<tr>																										
 													<th>No. Pendaftaran Diri</th>
 													<th><center>Timestamp</center></th>													
 													<th><center>Status</center></th>	
-													<th><center>Perbaharui</center></th>
+													<th><center>Perbaharui Data</center></th>
 												</tr>
 											</thead>
 											<tbody>												
@@ -27,9 +27,9 @@
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
 													<td class="center"><%= t.updated_at %></td>	
-													<td class="center"><%= t.status %></td>													
+													<td class="center"><%= "Terdaftar di KBRI Seoul" %></td>													
 													<td class="center">
-													<%= link_to 'Edit', edit_report_path(t.id) %>
+													<%= link_to 'Edit', edit_report_path(t.user_id) %>
 													</td>
 												</tr>												
 												<% end %>
@@ -54,14 +54,17 @@
 										<h4>Visa Application Recapitulation via e-KBRI</h4>										
 									</div>
 									<div class="panel-body">
-										<% if @uservisa %>
+										<% if @uservisa .count > 0 %>
 										<table class="table table-striped table-bordered table-hover" id="sample-table-2">
 											<thead>
 												<tr>																										
 													<th>Reference No.</th>
 													<th><center>Timestamp</center></th>													
 													<th><center>Status</center></th>	
-													<th></th>
+													<th><center>Amendment</center></th>
+													<th><center></center></th>
+													<th><center></center></th>
+													<th><center></center></th>
 												</tr>
 											</thead>
 											<tbody>												
@@ -71,7 +74,28 @@
 													<td class="center"><%= t.updated_at %></td>	
 													<td class="center"><%= t.status %></td>													
 													<td class="center">
-													<%= link_to 'Edit', edit_visa_path(t.id) %>
+													<%= link_to edit_visa_path(t.id) do %>
+														<span class="glyphicon glyphicon-pencil"></span>
+														<span class="glyphicon-class">Edit</span>
+													<% end %>
+													</td>
+													<td class="center">
+														<%= link_to('/reapply/visa/'+t.id) do %>
+														<span class="glyphicon glyphicon-export"></span>
+														<span class="glyphicon-class">Re-apply Visa</span>
+														<% end %>
+													</td>
+													<td class="center">
+														<%= link_to('/delete/visa/'+t.id) do %>
+														<span class="glyphicon glyphicon-trash"></span>
+														<span class="glyphicon-class">Delete</span>
+														<% end %>
+													</td>
+													<td class="center">
+														<%= link_to('/download/visa/'+t.id) do %>
+														<span class="glyphicon glyphicon-save"></span>
+														<span class="glyphicon-class">Download</span>
+														<% end %>
 													</td>
 												</tr>												
 												<% end %>
@@ -96,14 +120,17 @@
 										<h4>Rekapitulasi Aplikasi Paspor via e-KBRI</h4>										
 									</div>
 									<div class="panel-body">
-										<% if @userpassport %>
+										<% if @userpassport.count > 0 %>
 										<table class="table table-striped table-bordered table-hover" id="sample-table-2">
 											<thead>
 												<tr>																										
 													<th>No. Referensi Aplikasi</th>
-													<th><center>Timestamp</center></th>													
+													<th><center>Waktu Aplikasi</center></th>													
 													<th><center>Status</center></th>	
-													<th></th>
+													<th><center>Pengubahan</center></th>
+													<th><center></center></th>
+													<th><center></center></th>
+													<th><center></center></th>
 												</tr>
 											</thead>
 											<tbody>												
@@ -113,7 +140,28 @@
 													<td class="center"><%= t.updated_at %></td>	
 													<td class="center"><%= t.status %></td>													
 													<td class="center">
-													<%= link_to 'Edit', edit_passport_path(t.id) %>
+													<%= link_to edit_passport_path(t.owner_id) do %>
+														<span class="glyphicon glyphicon-pencil"></span>
+														<span class="glyphicon-class">Edit</span>
+													<% end %>
+													</td>
+													<td class="center">
+														<%= link_to('/reapply/passport/'+t.id) do %>
+														<span class="glyphicon glyphicon-export"></span>
+														<span class="glyphicon-class">Ajukan ke KBRI Lagi</span>
+														<% end %>
+													</td>
+													<td class="center">
+														<%= link_to('/delete/passport/'+t.id) do %>
+														<span class="glyphicon glyphicon-trash"></span>
+														<span class="glyphicon-class">Buang Berkas</span>
+														<% end %>
+													</td>
+													<td class="center">
+														<%= link_to('/download/passport/'+t.id) do %>
+														<span class="glyphicon glyphicon-save"></span>
+														<span class="glyphicon-class">Unduh Berkas</span>
+														<% end %>
 													</td>
 												</tr>												
 												<% end %>

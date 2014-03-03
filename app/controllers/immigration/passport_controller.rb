@@ -85,4 +85,10 @@ class Immigration::PassportController < ApplicationController
     #def post_params
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
     #end
+    def generate_string(length=5)
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789'
+      password = ''
+      length.times { |i| password << chars[rand(chars.length)] }
+      password = password.upcase
+    end
 end

@@ -6,6 +6,7 @@
 			
 			<%= simple_form_for :post, url: report_path(@post), method: :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
+				<fieldset>No. Urut Lapor Diri: <b><%= @post.ref_id %></b></fieldset>
 				<fieldset>
 					<legend style="float:left;margin-bottom:28px;">Informasi Diri dan Kelengkapan Dokumen</legend>
 					<div class="row">
@@ -17,7 +18,7 @@
 							</label>
 						</section>	
 						<section class="col col-4">
-							<label class="label">Tinggi Badan</label>
+							<label class="label">Tinggi Badan (cm)</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :height %>

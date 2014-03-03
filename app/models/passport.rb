@@ -29,9 +29,8 @@ class Passport
   field :sendingParty,           type: Integer
   
   field :photopath,              type: String
-  
-  field :citizenship_country,    type: String
-  field :status,                 type: String, default: 'Received'
+
+  field :status,                 type: String, default: 'Diterima oleh KBRI'
   
   belongs_to :user, :class_name => "User", :inverse_of => :passport
 end

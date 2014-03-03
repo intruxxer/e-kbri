@@ -1,8 +1,41 @@
-<h2>Akses Masuk Sistem E-KBRI</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
-  <%= f.input :email, :autofocus => true %>
-  <%= f.input :password %>
-  <%= f.input :remember_me, :as => :boolean, :wrapper => :inline_checkbox if devise_mapping.rememberable? %>
-  <%= f.button :submit, "Sign in", :class => 'btn-primary' %>
+<div class="body" style="padding-top: 20px;">
+<div style="text-align: center;">
+  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+</div>
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'sky-form' }) do |f| %>
+  <header>Login Authentication for E-KBRI Access</header>
+  <fieldset>
+	<div class="row">
+		<section class="col col-5">
+		  <label class="label">Email</label>
+		  <label class="input">
+		    <%= f.input_field :email, :autofocus => true %>
+		    <i class="icon-append icon-envelope"></i>
+		  </label>
+		</section>
+		<section class="col col-5">
+		  <label class="label">Password</label>
+	      <label class="input">
+		    <%= f.input_field :password %>
+		    <i class="icon-append icon-lock"></i>
+		  </label>
+		</section>
+  		<!--
+  		<section class="col col-2">
+  			<label class="label">&nbsp;</label>
+  			<label class="checkbox">
+  				<input class="boolean optional" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"><i></i>Keep Me Signed In
+  			</label>
+  		</section>  
+  		-->
+	</div>
+	
+  </fieldset>
+  <footer>
+	<button type="submit" class="button">Sign In</button>
+	<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
+  </footer>
+  <fieldset>&copy; 2013-2014 by The Embassy of Republic of Indonesia in Seoul. All Rights Reserved.</fieldset>
 <% end %>
-<%= render "devise/shared/links" %>
+</div>
+
