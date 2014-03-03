@@ -4,6 +4,11 @@
   <%= f.input :first_name, :autofocus => true %>
   <%= f.input :last_name %>
   <%= f.input :email, :required => true %>
+  <%= f.input_field :citizenship, 
+	  collection: { 'Indonesian' => 'true', 'Foreigner' => 'false' } %>
+  <%= f.input :citizenship_country, priority: [ "South Korea" ] %>
+  <%= f.input_field :individual, 
+	  collection: { 'Personal' => 'true', 'Travel Agency' => 'false' } %>
   <%= f.input :password, :required => true %>
   <%= f.input :password_confirmation, :required => true %>
   <br />
