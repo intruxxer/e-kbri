@@ -24,7 +24,7 @@
 												</tr>
 											</thead>
 											<tbody>												
-												<% @latestreportdata.each do |t| %>
+												<% @userreport.each do |t| %>
 												<tr>													
 													<td align="left"><%= t[1]["name"] %></td>
 													<td class="center"><%= t[1]["timestamp"] %></td>	
@@ -104,7 +104,7 @@
 												</tr>
 											</thead>
 											<tbody>												
-												<% @latestpassportdata.each do |t| %>
+												<% @userpassport.each do |t| %>
 												<tr>													
 													<td align="left"><%= t[1]["name"] %></td>
 													<td class="center"><%= t[1]["timestamp"] %></td>	
