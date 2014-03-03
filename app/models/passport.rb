@@ -2,6 +2,8 @@ class Passport
   include Mongoid::Document
   include Mongoid::Timestamps
   
+  field :owner_id,               type: String
+  field :ref_id,                 type: String
   field :application_type,       type: String 
   field :application_reason,     type: String
   
@@ -27,6 +29,8 @@ class Passport
   field :sendingParty,           type: Integer
   
   field :photopath,              type: String
+  
+  field :status,                 type: String, default: 'Received'
   
   belongs_to :user, :class_name => "User", :inverse_of => :passport
 end

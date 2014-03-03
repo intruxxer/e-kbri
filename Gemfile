@@ -24,6 +24,7 @@ gem "turbolinks"
 gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
 gem 'jquery-turbolinks'
+gem 'country_select'
 
 group :development do
   gem "guard-rspec"
