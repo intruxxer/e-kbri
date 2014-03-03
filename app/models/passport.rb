@@ -30,6 +30,7 @@ class Passport
   
   field :photopath,              type: String
   
+  field :citizenship_country,    type: String
   field :status,                 type: String, default: 'Received'
   
   belongs_to :user, :class_name => "User", :inverse_of => :passport
