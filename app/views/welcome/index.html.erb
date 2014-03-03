@@ -19,17 +19,17 @@
 													<th>No. Pendaftaran Diri</th>
 													<th><center>Timestamp</center></th>													
 													<th><center>Status</center></th>	
-													<th></th><th></th>
+													<th><center>Perbaharui</center></th>
 												</tr>
 											</thead>
 											<tbody>												
 												<% @userreport.each do |t| %>
 												<tr>													
-													<td align="left"><%= t[1]["name"] %></td>
-													<td class="center"><%= t[1]["timestamp"] %></td>	
-													<td class="center"><%= t[1]["status"] %></td>													
+													<td align="left"><%= t.ref_id %></td>
+													<td class="center"><%= t.updated_at %></td>	
+													<td class="center"><%= t.status %></td>													
 													<td class="center">
-													<%= link_to 'Edit', t[1]["link"] %>
+													<%= link_to 'Edit', edit_report_path(t.id) %>
 													</td>
 												</tr>												
 												<% end %>
