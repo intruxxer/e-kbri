@@ -2,6 +2,8 @@ class Visa
   include Mongoid::Document
   include Mongoid::Timestamps
   
+  field :owner_id,               type: String
+  field :ref_id,                 type: String
   field :application_type,       type: Integer 
   field :category_type,          type: String
   
@@ -71,6 +73,8 @@ class Visa
   field :passportpath,           type: String
   field :idcardpath,             type: String 
   field :photopath,              type: String
+  
+  field :status,                 type: String, default: 'Received'
   
   belongs_to :user, :class_name => "User", :inverse_of => :visa
 

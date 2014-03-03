@@ -1,13 +1,10 @@
 EKbri::Application.routes.draw do
   
-  get "immigration/visa/index"
-  get "visa", :to => "immigration/visa#index"
-  
-  get "immigration/passport/index"
-  get "passport", :to => "immigration/passport#index"
-  
-  get "immigration/report/index"  
-  get "report", :to => "immigration/report#index"
+  resources :users
+  resources :batch 
+  resources :visa, controller: 'immigration/visa'
+  resources :passport, controller: 'immigration/passport'
+  resources :report, controller: 'immigration/report'
   
   get "marriage/info", :to => "immigration/marriage#info"  
   
@@ -45,14 +42,6 @@ EKbri::Application.routes.draw do
   devise_scope :user do 
     get "/users/sign_out" => "devise/sessions#destroy" 
   end 
-
-  resources :users
-  resources :batch 
-  
-  resources :visa, controller: 'immigration/visa'
-  resources :passport, controller: 'immigration/passport'
-  resources :report, controller: 'immigration/report'
-  #resources :marriage, controller: 'immigration/marriage'
   
   #resources :dashboard_immigration, path: "dashboard/immigration"
   
