@@ -2,9 +2,9 @@ EKbri::Application.routes.draw do
   
   resources :users
   resources :batch 
-  resources :visa, controller: 'immigration/visa'
-  resources :passport, controller: 'immigration/passport'
-  resources :report, controller: 'immigration/report'
+  resources :visas, controller: 'immigration/visa'
+  resources :passports, controller: 'immigration/passport'
+  resources :reports, controller: 'immigration/report'
   
   get "marriage/info", :to => "immigration/marriage#info"  
   
