@@ -6,10 +6,9 @@ EKbri::Application.routes.draw do
   resources :passports, controller: 'immigration/passport'
   resources :reports, controller: 'immigration/report'
   
-  get "marriage/info", :to => "immigration/marriage#info"  
+ 
   
-  get "visasync", :to => "batch#syncvisamongotoaccess"
-  get "reversevisasync", :to => "batch#reversesyncvisamongotoaccess"  
+  get "marriage/info", :to => "immigration/marriage#info"   
   
   get "dashboard/index"
   get "dashboard/counsel"

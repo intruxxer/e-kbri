@@ -13,15 +13,16 @@ class User
   
 
 
-  field :email, type: String
-  field :image, type: String
-  field :first_name, type: String
-  field :last_name, type: String
-  field :passport, type: String
-  field :id_card, type: String
-  field :citizenship, type: Boolean, default: true
+  field :email,         type: String
+  field :image,         type: String
+  field :first_name,    type: String
+  field :last_name,     type: String
+  field :passport,      type: String
+  field :id_card,       type: String
+  field :citizenship,   type: Boolean, default: true
+  field :individual,    type: Boolean, default: true
 
-  field :roles_mask, type: Integer
+  field :roles_mask,    type: Integer
   
   validates_presence_of :email, :first_name, :last_name
 
