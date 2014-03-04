@@ -2,9 +2,10 @@ class Immigration::PassportController < ApplicationController
   #GET /passport
   def index
     #1 Person, 1 Application in 5 years
-    if Passport.where(user_id: current_user).count > 0
-        redirect_to root_path
-     end
+    #if Passport.where(user_id: current_user).count > 0
+    #    redirect_to edit_passport_path(current_user)
+    #end
+    #We comment this as we want to enable multiple paspors and/or SPLPs
   end
   
   #GET /new
@@ -24,17 +25,24 @@ class Immigration::PassportController < ApplicationController
   
   #POST /passport
   def create
-   uploaded_passport_picture = params[:passport][:photo]
-   if (uploaded_passport_picture != nil)
+    uploaded_passport_picture = params[:passport][:photo]
+    if (uploaded_passport_picture != nil)
       new_pass_picture = uploaded_passport_picture.read
       File.open(Rails.root.join('public', 'uploads', uploaded_passport_picture.original_filename), 'wb') do |file|
         file.write(uploaded_passport_picture)
       end
-   end
+    end
+    
+    uploaded_paymentslip_picture = params[:passport][:slip_photo]
+    if (uploaded_paymentslip_picture != nil)
+      new_pay_picture = uploaded_paymentslip_picture.read
+      File.open(Rails.root.join('public', 'uploads', uploaded_paymentslip_picture.original_filename), 'wb') do |file|
+        file.write(uploaded_paymentslip_picture)
+      end
+    end
    
     @passport = [ Passport.new(post_params) ]    
     if current_user.passports = @passport then
-      
       UserMailer.passport_received_email(current_user).deliver
       respond_to do |format|
         format.html { redirect_to root_path, :notice => "Pengurusan aplikasi paspor anda, berhasil!" }
@@ -47,7 +55,6 @@ class Immigration::PassportController < ApplicationController
     redirect_to :back, :notice => "Mohon maaf, Aplikasi pengurusan paspor anda gagal diproses."
     #do something further 
     end
-  
     #debugging
     #logger.debug "We are inspecting PASSPORT PROCESSING PARAMS as follows:"
     #puts params.inspect
@@ -56,12 +63,14 @@ class Immigration::PassportController < ApplicationController
   
   #GET /passport/:id/edit
   def edit
-    @passport = Passport.find_by(user_id: params[:id])
+    #@passport = Passport.find_by(user_id: params[:id])
+    @passport = Passport.find(params[:id])
   end
   
   #PATCH, PUT /passport/:id
   def update
-    @passport = Passport.find_by(user_id: params[:id])
+    @passport = Passport.find(params[:id])
+    #@passport = Passport.find_by(user_id: params[:id])
     if @passport.update(post_params)
       redirect_to root_path, :notice => 'Anda telah berhasil memperbaharui data pengurusan paspor anda!'
     else
@@ -78,7 +87,7 @@ class Immigration::PassportController < ApplicationController
     def post_params
       params.require(:passport).permit( :application_type, :application_reason, :full_name, :height, :placeBirth, :dateBirth,              
       :marriage_status, :lastPassportNo, :dateIssued, :placeIssued, :jobStudyInKorea, :jobStudyOrganization, :jobStudyAddress, 
-      :phoneKorea, :addressKorea, :phoneIndonesia, :addressIndonesia, :dateArrival, :sendingParty, :photopath).merge(owner_id: current_user.id, 
+      :phoneKorea, :addressKorea, :phoneIndonesia, :addressIndonesia, :dateArrival, :sendingParty, :photopath, :status, :payment_slip).merge(owner_id: current_user.id, 
       ref_id: 'P-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
     end
     #Notes: to add attribute/variable after POST params received, do
@@ -86,7 +95,7 @@ class Immigration::PassportController < ApplicationController
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
     #end
     def generate_string(length=5)
-      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789'
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
       password = ''
       length.times { |i| password << chars[rand(chars.length)] }
       password = password.upcase

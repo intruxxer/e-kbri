@@ -24,7 +24,10 @@ EKbri::Application.routes.draw do
   
   resources :users
   
-  get "marriage/info", :to => "immigration/marriage#info"   
+  get "infovisas", :to => "immigration/visa#info"   
+  get "infopassports", :to => "immigration/passport#info"
+  get "inforeports", :to => "immigration/report#info"
+  get "marriage/info", :to => "immigration/marriage#info"
   
   get "dashboard/index"
   get "dashboard/counsel"

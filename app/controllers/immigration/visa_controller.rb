@@ -5,6 +5,7 @@ class Immigration::VisaController < ApplicationController
     #if Visa.where(user_id: current_user).count > 0
         #redirect_to root_path
      #end
+     #We will have passport
   end
   
   #GET /new
@@ -39,10 +40,16 @@ class Immigration::VisaController < ApplicationController
       end
    end
    
+   uploaded_paymentslip_picture = params[:visa][:slip_photo]
+   if (uploaded_paymentslip_picture != nil)
+      new_pay_picture = uploaded_paymentslip_picture.read
+      File.open(Rails.root.join('public', 'uploads', uploaded_paymentslip_picture.original_filename), 'wb') do |file|
+        file.write(uploaded_paymentslip_picture)
+      end
+   end
      
-    @visa = [ Visa.new(post_params) ]    
+   @visa = [ Visa.new(post_params) ]    
     if current_user.visas = @visa then
-      
       UserMailer.visa_received_email(current_user).deliver
       respond_to do |format|
         format.html { redirect_to root_path, :notice => "Your visa application is successfully received!" }
@@ -55,8 +62,7 @@ class Immigration::VisaController < ApplicationController
     redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
     #do something further 
     end
-  
-    #debugging
+    #*Debugging*#
     #logger.debug "We are inspecting VISA PROCESSING PARAMS as follows:"
     #puts params.inspect
     #puts @visa.inspect
@@ -85,7 +91,8 @@ class Immigration::VisaController < ApplicationController
   
   #GET /visa/:id/edit
   def edit
-    #@visa = Visa.find_by(user_id: params[:id])
+    #Why NOT searching based on user_id? because there will be MULTIPLE visas/users
+    #Hence, NOT @visa = Visa.find_by(user_id: params[:id]), but
     @visa = Visa.find(params[:id])
   end
   
@@ -105,15 +112,15 @@ class Immigration::VisaController < ApplicationController
       :tr_count_dest, :tr_flight_vessel, :tr_air_sea_port, :tr_date_entry, :lim_s_purpose, 
       :lim_s_flight_vessel, :lim_s_air_sea_port, :lim_s_date_entry, :v_purpose, :v_flight_vessel,
       :v_air_sea_port, :v_date_entry, :dip_purpose, :dip_flight_vessel, :dip_air_sea_port, :dip_date_entry, :o_purpose, 
-      :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passportpath, :idcardpath, :photopath).merge(owner_id: current_user.id, 
-      ref_id: 'V-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
+      :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passportpath, :idcardpath, :photopath, :status, :payment_slip
+      ).merge(owner_id: current_user.id, ref_id: 'V-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
     #end
     def generate_string(length=5)
-      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789'
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
       password = ''
       length.times { |i| password << chars[rand(chars.length)] }
       password = password.upcase

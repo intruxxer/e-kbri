@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :first_name, :last_name, :roles => []) }
+    devise_parameter_sanitizer.for(:account_update) { |u| 
+      u.permit(:username, :first_name, :last_name, :email, :passport, :id_card, :citizenship, :origin, :individual, :password, :password_confirmation, :current_password, :roles => []) }
   end
 
 end

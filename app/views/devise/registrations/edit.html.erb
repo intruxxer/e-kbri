@@ -1,16 +1,107 @@
-<h2>Edit Profil Diri</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
-  <%= f.input :first_name, :autofocus => true %>
-  <%= f.input :last_name %>
-  <%= f.input :email, :required => true %>
-  <% if current_user.password_required? %>
-    <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-    <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-  <% end %>
-  <br />
-  <%= f.button :submit, 'Update', :class => 'btn-primary' %>
+<div class="body" style="padding-top: 20px;">
+<div style="text-align: center;">
+  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+</div>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'sky-form' }) do |f| %>
+  <header>E-KBRI Account Modification</header>
+  <fieldset>
+	<div class="row">
+		<section class="col col-4">
+		  <label class="label">First Name</label>
+	      <label class="input">
+		    <%= f.input_field :first_name, :autofocus => true %>
+		    <i class="icon-append icon-user"></i>
+		  </label>
+		</section>
+		<section class="col col-4">
+		  <label class="label">Last Name</label>
+	      <label class="input">
+  		    <%= f.input_field :last_name %>
+  		    <i class="icon-append icon-user"></i>
+  		  </label>
+		</section>
+		<section class="col col-4">
+		  <label class="label">Email</label>
+		  <label class="input">
+		    <%= f.input_field :email, :required => true %>
+		    <i class="icon-append icon-envelope"></i>
+		  </label>
+		</section>
+	</div>
+  </fieldset>
+  
+    
+    <fieldset>
+  	<div class="row">
+		<section class="col col-4">
+		  <label class="label">Password</label>
+	      <label class="input">
+		    <%= f.input_field :password, :required => true, :autocomplete => "off", :hint => "Leave it blank if you don't want to change it", :required => false %>
+		    <i class="icon-append icon-lock"></i>
+		  </label>
+		</section>
+		<section class="col col-4">
+		  <label class="label">Password Confirmation</label>
+	      <label class="input">
+  		    <%= f.input_field :password_confirmation, :required => false %>
+  		    <i class="icon-append icon-lock"></i>
+  		  </label>
+		</section>
+		<section class="col col-4">
+		  <label class="label">Your Current Password</label>
+	      <label class="input">
+  		    <%= f.input_field :current_password, :hint => "We need your current password to confirm your changes", :required => true %>
+  		    <i class="icon-append icon-lock"></i>
+  		  </label>
+  		  <div class="note"><strong>Note:</strong> We require your current password to confirm your changes.</div>
+		</section>
+	</div>
+  </fieldset>
+  <!--<p><*% =begin <*% if current_user.password_required? %> =end %><*% =begin <*% end %> =end %></p>-->
+    
+  <fieldset>
+	<div class="row">
+		<section class="col col-3">
+		  <label class="label">Did you falsely admit as being Indonesian?</label>
+		  <label class="select">
+		    <%= f.input_field :citizenship, collection: { 'Nope, I am indeed Indonesia Citizen' => 'true', 'Yes, Actually I am Foreigner' => 'false' } %>
+		  <i></i>
+		  </label>
+		</section>
+		<section class="col col-3">
+		  <label class="label">Country of Origin</label>
+	      <label class="input">
+		    <%= f.input_field :origin %>
+		    <i class="icon-append icon-globe"></i>
+		  </label>
+		  <div class="note"><strong>Note:</strong> Please correct your country of origin if you previously made mistake.</div>
+		</section>
+		<section class="col col-3">
+		  <label class="label">Passport No.</label>
+	      <label class="input">
+  		    <%= f.input_field :passport %>
+  		    <i class="icon-append icon-book"></i>
+  		  </label>
+		</section>
+		<section class="col col-3">
+		  <label class="label">Alien Card No.</label>
+	      <label class="input">
+  		    <%= f.input_field :id_card %>
+  		    <i class="icon-append icon-book"></i>
+  		  </label>
+		</section>
+	</div>
+  </fieldset>
+  
+  <footer>
+	<button type="submit" class="button">Update</button>
+	<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
+  </footer>
+  <fieldset>&copy; 2013-2014 by The Embassy of Republic of Indonesia in Seoul. All Rights Reserved.</fieldset>
 <% end %>
+</div>
+
+
 <h3>Hapus akun di E-KBRI</h3>
 <p>Ada kesalahan? Enggan menggunakan layanan E-KBRI? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
 

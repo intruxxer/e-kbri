@@ -67,7 +67,7 @@
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
 						</section>
-						
+						`
 						<section class="col col-4">
 							<label class="label">Scanned ID Card</label>
 							<label for="file" class="input input-file">
@@ -530,8 +530,22 @@
 					</section>				
 				</fieldset>
 				
+				<fieldset>
+					<div class="row">
+						<section class="col col-12">
+							<label class="label"> Scanned/Photographed Payment Slip for Visa</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :slip_photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<%= f.input_field :payment_slip, readonly: true %>
+							</label>
+							<div class="note"><strong>Catatan:</strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB</div>
+						</section>			
+					</div>
+				</fieldset>
+				
 				<footer>
-					<button type="submit" class="button">Submit</button>
+					<button type="submit" class="button">Update Application</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
 				</footer>
 			<% end %>

@@ -31,6 +31,7 @@ class Passport
   field :photopath,              type: String
 
   field :status,                 type: String, default: 'Diterima oleh KBRI'
+  field :payment_slip,           type: String
   
   belongs_to :user, :class_name => "User", :inverse_of => :passport
 end
