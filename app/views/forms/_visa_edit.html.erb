@@ -532,7 +532,7 @@
 				
 				<fieldset>
 					<div class="row">
-						<section class="col col-12">
+						<section class="col col-6">
 							<label class="label"> Scanned/Photographed Payment Slip for Visa</label>
 							<label for="file" class="input input-file">
 								<div class="button">
@@ -540,7 +540,14 @@
 									<%= f.input_field :payment_slip, readonly: true %>
 							</label>
 							<div class="note"><strong>Catatan:</strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB</div>
-						</section>			
+						</section>	
+						<section class="col col-6">
+							<label class="label">Date of Visa Fee Payment</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :payment_date, class: 'datePick' %>
+							</label>
+						</section>		
 					</div>
 				</fieldset>
 				
