@@ -30,9 +30,9 @@ class Passport
   
   field :photopath,              type: String
 
-  field :status,                 type: String, default: 'Diterima oleh KBRI'
+  field :status,                 type: String, default: 'Received'
   field :payment_slip,           type: String
-  field :payment_date,              type: Date
+  field :payment_date,           type: Date
   
   belongs_to :user, :class_name => "User", :inverse_of => :passport
 end

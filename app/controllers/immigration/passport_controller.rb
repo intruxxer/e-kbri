@@ -87,8 +87,8 @@ class Immigration::PassportController < ApplicationController
     def post_params
       params.require(:passport).permit( :application_type, :application_reason, :full_name, :height, :placeBirth, :dateBirth,              
       :marriage_status, :lastPassportNo, :dateIssued, :placeIssued, :jobStudyInKorea, :jobStudyOrganization, :jobStudyAddress, 
-      :phoneKorea, :addressKorea, :phoneIndonesia, :addressIndonesia, :dateArrival, :sendingParty, :photopath, :status, :payment_slip).merge(owner_id: current_user.id, 
-      ref_id: 'P-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
+      :phoneKorea, :addressKorea, :phoneIndonesia, :addressIndonesia, :dateArrival, :sendingParty, :photopath, :status, :payment_slip,
+      :payment_date).merge(owner_id: current_user.id, ref_id: 'P-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params

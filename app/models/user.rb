@@ -11,7 +11,8 @@ class User
   #has_one :passport
   #has_one :profile
   
-  before_create :default_role, :assign_ref_id
+  before_create :assign_ref_id
+  after_create :default_role
 
   field :ref_id,          type: String
   field :email,           type: String
@@ -24,7 +25,7 @@ class User
   field :origin,          type: String, default: "Indonesia"
   field :individual,      type: Boolean, default: true
 
-  field :roles_mask,      type: Integer, default: 7 #user (7), moderator (4), and admin (1)
+  field :roles_mask,      type: Integer, default: 7
   
   validates_presence_of :email, :first_name, :last_name
 
@@ -37,7 +38,6 @@ class User
   private
   def default_role
     self.roles = ['user']
-    self.roles_mask = 7
   end
   def assign_ref_id
     self.ref_id = generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s+generate_string(3)

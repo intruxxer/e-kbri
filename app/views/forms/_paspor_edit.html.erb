@@ -6,7 +6,25 @@
 			
 			<%= simple_form_for :passport, url: passport_path(@passport), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Formulir Pengurusan Paspor/SPLP untuk WNI di Korea Selatan</header>
-				<fieldset>No. Aplikasi Paspor: <b><%= @passport.ref_id %></b></fieldset>
+				<fieldset>
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">No. Aplikasi Paspor:</label>
+							<b><%= @passport.ref_id %></b>
+						</section>
+						<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+						<section class="col col-6">
+							<label class="label">Status Aplikasi</label>
+							<label class="select">
+								<%= f.input_field :status, 
+								collection: { 'Diterima oleh KBRI' => 'Received', 'Data sudah terverifikasi' => 'Verified',
+								          	  'Pembayaran sudah diterima' => 'Paid', 'Permohonan ditolak' => 'Rejected', 'Wawancara diperlukan' => 'Interview Needed' } %>
+							<i></i>
+							</label>
+						</section>
+						<% end %
+					</div>
+				</fieldset>
 				<fieldset>
 					<div class="row">
 						<section class="col col-6">
