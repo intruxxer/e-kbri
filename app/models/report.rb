@@ -59,6 +59,7 @@ class Report
   field :pasporname,                type:String
   field :aliencardname,             type:String 
   field :photoname,                 type:String 
+  field :stayinkorea,               type:Boolean, default: true
   
   belongs_to :user, :class_name => "User", :inverse_of => :report
 end

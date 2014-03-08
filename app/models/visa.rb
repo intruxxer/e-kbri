@@ -6,6 +6,7 @@ class Visa
   field :ref_id,                 type: String
   field :application_type,       type: Integer 
   field :category_type,          type: String
+  field :visa_type,              type: Integer #1 = individual, #2 = Family, 3 = Group
   
   field :full_name,					     type: String
   field :sex,						         type: String  
@@ -73,10 +74,13 @@ class Visa
   field :passportpath,           type: String
   field :idcardpath,             type: String 
   field :photopath,              type: String
+  field :ticketpath,             type: String
+  field :sup_docpath,            type: String
   
   field :status,                 type: String, default: 'Received'
   field :payment_slip,           type: String
   field :payment_date,           type: Date
+  field :vipa_no,                type: Integer
   
   belongs_to :user, :class_name => "User", :inverse_of => :visa
 

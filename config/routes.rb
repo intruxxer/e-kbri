@@ -1,6 +1,7 @@
-EKbri::Application.routes.draw do
-  resources :batch 
+EKbri::Application.routes.draw do 
   resources :visas, controller: 'immigration/visa'
+  resources :visafamilys, controller: 'immigration/visafamily'
+  resources :visagroups, controller: 'immigration/visagroup'
   resources :passports, controller: 'immigration/passport'
   resources :reports, controller: 'immigration/report'
   
@@ -42,6 +43,10 @@ EKbri::Application.routes.draw do
   get "welcome/concept"
   get "concept/index"
   get "concept", :to => "concept#index"
+  
+  #Unit Test Framework#
+  get "playground", :to => "playground#index"
+  get "test", :to => "playground#test"
   
   #resources :dashboard_immigration, path: "dashboard/immigration"
   

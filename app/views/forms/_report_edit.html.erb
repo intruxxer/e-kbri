@@ -6,7 +6,23 @@
 			
 			<%= simple_form_for :post, url: report_path(@post), method: :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
-				<fieldset>No. Urut Lapor Diri: <b><%= @post.ref_id %></b></fieldset>
+				<fieldset>
+				  <div class="row">
+				  	<section class="col col-8">
+				  		<label class="label" for='nourut' >No. Urut Lapor Diri:</label>
+							<label class="input">
+				  	 			<b><%= @post.ref_id %></b>
+				  	 		</label>
+				  	</section>
+					<section class="col col-4">
+							<label class="label" for='stayinkorea' >Status Tinggal</label>
+							<label class="select">
+							<%= f.input_field :stayinkorea, collection: { 'Masih di Korea'=> true ,'Sudah Pulang'=> false } %>							
+							<i></i>
+							</label>
+					</section>
+				  </div>
+				</fieldset>
 				<fieldset>
 					<legend style="float:left;margin-bottom:28px;">Informasi Diri dan Kelengkapan Dokumen</legend>
 					<div class="row">

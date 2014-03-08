@@ -33,7 +33,7 @@ class Immigration::ReportController < ApplicationController
     end
    end
 		
-	 current_user.report = Report.new(post_params)
+	 current_user.reports = Report.new(post_params)
 	 redirect_to root_path(current_user), :notice => 'Data Diri Anda Berhasil Disimpan!'
   end
   
@@ -60,7 +60,7 @@ class Immigration::ReportController < ApplicationController
 		:koreanphone, :koreanaddress, :koreanaddresscity, :koreanaddressprovince, :koreanaddresspostalcode, :indonesianphone, :indonesianaddress, :indonesianaddresskelurahan, 
 		:indonesianaddresskecamatan, :indonesianaddresskabupaten, :indonesianaddressprovince, :indonesianaddresspostalcode, :relationname, :relationstatus, :relationaddress,
 		:relationphone, :relationaddresskelurahan, :relationaddresskecamatan, :relationaddresskabupaten, :relationaddressprovince, :relationaddresspostalcode, :arrivaldate, :indonesianinstance,
-		:pasporname, :aliencardname, :photoname).merge(owner_id: current_user.id, ref_id: 'R-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
+		:pasporname, :aliencardname, :photoname, :stayinkorea).merge(owner_id: current_user.id, ref_id: 'R-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
 	end
   
   def generate_string(length=5)

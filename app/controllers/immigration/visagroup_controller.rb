@@ -1,20 +1,13 @@
-class Immigration::VisaController < ApplicationController
+class Immigration::VisagroupController < ApplicationController
   #GET /visa
   def index
-    #if individual 1 person, 1 application
-    #if Visa.where(user_id: current_user).count > 0
-        #redirect_to root_path
-     #end
-     #We will have passport
-     
-     #redirect_to :controller => 'immigration/visa', :action => 'index', :type => 2, :format => 'json'
-     respond_to do |format|
-        format.html { } # {redirect_to root_path, :notice => "Your visa application is successfully received!" }
-        format.json { } # {render json: {action: "JSON Creating Visa", result: "Saved", type: "1"} }
-        format.js #if being asked by AJAX to return "script" <-->
-            #visa_processing/create.js.erb -->to execute script JS,
-            #like stopping loading.gif, hiding the element, alerting user
-      end
+    if params[:add_people] then
+      @add_people = true
+      @lastvisa = Visa.where(visa_type: 3, user_id: current_user).last
+      @ref_id = @lastvisa.ref_id
+    else
+      @ref_id = 'VG-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s
+    end
   end
   
   #GET /new
@@ -77,11 +70,17 @@ class Immigration::VisaController < ApplicationController
     if current_user.visas = @visa then
       UserMailer.visa_received_email(current_user).deliver
       respond_to do |format|
-        format.html { redirect_to root_path, :notice => "Your visa application is successfully received!" }
-        format.json { render json: {action: "JSON Creating Visa", result: "Saved"} }
-        format.js #if being asked by AJAX to return "script" <-->
-            #visa_processing/create.js.erb -->to execute script JS,
-            #like stopping loading.gif, hiding the element, alerting user
+        format.html { 
+          #kalau pertama kali sbg org pertama
+          redirect_to :controller => 'visagroup', :action => 'index', 
+          :add_people => true, :ref_id => params[:visa][:ref_id]
+          #redirect_to visafamilys_path with GET options
+          
+          #kalau kedua kali 
+          
+          #kalau finish
+          
+        }
       end
     else
     redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
@@ -144,8 +143,7 @@ class Immigration::VisaController < ApplicationController
       :lim_s_flight_vessel, :lim_s_air_sea_port, :lim_s_date_entry, :v_purpose, :v_flight_vessel,
       :v_air_sea_port, :v_date_entry, :dip_purpose, :dip_flight_vessel, :dip_air_sea_port, :dip_date_entry, :o_purpose, 
       :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passportpath, :idcardpath, :photopath, :status, :payment_slip, 
-      :payment_date, :ticketpath, :sup_docpath).merge(owner_id: current_user.id, visa_type: 1,
-      ref_id: 'V-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
+      :payment_date, :ticketpath, :sup_docpath, :ref_id).merge(owner_id: current_user.id, visa_type: 3)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params
@@ -157,5 +155,5 @@ class Immigration::VisaController < ApplicationController
       length.times { |i| password << chars[rand(chars.length)] }
       password = password.upcase
     end
-    
+  
 end

@@ -20,8 +20,15 @@
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visa<b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><%= link_to 'Visa Requirements', 'infovisas' %></li>	
-      <li><%= link_to 'Visa/Extension of Re-Entry Permit', visas_path %></li>      
+      <li><%= link_to 'Visa/Extension of Re-Entry Permit Requirements', 'infovisas' %></li>	
+      <li class="divider"></li>
+      <% if true %> <!-- <% current_user.individual %> -->
+      <li><%= link_to 'Visa Application as Individual', visas_path %></li>
+      <li><%= link_to 'Visa Application as Family', visafamilys_path %></li>
+      <% end %>
+      <% if true %>
+      <li><%= link_to 'Visa Application as Travel/Group', visagroups_path %></li>
+      <% end %>      
 
     </ul>
   </li>

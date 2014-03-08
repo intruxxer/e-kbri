@@ -9,6 +9,11 @@ Things you may want to cover:
 
 * System dependencies
 
+(https://snikt.net/blog/2012/04/26/wicked-pdf/)
+wicked_pdf uses the wkhtmltopdf binary which in turn is based upon WebKit (the same engine as used in Safari and Konqueror). 
+It works as princeXML: a HTML document is passed on to wkhtmltopdf which in turn converts it into a PDF document which then can be downloaded by the user.
+This allows developers to do PDFs in the right way™: define the document’s structure through a simple HTML document and theme them through CSS.
+
 * Configuration
 
 * Database creation

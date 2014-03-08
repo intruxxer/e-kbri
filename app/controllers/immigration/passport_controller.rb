@@ -78,9 +78,15 @@ class Immigration::PassportController < ApplicationController
     end
   end
   
-  #DELETE /passport
+  #DELETE /passport/:id
   def destroy 
-  
+    @passport = Passport.find(params[:id])
+    reference = @passport.ref_id
+    if @passport.delete
+      redirect_to :back, :notice => "Aplikasi Permohonan Paspor Anda Ref. No #{reference} telah dihapus dari E-KBRI."
+    else
+      redirect_to :back, :notice => "Aplikasi Ref. No #{reference} tidak ditemukan di E-KBRI."
+    end
   end
   
   private

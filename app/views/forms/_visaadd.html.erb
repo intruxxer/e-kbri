@@ -1,40 +1,32 @@
-<div class="body" style="padding-top: 20px;">
-			<div style="text-align: center;">
-			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
-			</div>		
-			<!-- Red color scheme -->
-			
-			<%= simple_form_for :visa, url: visa_path(@visa), method: :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
-				<header>
-				<% if action_name == "immigration" then %>
-					Visa Application Form to Republic of Indonesia
+<!-- Red color scheme -->
+	<% if controller_name == "visafamily"  %>
+		<% @url_response = visafamilys_path %>
+	<% elsif controller_name == "visagroup"  %>
+		<% @url_response = visagroups_path %>
+	<% end %>
+	<%= simple_form_for :visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
+			<header>
+				<% if controller_name == "visafamily" then %>
+					Additional Applicants' Visa Form as Family
+				<% elsif controller_name == "visagroup" %>
+					Additional Applicants' Visa Form as Group
 				<% else %>
-					Visa Application Form for Gaining Entry/Extension Re-Entry Permit to Republic of Indonesia
+				    Indonesian Visa Application Form for Individual
 				<% end %>
-				</header>
+			</header>
 				<fieldset>
 					<div class="row">
-						<section class="col col-6">
-							<label class="label">Visa Reference No.:</label>
-							<b><%= @visa.ref_id %></b>
+						<section class="col col-4">
+							<label class="label">Finish Application</label>
+							  <%= link_to root_path do %>
+							  <span class="glyphicon-glyphicon-adjust" style="font-size:1.5em;">
+							    <span class="glyphicon glyphicon-home"></span>
+							    Finish
+							  </span>													
+						      <% end %>
+						      <span style="font-size:1.5em; margin-left: 0.2em;">or add more applicant</span>
 						</section>
-						<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
-						<section class="col col-6">
-							<label class="label">Application Status</label>
-							<label class="select">
-								<%= f.input_field :status, 
-								collection: { 'Received by The Embassy' => 'Received', 'Payment has been acknowledged' => 'Paid', 
-									'Necessary visa data is completed' => 'Verified', 'Application is rejected' => 'Rejected', 
-									'Interview Needed' => 'Interview' } %>
-							<i></i>
-							</label>
-						</section>
-						<% end %>
-					</div>
-				</fieldset>
-				<fieldset>
-					<div class="row">
-						<section class="col col-6">
+						<section class="col col-4">
 							<label class="label">Purpose</label>
 							<label class="select">
 							<%= f.input_field :application_type, 
@@ -42,7 +34,7 @@
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-6 newVisa specialFieldType">
+						<section class="col col-4 newVisa specialFieldType no-show">
 							<label class="label">Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
@@ -57,23 +49,22 @@
 				
 				<fieldset class="newVisa specialFieldType no-show">
 					<div class="row">
-						<section class="col col-8">
+						<section class="col col-10">
 							<label class="label">Full Name</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :full_name %>
 							</label>
-						</section>	
-						
-						<section class="col col-4">
+						</section>
+						<section class="col col-2">
 						  <label class="label">Sex</label>
 						  <label class="select">
 						  		<%= f.input_field :sex, 
 								collection: { 'Male' => 'M', 'Female' => 'F' } %>
 								<i></i>
 						  </label>
-						</section>	
-					</div>
+						</section>
+					</div>	
 					
 					<div class="row">
 						<section class="col col-4">
@@ -130,7 +121,7 @@
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
 						</section>	
 					</div>
-					
+
 					<div class="row">
 						<section class="col col-6">
 							<label class="label">Place of Birth</label>	
@@ -339,7 +330,7 @@
 							<label class="label">Visa Type</label>
 							<label class="select">
 							<%= f.input_field :num_entry, 
-							collection: { 'Single Entry' => 1, 'Multiple Entry' => 2 } %>
+							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
 							<i></i>
 							</label>
 							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
@@ -347,10 +338,33 @@
 					</div>
 				</fieldset>
 				
-				<fieldset id="transit" class="specialFieldCat no-show">
+				<fieldset class="newVisa specialFieldType no-show">
 				<div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply TRANSIT VISA:</section>
+					<section class="col col-6">
+					<div class="inline-group">
+					<label class="label">Other Information (Tick each item that applies)</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox_1]"><i></i>Have you ever been to Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox_2]"><i></i>Have you ever been convicted in other country?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox_3]"><i></i>Are you in posession of any other country?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox_4]"><i></i>Do you have previous visa to enter Indonesia?</label>
+					</div>
+					</section>
+					<section class="col col-6">
+					<div class="inline-group">
+					<label class="label">&nbsp;</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox_5]"><i></i>Has your visa application been refused before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox_6]"><i></i>Have you ever been deported from Indonesia before?</label>
+					<label class="checkbox"><input type="checkbox" name="visa[checkbox_7]"><i></i>Have you ever committed crime or any offense?</label>
+					</div>
+					</section>
 				</div>
+				</fieldset>
+				
+				<fieldset class="newVisa specialFieldType no-show">
+					<section><p style="text-align: right; font-weight: bold;">Seoul, <%= Date.current.strftime("%A, %v") %></p></section>
+				</fieldset>
+				
+				<fieldset id="transit" class="specialFieldCat no-show">
 				<div class="row">
 				  <section class="col col-3">
 					<label class="label">Country of Destination</label>
@@ -387,9 +401,6 @@
 				</fieldset>
 				
 				<fieldset id="limited-stay" class="specialFieldCat no-show">
-				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply LIMITED STAY VISA:</section>
-				  </div>
 			      <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Limited Stay</label>
@@ -430,9 +441,6 @@
 				</fieldset>
 				
 				<fieldset id="visit" class="specialFieldCat no-show">
-				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply VISIT VISA:</section>
-				  </div>
 				  <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
@@ -476,9 +484,6 @@
 				
 				<fieldset id="diplomatic" class="specialFieldCat no-show">
 				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply DIPLOMATIC VISA:</section>
-				  </div>
-				  <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
@@ -518,9 +523,6 @@
 				
 				<fieldset id="official" class="specialFieldCat no-show">
 				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply OFFICIAL VISA:</section>
-				  </div>
-				  <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
 					<label class="select">
@@ -559,61 +561,44 @@
 				</fieldset>
 				
 				<fieldset class="newVisa specialFieldType no-show">
-					<section><p style="text-align: right; font-weight: bold;">Seoul, <%= Date.current.strftime("%A, %v") %></p></section>
-				</fieldset>
-				
-				<fieldset class="newVisa specialFieldType no-show">
 					<section class="col col-9">
 					I hereby declare that statements given above are true and I understand that even if granted a visa, 
-					the admission at the airport fully remains the discretion of the immigration authorities in Indonesia.
+					the admission at the airport remains fully the discretion of the immigration authorities in Indonesia.
 					</section>
 					
 					<section class="col col-3">
 					<pre>(Signature & Full Name)</pre>
 					</section>				
 				</fieldset>
-				
-				<fieldset>
-					<div class="row">
-						<section class="col col-6">
-							<label class="label"> Scanned/Photographed Payment Slip for Visa</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :slip_photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
-									<%= f.input_field :payment_slip, readonly: true %>
-							</label>
-							<div class="note"><strong>Catatan:</strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB</div>
-						</section>	
-						<section class="col col-6">
-							<label class="label">Date of Visa Fee Payment</label>	
-							<label class="input">
-									<i class="icon-append icon-calendar"></i>
-									<%= f.input_field :payment_date, class: 'datePick' %>
-							</label>
-						</section>		
-					</div>
-				</fieldset>
-				
+				<%= render 'forms/visareentry' %>
 				<footer>
-					<button type="submit" class="button">Update Application</button>
+					<% if controller_name == "visafamily"  %>
+						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>
+					<% elsif controller_name == "visagroup"  %>
+						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>	
+					<% end %>
+				
+					<% if controller_name == "visafamily" or controller_name == "visagroup"  %>
+						<button type="submit" class="button">Create & Add More Applicant(s)</button>
+					<% else %>
+						<%= link_to 'Go to User Panel', root_path %>
+					<% end %>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
 				</footer>
 			<% end %>
 <!--/ Red color scheme -->
-</div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript">
-	$(function($)
+	$(function()
 		{
-				//$( ".no-show" ).css("display", "none");
+				$( ".no-show" ).css("display", "none");
 									//console.log();
 									
 				// Adjusting suitable form
-				/*
 				$( "#visa_application_type" ).change(function() {
   					var str = "";
-    				str = $( "#visa_applicationType option:selected" ).val();
+    				str = $( "#visa_application_type option:selected" ).val();
     				if(str == 3){
     					var aClass = ".newVisa";
     				}else if(str == 4){
@@ -625,14 +610,13 @@
 				
 				$( "#visa_category_type" ).change(function() {
   					var str = "";
-    				str = $( "#visa_categoryType option:selected" ).val();
+    				str = $( "#visa_category_type option:selected" ).val();
     				var id = "#"+str;
     				$( ".specialFieldCat" ).addClass("no-show").css("display", "none");
 					if(id != "none") {
 						$( id ).removeClass("no-show").css("display","block");
 					}
 				});
-				*/
 				
 				// Regular datepicker
 				$( '.datePick' ).datepicker({

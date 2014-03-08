@@ -1,10 +1,19 @@
 <!-- Red color scheme -->
-	<%= simple_form_for :visa, url: visas_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
+	<% if controller_name == "visa" then  %>
+		<% @url_response = visas_path %>
+	<% elsif controller_name == "visafamily"  %>
+		<% @url_response = visafamilys_path %>
+	<% elsif controller_name == "visagroup"  %>
+		<% @url_response = visagroups_path %>
+	<% end %>
+	<%= simple_form_for :visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>
-				<% if action_name == "immigration" then %>
-					Visa Application Form to Republic of Indonesia
+				<% if controller_name == "visafamily" then %>
+					Indonesian Visa Application Form for Family
+				<% elsif controller_name == "visagroup" %>
+					Indonesian Visa Application Form for Group
 				<% else %>
-					Visa Application Form for Gaining Entry/Extension Re-Entry Permit to Republic of Indonesia
+				    Indonesian Visa Application Form for Individual
 				<% end %>
 				</header>
 				<fieldset>
@@ -32,14 +41,13 @@
 				
 				<fieldset class="newVisa specialFieldType no-show">
 					<div class="row">
-						<section class="col col-8">
+						<section class="col col-10">
 							<label class="label">Full Name</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :full_name %>
 							</label>
-						</section>	
-						
+						</section>
 						<section class="col col-2">
 						  <label class="label">Sex</label>
 						  <label class="select">
@@ -48,8 +56,7 @@
 								<i></i>
 						  </label>
 						</section>
-						
-					</div>
+					</div>	
 					
 					<div class="row">
 						<section class="col col-4">
@@ -77,6 +84,31 @@
 								<div class="button">
 									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<%= f.input_field :photopath, readonly: true %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
+						</section>	
+					</div>
+					
+					<div class="row">	
+						<section class="col col-6">
+							<label class="label">Supporting Document</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :supdoc, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<%= f.input_field :sup_docpath, readonly: true %>
+							</label>
+							<div class="note">
+								<strong>Note:</strong> 
+								It could be company reference letter, sponsor letter, etc. 
+								Max Size: 2MB</div>
+						</section>
+						
+						<section class="col col-6">
+							<label class="label">Return Trip Ticket</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :ticket, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<%= f.input_field :ticketpath, readonly: true %>
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
 						</section>	
@@ -530,10 +562,19 @@
 					<pre>(Signature & Full Name)</pre>
 					</section>				
 				</fieldset>
-				
 				<%= render 'forms/visareentry' %>
 				<footer>
-					<button type="submit" class="button">Create Application</button>
+					<% if controller_name == "visafamily"  %>
+						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>
+					<% elsif controller_name == "visagroup"  %>
+						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>	
+					<% end %>
+				
+					<% if controller_name == "visafamily" or controller_name == "visagroup"  %>
+						<button type="submit" class="button">Create & Add More Applicant(s)</button>
+					<% else %>
+						<button type="submit" class="button">Create Application</button>
+					<% end %>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
 				</footer>
 			<% end %>

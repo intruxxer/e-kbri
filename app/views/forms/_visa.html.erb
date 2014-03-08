@@ -3,4 +3,8 @@
 			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 			</div>							
 </div>
+<% if @add_people.blank? or !@add_people then %>
 <%= render 'forms/visanew' %>
+<% else %>
+<%= render 'forms/visaadd' %>
+<% end %>
