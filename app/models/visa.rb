@@ -32,9 +32,8 @@ class Visa
   field :sponsor_address_id,		 type: String
   field :sponsor_phone_id,			 type: String
     
-  field :duration_stays_day,		 type: Integer
-  field :duration_stays_month,	 type: Integer
-  field :duration_stays_year,		 type: Integer 
+  field :duration_stays,		     type: Integer
+  field :duration_stays_unit,	   type: Integer 
 
   field :num_entry,					     type: Integer
   

@@ -146,13 +146,14 @@
 									<i class="icon-append icon-calendar"></i>
 									<%= f.input_field :dateBirth, class: 'datePick' %>
 							</label>
+							<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 						</section>
 						
 						<section class="col col-3">
 						  <label class="label">Marital Status</label>
 						  <label class="select">
 						  		<%= f.input_field :marital_status, 
-								collection: { 'Married' => 'M', 'Single' => 'S', 'Widow' => 'W' } %>
+								collection: { 'Married' => 'M', 'Single' => 'S' } %>
 								<i></i>
 						  </label>
 						</section>
@@ -202,7 +203,7 @@
 							<label class="select">
 							<%= f.input_field :passport_type, 
 							collection: { 'Ordinary' => 1, 'Official' => 2,
-								          'Government' => 3 } %>
+								          'Diplomatic' => 3, 'Laissez-passez' => 4 } %>
 							<i></i>
 							</label>
 						</section>
@@ -217,6 +218,7 @@
 								<i class="icon-append icon-calendar"></i>
 							<%= f.input_field :passport_date_issued, class: 'datePick' %>
 							</label>
+							<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 						</section>
 						
 						<section class="col col-6">
@@ -225,6 +227,7 @@
 								<i class="icon-append icon-calendar"></i>
 							<%= f.input_field :passport_date_expired, class: 'datePick' %>
 							</label>
+							<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 						</section>
 						
 					</div>
@@ -308,38 +311,29 @@
 				
 				<fieldset class="newVisa specialFieldType no-show">
 					<div class="row">
-						<section class="col col-3">
+						<section class="col col-4">
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :duration_stays_day %>
+								<%= f.input_field :duration_stays %>
 							</label>
-							<div class="note">In <strong>DAYS</strong></div>
 						</section>
 						
-						<section class="col col-3">
-							<label class="label">Duration of Stays</label>	
-							<label class="input">
+						<section class="col col-4">
+							<label class="label">In</label>	
+							<label class="select">
 								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :duration_stays_month %>
+								<%= f.input_field :duration_stays_unit, 
+								collection: { 'Days' => 1, 'Months' => 2, 'Years' => 3 } %>
+								<i></i>
 							</label>
-							<div class="note">In <strong>MONTHS</strong></div>
-						</section>
-						
-						<section class="col col-3">
-							<label class="label">Duration of Stays</label>	
-							<label class="input">
-								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :duration_stays_year %>
-							</label>
-							<div class="note">In <strong>YEARS</strong></div>
 						</section>
 
-						<section class="col col-3">
+						<section class="col col-4">
 							<label class="label">Visa Type</label>
 							<label class="select">
 							<%= f.input_field :num_entry, 
-							collection: { 'Single Entry' => 1, 'Multiple Entry' => 2 } %>
+							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
 							<i></i>
 							</label>
 							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
@@ -382,6 +376,7 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :tr_date_entry, class: 'datePick' %>
 					</label>
+					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 				  </section>
 				</div>  
 				</fieldset>
@@ -424,6 +419,7 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :lim_s_date_entry, class: 'datePick' %>
 					</label>
+					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 				  </section>
 				</div>
 				  
@@ -469,6 +465,7 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :v_date_entry, class: 'datePick' %>
 					</label>
+					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 				  </section>
 				</div>
 				  
@@ -511,6 +508,7 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :dip_date_entry, class: 'datePick' %>
 					</label>
+					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 				  </section>
 				</div>
 				
@@ -553,6 +551,7 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :o_date_entry, class: 'datePick' %>
 					</label>
+					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 				  </section>
 				</div>
 								  
@@ -590,6 +589,7 @@
 									<i class="icon-append icon-calendar"></i>
 									<%= f.input_field :payment_date, class: 'datePick' %>
 							</label>
+							<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
 						</section>		
 					</div>
 				</fieldset>
