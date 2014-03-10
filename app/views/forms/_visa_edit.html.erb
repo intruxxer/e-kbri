@@ -116,7 +116,7 @@
 							</label>
 							<div class="note">
 								<strong>Note:</strong> 
-								It could be company reference letter, sponsor letter, etc. 
+								It could be company reference letter, sponsor letter, letter of acceptance, etc. 
 								Max Size: 2MB</div>
 						</section>
 						
@@ -127,12 +127,12 @@
 									<%= f.input_field :ticket, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<%= f.input_field :ticketpath, readonly: true %>
 							</label>
-							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Max Size: 2MB</div>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG or PDF. Max Size: 2MB</div>
 						</section>	
 					</div>
 					
 					<div class="row">
-						<section class="col col-6">
+						<section class="col col-3">
 							<label class="label">Place of Birth</label>	
 							<label class="input">
 									<i class="icon-append icon-globe"></i>
@@ -140,7 +140,7 @@
 							</label>
 						</section>
 
-						<section class="col col-3">
+						<section class="col col-6">
 							<label class="label">Date of Birth</label>	
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
@@ -311,7 +311,7 @@
 				
 				<fieldset class="newVisa specialFieldType no-show">
 					<div class="row">
-						<section class="col col-4">
+						<section class="col col-3">
 							<label class="label">Duration of Stays</label>	
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
@@ -319,7 +319,7 @@
 							</label>
 						</section>
 						
-						<section class="col col-4">
+						<section class="col col-3">
 							<label class="label">In</label>	
 							<label class="select">
 								<i class="icon-append icon-calendar"></i>
@@ -329,21 +329,22 @@
 							</label>
 						</section>
 
-						<section class="col col-4">
+						<section class="col col-6">
 							<label class="label">Visa Type</label>
 							<label class="select">
 							<%= f.input_field :num_entry, 
 							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
 							<i></i>
 							</label>
-							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
+							<div class="note">The final decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
 						</section>
 					</div>
 				</fieldset>
 				
 				<fieldset id="transit" class="specialFieldCat no-show">
 				<div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply TRANSIT VISA:</section>
+					<section class="col col-8" style="color: red; text-decoration: underline; font-weight: bold;">
+						NOTE: Only Edit/Modify This Section IF You Apply TRANSIT VISA:</section>
 				</div>
 				<div class="row">
 				  <section class="col col-3">
@@ -383,7 +384,8 @@
 				
 				<fieldset id="limited-stay" class="specialFieldCat no-show">
 				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply LIMITED STAY VISA:</section>
+					<section class="col col-8" style="color: red; text-decoration: underline; font-weight: bold;">
+						NOTE: Only Edit/Modify This Section IF You Apply LIMITED STAY VISA:</section>
 				  </div>
 			      <div class="row">
 				  <section class="col col-3">
@@ -427,7 +429,8 @@
 				
 				<fieldset id="visit" class="specialFieldCat no-show">
 				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply VISIT VISA:</section>
+					<section class="col col-8" style="color: red;  text-decoration: underline; font-weight: bold;">
+						NOTE: Only Edit/Modify This Section IF You Apply VISIT VISA:</section>
 				  </div>
 				  <div class="row">
 				  <section class="col col-3">
@@ -473,7 +476,8 @@
 				
 				<fieldset id="diplomatic" class="specialFieldCat no-show">
 				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply DIPLOMATIC VISA:</section>
+					<section class="col col-8" style="color: red; text-decoration: underline; font-weight: bold;">
+						NOTE: Only Edit/Modify This Section IF You Apply DIPLOMATIC VISA:</section>
 				  </div>
 				  <div class="row">
 				  <section class="col col-3">
@@ -516,7 +520,8 @@
 				
 				<fieldset id="official" class="specialFieldCat no-show">
 				  <div class="row">
-					<section class="col col-8" style="text-decoration: underline; font-weight: bold;">NOTE: Only Edit/Modify This Section IF You Apply OFFICIAL VISA:</section>
+					<section class="col col-8" style="color: red; text-decoration: underline; font-weight: bold;">
+						NOTE: Only Edit/Modify This Section IF You Apply OFFICIAL VISA:</section>
 				  </div>
 				  <div class="row">
 				  <section class="col col-3">

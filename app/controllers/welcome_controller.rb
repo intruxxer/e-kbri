@@ -8,6 +8,13 @@ class WelcomeController < ApplicationController
         @userpassport = Passport.where(owner_id: current_user.id)
         
     		@userreport = Report.where(user_id: current_user)
+    		allunpaidvisa = Visa.where(user_id: current_user, status: 'Received')
+    		@unpaidvisa = {}
+    		if allunpaidvisa.count > 0
+          allunpaidvisa.each do |x|
+            @unpaidvisa[ "ref_id"=> t.ref_id, "category" => t.category_type ]
+          end
+        end
     		
     		#if there is at least once visa/passport/report application, 
     		#then visadata == 1 as for the current user
