@@ -38,7 +38,7 @@
   	  <li><%= link_to 'Persyaratan mengenai Paspor/SPLP', controller: "immigration/passport", action: "info" %></li>      
       <li><%= link_to 'Pembuatan/Perpanjang Paspor/SPLP', passports_path %></li>
       <li class="divider"></li>
-      <li><%= link_to 'Dokumen untuk Lapor Diri', 'inforeports' %></li>
+      <li><%= link_to 'Dokumen untuk Lapor Diri', controller: "immigration/report", action: "info" %></li>
       <li><%= link_to 'Lapor Diri kepada KBRI Seoul', reports_path %></li>
     </ul>
   </li>

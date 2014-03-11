@@ -12,7 +12,8 @@ class WelcomeController < ApplicationController
     		@unpaidvisa = {}
     		if allunpaidvisa.count > 0
           allunpaidvisa.each do |x|
-            @unpaidvisa[ "ref_id"=> t.ref_id, "category" => t.category_type ]
+            @unpaidvisa[ "ref_id"=> x.ref_id, "category_type" => x.category_type,
+                         "full_name" => x.full_name,  ]
           end
         end
     		

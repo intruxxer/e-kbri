@@ -45,3 +45,4 @@ group :test do
   gem "database_cleaner"
   gem "rb-inotify", "~> 0.9"
 end
+gem "wicked_pdf"

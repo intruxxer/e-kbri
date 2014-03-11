@@ -26,10 +26,14 @@ class Visa
   field :sponsor_type_kr,			   type: String
   field :sponsor_name_kr,			   type: String  
   field :sponsor_address_kr,		 type: String
+  field :sponsor_address_city_kr,type: String
+  field :sponsor_address_prov_kr,type: String
   field :sponsor_phone_kr,			 type: String  	
   field :sponsor_type_id,			   type: String
   field :sponsor_name_id,			   type: String  
   field :sponsor_address_id,		 type: String
+  field :sponsor_address_kab_id, type: String
+  field :sponsor_address_prov_id,type: String
   field :sponsor_phone_id,			 type: String
     
   field :duration_stays,		     type: Integer
