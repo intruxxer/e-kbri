@@ -327,7 +327,7 @@
 						  <label class="label">Sex</label>
 						  <label class="select">
 						  		<%= f.input_field :sex, 
-								collection: { 'Male' => 'M', 'Female' => 'F' } %>
+								collection: { 'Male' => 'L/M', 'Female' => 'P/F' } %>
 								<i></i>
 						  </label>
 						</section>
@@ -422,7 +422,7 @@
 						  <label class="label">Marital Status</label>
 						  <label class="select">
 						  		<%= f.input_field :marital_status, 
-								collection: { 'Married' => 'M', 'Single' => 'S' } %>
+								collection: { 'Married' => 'Kawin', 'Single' => 'Tidak Kawin' } %>
 								<i></i>
 						  </label>
 						</section>
@@ -1040,7 +1040,7 @@
 							<label class="select">
 								<i class="icon-append icon-calendar"></i>
 								<%= f.input_field :duration_stays_unit, 
-								collection: { 'Days' => 1, 'Months' => 2, 'Years' => 3 } %>
+								collection: { 'Days' => 'Day(s)', 'Months' => 'Month(s)', 'Years' => 'Month(s)' } %>
 								<i></i>
 							</label>
 						</section>

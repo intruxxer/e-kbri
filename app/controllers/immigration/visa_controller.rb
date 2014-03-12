@@ -147,10 +147,17 @@ class Immigration::VisaController < ApplicationController
       :lim_s_flight_vessel, :lim_s_air_sea_port, :lim_s_date_entry, :v_purpose, :v_flight_vessel,
       :v_air_sea_port, :v_date_entry, :dip_purpose, :dip_flight_vessel, :dip_air_sea_port, :dip_date_entry, :o_purpose, 
       :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passportpath, :idcardpath, :photopath, :status, :status_code, :payment_slip, 
-      :payment_date, :ticketpath, :sup_docpath).merge(owner_id: current_user.id, visa_type: 1)
+      :payment_date, :ticketpath, :sup_docpath).merge(owner_id: current_user.id, visa_type: 1, 
+      ref_id: 'V-KBRI-'+generate_string+"-"+Random.new.rand(10**3..10**5).to_s)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
     #end
+    def generate_string(length=5)
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
+      random_characters = ''
+      length.times { |i| random_characters << chars[rand(chars.length)] }
+      random_characters = random_characters.upcase
+  end
 end

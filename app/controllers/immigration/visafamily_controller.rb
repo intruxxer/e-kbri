@@ -152,4 +152,10 @@ class Immigration::VisafamilyController < ApplicationController
     #def post_params
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
     #end
+    def generate_string(length=5)
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
+      random_characters = ''
+      length.times { |i| random_characters << chars[rand(chars.length)] }
+      random_characters = random_characters.upcase
+    end
 end

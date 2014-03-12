@@ -2,8 +2,7 @@ class Visa
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  before_create :assign_ref_id
-  after_create  :assign_visa_type
+  #before_create :assign_ref_id, :assign_visa_type
   
   field :owner_id,               type: String
   field :ref_id,                 type: String
@@ -40,17 +39,17 @@ class Visa
   field :sponsor_phone_id,			 type: String
     
   field :duration_stays,		     type: Integer
-  field :duration_stays_unit,	   type: Integer 
+  field :duration_stays_unit,	   type: String 
 
   field :num_entry,					     type: Integer
   
-  field :checkbox_1,				     type: Boolean 
-  field :checkbox_2,				     type: Boolean
-  field :checkbox_3,				     type: Boolean
-  field :checkbox_4,				     type: Boolean
-  field :checkbox_5,				     type: Boolean
-  field :checkbox_6,				     type: Boolean
-  field :checkbox_7,				     type: Boolean
+  field :checkbox_1,				     type: Boolean, default: false
+  field :checkbox_2,				     type: Boolean, default: false
+  field :checkbox_3,				     type: Boolean, default: false
+  field :checkbox_4,				     type: Boolean, default: false
+  field :checkbox_5,				     type: Boolean, default: false
+  field :checkbox_6,				     type: Boolean, default: false
+  field :checkbox_7,				     type: Boolean, default: false
   
   field :tr_count_dest,          type: String 
   field :tr_flight_vessel,			 type: String 
@@ -104,6 +103,6 @@ class Visa
       random_characters = random_characters.upcase
   end
   def assign_visa_type
-    self.ref_id = 'KBRI'+ self.visa_type + '-' + self.ref_id
+    self.ref_id = 'KBRI'+ self.visa_type.to_s + '-' + self.ref_id
   end
 end
