@@ -3,6 +3,7 @@ class Visa
   include Mongoid::Timestamps
   
   before_create :assign_ref_id
+  after_create  :assign_visa_type
   
   field :owner_id,               type: String
   field :ref_id,                 type: String
@@ -94,12 +95,15 @@ class Visa
   
   private
   def assign_ref_id
-    self.ref_id = generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s+generate_string(3)
+    self.ref_id = generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s
   end
   def generate_string(length=5)
       chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
       random_characters = ''
       length.times { |i| random_characters << chars[rand(chars.length)] }
       random_characters = random_characters.upcase
+  end
+  def assign_visa_type
+    self.ref_id = 'KBRI'+ self.visa_type + '-' + self.ref_id
   end
 end
