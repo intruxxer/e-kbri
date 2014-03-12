@@ -1,6 +1,6 @@
 class Immigration::ReportController < ApplicationController
+  before_filter :authenticate_user!
   
-
   def index
 	   if Report.where(user_id: current_user).count > 0
 		    redirect_to edit_report_path(current_user)

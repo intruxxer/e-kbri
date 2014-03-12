@@ -1,4 +1,5 @@
 class Immigration::VisaController < ApplicationController
+  before_filter :authenticate_user!
   #GET /visa
   def index
     #if individual 1 person, 1 application

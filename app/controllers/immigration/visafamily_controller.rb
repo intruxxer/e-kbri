@@ -1,4 +1,5 @@
 class Immigration::VisafamilyController < ApplicationController
+  before_filter :authenticate_user!
   #GET /visa
   def index
     if params[:add_people] then

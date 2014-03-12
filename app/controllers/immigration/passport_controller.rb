@@ -1,4 +1,5 @@
 class Immigration::PassportController < ApplicationController
+  before_filter :authenticate_user!
   #GET /passport
   def index
     #1 Person, 1 Application in 5 years
