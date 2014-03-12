@@ -2006,7 +2006,10 @@
 				$( '.datePick' ).datepicker({
 					dateFormat: 'dd/mm/yy',
 					prevText: '<i class="icon-chevron-left"></i>',
-					nextText: '<i class="icon-chevron-right"></i>'
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,
+      				yearRange: '1900:' + new Date().getFullYear()
 				});
 				
 				$('.fileplaceholder').change(function(){					

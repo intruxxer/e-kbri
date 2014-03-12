@@ -91,6 +91,6 @@ class Passport
   validates_attachment_size :slip_photo, less_than: 2.megabytes
   
   has_mongoid_attached_file :supporting_doc
-  validates_attachment_content_type :supporting_doc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream)
+  validates_attachment_content_type :supporting_doc, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/zip application/x-rar-compressed application/octet-stream)
   validates_attachment_size :supporting_doc, less_than: 5.megabytes
 end

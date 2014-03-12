@@ -1,6 +1,7 @@
 class Visa
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paperclip
   
   #before_create :assign_ref_id, :assign_visa_type
   
