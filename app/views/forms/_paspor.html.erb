@@ -1,18 +1,32 @@
 <div class="body" style="padding-top: 20px;">
 			<div style="text-align: center;">
 			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
-			</div>		
+			</div>
+			
+			<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Pengajuan Gagal. Silahkan cek pesan dibawah ini</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>	
+				
 			<!-- Red color scheme -->
-			<%= simple_form_for :passport, url: passports_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
-				<header>Formulir Pengurusan Paspor/SPLP untuk WNI di Korea Selatan</header>
+			<%= simple_form_for @passport, url: passports_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				<header>Formulir Pengurusan Paspor WNI di Korea Selatan</header>				
+				<fieldset style="text-align:justify;">
+					Silahkan mengisi formulir aplikasi visa ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'. 
+  Silakan <b>gunakan karakter Latin dan huruf besar</b>. Jangan gunakan huruf Hangeul di mana saja di formulir ini. Tidak mengikuti peraturan akan mengagalkan proses pengurusan Paspor anda.
+				</fieldset>
 				<fieldset>
 					<div class="row">
 						<section class="col col-6">
 							<label class="label">Tujuan Aplikasi</label>
 							<label class="select">
-								<%= f.input_field :application_type, 
+								<%= f.input_field :application_type, :required => true,
 								collection: { 'Perpanjang Paspor' => 'perpanjang-paspor', 
-								          	  'Pembuatan Paspor' => 'pembuatan-paspor', 'Pembuatan SPLP' => 'pembuatan-splp' } %>
+								          	  'Pembuatan Paspor Baru' => 'pembuatan-paspor'} %>
 							<i></i>
 							</label>
 						</section>
@@ -21,7 +35,17 @@
 							<label class="select">
 								<%= f.input_field :application_reason, 
 								collection: { 'Paspor Habis (Masa Berlakunya)' => 'habis-masa', 'Paspor Habis (Halamannya)' => 'habis-halaman',
-								          	  'Memperpanjang Kontrak' => 'perpanjang-kontrak', 'Akan Pulang ke Indonesia' => 'pulang-indonesia' } %>
+								          	  'Paspor Hilang' => 'hilang', 'Lainnya' => 'lainnya' } %>
+							<i></i>
+							</label>
+						</section>
+					</div>
+					<div class="row" id="paspor_type" style="display:none;">
+						<section class="col col-6">
+							<label class="label">Jenis Paspor</label>
+							<label class="select">
+								<%= f.input_field :paspor_type, 
+								collection: { '24 Halaman' => '24', '48 Halaman' => '48' }, :selected => '24'  %>
 							<i></i>
 							</label>
 						</section>
@@ -29,111 +53,172 @@
 				</fieldset>
 				
 				<fieldset>
+					<h3>Data Diri</h3>	
+					<hr /><br />
 					<div class="row">
 						<section class="col col-4">
 							<label class="label">Nama Lengkap</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
-								<%= f.input_field :full_name %>
+								<%= f.input_field :full_name , :maxlength => 32  %>
 							</label>
 						</section>	
-						<section class="col col-4">
-							<label class="label">Tinggi Badan (cm)</label>
-							<label class="input">
-								<i class="icon-append icon-user"></i>
-								<%= f.input_field :height %>
+						<section class="col col-2">
+							<label class="label">Jenis Kelamin</label>
+							<label class="select">
+								<%= f.input_field :kelamin, 
+								collection: { 'Laki - laki' => 'L/M', 'Perempuan' => 'P/F' } %>
+							<i></i>
 							</label>
 						</section>
-						<section class="col col-4">
+						<section class="col col-2">
+							<label class="label">Tinggi Badan</label>
+							<label class="input">
+								<i class="icon-append icon-user"></i>
+								<%= f.input_field :height  %>
+							</label>
+							<div class="note"><strong>Catatan : </strong>Dalam Cm</div>
+						</section>
+						<section class="col col-3">
 							<label class="label">Pas Foto Digital</label>
 							<label for="file" class="input input-file">
-								<div class="button">
+								<div class="button">									
 									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
-									<%= f.input_field :photopath, readonly: true %>
+									<input type="text" name="photopath" readonly="readonly" />
 							</label>
-							<div class="note"><strong>Catatan:</strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB</div>
-						</section>			
+							<div class="note"><strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a></div>
+						</section>	
+						<% if @passport.photo.exists? %>
+						<section class="col col-1">
+							<%= image_tag @passport.photo.url(:thumb) %>
+						</section>				
+						<%end%>		
 					</div>
 
 					<div class="row">
-						<section class="col col-4">
+						<section class="col col-3">
+							<label class="label">Nomor Alien Card</label>	
+							<label class="input">
+									<i class="icon-append icon-globe"></i>
+									<%= f.input_field :arc , :maxlength => 30  %>
+							</label>
+						</section>
+						
+						<section class="col col-2">
 							<label class="label">Tempat Lahir</label>	
 							<label class="input">
 									<i class="icon-append icon-globe"></i>
-									<%= f.input_field :placeBirth %>
+									<%= f.input_field :placeBirth , :maxlength => 30  %>
 							</label>
 						</section>
 
-						<section class="col col-4">
+						<section class="col col-2">
 							<label class="label">Tanggal Lahir</label>	
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
 									<%= f.input_field :dateBirth, class: 'datePick' %>
 							</label>
+							<div class="note"><strong>Format : </strong>yyyy/mm/dd</div>
 						</section>
 						
 						<section class="col col-4">
-							<label class="label">Status Perkawinan</label>
+							<label class="label">Status Warga Negara</label>
 							<label class="select">
-								<%= f.input_field :marriage_status, 
-								collection: { 'Belum Kawin' => '1', 'Kawin' => '2', 'Cerai' => '3' } %>
+								<%= f.input_field :citizenship_status, 
+								collection: { 'Indonesia' => 'IDN', 'Dwi Kewarganegaraan' => 'Dwi' } %>
 							<i></i>
 							</label>
 						</section>
-					</div>
-					
+					</div>					
+				</fieldset>
+				<fieldset>
+					<h3>Detail Paspor Sebelumnya</h3>	
+					<hr /><br />
 					<div class="row">
-						<section class="col col-4">
-							<label class="label">No Paspor Terakhir (Paspor Sebelumnya)</label>
+						<section class="col col-2">
+							<label class="label">Nomor Paspor</label>
 							<label class="input">
 								<i class="icon-append icon-book"></i>
-								<%= f.input_field :lastPassportNo %>
+								<%= f.input_field :lastPassportNo, :maxlength => 32 %>
 							</label>
 						</section>
 						
-						<section class="col col-4">
-							<label class="label">Tanggal Terbit Paspor Terakhir</label>
+						<section class="col col-2">
+							<label class="label">Tanggal Terbit </label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
 								<%= f.input_field :dateIssued, class: 'datePick' %>
 							</label>
+							<div class="note"><strong>Format : </strong>yyyy/mm/dd</div>
 						</section>
 						
-						<section class="col col-4">
-							<label class="label">Tempat Pengeluaran Paspor yang Terakhir</label>
+						<section class="col col-2">
+							<label class="label">Tanggal Habis Berlaku </label>
+							<label class="input">
+								<i class="icon-append icon-calendar"></i>
+								<%= f.input_field :dateIssuedEnd, class: 'datePick' %>
+							</label>
+							<div class="note"><strong>Format : </strong>yyyy/mm/dd</div>
+						</section>
+						
+						<section class="col col-3">
+							<label class="label">Tempat Pengeluaran </label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
-								<%= f.input_field :placeIssued %>
+								<%= f.input_field :placeIssued, :maxlength => 30 %>
 							</label>
 						</section>
+						
+						<section class="col col-3">
+							<label class="label">Kantor Imigrasi </label>
+							<label class="select">
+								<%= f.input_field :immigrationOffice, 
+								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK","BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL" } %>
+							<i></i>
+							</label>							
+						</section>
+						
 					</div>
-
+				</fieldset>
+				<fieldset>
+					<h3>Detail Pekerjaan</h3>	
+					<hr /><br />
 					<div class="row">
 						<section class="col col-3">
-							<label class="label">Pekerjaan di Korea (dan Jenisnya)</label>
-							<label class="input">
-								<i class="icon-append icon-wrench"></i>
-								<%= f.input_field :jobStudyInKorea %>
+							<label class="label">Pekerjaan di Korea</label>
+							<label class="select">
+								<%= f.input_field :jobStudyInKorea, 
+								collection: { "Tenaga Kerja Indonesia" => "TKI" ,"ABK"=>"ABK", "Mahasiswa/Pelajar" => "Pelajar", "Profesional" => "Profesional" ,"Ikut Keluarga" => "Ikut Keluarga" , "Lainnya" => "Lainnya" } %>
+							<i></i>
 							</label>
+						</section>
+						
+						<section class="col col-3">
+							<label class="label">Keterangan Pekerjaan</label>
+							<label class="input">
+								<i class="icon-append icon-home"></i>
+								<%= f.input_field :jobStudyTypeInKorea, :maxlength => 50 %>
+							</label>
+							<div class="note"><strong>Contoh :</strong> Ibu Rumah Tangga, Anak, Jenis Bisnis, Bidang Pekerjaan, Dll</div>
 						</section>
 						
 						<section class="col col-3">
 							<label class="label">Nama Perusahaan/Sekolah/Instansi</label>
 							<label class="input">
 								<i class="icon-append icon-home"></i>
-								<%= f.input_field :jobStudyOrganization %>
-							</label>
-							<div class="note"><strong>Note:</strong> Tuliskan pula nama hangeulnya bila ada.</div>
-						</section>
+								<%= f.input_field :jobStudyOrganization, :maxlength => 50 %>
+							</label>							
 						</section>
 						
+				  </div>
+				  <div class="row">
+				  		<section class="col col-3"></section>
 						<section class="col col-6">
 						<label class="label">Alamat Perusahaan/Sekolah/Instansi</label>
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<%= f.input_field :jobStudyAddress, input_html: { row: 5 }, as: :text %>
-						</label>
-						<div class="note"><strong>Note:</strong> Tuliskan dalam huruf hangeul.</div>
+							<%= f.input_field :jobStudyAddress, :row => 5, :maxlength => 50, as: :text %>
+						</label>						
 						</section>
 					</div>
 
@@ -142,17 +227,131 @@
 							<label class="label">No Telepon di Korea</label>
 							<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<%= f.input_field :phoneKorea %>
+								<%= f.input_field :phoneKorea, :maxlength => 30 %>
 							</label>
 						</section>
 						
-						<section class="col col-9">
+						<section class="col col-6">
 						<label class="label">Alamat Tinggal di Korea</label>
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
-							<%= f.input_field :addressKorea, input_html: { row: 5 }, as: :text %>
-						</label>
-						<div class="note"><strong>Note:</strong> Cantumkan alamat yang benar-benar bisa dihubungi, dalam hangeul (bila bisa).</div>
+							<%= f.input_field :addressKorea, :row => 5, :maxlength => 100, as: :text %>
+						</label>						
+						</section>
+					</div>
+					
+					<div class="row">
+						<section class="col col-3"></section>
+						<section class="col col-3">
+							  <label class="label">Propinsi</label>
+							  <label class="select">
+								<%= f.input_field :sponsor_address_prov_kr, collection: { 
+									'Gyeonggi-do' => 'Gyeonggi-do',
+									'Gangwon-do' => 'Gangwon-do',
+									'Jeollabuk-do' => 'Jeollabuk-do',
+									'Jeollanam-do' => 'Jeollanam-do',
+									'Chungcheongnam-do' => 'Chungcheongnam-do',
+									'Chungcheongbuk-nam' => 'Chungcheongbuk-do',
+									'Gyeongsamnam-do' => 'Gyeongsam_nam-do',
+									'Gyeongsangbuk-do' => 'Gyeongsang_bu-do',
+									'Jeju Island' => 'Jeju'
+									 } %>
+								<i></i>
+							  </label>							
+						</section>
+						<section class="col col-3">
+							<label class="label">Kota</label>
+							<label class="input">
+								<i class="icon-append icon-road"></i>
+								<label class="select">
+								<%= f.input_field :cityKorea, 
+								collection: { 'Andong' => 'Andong',
+											  'Ansan' => 'Ansan',
+											  'Anseong' => 'Anseong',
+											  'Anyang' => 'Anyang',
+											  'Asan' => 'Asan',
+											  'Boryeong' => 'Boryeong',
+											  'Bucheon' => 'Bucheon',
+											  'Busan' => 'Busan',
+											  'Changwon' => 'Changwon',
+											  'Cheonan' => 'Cheonan',
+											  'Cheongju' => 'Cheongju',
+											  'Chuncheon' => 'Chuncheon',
+											  'Chungju' => 'Chungju',
+											  'Daegu' => 'Daegu',
+											  'Daejeon' => 'Daejeon',
+											  'Dangjin' => 'Dangjin',
+											  'Donghae' => 'Donghae',
+											  'Gangneung' => 'Gangneung',
+											  'Geoje' => 'Geoje',
+											  'Gimcheon' => 'Gimcheon',
+											  'Gimhae' => 'Gimhae',
+											  'Gimje' => 'Gimje',
+											  'Gimpo' => 'Gimpo',
+											  'Gongju' => 'Gongju',
+											  'Goyang' => 'Goyang',
+											  'Gumi' => 'Gumi',
+											  'Gunpo' => 'Gunpo',
+											  'Gunsan'	=> 'Gunsan',
+											  'Guri' => 'Guri',
+											  'Gwacheon' => 'Gwacheon',
+											  'Gwangju' => 'Gwangju',
+											  'Gwangmyeong' => 'Gwangmyeong',
+											  'Gwangyang' => 'Gwangyang',
+											  'Gyeongju' => 'Gyeongju',
+											  'Gyeongsan' => 'Gyeongsan',
+											  'Gyeryong' => 'Gyeryong',
+											  'Hanam' => 'Hanam',
+											  'Hwaseong' => 'Hwaseong',
+											  'Icheon' => 'Icheon',
+											  'Iksan' => 'Iksan',
+											  'Incheon' => 'Incheon',
+											  'Jecheon' => 'Jecheon',
+											  'Jeongeup' => 'Jeongeup',
+											  'Jeonju' => 'Jeonju',
+											  'Jeju' => 'Jeju',
+											  'Jinju' => 'Jinju',
+											  'Naju' => 'Naju',
+											  'Namyangju' => 'Namyangju',
+											  'Namwon' => 'Namwon',
+											  'Nonsan' => 'Nonsan',
+											  'Miryang' => 'Miryang',
+											  'Mokpo' => 'Mokpo',
+											  'Mungyeong' => 'Mungyeong',
+											  'Osan' => 'Osan',
+											  'Paju' => 'Paju',
+											  'Pocheon' => 'Pocheon',
+											  'Pohang' => 'Pohang',
+											  'Pyeongtaek' => 'Pyeongtaek',
+											  'Sacheon' => 'Sacheon',
+											  'Sangju' => 'Sangju',
+											  'Samcheok' => 'Samcheok',
+											  'Sejong' => 'Sejong',
+											  'Seogwipo' => 'Seogwipo',
+											  'Seongnam' => 'Seongnam',
+											  'Seosan' => 'Seosan',
+											  'Seoul' => 'Seoul',
+											  'Siheung' => 'Siheung',
+											  'Sokcho' => 'Sokcho',
+											  'Suncheon' => 'Suncheon',
+											  'Suwon' => 'Suwon',
+											  'Taebaek' => 'Taebaek',
+											  'Tongyeong' => 'Tongyeong',
+											  'Uijeongbu' => 'Uijeongbu',
+											  'Uiwang' => 'Uiwang',
+											  'Ulsan' => 'Ulsan',
+											  'Wonju' => 'Wonju',
+											  'Yangju' => 'Yangju',
+											  'Yangsan' => 'Yangsan',
+											  'Yeoju' => 'Yeoju',
+											  'Yeongcheon' => 'Yeongcheon',
+											  'Yeongju' => 'Yeongju',
+											  'Yeosu' => 'Yeosu',
+											  'Yongjin' => 'Yongjin' 
+											  			  
+								} %>
+							<i></i>
+							</label>
 						</section>
 					</div>
 
@@ -161,22 +360,395 @@
 							<label class="label">No Telepon di Indonesia</label>
 							<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<%= f.input_field :phoneIndonesia %>
+								<%= f.input_field :phoneIndonesia, :maxlength => 50 %>
 							</label>
 						</section>
-					<section class="col col-9">
+					<section class="col col-6">
 						<label class="label">Alamat di Indonesia</label>
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-home"></i>
-							<%= f.input_field :addressIndonesia, input_html: { row: 5 }, as: :text %>
+							<%= f.input_field :addressIndonesia, :row => 5, :maxlength => 50, as: :text %>
 						</label>
 						<div class="note"><strong>Note:</strong> Tuliskan alamat yang benar-benar bisa dihubungi saat darurat.</div>
 					</section>
+					<section class="col col-3">
+						<label class="label">Propinsi</label>
+						<label class="select">
+							<%= f.input_field :sponsor_address_prov_id, 
+							collection: { 
+							'DI ACEH'=>'BA',
+							'BANGKA BELITUNG'=>'BB',
+							'JAMBI'=>'BI',
+							'BENGKULU'=>'BK',
+							'BALI'=>'BL',
+							'BANTEN'=>'BT',
+							'GORONTALO'=>'GT',
+							'IRIAN JAYA'=>'IJ',
+							'JAWA BARAT'=>'JB',
+							'JAWA TENGAH'=>'JH',
+							'DKI JAKARTA'=>'JK',
+							'JAWA TIMUR'=>'JT',
+							'KALIMANTAN BARAT'=>'KB',
+							'KALIMANTAN TENGAH'=>'KH',
+							'KALIMANTAN SELATAN'=>'KS',
+							'KALIMANTAN TIMUR'=>'KT',
+							'LAMPUNG'=>'LP',
+							'MALUKU'=>'ML',
+							'MALUKU UTARA'=>'MU',
+							'RIAU'=>'RI',
+							'SUMATERA BARAT'=>'SB',
+							'SUMATERA SELATAN'=>'SS',
+							'SUMATERA UTARA'=>'SU',
+							'NTB'=>'TB',
+							'NTT'=>'TT',
+							'SULAWESI TENGGARA'=>'WR',
+							'SULAWESI SELATAN'=>'WS',
+							'SULAWESI TENGAH'=>'WT',
+							'SULAWESI UTARA'=>'WU',
+							'D.I. YOGYAKARTA'=>'YO'
+							} %>
+							<i></i>
+					    </label>
+					</section>
 				    </div>
+				    
+				    <div class="row">
+						<section class="col col-3"></section>
+						<section class="col col-3">
+							<label class="label">Kelurahan</label>
+							<label class="input">
+								<i class="icon-append icon-road"></i>
+								<%= f.input_field :kelurahanIndonesia, :maxlength => 30 %>
+							</label>
+						</section>
+						<section class="col col-3">
+							<label class="label">Kecamatan</label>
+							<label class="input">
+								<i class="icon-append icon-road"></i>
+								<%= f.input_field :kecamatanIndonesia, :maxlength => 30 %>
+							</label>
+						</section>
+						<section class="col col-3">
+							<label class="label">Kabupaten/Kota</label>
+							<label class="select">
+							<%= f.input_field :kabupatenIndonesia, 
+							collection: { 
+							'AMBON (KODYA)'=>'ABN',
+							'ACEH TIMUR'=>'ACA',
+							'ACEH TENGGARA'=>'ACG',
+							'ACEH TENGAH'=>'ACH',
+							'ACEH SELATAN'=>'ACN',
+							'ACEH BESAR'=>'ACR',
+							'ACEH BARAT'=>'ACT',
+							'ACEH UTARA'=>'ACU',
+							'AGAM'=>'AGM',
+							'ASAHAN'=>'AHN',
+							'ALOR'=>'ALO',
+							'ARGAMAKMUR'=>'ARG',
+							'BANDA ACEH (KODYA)'=>'BAC',
+							'BADUNG'=>'BAD',
+							'BANGLI'=>'BAG',
+							'BANTUL'=>'BAN',
+							'BARRU'=>'BAR',
+							'BUNGO TEBO'=>'BBO',
+							'BANDUNG (KODYA)'=>'BDG',
+							'BANDUNG'=>'BDK',
+							'BANDARLAMPUNG'=>'BDL',
+							'BONDOWOSO'=>'BDW',
+							'BELU'=>'BEL',
+							'BERAU'=>'BER',
+							'BANGGAI'=>'BGG',
+							'BOGOR'=>'BGK',
+							'BULONGAN'=>'BGN',
+							'BOLAANGMONGONDOW'=>'BGW',
+							'BATANGHARI'=>'BHI',
+							'BIMA (KODYA)'=>'BIM',
+							'BINJAI'=>'BIN',
+							'BITUNG'=>'BIT',
+							'BATURAJA'=>'BJA',
+							'BANJARNEGARA'=>'BJG',
+							'BANJAR'=>'BJR',
+							'BANGKA'=>'BKA',
+							'BANGKINANG'=>'BKG',
+							'BENGKULU (KODYA)'=>'BKL',
+							'BANGKALAN'=>'BKN',
+							'BENGKULU SELATAN'=>'BKS',
+							'BUKITTINGGI'=>'BKT',
+							'BENGKULU UTARA'=>'BKU',
+							'BULUKUMBA'=>'BLB',
+							'BLITAR'=>'BLI',
+							'BLORA'=>'BLO',
+							'BENGKALIS'=>'BLS',
+							'BELITUNG'=>'BLT',
+							'BIMA'=>'BMA',
+							'BANJAR'=>'BNJ',
+							'BONTANG'=>'BNT',
+							'BOGOR (KODYA)'=>'BOG',
+							'BOJONEGORO'=>'BOJ',
+							'BARITOKUALA'=>'BOK',
+							'BONE'=>'BON',
+							'BARITO SELATAN'=>'BOS',
+							'BARITO UTARA'=>'BOU',
+							'BOYOLALI'=>'BOY',
+							'BALIKPAPAN'=>'BPP',
+							'BREBES'=>'BRE',
+							'BEKASI (KODYA)'=>'BSI',
+							'BEKASI'=>'BSK',
+							'BANJARMASIN'=>'BSN',
+							'BANTAENG'=>'BTG',
+							'BUOL-TOLITOLI'=>'BTI',
+							'BATAM'=>'BTM',
+							'BATANG'=>'BTN',
+							'BATU'=>'BTU',
+							'BULELENG'=>'BUL',
+							'BURU'=>'BUR',
+							'BUTON'=>'BUT',
+							'BANYUWANGI'=>'BYI',
+							'BANYUMAS'=>'BYS',
+							'CIREBON (KODYA)'=>'CBN',
+							'CILACAP'=>'CCP',
+							'CILEGON'=>'CIL',
+							'CIREBON'=>'CIR',
+							'CIANJUR'=>'CJR',
+							'CIMAHI'=>'CMI',
+							'CIAMIS'=>'CMS',
+							'DAIRI'=>'DAI',
+							'DEMAK'=>'DEM',
+							'DEPOK'=>'DEP',
+							'DONGGALA'=>'DGL',
+							'DELISERDANG'=>'DLD',
+							'DOMPU'=>'DOM',
+							'DENPASAR (KODYA)'=>'DPS',
+							'DUMAI'=>'DUM',
+							'ENDE'=>'END',
+							'ENREKANG'=>'ENR',
+							'FAKFAK'=>'FAK',
+							'FLORES TIMUR'=>'FLT',
+							'GARUT'=>'GAR',
+							'GUNUNGKIDUL'=>'GDL',
+							'GIANYAR'=>'GIA',
+							'GORONTALO'=>'GOR',
+							'GOWA'=>'GOW',
+							'GROBOGAN'=>'GRO',
+							'HULU SUNGAI SELATAN'=>'HSS',
+							'HULU SUNGAI TENGAH'=>'HST',
+							'HULU SUNGAI UTARA'=>'HSU',
+							'HALMAHERA TENGAH'=>'HTE',
+							'INDRAGIRI HILIR'=>'IDI',
+							'INDRAGIRI HULU'=>'IDU',
+							'INDRAMAYU'=>'IDY',
+							'JAMBI (KODYA)'=>'JAM',
+							'JOMBANG'=>'JBG',
+							'JEMBER'=>'JBR',
+							'JEMBRANA'=>'JEM',
+							'JEPARA'=>'JEP',
+							'JAKARTA BARAT'=>'JKB',
+							'JAKARTA PUSAT'=>'JKP',
+							'JAKARTA SELATAN'=>'JKS',
+							'JAKARTA TIMUR'=>'JKT',
+							'JAKARTA UTARA'=>'JKU',
+							'JENEPONTO'=>'JTO',
+							'JAYAWIJAYA'=>'JYJ',
+							'JAYAPURA (KODYA)'=>'JYP',
+							'KALIANDA'=>'KAL',
+							'KAMPAR'=>'KAM',
+							'KAPUAS'=>'KAP',
+							'KARO'=>'KAR',
+							'KERINCI'=>'KCI',
+							'KEDIRI'=>'KDI',
+							'KENDAL'=>'KDL',
+							'KENDARI'=>'KDR',
+							'KUDUS'=>'KDS',
+							'KEBUMEN'=>'KEB',
+							'KENDARI'=>'KEN',
+							'KEPULAUAN RIAU'=>'KER',
+							'KISARAN'=>'KIS',
+							'KLUNGKUNG'=>'KLK',
+							'KULONPROGO'=>'KLO',
+							'KLATEN'=>'KLT',
+							'KOLAKA'=>'KOL',
+							'KUPANG'=>'KPG',
+							'KAPUS HULU'=>'KPU',
+							'KARANGASEM'=>'KRS',
+							'KOTA BARU'=>'KRU',
+							'KARAWANG'=>'KRW',
+							'KETAPANG'=>'KTP',
+							'KUNINGAN'=>'KUN',
+							'KUPANG (KODYA)'=>'KUP',
+							'KUTAI'=>'KUT',
+							'KOTAWARINGIN BARAT'=>'KWB',
+							'KOTAWARINGIN TIMUR'=>'KWT',
+							'KARANGANYAR'=>'KYR',
+							'LANGSA'=>'LAG',
+							'LAMONGAN'=>'LAM',
+							'LAWU'=>'LAW',
+							'LOMBOK BARAT'=>'LBB',
+							'LOMBOK TENGAH'=>'LBH',
+							'LEBAK'=>'LBK',
+							'LOMBOK TIMUR'=>'LBR',
+							'LABUHANBATU'=>'LBT',
+							'LANGKAT'=>'LGT',
+							'LHOKSEUMAWE (KODYA)'=>'LHO',
+							'LAHAT'=>'LHT',
+							'LUBUKLINGGAU'=>'LLG',
+							'LAMPUNG BARAT'=>'LPB',
+							'LIMAPULUH KOTA'=>'LPK',
+							'LAMPUNG SELATAN'=>'LPS',
+							'LAMPUNG TENGAH'=>'LPT',
+							'LAMPUNG UTARA'=>'LPU',
+							'LUMAJANG'=>'LUM',
+							'MADIUN'=>'MAD',
+							'MAGELANG'=>'MAG',
+							'MALUKU TENGAH'=>'MAH',
+							'MAJENE'=>'MAJ',
+							'MAMUJU'=>'MAM',
+							'MAROS'=>'MAR',
+							'MATARAM'=>'MAT',
+							'MALUKU UTARA'=>'MAU',
+							'MUSIBANYUASIN'=>'MBA',
+							'MUARABULIAN'=>'MBN',
+							'MEDAN'=>'MDN',
+							'MANADO'=>'MDO',
+							'MENGGARAI'=>'MEN',
+							'MERAUKE'=>'MER',
+							'METRO'=>'MET',
+							'MAGETAN'=>'MGT',
+							'MINAHASA'=>'MHS',
+							'MAJALENGKA'=>'MJK',
+							'MOJOKERTO'=>'MJO',
+							'MALUKU TENGGARA'=>'MKT',
+							'MALANG'=>'MLG',
+							'MUARAENIM'=>'MRM',
+							'MUNA'=>'MUN',
+							'MANOKWAN'=>'MWI',
+							'MUSIRAWAS'=>'MWS',
+							'NGADA'=>'NGA',
+							'NGANJUK'=>'NGK',
+							'NGAWI'=>'NGW',
+							'NIAS'=>'NIA',
+							'OGAN KOMERING ILIR'=>'OKI',
+							'OGAN KOMERING ULU'=>'OKU',
+							'PACITAN'=>'PAC',
+							'PANIAI'=>'PAI',
+							'PALU'=>'PAL',
+							'PAMEKASAN'=>'PAM',
+							'PANARUKAN'=>'PAN',
+							'PARIAMAN'=>'PAR',
+							'PASAMAN'=>'PAS',
+							'PATI'=>'PAT',
+							'PURBALINGGA'=>'PBA',
+							'PADANG'=>'PDG',
+							'PADANGPANJANG'=>'PDJ',
+							'PANDANGPARIAMAN'=>'PDP',
+							'PADANGSIDEMPUAN'=>'PDS',
+							'PEMALANG'=>'PEM',
+							'PANDEGELANG'=>'PGG',
+							'PIDIE'=>'PID',
+							'PINRANG'=>'PIN',
+							'PANGKAJENE KEPULAUAN'=>'PJK',
+							'PEKANBARU'=>'PKB',
+							'PEKALONGAN'=>'PKL',
+							'PANGKALPINANG'=>'PKP',
+							'PALANGKARAYA'=>'PKY',
+							'PALEMBANG'=>'PLG',
+							'POLEWALI - MAMASA'=>'PMS',
+							'PONOROGO'=>'PON',
+							'POSO'=>'POS',
+							'PALOPO'=>'PPO',
+							'PRABUMULIH'=>'PRA',
+							'PAREPARE'=>'PRE',
+							'PROBOLINGGO'=>'PRO',
+							'PASURUAN'=>'PSR',
+							'PESISIR SELATAN'=>'PSS',
+							'TAPANULI TENGAH'=>'PTH',
+							'PONTIANAK'=>'PTK',
+							'PEMATANGSIANTAR'=>'PTS',
+							'PURWAKARTA'=>'PUR',
+							'PURWOREJO'=>'PWJ',
+							'PURWOKERTO'=>'PWK',
+							'PAYAKUMBUH'=>'PYK',
+							'REMBANG'=>'REM',
+							'REJANGLEBONG'=>'RJL',
+							'RANTAUPRAPAT'=>'RTP',
+							'SABANG'=>'SAB',
+							'SALATIGA'=>'SAL',
+							'SAWAHLUNTO'=>'SAW',
+							'SAMBAS'=>'SBS',
+							'SUMBAWA'=>'SBW',
+							'SURABAYA'=>'SBY',
+							'SUMEDANG'=>'SDG',
+							'SELAYAR'=>'SEL',
+							'SERANG'=>'SER',
+							'SIDENRENG - RAPPANG'=>'SGR',
+							'SANGGAU'=>'SGU',
+							'SIBOLGA'=>'SIB',
+							'SIKKA'=>'SIK',
+							'SIMALUNGUN'=>'SIM',
+							'SINTANG'=>'SIN',
+							'SINJAI'=>'SJI',
+							'SIDOARJO'=>'SJO',
+							'SUKOHARJO'=>'SKJ',
+							'SLEMAN'=>'SLE',
+							'SAROLANGUN'=>'SLN',
+							'SEMARANG'=>'SMG',
+							'SUMENEP'=>'SMN',
+							'SAMARINDA'=>'SMR',
+							'SOLOK'=>'SOK',
+							'SURAKARTA'=>'SOL',
+							'SOPPENG'=>'SOP',
+							'SORONG'=>'SOR',
+							'SAMPANG'=>'SPG',
+							'SRAGEN'=>'SRA',
+							'SANGIR-TALAUD'=>'STD',
+							'SUBANG'=>'SUB',
+							'SUKABUMI'=>'SUK',
+							'SUMBA BARAT'=>'SUM',
+							'SUMBA TIMUR'=>'SUT',
+							'SAWAH LUNTO'=>'SWL',
+							'TABALONG'=>'TAB',
+							'TAKALAR'=>'TAK',
+							'TANATORAJA'=>'TAN',
+							'TAPIN'=>'TAP',
+							'TASIKMALAYA'=>'TAS',
+							'TANJUNGBALAI ASAHAN'=>'TBA',
+							'TABANAN'=>'TBN',
+							'TEBINGTINGGI'=>'TBT',
+							'TEGAL'=>'TGL',
+							'TANAH DATAR'=>'THD',
+							'TANAHLAUT'=>'THL',
+							'TANAHPASIR'=>'THP',
+							'TANJUNGJABUNG'=>'TJJ',
+							'TANJUNGPINANG'=>'TJP',
+							'TELUK CENDRAWASIH'=>'TKC',
+							'TULUNGAGUNG'=>'TLA',
+							'TRENGGELEK'=>'TLK',
+							'TEMANGGUNG'=>'TMG',
+							'TANGERANG'=>'TNG',
+							'TERNATE'=>'TNT',
+							'TAPANULI SELATAN'=>'TPN',
+							'TAPANULI UTARA'=>'TPU',
+							'TARAKAN'=>'TRK',
+							'TASIKMALAYA (KODYA)'=>'TSK',
+							'TIMOR TENGAH SELATAN'=>'TTS',
+							'TIMOR TENGAH UTARA'=>'TTU',
+							'TUBAN'=>'TUB',
+							'UJUNGPANDANG'=>'UJP',
+							'WAJO'=>'WAJ',
+							'WATAMPONE'=>'WAT',
+							'WONOGIRI'=>'WGR',
+							'WONOSOBO'=>'WSB',
+							'YAPENWAROPEN'=>'YAP',
+							'YOGYAKARTA (KODYA)'=>'YOG'
+							} %>
+							<i></i>
+					    </label>
+					  </section>
+						</section>
+					</div>
 
 				</fieldset>
 				
-				<fieldset>
+				<fieldset class="splp" style="display:none;">
 					<div class="row">
 
 						<section class="col col-6">
@@ -199,7 +771,28 @@
 						</section>
 					</div>
 				</fieldset>
-				
+				<fieldset>
+					<h3>Dokumen Pendukung</h3>
+					<hr /><br />
+					Daftar dokumen pendukung yang harus di lampirkan harap mengacu pada <a target="_blank" href="http://kbriseoul.kr/kbriseoul/index.php/id/2013-01-07-14-59-13/pelaynan-kekonsuleran">halaman panduan</a> untuk setiap jenis permohonan Paspor. <br />
+					Dokumen yang di lampirkan harus di bawa dalam bentuk cetak ketika datang ke KBRI<br />
+					Gabungkan setiap dokumen menjadi satu dalam format ZIP/RAR dengan ukurang tidak lebih dari 5MB <br /><br />
+					
+					<section class="col col-6">
+							<label class="label">Dokumen Pendukung</label>
+							<label for="file" class="input input-file">
+								<div class="button">									
+									<%= f.input_field :supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note"><strong>Catatan : </strong> Hanya berkas ZIP/RAR. Ukuran Maks. 5MB</div>
+					</section> 
+				</fieldset>
+				<fieldset style="text-align:justify;">
+					<h4>Disclaimer</h4>
+					<hr /><br />
+					<p>Dengan mengisi form ini Saya menyatakan bahwa semua data yang diisikan merupakan informasi yang sebenar-benarnya. Segala kesalahan informasi yang dapat menyebabkan kerugian adalah tanggung jawab Saya dan tidak dapat di tangguhkan pada pihak lain. KBRI Seoul dan staff terkait dapat menolak/meminta perubahan data dan informasi terkait permohonan jika tidak sesuai dengan syarat dan ketentuan</p>
+				</fieldset>
 				<footer>
 					<button type="submit" class="button">Ajukan Aplikasi</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
@@ -212,11 +805,29 @@
 <script type="text/javascript">
 			$(function()
 			{
+				$('input[type=text]').keyup(function() {
+				    $(this).val($(this).val().toUpperCase());
+				});
+				$('textarea').keyup(function() {
+				    $(this).val($(this).val().toUpperCase());
+				});
+				$('#passport_application_type').change(function(){
+					if($(this).val() == 'pembuatan-splp'){
+						$('.splp').show();
+						$('#paspor_type').hide();
+					}else{
+						$('#paspor_type').show();
+						$('.splp').hide();
+					}
+				});	
 				// Regular datepicker
 				$('.datePick').datepicker({
-					dateFormat: 'dd.mm.yy',
+					dateFormat: 'yy/mm/dd',
 					prevText: '<i class="icon-chevron-left"></i>',
-					nextText: '<i class="icon-chevron-right"></i>'
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,
+      				yearRange: '1900:' + new Date().getFullYear()
 				});
 				
 				$('.fileplaceholder').change(function(){					
