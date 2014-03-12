@@ -135,7 +135,7 @@ class Immigration::VisagroupController < ApplicationController
   
   private
     def post_params
-      params.require(:visa).permit(:application_type, :category_type, :full_name, :sex, :email,
+      params.require(:visa).permit(:application_type, :category_type, :first_name, :last_name, :sex, :email,
       :placeBirth, :dateBirth, :marital_status, :nationality, :profession, :passport_no, :passport_no,
       :passport_issued, :passport_type, :passport_date_issued, :passport_date_expired, :sponsor_type_kr,
       :sponsor_name_kr, :sponsor_address_kr, :sponsor_address_city_kr, :sponsor_address_prov_kr, :sponsor_phone_kr, 

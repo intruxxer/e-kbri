@@ -19,6 +19,9 @@ class Visa
   field :marital_status,			   type: String 
   field :nationality,				     type: String 
   field :profession,				     type: String
+  field :address_kr,             type: String
+  field :address_city_kr,        type: String
+  field :address_prov_kr,        type: String
    
   field :passport_no,				     type: String 
   field :passport_issued,			   type: String 
@@ -26,13 +29,14 @@ class Visa
   field :passport_date_issued,	 type: Date 
   field :passport_date_expired,	 type: Date
   
-  field :sponsor_type_kr,			   type: String
+  field :sponsor_type_kr,			   type: Integer
   field :sponsor_name_kr,			   type: String  
   field :sponsor_address_kr,		 type: String
   field :sponsor_address_city_kr,type: String
   field :sponsor_address_prov_kr,type: String
-  field :sponsor_phone_kr,			 type: String  	
-  field :sponsor_type_id,			   type: String
+  field :sponsor_phone_kr,			 type: String
+    	
+  field :sponsor_type_id,			   type: Integer
   field :sponsor_name_id,			   type: String  
   field :sponsor_address_id,		 type: String
   field :sponsor_address_kab_id, type: String
