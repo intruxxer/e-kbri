@@ -75,6 +75,7 @@ class Immigration::VisaController < ApplicationController
      
    @visa = [ Visa.new(post_params) ]    
     if current_user.visas = @visa then
+      current_user.save
       UserMailer.visa_received_email(current_user).deliver
       respond_to do |format|
         format.html { redirect_to root_path, :notice => "Your visa application is successfully received!" }
@@ -137,25 +138,18 @@ class Immigration::VisaController < ApplicationController
       params.require(:visa).permit(:application_type, :category_type, :full_name, :sex, :email,
       :placeBirth, :dateBirth, :marital_status, :nationality, :profession, :passport_no, :passport_no,
       :passport_issued, :passport_type, :passport_date_issued, :passport_date_expired, :sponsor_type_kr,
-      :sponsor_name_kr, :sponsor_address_kr, :sponsor_phone_kr, :sponsor_type_id, :sponsor_name_id, 
-      :sponsor_address_id, :sponsor_phone_id, :duration_stays_day, :duration_stays_month, :duration_stays_year, 
+      :sponsor_name_kr, :sponsor_address_kr, :sponsor_address_city_kr, :sponsor_address_prov_kr, :sponsor_phone_kr, 
+      :sponsor_type_id, :sponsor_name_id, :sponsor_address_id, :sponsor_address_kab_id, :sponsor_address_prov_id, 
+      :sponsor_phone_id, :duration_stays, :duration_stays_unit,
       :num_entry, :checkbox_1, :checkbox_2, :checkbox_3, :checkbox_4, :checkbox_5, :checkbox_6, :checkbox_7, 
       :tr_count_dest, :tr_flight_vessel, :tr_air_sea_port, :tr_date_entry, :lim_s_purpose, 
       :lim_s_flight_vessel, :lim_s_air_sea_port, :lim_s_date_entry, :v_purpose, :v_flight_vessel,
       :v_air_sea_port, :v_date_entry, :dip_purpose, :dip_flight_vessel, :dip_air_sea_port, :dip_date_entry, :o_purpose, 
-      :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passportpath, :idcardpath, :photopath, :status, :payment_slip, 
-      :payment_date, :ticketpath, :sup_docpath).merge(owner_id: current_user.id, visa_type: 1,
-      ref_id: 'V-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
+      :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passportpath, :idcardpath, :photopath, :status, :status_code, :payment_slip, 
+      :payment_date, :ticketpath, :sup_docpath).merge(owner_id: current_user.id, visa_type: 1)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
     #end
-    def generate_string(length=5)
-      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
-      password = ''
-      length.times { |i| password << chars[rand(chars.length)] }
-      password = password.upcase
-    end
-    
 end
