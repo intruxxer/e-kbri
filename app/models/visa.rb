@@ -10,7 +10,8 @@ class Visa
   field :category_type,          type: String
   field :visa_type,              type: Integer #1 = individual, #2 = Family, 3 = Group
   
-  field :full_name,					     type: String
+  field :first_name,					   type: String
+  field :last_name,              type: String
   field :sex,						         type: String  
   field :email,						       type: String
   field :placeBirth,				     type: String 
@@ -41,7 +42,7 @@ class Visa
   field :duration_stays,		     type: Integer
   field :duration_stays_unit,	   type: String 
 
-  field :num_entry,					     type: Integer
+  field :num_entry,					     type: String
   
   field :checkbox_1,				     type: Boolean, default: false
   field :checkbox_2,				     type: Boolean, default: false
