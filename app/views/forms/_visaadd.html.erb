@@ -407,7 +407,7 @@
 									<i class="icon-append icon-calendar"></i>
 									<%= f.input_field :dateBirth, class: 'datePick' %>
 							</label>
-							<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+							<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 						</section>
 						
 						<section class="col col-3">
@@ -457,7 +457,7 @@
 								<i class="icon-append icon-calendar"></i>
 							<%= f.input_field :passport_date_issued, class: 'datePick' %>
 							</label>
-							<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+							<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 						</section>
 						
 						<section class="col col-6">
@@ -466,7 +466,7 @@
 								<i class="icon-append icon-calendar"></i>
 							<%= f.input_field :passport_date_expired, class: 'datePick' %>
 							</label>
-							<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+							<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 						</section>
 						
 					</div>
@@ -1233,12 +1233,13 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :tr_date_entry, class: 'datePick' %>
 					</label>
-					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 				  </section>
 				</div>  
 				</fieldset>
 				
 				<fieldset id="limited-stay" class="specialFieldCat no-show">
+			   	  <div class="row">Only modify information within these section if you are to apply LIMITED VISA.</div>
 			      <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Limited Stay</label>
@@ -1401,13 +1402,14 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :lim_s_date_entry, class: 'datePick' %>
 					</label>
-					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 				  </section>
 				</div>
 				  
 				</fieldset>
 				
 				<fieldset id="visit" class="specialFieldCat no-show">
+				  <div class="row">Only modify information within these section if you are to apply VISIT VISA.</div>
 				  <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
@@ -1570,13 +1572,14 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :v_date_entry, class: 'datePick' %>
 					</label>
-					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 				  </section>
 				</div>
 				  
 				</fieldset>
 				
 				<fieldset id="diplomatic" class="specialFieldCat no-show">
+				  <div class="row">Only modify information within these section if you are to apply DIPLOMATIC VISA.</div>
 				  <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
@@ -1736,13 +1739,14 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :dip_date_entry, class: 'datePick' %>
 					</label>
-					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 				  </section>
 				</div>
 				
 				</fieldset>
 				
 				<fieldset id="official" class="specialFieldCat no-show">
+				  <div class="row">Only modify information within these section if you are to apply OFFICIAL VISA.</div>
 				  <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Visit</label>
@@ -1901,7 +1905,7 @@
 						<i class="icon-append icon-calendar"></i>
 						<%= f.input_field :o_date_entry, class: 'datePick' %>
 					</label>
-					<div class="note"><strong>Note:</strong> Format is DD.MM.YYYY. Example, type '02.03.2014' (without single quote) for 02 March 2014.</div>
+					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 				  </section>
 				</div>
 								  
@@ -1967,7 +1971,7 @@
 				
 				// Regular datepicker
 				$( '.datePick' ).datepicker({
-					dateFormat: 'dd.mm.yy',
+					dateFormat: 'dd/mm/yy',
 					prevText: '<i class="icon-chevron-left"></i>',
 					nextText: '<i class="icon-chevron-right"></i>'
 				});
