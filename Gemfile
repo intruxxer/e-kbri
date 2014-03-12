@@ -25,6 +25,7 @@ gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
 gem 'jquery-turbolinks'
 gem 'country_select'
+gem 'paperclip', "~> 3.5.3"
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'aws-sdk', '~> 1.3.4'
 

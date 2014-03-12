@@ -92,9 +92,82 @@ class Visa
   field :payment_date,           type: Date
   field :vipa_no,                type: Integer
   
+  field :approval_no,            type: String, default: 'N/A'
+  
   belongs_to :user, :class_name => "User", :inverse_of => :visa
 
   field :is_sync,                type: Integer,     default: 0
+  
+  #validates :owner_id,               presence: true
+  validates :ref_id,                 presence: true
+  validates :application_type,       presence: true 
+  validates :category_type,          presence: true
+  validates :visa_type,              presence: true
+  
+  validates :first_name,             presence: true
+  validates :last_name,              presence: true
+  validates :sex,                    presence: true  
+  #validates :email,                  presence: true
+  validates :placeBirth,             presence: true 
+  validates :dateBirth,              presence: true
+  validates :marital_status,         presence: true 
+  validates :nationality,            presence: true 
+  validates :profession,             presence: true
+  #validates :address_kr,             presence: true
+  #validates :address_city_kr,        presence: true
+  #validates :address_prov_kr,        presence: true
+   
+  validates :passport_no,            presence: true 
+  validates :passport_issued,        presence: true 
+  validates :passport_type,          presence: true 
+  validates :passport_date_issued,   presence: true 
+  validates :passport_date_expired,  presence: true
+  
+  #validates :sponsor_type_kr,        presence: true
+  #validates :sponsor_name_kr,        presence: true  
+  #validates :sponsor_address_kr,     presence: true
+  #validates :sponsor_address_city_kr,presence: true
+  #validates :sponsor_address_prov_kr,presence: true
+  #validates :sponsor_phone_kr,       presence: true
+      
+  #validates :sponsor_type_id,        presence: true
+  #validates :sponsor_name_id,        presence: true  
+  #validates :sponsor_address_id,     presence: true
+  #validates :sponsor_address_kab_id, presence: true
+  #validates :sponsor_address_prov_id,presence: true
+  #validates :sponsor_phone_id,       presence: true
+    
+  validates :duration_stays,         presence: true
+  validates :duration_stays_unit,    presence: true 
+
+  validates :num_entry,              presence: true
+  
+  #validates :checkbox_1,             presence: true
+  #validates :checkbox_2,             presence: true
+  #validates :checkbox_3,             presence: true
+  #validates :checkbox_4,             presence: true
+  #validates :checkbox_5,             presence: true
+  #validates :checkbox_6,             presence: true
+  #validates :checkbox_7,             presence: true
+  
+  #validates :passportpath,           presence: true
+  #validates :idcardpath,             presence: true 
+  validates :photopath,              presence: true
+  #validates :ticketpath,             presence: true
+  #validates :sup_docpath,            presence: true
+  
+  #validates :status,                 presence: true
+  #validates :status_code,            presence: true
+  #validates :payment_slip,           presence: true
+  #validates :payment_date,           presence: true
+  #validates :vipa_no,                presence: true
+  
+  #validates :approval_no,            presence: true
+  
+  has_mongoid_attached_file :photo, :styles => { :thumb => "90x120>" }
+  validates_attachment_content_type :photo, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_presence :photo
+  validates_attachment_size :photo, less_than: 2.megabytes
   
   private
   def assign_ref_id
