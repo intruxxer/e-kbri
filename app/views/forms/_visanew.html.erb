@@ -1985,16 +1985,6 @@
 						$( id ).removeClass("no-show").css("display","block");
 					}
 				});
-				
-				$( "#visa_category_type" ).change(function() {
-  					var str = "";
-    				str = $( "#visa_category_type option:selected" ).val();
-    				var id = "#"+str;
-    				$( ".specialFieldCat" ).addClass("no-show").css("display", "none");
-					if(id != "none") {
-						$( id ).removeClass("no-show").css("display","block");
-					}
-				});
 				// Regular datepicker
 				$( '.datePick' ).datepicker({
 					dateFormat: 'dd/mm/yy',
