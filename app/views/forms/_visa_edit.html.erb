@@ -389,6 +389,14 @@
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB.
 							Please also be reminded that background portrait picture must be <strong>White</strong>.</div
 						</section>	
+						<% if @visa.photo.exists? %>
+						<section class="col col-1">
+							<%= image_tag @visa.photo.url(:thumb) %>
+							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+								<%= link_to 'Download', @visa.photo.url(:original, false), target: "_blank" %>
+							<%end%>
+						</section>				
+						<%end%>
 					</div>
 					
 					<div class="row">	
