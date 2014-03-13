@@ -7,7 +7,7 @@ class Immigration::VisaController < ApplicationController
         #redirect_to root_path
      #end
      #We will have passport
-     
+     @visa = Visa.new
      #redirect_to :controller => 'immigration/visa', :action => 'index', :type => 2, :format => 'json'
      respond_to do |format|
         format.html { } # {redirect_to root_path, :notice => "Your visa application is successfully received!" }
@@ -74,9 +74,9 @@ class Immigration::VisaController < ApplicationController
       end
    end
 =end     
-   @visa = [ Visa.new(post_params) ]    
-    if current_user.visas = @visa then
-      current_user.save
+   @visa = [ Visa.new(post_params) ] 
+   current_user.visas = @visa   
+    if current_user.save then
       UserMailer.visa_received_email(current_user).deliver
       respond_to do |format|
         format.html { redirect_to root_path, :notice => "Your visa application is successfully received!" }

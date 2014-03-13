@@ -2,6 +2,7 @@ class Immigration::VisagroupController < ApplicationController
   before_filter :authenticate_user!
   #GET /visa
   def index
+    @visa = Visa.new
     if params[:add_people] then
       @add_people = true
       @lastvisa = Visa.where(visa_type: 3, user_id: current_user).last
@@ -18,7 +19,7 @@ class Immigration::VisagroupController < ApplicationController
 
   #POST /visa
   def create
-    
+=begin   
    uploaded_passport = params[:visa][:passport]
    if (uploaded_passport != nil)
       new_passport = uploaded_passport.read
@@ -66,10 +67,11 @@ class Immigration::VisagroupController < ApplicationController
         file.write(new_ticket_picture)
       end
    end
+=end
      
-   @visa = [ Visa.new(post_params) ]    
-    if current_user.visas = @visa then
-      current_user.save
+   @visa = [ Visa.new(post_params) ]  
+   current_user.visas = @visa  
+    if current_user.save then
       UserMailer.visa_received_email(current_user).deliver
       respond_to do |format|
         format.html { 

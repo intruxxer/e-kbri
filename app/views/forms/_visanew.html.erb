@@ -6,7 +6,7 @@
 	<% elsif controller_name == "visagroup"  %>
 		<% @url_response = visagroups_path %>
 	<% end %>
-	<%= simple_form_for :visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
+	<%= simple_form_for @visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>
 				<% if controller_name == "visafamily" then %>
 					Indonesian Visa Application Form for Family
@@ -1985,7 +1985,7 @@
 					nextText: '<i class="icon-chevron-right"></i>',
 					changeMonth: true,
       				changeYear: true,
-      				yearRange: '1900:' + new Date().getFullYear()
+      				yearRange: '1900:2020'
 				});
 				
 				$('.fileplaceholder').change(function(){					
