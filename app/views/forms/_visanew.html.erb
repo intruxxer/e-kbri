@@ -6,6 +6,14 @@
 	<% elsif controller_name == "visagroup"  %>
 		<% @url_response = visagroups_path %>
 	<% end %>
+	<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Submission failed. The application is incomplete for:</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+	<%end%>
 	<%= simple_form_for @visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>
 				<% if controller_name == "visafamily" then %>
@@ -1978,6 +1986,15 @@
 					}
 				});
 				
+				$( "#visa_category_type" ).change(function() {
+  					var str = "";
+    				str = $( "#visa_category_type option:selected" ).val();
+    				var id = "#"+str;
+    				$( ".specialFieldCat" ).addClass("no-show").css("display", "none");
+					if(id != "none") {
+						$( id ).removeClass("no-show").css("display","block");
+					}
+				});
 				// Regular datepicker
 				$( '.datePick' ).datepicker({
 					dateFormat: 'dd/mm/yy',
