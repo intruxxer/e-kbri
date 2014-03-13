@@ -25,7 +25,7 @@ class Immigration::VisaController < ApplicationController
 
   #POST /visa
   def create
-    
+=begin    
    uploaded_passport = params[:visa][:passport]
    if (uploaded_passport != nil)
       new_passport = uploaded_passport.read
@@ -73,7 +73,7 @@ class Immigration::VisaController < ApplicationController
         file.write(new_ticket_picture)
       end
    end
-     
+=end     
    @visa = [ Visa.new(post_params) ]    
     if current_user.visas = @visa then
       current_user.save
