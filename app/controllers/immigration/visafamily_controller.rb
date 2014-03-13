@@ -85,8 +85,11 @@ class Immigration::VisafamilyController < ApplicationController
         }
       end
     else
-    redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
-    #do something further 
+      @visa = @visa[0]
+      @errors = current_user.visas[0].errors.messages
+      render 'index'
+      #redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
+      #do something further 
     end
     #*Debugging*#
     #logger.debug "We are inspecting VISA PROCESSING PARAMS as follows:"

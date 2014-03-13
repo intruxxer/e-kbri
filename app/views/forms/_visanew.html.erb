@@ -1238,6 +1238,16 @@
 				
 				<fieldset id="limited-stay" class="specialFieldCat no-show">
 			      <div class="row">
+			      <section class="col col-6">
+				      <label class="label">Immigration Approval No.</label>
+					  <label class="input">
+						<i class="icon-append icon-book"></i>
+						<%= f.input_field :approval_no %>
+					  </label>
+				  </section>
+			      </div>
+			      
+			      <div class="row">
 				  <section class="col col-3">
 					<label class="label">Purpose of Limited Stay</label>
 					<label class="select">
@@ -1939,7 +1949,12 @@
 		{
 				$( ".no-show" ).css("display", "none");
 									//console.log();
-									
+				$('input[type=text]').keyup(function() {
+				    $(this).val($(this).val().toUpperCase());
+				});
+				$('textarea').keyup(function() {
+				    $(this).val($(this).val().toUpperCase());
+				});					
 				// Adjusting suitable form
 				$( "#visa_application_type" ).change(function() {
   					var str = "";

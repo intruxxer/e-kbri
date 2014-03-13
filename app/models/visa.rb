@@ -99,7 +99,7 @@ class Visa
   field :is_sync,                type: Integer,     default: 0
   
   #validates :owner_id,               presence: true
-  validates :ref_id,                 presence: true
+  #validates :ref_id,                 presence: true
   validates :application_type,       presence: true 
   validates :category_type,          presence: true
   validates :visa_type,              presence: true
