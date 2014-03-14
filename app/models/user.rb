@@ -11,7 +11,7 @@ class User
   #has_one :passport
   #has_one :profile
   
-  before_create :assign_ref_id
+  before_create :assign_ref_id, :default_role
   after_create :default_role
 
   field :ref_id,          type: String
@@ -21,11 +21,11 @@ class User
   field :last_name,       type: String
   field :passport,        type: String
   field :id_card,         type: String
-  field :citizenship,     type: Boolean, default: true
-  field :origin,          type: String, default: "Indonesia"
-  field :individual,      type: Boolean, default: true
+  field :citizenship,     type: Boolean
+  field :origin,          type: String
+  field :individual,      type: Boolean
 
-  field :roles_mask,      type: Integer, default: 7
+  field :roles_mask,      type: Integer
   
   validates_presence_of :email, :first_name, :last_name
 
