@@ -49,3 +49,4 @@ group :test do
   gem "rb-inotify", "~> 0.9"
 end
 gem "wicked_pdf"
+gem 'wkhtmltopdf-binary'
