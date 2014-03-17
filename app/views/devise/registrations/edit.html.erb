@@ -9,14 +9,14 @@
 		<section class="col col-4">
 		  <label class="label">First Name</label>
 	      <label class="input">
-		    <%= f.input_field :first_name, :autofocus => true %>
+		    <%= f.input_field :first_name, :html => { :class => 'hurufBesar' }, :autofocus => true %>
 		    <i class="icon-append icon-user"></i>
 		  </label>
 		</section>
 		<section class="col col-4">
 		  <label class="label">Last Name</label>
 	      <label class="input">
-  		    <%= f.input_field :last_name %>
+  		    <%= f.input_field :last_name, :html => { :class => 'hurufBesar' } %>
   		    <i class="icon-append icon-user"></i>
   		  </label>
 		</section>
@@ -69,24 +69,273 @@
 		  </label>
 		</section>
 		<section class="col col-3">
-		  <label class="label">Country of Origin</label>
-	      <label class="input">
-		    <%= f.input_field :origin %>
-		    <i class="icon-append icon-globe"></i>
-		  </label>
-		  <div class="note"><strong>Note:</strong> Please correct your country of origin if you previously made mistake.</div>
+			<label class="label">Country of Origin</label>
+			<label class="select">
+				<%= f.input_field :origin, 
+								collection: {									
+									'ARUBA'=>'ABW',
+									'AFGANISTAN'=>'AFG',
+									'ANGOLA'=>'AGO',
+									'ANGUILLA'=>'AIA',
+									'ALAND ISLANDS'=>'ALA',
+									'ALBANIA'=>'ALB',
+									'ANDORRA'=>'AND',
+									'NETHERLANDS ANTILLES'=>'ANT',
+									'UNITED ARAB EMIRATES'=>'ARE',
+									'ARGENTINA'=>'ARG',
+									'ARMENIA'=>'ARM',
+									'AMERICAN SAMOA'=>'ASM',
+									'ANTARTICA'=>'ATA',
+									'FRENCH SOUTHERN TERRITORIES'=>'ATF',
+									'ANTIGUA AND BARBUDA'=>'ATG',
+									'AUSTRALIA'=>'AUS',
+									'AUSTRIA'=>'AUT',
+									'AZERBAIJAN'=>'AZE',
+									'BURUNDI'=>'BDI',
+									'BELGIUM'=>'BEL',
+									'BENIN'=>'BEN',
+									'BURKINA FASO'=>'BFA',
+									'BANGLADESH'=>'BGD',
+									'BULGARIA'=>'BGR',
+									'BAHRAIN'=>'BHR',
+									'BAHAMAS'=>'BHS',
+									'BOSNIA AND HERZEGOVINA'=>'BIH',
+									'SAINT BARTHêLEMY'=>'BLM',
+									'BELARUS'=>'BLR',
+									'BELIZE'=>'BLZ',
+									'BERMUDA'=>'BMU',
+									'BOLIVIA'=>'BOL',
+									'BRAZIL'=>'BRA',
+									'BARBADOS'=>'BRB',
+									'BRUNAI DARUSSALAM'=>'BRN',
+									'BHUTAN'=>'BTN',
+									'BOUVLET ISLAND'=>'BVT',
+									'BOSTWANA'=>'BWA',
+									'CENTRAL AFRICAN REPUBLIC'=>'CAF',
+									'CANADA'=>'CAN',
+									'COCOS (KEELING) ISLAND'=>'CCK',
+									'SWITZERLAND'=>'CHE',
+									'CHILE'=>'CHL',
+									'PEOPLE REPUBLIC OF CHINA'=>'CHN',
+									'COTE D IVOIRE'=>'CIV',
+									'CAMEROON'=>'CMR',
+									'DEMOCRATIC REPUBLIC OF THE CONGO'=>'COD',
+									'REPUBLIC OF THE CONGO'=>'COG',
+									'COOK ISLAND'=>'COK',
+									'COLOMBIA'=>'COL',
+									'COMOROS'=>'COM',
+									'CAPE VERDE'=>'CPV',
+									'COSTA RICA'=>'CRI',
+									'CUBA'=>'CUB',
+									'CHRISTMAS ISLAND'=>'CXR',
+									'CAYMAN ISLAND'=>'CYM',
+									'CYPRUS'=>'CYP',
+									'CZECH REPUBLIC'=>'CZE',
+									'GERMANY'=>'DEU',
+									'DJIBOUTI'=>'DJI',
+									'DOMINICA'=>'DMA',
+									'DENMARK'=>'DNK',
+									'DOMINICAN REPUBLIC'=>'DOM',
+									'ALGERIA'=>'DZA',
+									'ECUADOR'=>'ECU',
+									'EGYPT'=>'EGY',
+									'ERITREA'=>'ERI',
+									'WESTERN SAHARA'=>'ESH',
+									'SPAIN'=>'ESP',
+									'ESTONIA'=>'EST',
+									'ETHIOPIA'=>'ETH',
+									'FINLAND'=>'FIN',
+									'FIJI'=>'FJI',
+									'FALKLAND ISLANDS'=>'FLK',
+									'FRANCE'=>'FRA',
+									'FAROE ISLAND'=>'FRO',
+									'FEDERATES STATES OF MICRONESIA'=>'FSM',
+									'GABON'=>'GAB',
+									'UNITED KINGDOM'=>'GBR',
+									'GEORGIA'=>'GEO',
+									'GUERNSEY'=>'GGY',
+									'GHANA'=>'GHA',
+									'GILBRALTAR'=>'GIB',
+									'GUINEA'=>'GIN',
+									'GUADELOUPE'=>'GLP',
+									'GAMBIA'=>'GMB',
+									'GUINEA-BISSAU'=>'GNB',
+									'EQUATORIAL GUINEA'=>'GNQ',
+									'GREECE'=>'GRC',
+									'GRENADA'=>'GRD',
+									'GREENLAND'=>'GRL',
+									'GUATEMALA'=>'GTM',
+									'FRENCH GUIANA'=>'GUF',
+									'GUAM'=>'GUM',
+									'GUYANA'=>'GUY',
+									'HONGKONG'=>'HKG',
+									'HEARD ISLAND AND MCDONALD ISLANDS'=>'HMD',
+									'HONDURAS'=>'HND',
+									'CROATIA'=>'HRV',
+									'HAITI'=>'HTI',
+									'HUNGARY'=>'HUN',
+									'INDONESIA'=>'IDN',
+									'ISLE OF MAN'=>'IMN',
+									'INDIA'=>'IND',
+									'BRITISH INDIAN OCEAN TERRITORY'=>'IOT',
+									'REPUBLIC OF IRELAND'=>'IRL',
+									'IRAN ISLAMIC REPUBLIC OF'=>'IRN',
+									'IRAQ'=>'IRQ',
+									'ICELAND'=>'ISL',
+									'ISRAEL'=>'ISR',
+									'ITALY'=>'ITA',
+									'JAMAICA'=>'JAM',
+									'JERSEY'=>'JEY',
+									'JORDAN'=>'JOR',
+									'JAPAN'=>'JPN',
+									'KAZAKHSTAN'=>'KAZ',
+									'KENYA'=>'KEN',
+									'KYRGYZSTAN'=>'KGZ',
+									'CAMBODIA'=>'KHM',
+									'KIRIBATI'=>'KIR',
+									'SAINT KITTS AND NEVIS'=>'KNA',
+									'KOREA REPUBLIC OF'=>'KOR',
+									'KUWAIT'=>'KWT',
+									'LAO PEOPLE DEMOCRATIC REPUBLIC'=>'LAO',
+									'LEBANON'=>'LBN',
+									'LIBERIA'=>'LBR',
+									'LIBYAN ARAB JAMAHIRIYA'=>'LBY',
+									'SAINT LUCIA'=>'LCA',
+									'LIECHSTENSTEIN'=>'LIE',
+									'SRI LANKA'=>'LKA',
+									'LESOTHO'=>'LSO',
+									'LITHUANIA'=>'LTU',
+									'LUXEMBOURG'=>'LUX',
+									'LATVIA'=>'LVA',
+									'MACAO'=>'MAC',
+									'SAINT MARTIN (FRENCH PART)'=>'MAF',
+									'MAROCCO'=>'MAR',
+									'MONACO'=>'MCO',
+									'MOLDOVA'=>'MDA',
+									'MADAGASCAR'=>'MDG',
+									'MALDIVES'=>'MDV',
+									'MEXICO'=>'MEX',
+									'MARSHALL ISLAND'=>'MHL',
+									'REPUBLIC OF MACEDONIA'=>'MKD',
+									'MALI'=>'MLI',
+									'MALTA'=>'MLT',
+									'MYANMAR'=>'MMR',
+									'MONTENEGRO'=>'MNE',
+									'MONGOLIA'=>'MNG',
+									'NORTHERN MARIANA ISLAND'=>'MNP',
+									'MOZAMBIQUE'=>'MOZ',
+									'MAURITANIA'=>'MRT',
+									'MONTSERRAT'=>'MSR',
+									'MARTINIQUE'=>'MTQ',
+									'MAURITIUS'=>'MUS',
+									'MALAWI'=>'MWI',
+									'MALAYSIA'=>'MYS',
+									'MAYOTTE'=>'MYT',
+									'NAMIBIA'=>'NAM',
+									'NEW CALEDONIA'=>'NCL',
+									'NIGER'=>'NER',
+									'NORFOLK ISLAND'=>'NFK',
+									'NIGERIA'=>'NGA',
+									'NICARAGUA'=>'NIC',
+									'NIUE'=>'NIU',
+									'NETHERLANDS'=>'NLD',
+									'NORWAY'=>'NOR',
+									'NEPAL'=>'NPL',
+									'NAURU'=>'NRU',
+									'NEW ZEALAND'=>'NZL',
+									'OMAN'=>'OMN',
+									'PAKISTAN'=>'PAK',
+									'PANAMA'=>'PAN',
+									'PITCAIRN'=>'PCN',
+									'PERU'=>'PER',
+									'PHILIPPINES'=>'PHL',
+									'PALAU'=>'PLW',
+									'PAPUA NEW GUINEA'=>'PNG',
+									'POLAND'=>'POL',
+									'PUERTO RICO'=>'PRI',
+									'KOREA DEMOCRATIC PEOPLE REPUBLIC OF'=>'PRK',
+									'PORTUGAL'=>'PRT',
+									'PARAGUAY'=>'PRY',
+									'PALESTINIAN TERRITORY - OCCUPIED'=>'PSE',
+									'FRENCH POLYNESIA'=>'PYF',
+									'QATAR'=>'QAT',
+									'REUNION'=>'REU',
+									'ROMANIA'=>'ROU',
+									'RUSSIAN FEDERATION'=>'RUS',
+									'RWANDA'=>'RWA',
+									'SAUDI ARABIA'=>'SAU',
+									'SUDAN'=>'SDN',
+									'SENEGAL'=>'SEN',
+									'SINGAPORE'=>'SGP',
+									'SOUTH GEORGIA AND THE SOUTH SANDWICH ISLAND'=>'SGS',
+									'SAINT HELENA'=>'SHN',
+									'SVALBARD AND JAN MAYEN'=>'SJM',
+									'SALOMON ISLAND'=>'SLB',
+									'SIERRA LEONE'=>'SLE',
+									'EL SALVADOR'=>'SLV',
+									'SAN MARINO'=>'SMR',
+									'SOMALIA'=>'SOM',
+									'SAINT-PIERRE AND MIQUELON'=>'SPM',
+									'SERBIA'=>'SRB',
+									'SAO TOME AND PRINCIPE'=>'STP',
+									'SURINAME'=>'SUR',
+									'SLOVAKIA'=>'SVK',
+									'SLOVENIA'=>'SVN',
+									'SWEDEN'=>'SWE',
+									'SWAZILAND'=>'SWZ',
+									'SEYCHELLES'=>'SYC',
+									'SYRIAN ARAB REPUBLIC'=>'SYR',
+									'TURKS AND CAICOS ISLANDS'=>'TCA',
+									'CHAD'=>'TCD',
+									'TOGO'=>'TGO',
+									'THAILAND'=>'THA',
+									'TAJIKISTAN'=>'TJK',
+									'TOKELAU'=>'TKL',
+									'TURKMENISTAN'=>'TKM',
+									'TIMOR LESTE'=>'TLS',
+									'TONGA'=>'TON',
+									'TRINIDAD AND TOBAGO'=>'TTO',
+									'TUNISIA'=>'TUN',
+									'TURKEY'=>'TUR',
+									'TUVALU'=>'TUV',
+									'REPUBLIC OF CHINA (TAIWAN)'=>'TWN',
+									'TANZANIA'=>'TZA',
+									'UGANDA'=>'UGA',
+									'UKRAINE'=>'UKR',
+									'UNITED STATES MINOR OUTLYING ISLANDS'=>'UMI',
+									'URUGUAY'=>'URY',
+									'UNITED STATES'=>'USA',
+									'UZBEKISTAN'=>'UZB',
+									'VATICAN CITY'=>'VAT',
+									'SAINT VINCENT AND THE GRENADINES'=>'VCT',
+									'VENEZUELA'=>'VEN',
+									'BRITISH VIRGIN ISLANDS'=>'VGB',
+									'U.S. VIRGIN ISLANDS'=>'VIR',
+									'VIETNAM'=>'VNM',
+									'VANUATU'=>'VUT',
+									'WALLIS AND FUTUNA'=>'WLF',
+									'SAMOA'=>'WSM',
+									'YEMEN'=>'YEM',
+									'SOUTH AFRICA'=>'ZAF',
+									'ZAMBIA'=>'ZMB',
+									'ZIMBABWE'=>'ZWE' }, :selected => 'IDN' %>
+								<i></i>
+				</label>
+				<div class="note"><strong>Note:</strong> 
+				Please state your country of origin
+				if you are not Indonesian/holding Indonesian Citizenship.</div>
 		</section>
 		<section class="col col-3">
 		  <label class="label">Passport No.</label>
 	      <label class="input">
-  		    <%= f.input_field :passport %>
+  		    <%= f.input_field :passport, :html => { :class => 'hurufBesar' } %>
   		    <i class="icon-append icon-book"></i>
   		  </label>
 		</section>
 		<section class="col col-3">
 		  <label class="label">Alien Card No.</label>
 	      <label class="input">
-  		    <%= f.input_field :id_card %>
+  		    <%= f.input_field :id_card, :html => { :class => 'hurufBesar' } %>
   		    <i class="icon-append icon-book"></i>
   		  </label>
 		</section>
@@ -104,4 +353,16 @@
 
 <h3>Hapus akun di E-KBRI</h3>
 <p>Ada kesalahan? Enggan menggunakan layanan E-KBRI? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript">
+	$(function()
+		{
+				$('input:checkbox .hurufBesar').keyup(function() {
+				    $(this).val($(this).val().toUpperCase());
+				});
+				$('textarea').keyup(function() {
+				    $(this).val($(this).val().toUpperCase());
+				});
+		});			
+</script>
