@@ -58,15 +58,15 @@
 						</section>		
 					</div>
 				</fieldset>
-					
+				
 				<fieldset>
 					<div class="row">
 						<section class="col col-6">
 							<label class="label">Tujuan Aplikasi</label>
 							<label class="select">
-								<%= f.input_field :application_type, :required => true,
+								<%= f.input_field :application_type,
 								collection: { 'Perpanjang Paspor' => 'perpanjang-paspor', 
-								          	  'Pembuatan Paspor Baru' => 'pembuatan-paspor' } %>
+								          	  'Pembuatan Paspor Baru' => 'pembuatan-paspor' }, :disabled => 'disabled' %>							
 							<i></i>
 							</label>
 						</section>
@@ -175,6 +175,7 @@
 						</section>
 					</div>					
 				</fieldset>
+				<% if @passport.application_type == 'perpanjang-paspor' %>	
 				<fieldset>
 					<h3>Detail Paspor Sebelumnya</h3>	
 					<hr /><br />
@@ -224,6 +225,7 @@
 						
 					</div>
 				</fieldset>
+				<% end %>
 				<fieldset>
 					<h3>Detail Pekerjaan</h3>	
 					<hr /><br />
@@ -830,8 +832,15 @@
 									<%= f.input_field :supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
 									<input type="text" readonly="readonly" />
 							</label>
+							
 							<div class="note"><strong>Catatan : </strong> Hanya berkas ZIP/RAR. Ukuran Maks. 5MB</div>
 					</section> 
+					<% if @passport.supporting_doc.exists? %>
+						<section class="col col-4">
+							Dokumen Terunggah : <br />
+							<%= link_to @passport.supporting_doc_file_name, @passport.supporting_doc.url(:original, false) %>							
+						</section>				
+					<%end%>
 				</fieldset>
 				<fieldset style="text-align:justify;">
 					<h4>Disclaimer</h4>
@@ -856,16 +865,7 @@
 				});
 				$('textarea').keyup(function() {
 				    $(this).val($(this).val().toUpperCase());
-				});
-				$('#passport_application_type').change(function(){
-					if($(this).val() == 'pembuatan-splp'){
-						$('.splp').show();
-						$('#paspor_type').hide();
-					}else{
-						$('#paspor_type').show();
-						$('.splp').hide();
-					}
-				});	
+				});				
 				// Regular datepicker
 				$('.datePick').datepicker({
 					dateFormat: 'yy/mm/dd',

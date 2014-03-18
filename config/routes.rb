@@ -1,9 +1,11 @@
-EKbri::Application.routes.draw do 
+EKbri::Application.routes.draw do
   resources :visas, controller: 'immigration/visa'
   resources :visafamilys, controller: 'immigration/visafamily'
   resources :visagroups, controller: 'immigration/visagroup'
   resources :passports, controller: 'immigration/passport'
   resources :reports, controller: 'immigration/report'
+  
+  get "dashboard/protocols", :to => "protocol#index"
   
   authenticated :user do
     root to: 'welcome#index', as: :authenticated_root
@@ -47,6 +49,20 @@ EKbri::Application.routes.draw do
   #Unit Test Framework#
   get "playground", :to => "playground#index"
   get "test", :to => "playground#test"
+  
+  get "visa/show/all", :to => "desktop#show_all_sisari"
+  get "visa/tosisari/:id", :to => "desktop#exec_toSisari"
+  get "passport/show/all", :to => "desktop#show_all_spri"
+  get "dashboard/service/:document", :to => "dashboard#immigration"
+  get "admin/service/:document/:id", :to => "dashboard#immigration"
+  get "dashboard/syncpanel", :to => "dashboard#syncpanel"
+  
+  match "passport/tospri/:id", to: "immigration/dekstop#exec_toSPRI", via: :post
+  
+  get "protocol/synccloudtolocal/:collection", :to => "protocol#syncCollectionCloudtoLocal"
+  get "protocol/syncdbcomplete", :to => "protocol#syncDBComplete"
+  
+  
   
   #resources :dashboard_immigration, path: "dashboard/immigration"
   

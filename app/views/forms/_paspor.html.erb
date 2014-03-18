@@ -132,7 +132,7 @@
 						</section>
 					</div>					
 				</fieldset>
-				<fieldset>
+				<fieldset id="pasporsebelumnya" style="display:none;">
 					<h3>Detail Paspor Sebelumnya</h3>	
 					<hr /><br />
 					<div class="row">
@@ -748,31 +748,7 @@
 						</section>
 					</div>
 
-				</fieldset>
-				
-				<fieldset class="splp" style="display:none;">
-					<div class="row">
-
-						<section class="col col-6">
-							<label class="label">Tiba di Korea</label>	
-							<label class="input">
-									<i class="icon-append icon-calendar"></i>
-									<%= f.input_field :dateArrival, class: 'datePick' %>
-							</label>
-							<div class="note"><strong>Note:</strong> Hanya diisi oleh WNI yang bekerja via skema G2G/EPS.</div>
-						</section>
-
-						<section class="col col-6">
-							<label class="label">Dikirim oleh</label>
-							<label class="select">
-								<%= f.input_field :sendingParty, 
-								collection: { 'BNP2TKI' => '1', 'PJTKI' => '2', 'Perusahaan Korea di Indonesia' => '3', 'Lain-Lain' => '4' } %>
-							<i></i>
-							</label>
-							<div class="note"><strong>Note:</strong> Hanya diisi oleh WNI yang bekerja via skema G2G/EPS.</div>
-						</section>
-					</div>
-				</fieldset>
+				</fieldset>				
 				<fieldset>
 					<h3>Dokumen Pendukung</h3>
 					<hr /><br />
@@ -814,12 +790,10 @@
 				    $(this).val($(this).val().toUpperCase());
 				});
 				$('#passport_application_type').change(function(){
-					if($(this).val() == 'pembuatan-splp'){
-						$('.splp').show();
-						$('#paspor_type').hide();
-					}else{
-						$('#paspor_type').show();
-						$('.splp').hide();
+					if($(this).val() == 'perpanjang-paspor'){
+						$('#pasporsebelumnya').show();						
+					}else{						
+						$('#pasporsebelumnya').hide();
 					}
 				});	
 				// Regular datepicker

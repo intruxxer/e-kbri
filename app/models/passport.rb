@@ -53,6 +53,7 @@ class Passport
   
   field :passport_no,            type: String
   field :reg_no,                 type: String
+  field :lapordiri_no,           type: String
   
   
   validates :application_type,   presence: true
@@ -64,8 +65,11 @@ class Passport
   validates :dateBirth,          presence: true
   validates :citizenship_status, presence: true
   
-  validates :lastPassportNo,     length: { minimum: 0, maximum: 32 }  
-  validates :placeIssued,        length: { minimum: 0, maximum: 30 }
+  validates :lastPassportNo,     presence: true, length: { minimum: 0, maximum: 32 }, :if => :check_application_type
+  validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_type
+  validates :dateIssued,         presence: true, :if => :check_application_type
+  validates :dateIssuedEnd,      presence: true, :if => :check_application_type
+  validates :immigrationOffice,  presence: true, :if => :check_application_type
   
   validates :jobStudyInKorea,    presence: true, length: { minimum: 1, maximum: 50 }
   validates :jobStudyTypeInKorea,presence: true
@@ -94,4 +98,13 @@ class Passport
   has_mongoid_attached_file :supporting_doc
   validates_attachment_content_type :supporting_doc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream)
   validates_attachment_size :supporting_doc, less_than: 5.megabytes
+  
+  def check_application_type
+    if self.application_type == 'perpanjang-paspor'
+      return true
+    else
+      return false
+    end     
+  end
+  
 end
