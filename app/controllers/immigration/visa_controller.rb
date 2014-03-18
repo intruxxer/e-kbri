@@ -52,6 +52,9 @@ class Immigration::VisaController < ApplicationController
       format.html #visa_processing/show.html.erb
       format.json { render json: @visa }
       format.xml { render xml: @visa }
+      format.pdf do
+        
+      end
     end
   end
   
