@@ -12,58 +12,7 @@
 								<span class="title"> Pelayanan E-KBRI </span><i class="icon-arrow"></i>
 								<span class="arrow "></span>
 							<% end %>
-							<ul class="sub-menu">
-								<li>
-									<%= link_to "#" do %>
-										<i class="fa fa-flag"></i> 
-										Konsuler <i class="icon-arrow"></i>
-									<% end %>
-									<ul class="sub-menu">
-										<li>
-											<%= link_to "#;" do %>
-												<i class="fa fa-files-o"></i> 
-												Surat-Surat <i class="icon-arrow"></i>
-											<% end %>
-											<ul class="sub-menu">
-												<li>
-													<%= link_to dashboard_counsel_path do %>
-														<i class="fa fa-file-o"></i> Keterangan Lahir
-													<% end %>
-												</li>
-												<li>
-													<%= link_to dashboard_counsel_path do %>
-														<i class="fa fa-file-o"></i> Keterangan Nikah
-													<% end %>
-												</li>
-												<li>
-													<%= link_to dashboard_counsel_path do %>
-														<i class="fa fa-file-o"></i> Keterangan Talak
-													<% end %>
-												</li>
-												<li>
-													<%= link_to dashboard_counsel_path do %>
-														<i class="fa fa-file-o"></i> Keterangan Cerai
-													<% end %>
-												</li>
-												<li>
-													<%= link_to dashboard_counsel_path do %>
-														<i class="fa fa-file-o"></i> Keterangan Rujuk
-													<% end %>
-												</li>
-											</ul>
-										</li>
-										<li>
-											<%= link_to dashboard_counsel_path do %>
-												<i class="fa fa-bookmark-o"></i> Lain-Lain
-											<% end %>
-										</li>
-										<li>
-											<%= link_to dashboard_counsel_path do %>
-												<i class="fa fa-certificate"></i> Legalisasi Dokumen
-											<% end %>
-										</li>
-									</ul>
-								</li>
+							<ul class="sub-menu">								
 								<li>
 									<%= link_to "#" do %>
 										<i class="fa fa-check-square"></i> 
@@ -77,13 +26,13 @@
 											<% end %>
 											<ul class="sub-menu">
 												<li>
-													<%= link_to dashboard_immigration_path do %>
+													<%= link_to '/dashboard/service/passport' do %>
 														<i class="fa fa-book"></i>
 														Paspor
 													<% end %>
 												</li>
 												<li>
-													<%= link_to dashboard_immigration_path do %>
+													<%= link_to '/dashboard/service/passport' do %>
 													  	<i class="fa fa-book"></i>
 														SPLP
 													<% end %>
@@ -91,119 +40,27 @@
 											</ul>
 										</li>
 										<li>
-											<%= link_to dashboard_immigration_path do %>
+											<%= link_to '/dashboard/service/visa' do %>
 												<i class="fa fa-file-text-o"></i> Aplikasi Visa
 											<% end %>
-										</li>
-										<li>
-											<%= link_to dashboard_immigration_path do %>
-												<i class="fa fa-file-o"></i> Lapor Diri
-											<% end %>
-										</li>
+										</li>										
 									</ul>
-								</li>
-								<li>
-									<%= link_to "#" do %>
-										<i class="fa fa-users"></i> Pendataan WNI
-									<% end %>
-								</li>
+								</li>								
 							</ul>
-						</li>
+						</li>					
 						<li>
-							<%= link_to "#" do %>
-								<i class="clip-pencil"></i>
-								<span class="title"> Formulir Aplikasi </span><i class="icon-arrow"></i>
-								<span class="selected"></span>
-							<% end %>
-							<ul class="sub-menu">
-								<li>
-									<%= link_to "#{site_url}dashboard/immigration/visa" do %>
-										<i class="fa fa-file-o"></i>
-										<span class="title">Aplikasi Visa</span>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to "#{site_url}dashboard/immigration/passport" do %>
-										<i class="fa fa-book"></i>
-										<span class="title">Aplikasi Paspor/SPLP</span>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to "#" do %>
-										<i class="fa fa-files-o"></i>
-										<span class="title">Aplikasi Surat</span>
-									<% end %>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<%= link_to "#" do %>
+							<%= link_to "/dashboard/syncpanel" do %>
 								<i class="clip-data"></i>
-								<span class="title">Rekap Data</span><i class="icon-arrow"></i>
-								<span class="selected"></span>
+								<span class="title">Synchronization Panel </span>
+								<span class="arrow "></span>
 							<% end %>
-							<ul class="sub-menu">
-								<li>
-									<%= link_to dashboard_tabulation_path do %>
-										<i class="fa fa-user"></i>
-										<span class="title">Profil WNI Korea</span>
-									<% end %>
-								</li>
-							</ul>
 						</li>
 						<li>
 							<%= link_to "#" do %>
-								<i class="clip-attachment-2"></i>
-								<span class="title">File</span><i class="icon-arrow"></i>
-								<span class="selected"></span>
-							<% end %>
-							<ul class="sub-menu">
-								<li>
-									<%= link_to "#" do %>
-										<i class="fa fa-question"></i>
-										<span class="title">&nbsp; Visa (Pending)</span>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to "#" do %>
-										<i class="fa fa-check"></i>
-										<span class="title">Visa (Approved)</span>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to "#" do %>
-										<i class="fa fa-times"></i>
-										<span class="title">&nbsp; Visa (Reject)</span>
-									<% end %>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<%= link_to "#" do %>
-								<i class="clip-user-3"></i>
-								<span class="title">Ketenagakerjaan</span><i class="icon-arrow"></i>
-								<span class="selected"></span>
-							<% end %>
-							<ul class="sub-menu">
-								<li>
-									<%= link_to dashboard_employment_indonesia_path do %>
-										<i class="fa fa-list"></i>
-										<span class="title">BNP2TKI</span>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to dashboard_employment_korea_path do %>
-										<i class="fa fa-briefcase"></i>
-										<span class="title">HRD Korea</span>
-									<% end %>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<%= link_to dashboard_statistics_path do %>
-							  <i class="clip-bars"></i>
-							  <span class="title">Statistika E-KBRI</span>
-							  <span class="selected"></span>
+								<i class="clip-bars"></i>
+								<span class="title"> Laporan Berkala </span>
+								<span class="arrow "></span>
 							<% end %>
 						</li>
+						
 </ul>

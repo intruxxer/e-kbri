@@ -1,73 +1,62 @@
-class Immigration::ReportController < ApplicationController
+class Immigration::ReportController < ApplicationController  
+  before_filter :authenticate_user!
   
-
   def index
+     @report = Report.new
 	   if Report.where(user_id: current_user).count > 0
 		    redirect_to edit_report_path(current_user)
 	   end
   end
   
-  def create
-	 
-	 uploaded_io = params[:post][:paspor]
-	 if (uploaded_io != nil)
-		newfile = uploaded_io.read
-		File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-			file.write(newfile)
-		end
-	 end
-	 
-	 uploaded_io2 = params[:post][:aliencard]
-	 if (uploaded_io2 != nil)
-    newfile = uploaded_io2.read
-    File.open(Rails.root.join('public', 'uploads', uploaded_io2.original_filename), 'wb') do |file|
-      file.write(newfile)
-    end
-   end
-   
-   uploaded_io3 = params[:post][:photo]
-   if (uploaded_io3 != nil)
-    newfile = uploaded_io3.read
-    File.open(Rails.root.join('public', 'uploads', uploaded_io3.original_filename), 'wb') do |file|
-      file.write(newfile)
-    end
-   end
-		
-	 current_user.reports = Report.new(post_params)
-	 redirect_to root_path(current_user), :notice => 'Data Diri Anda Berhasil Disimpan!'
+  def create		
+   @report =  Report.new(post_params)
+	 current_user.reports = @report
+	 if current_user.save
+	    respond_to do |format|
+        format.html { redirect_to root_path, :notice => "Data Lapor Diri Anda Berhasil Disimpan" }        
+      end
+   else      
+      @errors = @report.errors.messages
+      render 'index'
+	 end	 	 
   end
   
   #PATCH, PUT /report/:id
   def update
 	  #@post = Report.find_by(user_id: params[:id])
-	  @post = Report.find(params[:id])
-    if @post.update(post_params)
-    	 redirect_to root_path, :notice => 'Data Diri Anda Berhasil Diubah!'
+	  @report = Report.find(params[:id])
+    if @report.update(post_params)
+    	 redirect_to :back, :notice => 'Data Lapor Diri Anda Berhasil Diubah!'
     else
+      @errors = @report.errors.messages
     	 render 'edit'
     end
   end
   
   def edit   
-	   @post = Report.find_by(user_id: params[:id])
+	   @report = Report.find_by(user_id: params[:id])
 	   #@post = Report.find(params[:id])
+  end
+  
+  def findbyNameandBirth
+    params.permit(:name, :datebirth)        
+    @report = Report.where( name: params[:name] ).where( datebirth: params[:datebirth] ).all
+    catch = { 'ref_id' => 'null' }
+    if @report.exists?
+      catch = { 'ref_id' => @report.first.ref_id }
+    end    
+    render :json => catch
   end
   
   private
 	def post_params	    
-		params.require(:post).permit(:name, :height, :birthplace, :datebirth, :marriagestatus, :nopaspor, :dateissued, :dateend, :pasporplace, :visatype, :visadateissued, :visadateend,
-		:koreanjob, :koreaninstancename, :koreaninstanceaddress, :koreaninstancephone, :koreaninstancecity, :koreaninstanceprovince, :koreaninstancepostalcode,
+		params.require(:report).permit(:name, :height, :birthplace, :datebirth, :marriagestatus, :nopaspor, :dateissued, :dateend, :passportplace, :immigrationOffice, :visatype, :visadateissued, :visadateend,
+		:jobStudyInKorea, :jobStudyTypeInKorea, :jobStudyOrganization, :jobStudyAddress,
 		:koreanphone, :koreanaddress, :koreanaddresscity, :koreanaddressprovince, :koreanaddresspostalcode, :indonesianphone, :indonesianaddress, :indonesianaddresskelurahan, 
 		:indonesianaddresskecamatan, :indonesianaddresskabupaten, :indonesianaddressprovince, :indonesianaddresspostalcode, :relationname, :relationstatus, :relationaddress,
 		:relationphone, :relationaddresskelurahan, :relationaddresskecamatan, :relationaddresskabupaten, :relationaddressprovince, :relationaddresspostalcode, :arrivaldate, :indonesianinstance,
-		:pasporname, :aliencardname, :photoname, :stayinkorea).merge(owner_id: current_user.id, ref_id: 'R-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s)
+		:paspor, :aliencard, :photo, :stayinkorea).merge(owner_id: current_user.id)
 	end
   
-  def generate_string(length=5)
-      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
-      password = ''
-      length.times { |i| password << chars[rand(chars.length)] }
-      password = password.upcase
-  end
   
 end

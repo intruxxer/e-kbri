@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-sm-7">
+		<div class="row space8">
+			<ul class="mini-stats col-sm-12">
+				<li class="col-sm-4">
+					<h4>Passports</h4>
+					<a href="/protocol/synccloudtolocal/passports"><button class="sync">Sync Now</button></a>
+					<div class="values">
+						<strong><%= @syncdata.nil? ? '' : @syncdata.passports_last_synched.strftime("%m/%d/%Y %H:%M:%S") %></strong>
+						Last Sync Time
+					</div>
+				</li>
+				<li class="col-sm-4">
+					<h4>Visas</h4>
+					<a href="/protocol/synccloudtolocal/visas"><button class="sync">Sync Now</button></a>
+					<div class="values">
+						<strong><%= @syncdata.nil? ? '' : @syncdata.visas_last_synched.strftime("%m/%d/%Y %H:%M:%S") %></strong>
+						Last Sync Time
+					</div>
+				</li>
+				<li class="col-sm-4">
+					<h4 style="color:orange;">Complete Database</h4>
+					<a href="/protocol/syncdbcomplete"><button class="sync">Sync Now</button></a>
+					<div class="values">						
+						<b>Warning :</b> All Collection will be affected
+					</div>
+				</li>
+				<li class="col-sm-4"></li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<div class="row space12">			
+			<div class="col-sm-6">
+				Network Condition : <span style="color:green;">GOOD</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

@@ -3,6 +3,7 @@ class Passport
   include Mongoid::Timestamps
   include Mongoid::Paperclip
   
+  before_create :assign_ref_id
   belongs_to :user, :class_name => "User", :inverse_of => :passport
   
   field :owner_id,               type: String
@@ -99,12 +100,24 @@ class Passport
   validates_attachment_content_type :supporting_doc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream)
   validates_attachment_size :supporting_doc, less_than: 5.megabytes
   
+  
+  
+  private
   def check_application_type
     if self.application_type == 'perpanjang-paspor'
       return true
     else
       return false
     end     
+  end
+  def assign_ref_id
+    self.ref_id = 'P-KBRI-' + generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s
+  end
+  def generate_string(length=5)
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
+      random_characters = ''
+      length.times { |i| random_characters << chars[rand(chars.length)] }
+      random_characters = random_characters.upcase
   end
   
 end
