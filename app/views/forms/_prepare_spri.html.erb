@@ -1,0 +1,105 @@
+Silahkan cek kembali data pemohon
+
+<div class="sky-form">
+	
+	<% if @passport.photo.exists? %>
+	
+			<section class="col col-1" style="padding:8px;">
+				<%= image_tag @passport.photo.url(), width: '140'  %>
+				<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+					<%= link_to 'Download', @passport.photo.url(:original, false), target: "_blank" %>
+				<%end%>
+			</section>				
+	<%end%>
+	<fieldset>
+	<div class="row">		
+		<section class="col col-1"></section>
+		<section class="col col-4">
+			<label class="label">Nama Lengkap</label>
+			<label class="label" style="font-weight:bold;">
+				<%= @passport.full_name %>							
+			</label>
+		</section>
+		<section class="col col-1">
+			<label class="label">Jenis Kelamin</label>
+			<label class="label" style="font-weight:bold;">
+				<%= @passport.kelamin %>							
+			</label>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col col-1"></section>
+		<section class="col col-2">
+			<label class="label">Kewarganegaraan</label>
+			<label class="label" style="font-weight:bold;">
+				<%= @passport.citizenship_status %>							
+			</label>
+		</section>	
+		<section class="col col-2">
+			<label class="label">Tanggal Lahir</label>
+			<label class="label" style="font-weight:bold;">
+				<%= @passport.dateBirth %>							
+			</label>
+		</section>
+		<section class="col col-2">
+			<label class="label">Tempat Lahir</label>
+			<label class="label" style="font-weight:bold;">
+				<%= @passport.placeBirth %>							
+			</label>
+		</section>
+	</div>
+	</fieldset>
+	<div class="note">Harap simpan foto untuk dipergunakan dalam aplikasi SPRI</div>
+</div>
+
+<%= simple_form_for :passport, url: '/passport/tospri/' + @passport.id, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>				
+				<fieldset>
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Nomor Passport</label>
+							<label class="input">
+								<%= f.input_field :passport_no, :maxlength => 9  %>							
+							</label>
+						</section>
+						<section class="col col-6">
+							<label class="label">Nomor Registrasi</label>
+							<label class="input">
+								<%= f.input_field :reg_no, :maxlength => 15 %>							
+							</label>
+						</section>
+					</div>
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Nomor Lapor Diri (Jika Ada)</label>
+							<label class="input">
+								<%= f.input_field :lapordiri_no, :maxlength => 15  %>							
+							</label>
+							<div class="note">System akan mengisi No. Lapor diri (Jika Ada)</div>
+						</section>
+					</div>
+				</fieldset>				
+				<footer>
+					<button type="submit" class="button">Insert to SPRI</button>
+					<button type="button" class="button button-secondary" onclick="window.close();">Kembali</button>
+				</footer>
+<% end %>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+			$(function()
+			{				
+				$(window).load(function(){
+					$.ajax({
+						type: "GET",
+						url: '/report/findbynameandbirth', 
+						data: { name: "<%= @passport.full_name %>", datebirth: "<%= @passport.dateBirth %>" }, 
+						success: function(data){ 
+							if(data.ref_id!='null'){
+								$("#passport_lapordiri_no").val(data.ref_id);
+							}
+						}, 
+						dataType: "json" 
+					})					
+				});
+			});			
+</script>
+			

@@ -3,11 +3,15 @@ class Visa
   include Mongoid::Timestamps
   include Mongoid::Paperclip
   
+  before_create :assign_visa_type
+  
   field :owner_id,               type: String
   field :ref_id,                 type: String
   field :application_type,       type: Integer 
   field :category_type,          type: String
   field :visa_type,              type: Integer #1 = individual, #2 = Family, 3 = Group
+  
+  field :reason,                 type: String
   
   field :first_name,					   type: String
   field :last_name,              type: String
@@ -18,6 +22,7 @@ class Visa
   field :marital_status,			   type: String 
   field :nationality,				     type: String 
   field :profession,				     type: String
+  field :profession_detail,      type: String
   field :address_kr,             type: String
   field :address_city_kr,        type: String
   field :address_prov_kr,        type: String
@@ -80,12 +85,6 @@ class Visa
   field :o_air_sea_port,			   type: String 
   field :o_date_entry, 				   type: Date
   
-  field :passportpath,           type: String
-  field :idcardpath,             type: String 
-  field :photopath,              type: String
-  field :ticketpath,             type: String
-  field :sup_docpath,            type: String
-  
   field :status,                 type: String, default: 'Received'
   field :status_code,            type: Integer,default: 1
   field :payment_slip,           type: String
@@ -100,35 +99,35 @@ class Visa
   
   #validates :owner_id,               presence: true
   #validates :ref_id,                 presence: true
-  #validates :application_type,       presence: true 
-  #validates :category_type,          presence: true
+  validates :application_type,       presence: true 
+  validates :category_type,          presence: true
   validates :visa_type,              presence: true
   
-  validates :first_name,             presence: true
-  validates :last_name,              presence: true
+  validates :first_name,             presence: true, length: { minimum: 1, maximum: 25 }
+  validates :last_name,              presence: true, length: { minimum: 1, maximum: 30 }
   validates :sex,                    presence: true  
   #validates :email,                  presence: true
-  validates :placeBirth,             presence: true 
+  validates :placeBirth,             presence: true, length: { minimum: 1, maximum: 30 } 
   validates :dateBirth,              presence: true
   validates :marital_status,         presence: true 
-  #validates :nationality,            presence: true 
-  validates :profession,             presence: true
-  #validates :address_kr,             presence: true
-  #validates :address_city_kr,        presence: true
-  #validates :address_prov_kr,        presence: true
+  validates :nationality,            presence: true 
+  validates :profession,             presence: true, length: { minimum: 1, maximum: 50 }
+  validates :address_kr,             presence: true
+  validates :address_city_kr,        presence: true
+  validates :address_prov_kr,        presence: true
    
-  validates :passport_no,            presence: true 
-  validates :passport_issued,        presence: true 
-  #validates :passport_type,          presence: true 
+  validates :passport_no,            presence: true, length: { minimum: 1, maximum: 15 } 
+  validates :passport_issued,        presence: true, length: { minimum: 1, maximum: 30 } 
+  validates :passport_type,          presence: true 
   validates :passport_date_issued,   presence: true 
   validates :passport_date_expired,  presence: true
   
-  #validates :sponsor_type_kr,        presence: true
-  #validates :sponsor_name_kr,        presence: true  
-  #validates :sponsor_address_kr,     presence: true
-  #validates :sponsor_address_city_kr,presence: true
-  #validates :sponsor_address_prov_kr,presence: true
-  #validates :sponsor_phone_kr,       presence: true
+  validates :sponsor_type_kr,        presence: true
+  validates :sponsor_name_kr,        presence: true  
+  validates :sponsor_address_kr,     presence: true
+  validates :sponsor_address_city_kr,presence: true
+  validates :sponsor_address_prov_kr,presence: true
+  validates :sponsor_phone_kr,       presence: true
       
   #validates :sponsor_type_id,        presence: true
   #validates :sponsor_name_id,        presence: true  
@@ -148,13 +147,7 @@ class Visa
   #validates :checkbox_4,             presence: true
   #validates :checkbox_5,             presence: true
   #validates :checkbox_6,             presence: true
-  #validates :checkbox_7,             presence: true
-  
-  ##validates :passportpath,           presence: true
-  ##validates :idcardpath,             presence: true 
-  ##validates :photopath,              presence: true
-  ##validates :ticketpath,             presence: true
-  ##validates :sup_docpath,            presence: true
+  #validates :checkbox_7,             presence: true  
   
   ##validates :status,                 presence: true
   ##validates :status_code,            presence: true
@@ -168,6 +161,24 @@ class Visa
   validates_attachment_content_type :photo, :content_type => %w(image/jpeg image/jpg image/png)
   validates_attachment_presence :photo
   validates_attachment_size :photo, less_than: 2.megabytes
+  
+  has_mongoid_attached_file :idcard, :styles => { :thumb => "90x120>" }
+  validates_attachment_content_type :idcard, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_presence :idcard
+  validates_attachment_size :idcard, less_than: 2.megabytes
+  
+  has_mongoid_attached_file :passport, :styles => { :thumb => "90x120>" }
+  validates_attachment_content_type :passport, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_presence :passport
+  validates_attachment_size :passport, less_than: 2.megabytes
+  
+  has_mongoid_attached_file :supdoc
+  validates_attachment_content_type :supdoc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream)
+  validates_attachment_size :supdoc, less_than: 5.megabytes
+  
+  has_mongoid_attached_file :ticket, :styles => { :thumb => "90x120>" }
+  validates_attachment_content_type :ticket, :content_type => %w(image/jpeg image/jpg image/png application/pdf)  
+  validates_attachment_size :ticket, less_than: 2.megabytes
   
   private
   def assign_ref_id

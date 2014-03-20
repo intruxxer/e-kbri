@@ -39,7 +39,9 @@ class Immigration::VisaController < ApplicationController
             #like stopping loading.gif, hiding the element, alerting user
       end
     else
-    redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
+    @errors = @visa[0].errors.messages
+    render 'index'
+    #redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
     #do something further 
     end
     
@@ -52,6 +54,7 @@ class Immigration::VisaController < ApplicationController
       format.html #visa_processing/show.html.erb
       format.json { render json: @visa }
       format.xml { render xml: @visa }
+<<<<<<< HEAD
       format.pdf do
         render :pdf            => "Visa Application Form ["+"#{current_user.full_name}"+"]",
                :disposition    => "inline", #{attachment, inline}
@@ -60,6 +63,8 @@ class Immigration::VisaController < ApplicationController
                :layout         => "visa_pdf.html",
                :footer         => { :center => "The Embassy of Republic of Indonesia at Seoul" }
       end
+=======
+>>>>>>> 149273a2e71e2043f5ae91212b4be8dd10ea0dbb
     end
   end
   
@@ -70,6 +75,7 @@ class Immigration::VisaController < ApplicationController
     if @visa.update(post_params)
       redirect_to root_path, :notice => 'You have updated your visa application data!'
     else
+      @errors = @visa.errors.messages
       render 'edit'
     end
   end
@@ -95,7 +101,7 @@ class Immigration::VisaController < ApplicationController
   private
     def post_params
       params.require(:visa).permit(:application_type, :category_type, :first_name, :last_name, :sex, :email,
-      :placeBirth, :dateBirth, :marital_status, :nationality, :profession, :passport_no, :passport_no,
+      :placeBirth, :dateBirth, :marital_status, :nationality, :profession, :profession_detail, :reason, :passport_no, :passport_no,
       :passport_issued, :passport_type, :passport_date_issued, :passport_date_expired, :sponsor_type_kr,
       :sponsor_name_kr, :sponsor_address_kr, :sponsor_address_city_kr, :sponsor_address_prov_kr, :sponsor_phone_kr, 
       :sponsor_type_id, :sponsor_name_id, :sponsor_address_id, :sponsor_address_kab_id, :sponsor_address_prov_id, 
@@ -104,18 +110,11 @@ class Immigration::VisaController < ApplicationController
       :tr_count_dest, :tr_flight_vessel, :tr_air_sea_port, :tr_date_entry, :lim_s_purpose, 
       :lim_s_flight_vessel, :lim_s_air_sea_port, :lim_s_date_entry, :v_purpose, :v_flight_vessel,
       :v_air_sea_port, :v_date_entry, :dip_purpose, :dip_flight_vessel, :dip_air_sea_port, :dip_date_entry, :o_purpose, 
-      :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passportpath, :idcardpath, :photopath, :photo, :status, :status_code, :payment_slip, 
-      :payment_date, :ticketpath, :sup_docpath).merge(owner_id: current_user.id, visa_type: 1, 
-      ref_id: 'V-KBRI-'+generate_string+"-"+Random.new.rand(10**3..10**5).to_s)
+      :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passport, :idcard, :photo, :status, :status_code, :payment_slip, 
+      :payment_date, :ticket, :sup_doc).merge(owner_id: current_user.id, visa_type: 1)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
-    #end
-    def generate_string(length=5)
-      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
-      random_characters = ''
-      length.times { |i| random_characters << chars[rand(chars.length)] }
-      random_characters = random_characters.upcase
-  end
+    #end    
 end
