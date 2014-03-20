@@ -6,4 +6,5 @@ class Visafee
   field :name_of_visa,       type: String
   field :fee_of_visa,        type: Integer
   field :category_of_visa,   type: String
+  field :num_entry,          type: String
 end

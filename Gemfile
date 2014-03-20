@@ -23,11 +23,13 @@ gem "jquery-rails"
 gem "turbolinks"
 gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
-gem 'jquery-turbolinks'
-gem 'country_select'
-gem 'paperclip', "~> 3.5.3"
+gem "jquery-turbolinks"
+gem "country_select"
+gem "paperclip", "~> 3.5.3"
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
-gem 'aws-sdk', '~> 1.3.4'
+gem "aws-sdk", "~> 1.3.4"
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
 
 group :development do
   gem "guard-rspec"
@@ -48,5 +50,3 @@ group :test do
   gem "database_cleaner"
   gem "rb-inotify", "~> 0.9"
 end
-gem "wicked_pdf"
-gem 'wkhtmltopdf-binary'

@@ -27,3 +27,8 @@ Gemfile.lock
 
 /Gemfile.lock
 /Gemfile
+
+/bin/wkhtmltoimage
+/bin/wkhtmltopdf
+/bin/lib/*
+/bin/include/*

@@ -53,7 +53,12 @@ class Immigration::VisaController < ApplicationController
       format.json { render json: @visa }
       format.xml { render xml: @visa }
       format.pdf do
-        
+        render :pdf            => "Visa Application Form ["+"#{current_user.full_name}"+"]",
+               :disposition    => "inline", #{attachment, inline}
+               :show_as_html   => params[:debug].present?,
+               :template       => "immigration/visa/visarecapitulation.html.erb",
+               :layout         => "visa_pdf.html",
+               :footer         => { :center => "The Embassy of Republic of Indonesia at Seoul" }
       end
     end
   end
