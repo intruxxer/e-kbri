@@ -54,7 +54,6 @@ class Immigration::VisaController < ApplicationController
       format.html #visa_processing/show.html.erb
       format.json { render json: @visa }
       format.xml { render xml: @visa }
-<<<<<<< HEAD
       format.pdf do
         render :pdf            => "Visa Application Form ["+"#{current_user.full_name}"+"]",
                :disposition    => "inline", #{attachment, inline}
@@ -63,8 +62,6 @@ class Immigration::VisaController < ApplicationController
                :layout         => "visa_pdf.html",
                :footer         => { :center => "The Embassy of Republic of Indonesia at Seoul" }
       end
-=======
->>>>>>> 149273a2e71e2043f5ae91212b4be8dd10ea0dbb
     end
   end
   
