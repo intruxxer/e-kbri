@@ -102,13 +102,10 @@ class Immigration::VisaController < ApplicationController
       :passport_issued, :passport_type, :passport_date_issued, :passport_date_expired, :sponsor_type_kr,
       :sponsor_name_kr, :sponsor_address_kr, :sponsor_address_city_kr, :sponsor_address_prov_kr, :sponsor_phone_kr, 
       :sponsor_type_id, :sponsor_name_id, :sponsor_address_id, :sponsor_address_kab_id, :sponsor_address_prov_id, 
-      :sponsor_phone_id, :duration_stays, :duration_stays_unit,
-      :num_entry, :checkbox_1, :checkbox_2, :checkbox_3, :checkbox_4, :checkbox_5, :checkbox_6, :checkbox_7, 
-      :tr_count_dest, :tr_flight_vessel, :tr_air_sea_port, :tr_date_entry, :lim_s_purpose, 
-      :lim_s_flight_vessel, :lim_s_air_sea_port, :lim_s_date_entry, :v_purpose, :v_flight_vessel,
-      :v_air_sea_port, :v_date_entry, :dip_purpose, :dip_flight_vessel, :dip_air_sea_port, :dip_date_entry, :o_purpose, 
-      :o_flight_vessel, :o_air_sea_port, :o_date_entry, :passport, :idcard, :photo, :status, :status_code, :payment_slip, 
-      :payment_date, :ticket, :sup_doc).merge(owner_id: current_user.id, visa_type: 1)
+      :sponsor_phone_id, :duration_stays, :duration_stays_unit, :num_entry, :checkbox_1, :checkbox_2, :checkbox_3, 
+      :checkbox_4, :checkbox_5, :checkbox_6, :checkbox_7, :count_dest, :flight_vessel, :air_sea_port, :date_entry, :purpose, 
+      :passport, :idcard, :photo, :status, :status_code, :payment_slip, :payment_date, :ticket, :sup_doc, 
+      :approval_no).merge(owner_id: current_user.id, visa_type: 1)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params

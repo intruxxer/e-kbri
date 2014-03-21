@@ -48,16 +48,16 @@
 				
 				<fieldset>
 					<div class="row">
-						<section class="col col-6">
-							<label class="label">Purpose</label>
+						<section class="col col-3">
+							<label class="label">Application Type</label>
 							<label class="select">
 							<%= f.input_field :application_type, 
 							collection: { 'New Visa Application' => 3, 'Extension of Re-Entry Permit' => 4}  %>
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-6 newVisa specialFieldType no-show">
-							<label class="label">Visa</label>
+						<section class="col col-3 newVisa specialFieldType no-show">
+							<label class="label">Requested Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
 							collection: { 'Transit Visa' => 'transit', 'Visit Visa' => 'visit', 
@@ -66,26 +66,84 @@
 							<i></i>
 							</label>
 						</section>
+						<section class="col col-2">
+							<label class="label">Type</label>
+							<label class="select">
+							<%= f.input_field :num_entry, 
+							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
+							<i></i>
+							</label>
+							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
+						</section>			
+				
+						<section class="col col-4">
+							<label class="label">Reason of Application (in Detail)</label>
+							<label class="textarea textarea-expandable">
+								<i class="icon-append icon-question"></i>
+								<%= f.input_field :reason, as: :text, input_html: { row: 5 } %>
+							</label>
+							<div class="note"><strong>Please state your reason of visit.</strong> Example : Work, Training of Company X</div>
+						</section>
 					</div>
 				</fieldset>
 				
 				<fieldset class="newVisa specialFieldType no-show">
+					<h3>Personal Detail</h3>
+					<hr /><br />
 					<div class="row">
-						<section class="col col-3">
+						<section class="col col-4">
 							<label class="label">First Name</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :first_name %>
 							</label>
 						</section>
-						<section class="col col-3">
+						<section class="col col-4">
 							<label class="label">Last Name</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :last_name %>
 							</label>
 						</section>
+						<section class="col col-4">
+							<label class="label">Passport Photo</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB.
+							Please also be reminded that background portrait picture must be <strong>White</strong>.</div
+						</section>						
+					</div>
+					<div class="row">
 						<section class="col col-2">
+							<label class="label">Place of Birth</label>	
+							<label class="input">
+									<i class="icon-append icon-globe"></i>
+									<%= f.input_field :placeBirth %>
+							</label>
+						</section>
+
+						<section class="col col-2">
+							<label class="label">Date of Birth</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :dateBirth, class: 'datePick' %>
+							</label>
+							<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY.</div>
+						</section>
+						
+						<section class="col col-2">
+						  <label class="label">Marital Status</label>
+						  <label class="select">
+						  		<%= f.input_field :marital_status, 
+								collection: { 'Married' => 'Kawin', 'Single' => 'Tidak Kawin' } %>
+								<i></i>
+						  </label>
+						</section>
+						
+						<section class="col col-3">
 						  <label class="label">Nationality</label>
 						  <label class="select">
 						  		<%= f.input_field :nationality, 
@@ -335,20 +393,23 @@
 									'YEMEN'=>'YEM',
 									'SOUTH AFRICA'=>'ZAF',
 									'ZAMBIA'=>'ZMB',
-									'ZIMBABWE'=>'ZWE' } %>
+									'ZIMBABWE'=>'ZWE' }, :selected => 'KOR' %>
 								<i></i>
 						  </label>
 						</section>
-						<section class="col col-2">
-						  <label class="label">Sex</label>
-						  <label class="select">
-						  		<%= f.input_field :sex, 
-								collection: { 'Male' => 'L/M', 'Female' => 'P/F' } %>
-								<i></i>
-						  </label>
+						<section class="col col-3">						  
+						  <div class="inline-group">
+						  	<label class="label">Sex</label>						  	
+								<%= f.input_field :sex, as: :radio_buttons, :class => 'radio' ,
+									collection: { 'Male' => 'L/M', 'Female' => 'P/F'}, label_method: lambda { |obj| ('<i></i>' + obj[0]).html_safe } %>								
+						  </div>	
+						  
 						</section>
+						
+					</div>
+					<div class="row">						
 						<section class="col col-2">
-							<label class="label">Profession</label>
+							<label class="label">Occupation</label>
 							<label class="select">
 							<%= f.input_field :profession, 
 							collection: { 'Professional' => 'Professional', 'Government' => 'Government',
@@ -357,103 +418,34 @@
 							<i></i>
 							</label>
 						</section>
+						
+						<section class="col col-4">
+							<label class="label">Occupation Detail</label>
+							<label class="input">
+								<i class="icon-append icon-wrench"></i>
+								<%= f.input_field :profession_detail %>
+							</label>
+						</section>
 					</div>	
 					
+					</fieldset>
+					<fieldset>
+						
+					<h3>Identification Documents</h3>
+					<hr /><br />
+						
 					<div class="row">
 						<section class="col col-4">
 							<label class="label">Scanned Passport</label>
 							<label for="file" class="input input-file">
 								<div class="button">
 									<%= f.input_field :passport, as: :file, class: 'fileplaceholder' %>Upload</div>
-									<%= f.input_field :passportpath, readonly: true %>
+									<input type="text" readonly="readonly" />
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB</div>
-						</section>
-						
-						<section class="col col-4">
-							<label class="label">Scanned ID Card</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :idcard, as: :file, class: 'fileplaceholder' %>Upload</div>
-									<%= f.input_field :idcardpath, readonly: true %>
-							</label>
-							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB</div>
-						</section>
-						<section class="col col-4">
-							<label class="label">Passport Portrait Picture</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Upload</div>
-									<%= f.input_field :photopath, readonly: true %>
-							</label>
-							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB.
-							Please also be reminded that background portrait picture must be <strong>White</strong>.</div
-						</section>	
-						<% if @visa.photo.exists? %>
-						<section class="col col-1">
-							<%= image_tag @visa.photo.url(:thumb) %>
-							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
-								<%= link_to 'Download', @visa.photo.url(:original, false), target: "_blank" %>
-							<%end%>
-						</section>				
-						<%end%>
-					</div>
-					
-					<div class="row">	
-						<section class="col col-6">
-							<label class="label">Supporting Document</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :supdoc, as: :file, class: 'fileplaceholder' %>Upload</div>
-									<%= f.input_field :sup_docpath, readonly: true %>
-							</label>
-							<div class="note">
-								<strong>Note:</strong> 
-								It could be company reference letter, sponsor letter, school admission letter, etc. 
-								Max Size: 2MB in PDF/DOC/DOCX.</div>
-						</section>
-						
-						<section class="col col-6">
-							<label class="label">Return Trip Ticket</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :ticket, as: :file, class: 'fileplaceholder' %>Upload</div>
-									<%= f.input_field :ticketpath, readonly: true %>
-							</label>
-							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB</div>
-						</section>	
-					</div>
-
-					<div class="row">
-						<section class="col col-3">
-							<label class="label">Place of Birth</label>	
-							<label class="input">
-									<i class="icon-append icon-globe"></i>
-									<%= f.input_field :placeBirth %>
-							</label>
-						</section>
-
-						<section class="col col-6">
-							<label class="label">Date of Birth</label>	
-							<label class="input">
-									<i class="icon-append icon-calendar"></i>
-									<%= f.input_field :dateBirth, class: 'datePick' %>
-							</label>
-							<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 						</section>
 						
 						<section class="col col-3">
-						  <label class="label">Marital Status</label>
-						  <label class="select">
-						  		<%= f.input_field :marital_status, 
-								collection: { 'Married' => 'Kawin', 'Single' => 'Tidak Kawin' } %>
-								<i></i>
-						  </label>
-						</section>
-					</div>
-					
-					<div class="row">
-						<section class="col col-4">
 							<label class="label">Passport No</label>
 							<label class="input">
 								<i class="icon-append icon-book"></i>
@@ -461,7 +453,7 @@
 							</label>
 						</section>
 						
-						<section class="col col-4">
+						<section class="col col-3">
 							<label class="label">Place of Issue</label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
@@ -469,7 +461,7 @@
 							</label>
 						</section>
 						
-						<section class="col col-4">
+						<section class="col col-2">
 							<label class="label">Type of Passport</label>
 							<label class="select">
 							<%= f.input_field :passport_type, 
@@ -479,11 +471,7 @@
 							</label>
 						</section>
 						
-					</div>
-
-					<div class="row">
-					
-						<section class="col col-6">
+						<section class="col col-3">
 							<label class="label">Date of Issuance</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
@@ -492,7 +480,7 @@
 							<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 						</section>
 						
-						<section class="col col-6">
+						<section class="col col-3">
 							<label class="label">Date of Expiry</label>
 							<label class="input">
 								<i class="icon-append icon-calendar"></i>
@@ -502,12 +490,28 @@
 						</section>
 						
 					</div>
-
+					<div class="row">				
+						
+						<section class="col col-4">
+							<label class="label">Scanned ID Card</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :idcard, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB</div>
+						</section>
+							
+					</div>
+					
+									
 				</fieldset>
 				
 				<fieldset class="newVisa specialFieldType no-show">
+					<h3>Sponsor/Reference Information</h3>
+					<hr /><br />
 					<div class="row">
-					  <section class="col col-4">
+					  <section class="col col-3">
 						<label class="label">Type of Sponsor in Korea</label>
 						<label class="select">
 							<%= f.input_field :sponsor_type_kr, 
@@ -526,7 +530,7 @@
 						</label>
 					  </section>
 					  
-					  <section class="col col-4">
+					  <section class="col col-2">
 					  	<label class="label">Phone No in Korea</label>
 						<label class="input">
 								<i class="icon-append icon-phone"></i>
@@ -536,6 +540,7 @@
 					</div>  
 					
 					<div class="row">
+					  <section class="col col-3"></section>
 					  <section class="col col-6">
 					  	<label class="label">Reference's Address in Korea</label>
 							<label class="textarea textarea-expandable">
@@ -543,6 +548,9 @@
 							<%= f.input_field :sponsor_address_kr, as: :text, input_html: { row: 5 } %>
 						</label>
 					  </section>
+					</div>
+					<div class="row">
+					  <section class="col col-3"></section>
 					  <section class="col col-3">
 					  	<label class="label">City</label>
 						<label class="select">
@@ -654,13 +662,13 @@
 					</div>
 					
 					<div class="row">
-					  <section class="col col-4">
+					  <section class="col col-3">
 						<label class="label">Type of Sponsor in Indonesia</label>
 						<label class="select">
 							<%= f.input_field :sponsor_type_id, 
 							collection: { 'Individual' => 1, 'Government' => 2,
 								          'International Institution' => 3, 'Company' => 4,
-								          'NGO' => 5, 'Others' => 6 } %>
+								          'NGO' => 5, 'Others' => 6} %>
 							<i></i>
 					    </label>
 					  </section>
@@ -673,7 +681,7 @@
 						</label>
 					  </section>
 					  
-					  <section class="col col-4">
+					  <section class="col col-2">
 					  	<label class="label">Phone No in Indonesia</label>
 						<label class="input">
 								<i class="icon-append icon-phone"></i>
@@ -683,6 +691,7 @@
 				    </div>
 					  
 					  <div class="row">
+					  	 <section class="col col-3"></section>
 					  <section class="col col-6">
 					  	<label class="label">Reference's Address in Indonesia</label>
 							<label class="textarea textarea-expandable">
@@ -690,7 +699,9 @@
 							<%= f.input_field :sponsor_address_id, input_html: { row: 5 }, as: :text %>
 						</label>
 					  </section>
-					  
+					  </div>
+					  <div class="row">
+					  	 <section class="col col-3"></section>
 					  <section class="col col-3">
 					  	<label class="label">Regency</label>
 						<label class="select">
@@ -1047,39 +1058,7 @@
 					    </label>
 					  </section>
 					</div>
-				</fieldset>
-				
-				<fieldset class="newVisa specialFieldType no-show">
-					<div class="row">
-						<section class="col col-4">
-							<label class="label">Duration of Stays</label>	
-							<label class="input">
-								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :duration_stays %>
-							</label>
-						</section>
-						
-						<section class="col col-4">
-							<label class="label">In</label>	
-							<label class="select">
-								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :duration_stays_unit, 
-								collection: { 'Days' => 'Day(s)', 'Months' => 'Month(s)', 'Years' => 'Month(s)' } %>
-								<i></i>
-							</label>
-						</section>
-
-						<section class="col col-4">
-							<label class="label">Visa Type</label>
-							<label class="select">
-							<%= f.input_field :num_entry, 
-							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
-							<i></i>
-							</label>
-							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
-						</section>
-					</div>
-				</fieldset>
+				</fieldset>				
 				
 				<fieldset class="newVisa specialFieldType no-show">
 				<div class="row">
@@ -1103,18 +1082,45 @@
 				</div>
 				</fieldset>
 				
+				<fieldset>
+					<div class="row">	
+						<section class="col col-6">
+							<label class="label">Supporting Document</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :supdoc, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Note:</strong> 
+								It could be company reference letter, sponsor letter, school admission letter, etc. 
+								Combine all documents into one.
+								Max Size: 2MB in ZIP/RAR.</div>
+						</section>
+						
+						<section class="col col-6">
+							<label class="label">Return Trip Ticket</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :ticket, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB</div>
+						</section>	
+					</div>	
+				</fieldset>
+				
 				<fieldset class="newVisa specialFieldType no-show">
 					<section><p style="text-align: right; font-weight: bold;">Seoul, <%= Date.current.strftime("%A, %v") %></p></section>
 				</fieldset>
 				
 				<fieldset id="transit" class="specialFieldCat no-show">
-				<div class="row">Only modify information within these section if you are to apply TRANSIT VISA.</div>
 				<div class="row">
 				  <section class="col col-3">
 					<label class="label">Country of Destination</label>
 					<label class="input">
 						<i class="icon-append icon-globe"></i>
-						<%= f.input_field :tr_count_dest %>
+						<%= f.input_field :count_dest %>
 					</label>
 				  </section>
 				  
@@ -1122,14 +1128,14 @@
 				    <label class="label">Flight/Vessel Name</label>
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
-						<%= f.input_field :tr_flight_vessel %>
+						<%= f.input_field :flight_vessel %>
 					</label>
 				  </section>
 				  
 				  <section class="col col-4">
 					<label class="label">Airport/Seaport Destination</label>
 					<label class="select">
-						<%= f.input_field :tr_air_sea_port, 
+						<%= f.input_field :air_sea_port, 
 						collection: { 
 						'MALAHAYATI'=>'TCL1',
 						'KRUENG RAYA'=>'TCL2',
@@ -1264,7 +1270,7 @@
 					<label class="label">Date of Entry to Indonesia</label>
 					<label class="input">
 						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :tr_date_entry, class: 'datePick' %>
+						<%= f.input_field :date_entry, class: 'datePick' %>
 					</label>
 					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
 				  </section>
@@ -1272,682 +1278,46 @@
 				</fieldset>
 				
 				<fieldset id="limited-stay" class="specialFieldCat no-show">
-			      <div class="row">Only modify information within these section if you are to apply LIMITED STAY VISA.</div>
 			      <div class="row">
-			      <section class="col col-6">
+			        <section class="col col-4">
 				      <label class="label">Immigration Approval No.</label>
 					  <label class="input">
 						<i class="icon-append icon-book"></i>
 						<%= f.input_field :approval_no %>
 					  </label>
-				  </section>
-			      </div>
-			      <div class="row">
-				  <section class="col col-3">
-					<label class="label">Purpose of Limited Stay</label>
-					<label class="select">
-						<%= f.input_field :lim_s_purpose, 
-						collection: { 'Work' => 'work', 'Joint Family' => 'family',
-								      'Social' => 'social', 'Others' => 'other'} %>
+					  <div class="note"><strong>Note:</strong> Input this Immigration Approval No. if you apply for Limited Stay Visa.</div>
+				    </section>
+
+				    <section class="col col-3">
+					  <label class="label">Purpose of Application</label>
+					  <label class="select">
+						<%= f.input_field :purpose, 
+						collection: { 'Visit' => 'visit', 'Work' => 'work', 'Joint Family' => 'family', 'Study' => 'study',
+								      'Social' => 'social', 'Tourism' => 'tourism', 'Commercial' => 'commercial',
+								      'Convention' => 'convention', 'Arts' => 'art', 'Family Visit' => 'family-visit',
+								      'Sports' => 'sport', 'Posting' => 'posting', 'Training' => 'training', 
+								      'Others' => 'other'} %>
 							<i></i>
-					</label>
-					<div class="note">Please bring supporting <strong>Documents</strong> (if any) during interview session.</div>
-				  </section>
-				  
-				  <section class="col col-2">
-				    <label class="label">Flight/Vessel Name</label>
-					<label class="input">
-						<i class="icon-append icon-plane"></i>
-						<%= f.input_field :lim_s_flight_vessel %>
-					</label>
-				  </section>
-				  
-				  <section class="col col-4">
-					<label class="label">Airport/Seaport Destination</label>
-					<label class="select">
-						<%= f.input_field :lim_s_air_sea_port, 
-						collection: { 
-						'MALAHAYATI'=>'TCL1',
-						'KRUENG RAYA'=>'TCL2',
-						'SABANG'=>'TFL1',
-						'LHOK SEUMAWE'=>'TBL1',
-						'KUALA LANGSA'=>'TDL1',
-						'POLONIA'=>'G1U1',
-						'TELUK NIBUNG'=>'GCL1',
-						'KUALA TANJUNG'=>'GCL2',
-						'BELAWAN'=>'G2L1',
-						'SIBOLGA'=>'G3L1',
-						'GUNUNG SITOLI'=>'G3L2',
-						'BINAKA'=>'G3U1',
-						'TELUK BAYUR'=>'QBL1',
-						'TABING'=>'QBU1',
-						'SUNGAI SIAK'=>'BLL1',
-						'SIMPANG TIGA'=>'BLU1',
-						'SRI BINTAN'=>'BDL1',
-						'SRI BINTAN / SELAT KIJANG'=>'BDL2',
-						'KIJANG'=>'BDU1',
-						'BATU AMPAR'=>'BKL1',
-						'SEKUPANG'=>'BKL2',
-						'NONGSA TERMINAL BAHARI'=>'BKL3',
-						'KABIL'=>'BKL4',
-						'MARINA TELUK SENIMBA'=>'BKL5',
-						'HANG NADIM'=>'BKU1',
-						'TG BALAI KARIMUN'=>'BCL1',
-						'TG. BATU'=>'BCL2',
-						'BENGKALIS'=>'BFL1',
-						'TEMBILAHAN'=>'BHL1',
-						'SEI GUNUNG'=>'BHL2',
-						'KUALA ELOK'=>'BHL3',
-						'DUMAI'=>'BGL1',
-						'BAGAN SIAPI API'=>'BEL1',
-						'SELAT PANJANG'=>'BJL1',
-						'TEREMPA'=>'B4L1',
-						'TG. UBAN'=>'B1L1',
-						'BANDAR BENTAN TELANI,LAG'=>'B1L2',
-						'BANDAR SRI UDANA LOBAM'=>'B1L3',
-						'BELAKANG PADANG'=>'BBL1',
-						'RANAI'=>'BML1',
-						'PALEMBANG'=>'HCL1',
-						'ST MAHMUD BAHARUDIN II'=>'HCU1',
-						'JAMBI'=>'UAL1',
-						'KUALA TUNGKAL'=>'UCL1',
-						'PULAU BAAI'=>'4AL1',
-						'PADANG KEMILING'=>'4AU1',
-						'PANGKALAN BALAM'=>'HBL1',
-						'MUNTOK'=>'HBL2',
-						'BELINYU'=>'HBL3',
-						'PANGKAL PINANG'=>'HBU1',
-						'TG PANDAN'=>'HDL1',
-						'BELITUNG'=>'HDL2',
-						'BELITUNG'=>'HDU1',
-						'PANJANG'=>'VCL1',
-						'HALIM PERDANA KUSUMA'=>'JCU1',
-						'SOEKARNO - HATTA'=>'J1U1',
-						'TANJUNG PRIOK'=>'J2L1',
-						'HUSEIN SASTRA NEGARA'=>'ADU1',
-						'CIREBON'=>'ACL1',
-						'MERAK'=>'AEL1',
-						'TANJUNG MAS'=>'LCL1',
-						'ADI SUMARNO'=>'LDU1',
-						'CILACAP'=>'CBL1',
-						'ADI SUCIPTO'=>'YAU1',
-						'BESUKI'=>'CBL1',
-						'PANARUKAN'=>'CBL2',
-						'BANYUWANGI'=>'CBL3',
-						'PASURUAN'=>'CCL1',
-						'PROBOLINGGO'=>'CCL2',
-						'JUANDA'=>'CDU1',
-						'TG. PERAK'=>'C1L1',
-						'PONTIANAK'=>'KCL1',
-						'SUPADIO'=>'KCU1',
-						'SINGKAWANG'=>'KBL1',
-						'PEMANGKAT'=>'KBL2',
-						'SINTETE'=>'KBL3',
-						'ENTIKONG'=>'KED1',
-						'TRISAKTI'=>'PBL1',
-						'KOTABARU'=>'PIL1',
-						'SAMARINDA'=>'MCL1',
-						'BALIKPAPAN'=>'MDL1',
-						'SEPINGGAN'=>'MDU1',
-						'NUNUKAN'=>'M1L1',
-						'MALUNDUNG'=>'MBL1',
-						'JUWATA'=>'MBU1',
-						'SAMPIT'=>'PCL1',
-						'MANADO'=>'SBL1',
-						'MARORE'=>'SBL2',
-						'MIANGAS'=>'SBL3',
-						'TAHUNA'=>'SBL4',
-						'SAM RATULANGI'=>'SBU1',
-						'BITUNG'=>'S1L1',
-						'SOEKARNO - HATTA'=>'FBL1',
-						'HASANUDIN'=>'FBU1',
-						'PARE - PARE'=>'FCL1',
-						'PANTOLOAN'=>'1AL1',
-						'KENDARI'=>'3AL1',
-						'BULELENG'=>'EBL1',
-						'BENOA'=>'EBL2',
-						'PADANG BAI'=>'EBL3',
-						'NGURAH RAI'=>'E1U1',
-						'LEMBAR'=>'ECL1',
-						'BANETE'=>'ECL2',
-						'SELAPARANG'=>'ECU1',
-						'TENAU'=>'XBL1',
-						'EL-TARI'=>'XBU1',
-						'MAPAN'=>'X1U1',
-						"MOTA'AIN"=>'X1D1',
-						'METAMEUK'=>'X1D2',
-						'MAUMERE'=>'X2L1',
-						'AMBON'=>'RCL1',
-						'PATIMURA'=>'RCU1',
-						'TERNATE'=>'RBL1',
-						'FRANS KAISEPO'=>'DBU1',
-						'BIAK'=>'DBL1',
-						'MERAUKE'=>'DCL1',
-						'MOPAH'=>'DCU1',
-						'SKOU'=>'DED1',
-						'JAYAPURA'=>'DEL1',
-						'SENTANI'=>'DEU1',
-						'SORONG'=>'DDL1',
-						'JEFMAN'=>'DDU1',
-						'AMAMAPARE'=>'D1L1',
-						'TIMIKA'=>'D1U1'	
-						}%><i></i>
-					</label>
-				  </section>
-				  
-				  <section class="col col-3">
-					<label class="label">Date of Entry to Indonesia</label>
-					<label class="input">
-						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :lim_s_date_entry, class: 'datePick' %>
-					</label>
-					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
-				  </section>
-				</div>
-				  
-				</fieldset>
-				
-				<fieldset id="visit" class="specialFieldCat no-show">
-				  <div class="row">Only modify information within these section if you are to apply VISIT VISA.</div>
-				  <div class="row">
-				  <section class="col col-3">
-					<label class="label">Purpose of Visit</label>
-					<label class="select">
-						<%= f.input_field :v_purpose, 
-						collection: { 'Tourism' => 'tourism', 'Study' => 'study',
-								      'Convention' => 'convention', 'Arts' => 'art',
-								      'Family Visit' => 'family-visit', 'Commercial' => 'commercial',
-								      'Sports' => 'sport', 'Others' => 'other'} %>
-							<i></i>
-					</label>
-					<div class="note">Please bring supporting <strong>Documents</strong> (if any) during interview session.</div>
-				  </section>
-				  
-				  <section class="col col-2">
-				    <label class="label">Flight/Vessel Name</label>
-					<label class="input">
-						<i class="icon-append icon-plane"></i>
-						<%= f.input_field :v_flight_vessel %>
-					</label>
-				  </section>
-				  
-				  <section class="col col-4">
-					<label class="label">Airport/Seaport Destination</label>
-					<label class="select">
-						<%= f.input_field :v_air_sea_port, 
-						collection: { 
-						'MALAHAYATI'=>'TCL1',
-						'KRUENG RAYA'=>'TCL2',
-						'SABANG'=>'TFL1',
-						'LHOK SEUMAWE'=>'TBL1',
-						'KUALA LANGSA'=>'TDL1',
-						'POLONIA'=>'G1U1',
-						'TELUK NIBUNG'=>'GCL1',
-						'KUALA TANJUNG'=>'GCL2',
-						'BELAWAN'=>'G2L1',
-						'SIBOLGA'=>'G3L1',
-						'GUNUNG SITOLI'=>'G3L2',
-						'BINAKA'=>'G3U1',
-						'TELUK BAYUR'=>'QBL1',
-						'TABING'=>'QBU1',
-						'SUNGAI SIAK'=>'BLL1',
-						'SIMPANG TIGA'=>'BLU1',
-						'SRI BINTAN'=>'BDL1',
-						'SRI BINTAN / SELAT KIJANG'=>'BDL2',
-						'KIJANG'=>'BDU1',
-						'BATU AMPAR'=>'BKL1',
-						'SEKUPANG'=>'BKL2',
-						'NONGSA TERMINAL BAHARI'=>'BKL3',
-						'KABIL'=>'BKL4',
-						'MARINA TELUK SENIMBA'=>'BKL5',
-						'HANG NADIM'=>'BKU1',
-						'TG BALAI KARIMUN'=>'BCL1',
-						'TG. BATU'=>'BCL2',
-						'BENGKALIS'=>'BFL1',
-						'TEMBILAHAN'=>'BHL1',
-						'SEI GUNUNG'=>'BHL2',
-						'KUALA ELOK'=>'BHL3',
-						'DUMAI'=>'BGL1',
-						'BAGAN SIAPI API'=>'BEL1',
-						'SELAT PANJANG'=>'BJL1',
-						'TEREMPA'=>'B4L1',
-						'TG. UBAN'=>'B1L1',
-						'BANDAR BENTAN TELANI,LAG'=>'B1L2',
-						'BANDAR SRI UDANA LOBAM'=>'B1L3',
-						'BELAKANG PADANG'=>'BBL1',
-						'RANAI'=>'BML1',
-						'PALEMBANG'=>'HCL1',
-						'ST MAHMUD BAHARUDIN II'=>'HCU1',
-						'JAMBI'=>'UAL1',
-						'KUALA TUNGKAL'=>'UCL1',
-						'PULAU BAAI'=>'4AL1',
-						'PADANG KEMILING'=>'4AU1',
-						'PANGKALAN BALAM'=>'HBL1',
-						'MUNTOK'=>'HBL2',
-						'BELINYU'=>'HBL3',
-						'PANGKAL PINANG'=>'HBU1',
-						'TG PANDAN'=>'HDL1',
-						'BELITUNG'=>'HDL2',
-						'BELITUNG'=>'HDU1',
-						'PANJANG'=>'VCL1',
-						'HALIM PERDANA KUSUMA'=>'JCU1',
-						'SOEKARNO - HATTA'=>'J1U1',
-						'TANJUNG PRIOK'=>'J2L1',
-						'HUSEIN SASTRA NEGARA'=>'ADU1',
-						'CIREBON'=>'ACL1',
-						'MERAK'=>'AEL1',
-						'TANJUNG MAS'=>'LCL1',
-						'ADI SUMARNO'=>'LDU1',
-						'CILACAP'=>'CBL1',
-						'ADI SUCIPTO'=>'YAU1',
-						'BESUKI'=>'CBL1',
-						'PANARUKAN'=>'CBL2',
-						'BANYUWANGI'=>'CBL3',
-						'PASURUAN'=>'CCL1',
-						'PROBOLINGGO'=>'CCL2',
-						'JUANDA'=>'CDU1',
-						'TG. PERAK'=>'C1L1',
-						'PONTIANAK'=>'KCL1',
-						'SUPADIO'=>'KCU1',
-						'SINGKAWANG'=>'KBL1',
-						'PEMANGKAT'=>'KBL2',
-						'SINTETE'=>'KBL3',
-						'ENTIKONG'=>'KED1',
-						'TRISAKTI'=>'PBL1',
-						'KOTABARU'=>'PIL1',
-						'SAMARINDA'=>'MCL1',
-						'BALIKPAPAN'=>'MDL1',
-						'SEPINGGAN'=>'MDU1',
-						'NUNUKAN'=>'M1L1',
-						'MALUNDUNG'=>'MBL1',
-						'JUWATA'=>'MBU1',
-						'SAMPIT'=>'PCL1',
-						'MANADO'=>'SBL1',
-						'MARORE'=>'SBL2',
-						'MIANGAS'=>'SBL3',
-						'TAHUNA'=>'SBL4',
-						'SAM RATULANGI'=>'SBU1',
-						'BITUNG'=>'S1L1',
-						'SOEKARNO - HATTA'=>'FBL1',
-						'HASANUDIN'=>'FBU1',
-						'PARE - PARE'=>'FCL1',
-						'PANTOLOAN'=>'1AL1',
-						'KENDARI'=>'3AL1',
-						'BULELENG'=>'EBL1',
-						'BENOA'=>'EBL2',
-						'PADANG BAI'=>'EBL3',
-						'NGURAH RAI'=>'E1U1',
-						'LEMBAR'=>'ECL1',
-						'BANETE'=>'ECL2',
-						'SELAPARANG'=>'ECU1',
-						'TENAU'=>'XBL1',
-						'EL-TARI'=>'XBU1',
-						'MAPAN'=>'X1U1',
-						"MOTA'AIN"=>'X1D1',
-						'METAMEUK'=>'X1D2',
-						'MAUMERE'=>'X2L1',
-						'AMBON'=>'RCL1',
-						'PATIMURA'=>'RCU1',
-						'TERNATE'=>'RBL1',
-						'FRANS KAISEPO'=>'DBU1',
-						'BIAK'=>'DBL1',
-						'MERAUKE'=>'DCL1',
-						'MOPAH'=>'DCU1',
-						'SKOU'=>'DED1',
-						'JAYAPURA'=>'DEL1',
-						'SENTANI'=>'DEU1',
-						'SORONG'=>'DDL1',
-						'JEFMAN'=>'DDU1',
-						'AMAMAPARE'=>'D1L1',
-						'TIMIKA'=>'D1U1'	
-						}
-						%><i></i>
-					</label>
-				  </section>
-				  
-				  <section class="col col-3">
-					<label class="label">Date of Entry to Indonesia</label>
-					<label class="input">
-						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :v_date_entry, class: 'datePick' %>
-					</label>
-					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
-				  </section>
-				</div>
-				  
-				</fieldset>
-				
-				<fieldset id="diplomatic" class="specialFieldCat no-show">
-				  <div class="row">Only modify information within these section if you are to apply DIPLOMATIC VISA.</div>
-				  <div class="row">
-				  <section class="col col-3">
-					<label class="label">Purpose of Visit</label>
-					<label class="select">
-						<%= f.input_field :dip_purpose, 
-						collection: { 'Posting' => 'posting', 'Training' => 'training',
-								      'Joint Family' => 'family', 'Others' => 'other' } %>
-							<i></i>
-					</label>
-				  </section>
-				  
-				  <section class="col col-2">
-				    <label class="label">Flight/Vessel Name</label>
-					<label class="input">
-						<i class="icon-append icon-plane"></i>
-						<%= f.input_field :dip_flight_vessel %>
-					</label>
-				  </section>
-				  
-				  <section class="col col-4">
-					<label class="label">Airport/Seaport Destination</label>
-					<label class="select">
-						<%= f.input_field :dip_air_sea_port,
-						collection: { 
-						'MALAHAYATI'=>'TCL1',
-						'KRUENG RAYA'=>'TCL2',
-						'SABANG'=>'TFL1',
-						'LHOK SEUMAWE'=>'TBL1',
-						'KUALA LANGSA'=>'TDL1',
-						'POLONIA'=>'G1U1',
-						'TELUK NIBUNG'=>'GCL1',
-						'KUALA TANJUNG'=>'GCL2',
-						'BELAWAN'=>'G2L1',
-						'SIBOLGA'=>'G3L1',
-						'GUNUNG SITOLI'=>'G3L2',
-						'BINAKA'=>'G3U1',
-						'TELUK BAYUR'=>'QBL1',
-						'TABING'=>'QBU1',
-						'SUNGAI SIAK'=>'BLL1',
-						'SIMPANG TIGA'=>'BLU1',
-						'SRI BINTAN'=>'BDL1',
-						'SRI BINTAN / SELAT KIJANG'=>'BDL2',
-						'KIJANG'=>'BDU1',
-						'BATU AMPAR'=>'BKL1',
-						'SEKUPANG'=>'BKL2',
-						'NONGSA TERMINAL BAHARI'=>'BKL3',
-						'KABIL'=>'BKL4',
-						'MARINA TELUK SENIMBA'=>'BKL5',
-						'HANG NADIM'=>'BKU1',
-						'TG BALAI KARIMUN'=>'BCL1',
-						'TG. BATU'=>'BCL2',
-						'BENGKALIS'=>'BFL1',
-						'TEMBILAHAN'=>'BHL1',
-						'SEI GUNUNG'=>'BHL2',
-						'KUALA ELOK'=>'BHL3',
-						'DUMAI'=>'BGL1',
-						'BAGAN SIAPI API'=>'BEL1',
-						'SELAT PANJANG'=>'BJL1',
-						'TEREMPA'=>'B4L1',
-						'TG. UBAN'=>'B1L1',
-						'BANDAR BENTAN TELANI,LAG'=>'B1L2',
-						'BANDAR SRI UDANA LOBAM'=>'B1L3',
-						'BELAKANG PADANG'=>'BBL1',
-						'RANAI'=>'BML1',
-						'PALEMBANG'=>'HCL1',
-						'ST MAHMUD BAHARUDIN II'=>'HCU1',
-						'JAMBI'=>'UAL1',
-						'KUALA TUNGKAL'=>'UCL1',
-						'PULAU BAAI'=>'4AL1',
-						'PADANG KEMILING'=>'4AU1',
-						'PANGKALAN BALAM'=>'HBL1',
-						'MUNTOK'=>'HBL2',
-						'BELINYU'=>'HBL3',
-						'PANGKAL PINANG'=>'HBU1',
-						'TG PANDAN'=>'HDL1',
-						'BELITUNG'=>'HDL2',
-						'BELITUNG'=>'HDU1',
-						'PANJANG'=>'VCL1',
-						'HALIM PERDANA KUSUMA'=>'JCU1',
-						'SOEKARNO - HATTA'=>'J1U1',
-						'TANJUNG PRIOK'=>'J2L1',
-						'HUSEIN SASTRA NEGARA'=>'ADU1',
-						'CIREBON'=>'ACL1',
-						'MERAK'=>'AEL1',
-						'TANJUNG MAS'=>'LCL1',
-						'ADI SUMARNO'=>'LDU1',
-						'CILACAP'=>'CBL1',
-						'ADI SUCIPTO'=>'YAU1',
-						'BESUKI'=>'CBL1',
-						'PANARUKAN'=>'CBL2',
-						'BANYUWANGI'=>'CBL3',
-						'PASURUAN'=>'CCL1',
-						'PROBOLINGGO'=>'CCL2',
-						'JUANDA'=>'CDU1',
-						'TG. PERAK'=>'C1L1',
-						'PONTIANAK'=>'KCL1',
-						'SUPADIO'=>'KCU1',
-						'SINGKAWANG'=>'KBL1',
-						'PEMANGKAT'=>'KBL2',
-						'SINTETE'=>'KBL3',
-						'ENTIKONG'=>'KED1',
-						'TRISAKTI'=>'PBL1',
-						'KOTABARU'=>'PIL1',
-						'SAMARINDA'=>'MCL1',
-						'BALIKPAPAN'=>'MDL1',
-						'SEPINGGAN'=>'MDU1',
-						'NUNUKAN'=>'M1L1',
-						'MALUNDUNG'=>'MBL1',
-						'JUWATA'=>'MBU1',
-						'SAMPIT'=>'PCL1',
-						'MANADO'=>'SBL1',
-						'MARORE'=>'SBL2',
-						'MIANGAS'=>'SBL3',
-						'TAHUNA'=>'SBL4',
-						'SAM RATULANGI'=>'SBU1',
-						'BITUNG'=>'S1L1',
-						'SOEKARNO - HATTA'=>'FBL1',
-						'HASANUDIN'=>'FBU1',
-						'PARE - PARE'=>'FCL1',
-						'PANTOLOAN'=>'1AL1',
-						'KENDARI'=>'3AL1',
-						'BULELENG'=>'EBL1',
-						'BENOA'=>'EBL2',
-						'PADANG BAI'=>'EBL3',
-						'NGURAH RAI'=>'E1U1',
-						'LEMBAR'=>'ECL1',
-						'BANETE'=>'ECL2',
-						'SELAPARANG'=>'ECU1',
-						'TENAU'=>'XBL1',
-						'EL-TARI'=>'XBU1',
-						'MAPAN'=>'X1U1',
-						"MOTA'AIN"=>'X1D1',
-						'METAMEUK'=>'X1D2',
-						'MAUMERE'=>'X2L1',
-						'AMBON'=>'RCL1',
-						'PATIMURA'=>'RCU1',
-						'TERNATE'=>'RBL1',
-						'FRANS KAISEPO'=>'DBU1',
-						'BIAK'=>'DBL1',
-						'MERAUKE'=>'DCL1',
-						'MOPAH'=>'DCU1',
-						'SKOU'=>'DED1',
-						'JAYAPURA'=>'DEL1',
-						'SENTANI'=>'DEU1',
-						'SORONG'=>'DDL1',
-						'JEFMAN'=>'DDU1',
-						'AMAMAPARE'=>'D1L1',
-						'TIMIKA'=>'D1U1',	
-						} %>
-						<i></i>
-					</label>
-				  </section>
-				  
-				  <section class="col col-3">
-					<label class="label">Date of Entry to Indonesia</label>
-					<label class="input">
-						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :dip_date_entry, class: 'datePick' %>
-					</label>
-					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
-				  </section>
-				</div>
-				
-				</fieldset>
-				
-				<fieldset id="official" class="specialFieldCat no-show">
-				  <div class="row">Only modify information within these section if you are to apply OFFICIAL VISA.</div>
-				  <div class="row">
-				  <section class="col col-3">
-					<label class="label">Purpose of Visit</label>
-					<label class="select">
-						<%= f.input_field :o_purpose, 
-						collection: { 'Posting' => 'posting', 'Training' => 'training',
-								      'Joint Family' => 'family', 'Others' => 'other' } %>
-							<i></i>
-					</label>
-				  </section>
-				  
-				  <section class="col col-2">
-				    <label class="label">Flight/Vessel Name</label>
-					<label class="input">
-						<i class="icon-append icon-plane"></i>
-						<%= f.input_field :o_flight_vessel %>
-					</label>
-				  </section>
-				  
-				  <section class="col col-4">
-					<label class="label">Airport/Seaport Destination</label>
-					<label class="select">
-						<%= f.input_field :o_air_sea_port,
-						collection: { 'MALAHAYATI'=>'TCL1',
-						'KRUENG RAYA'=>'TCL2',
-						'SABANG'=>'TFL1',
-						'LHOK SEUMAWE'=>'TBL1',
-						'KUALA LANGSA'=>'TDL1',
-						'POLONIA'=>'G1U1',
-						'TELUK NIBUNG'=>'GCL1',
-						'KUALA TANJUNG'=>'GCL2',
-						'BELAWAN'=>'G2L1',
-						'SIBOLGA'=>'G3L1',
-						'GUNUNG SITOLI'=>'G3L2',
-						'BINAKA'=>'G3U1',
-						'TELUK BAYUR'=>'QBL1',
-						'TABING'=>'QBU1',
-						'SUNGAI SIAK'=>'BLL1',
-						'SIMPANG TIGA'=>'BLU1',
-						'SRI BINTAN'=>'BDL1',
-						'SRI BINTAN / SELAT KIJANG'=>'BDL2',
-						'KIJANG'=>'BDU1',
-						'BATU AMPAR'=>'BKL1',
-						'SEKUPANG'=>'BKL2',
-						'NONGSA TERMINAL BAHARI'=>'BKL3',
-						'KABIL'=>'BKL4',
-						'MARINA TELUK SENIMBA'=>'BKL5',
-						'HANG NADIM'=>'BKU1',
-						'TG BALAI KARIMUN'=>'BCL1',
-						'TG. BATU'=>'BCL2',
-						'BENGKALIS'=>'BFL1',
-						'TEMBILAHAN'=>'BHL1',
-						'SEI GUNUNG'=>'BHL2',
-						'KUALA ELOK'=>'BHL3',
-						'DUMAI'=>'BGL1',
-						'BAGAN SIAPI API'=>'BEL1',
-						'SELAT PANJANG'=>'BJL1',
-						'TEREMPA'=>'B4L1',
-						'TG. UBAN'=>'B1L1',
-						'BANDAR BENTAN TELANI,LAG'=>'B1L2',
-						'BANDAR SRI UDANA LOBAM'=>'B1L3',
-						'BELAKANG PADANG'=>'BBL1',
-						'RANAI'=>'BML1',
-						'PALEMBANG'=>'HCL1',
-						'ST MAHMUD BAHARUDIN II'=>'HCU1',
-						'JAMBI'=>'UAL1',
-						'KUALA TUNGKAL'=>'UCL1',
-						'PULAU BAAI'=>'4AL1',
-						'PADANG KEMILING'=>'4AU1',
-						'PANGKALAN BALAM'=>'HBL1',
-						'MUNTOK'=>'HBL2',
-						'BELINYU'=>'HBL3',
-						'PANGKAL PINANG'=>'HBU1',
-						'TG PANDAN'=>'HDL1',
-						'BELITUNG'=>'HDL2',
-						'BELITUNG'=>'HDU1',
-						'PANJANG'=>'VCL1',
-						'HALIM PERDANA KUSUMA'=>'JCU1',
-						'SOEKARNO - HATTA'=>'J1U1',
-						'TANJUNG PRIOK'=>'J2L1',
-						'HUSEIN SASTRA NEGARA'=>'ADU1',
-						'CIREBON'=>'ACL1',
-						'MERAK'=>'AEL1',
-						'TANJUNG MAS'=>'LCL1',
-						'ADI SUMARNO'=>'LDU1',
-						'CILACAP'=>'CBL1',
-						'ADI SUCIPTO'=>'YAU1',
-						'BESUKI'=>'CBL1',
-						'PANARUKAN'=>'CBL2',
-						'BANYUWANGI'=>'CBL3',
-						'PASURUAN'=>'CCL1',
-						'PROBOLINGGO'=>'CCL2',
-						'JUANDA'=>'CDU1',
-						'TG. PERAK'=>'C1L1',
-						'PONTIANAK'=>'KCL1',
-						'SUPADIO'=>'KCU1',
-						'SINGKAWANG'=>'KBL1',
-						'PEMANGKAT'=>'KBL2',
-						'SINTETE'=>'KBL3',
-						'ENTIKONG'=>'KED1',
-						'TRISAKTI'=>'PBL1',
-						'KOTABARU'=>'PIL1',
-						'SAMARINDA'=>'MCL1',
-						'BALIKPAPAN'=>'MDL1',
-						'SEPINGGAN'=>'MDU1',
-						'NUNUKAN'=>'M1L1',
-						'MALUNDUNG'=>'MBL1',
-						'JUWATA'=>'MBU1',
-						'SAMPIT'=>'PCL1',
-						'MANADO'=>'SBL1',
-						'MARORE'=>'SBL2',
-						'MIANGAS'=>'SBL3',
-						'TAHUNA'=>'SBL4',
-						'SAM RATULANGI'=>'SBU1',
-						'BITUNG'=>'S1L1',
-						'SOEKARNO - HATTA'=>'FBL1',
-						'HASANUDIN'=>'FBU1',
-						'PARE - PARE'=>'FCL1',
-						'PANTOLOAN'=>'1AL1',
-						'KENDARI'=>'3AL1',
-						'BULELENG'=>'EBL1',
-						'BENOA'=>'EBL2',
-						'PADANG BAI'=>'EBL3',
-						'NGURAH RAI'=>'E1U1',
-						'LEMBAR'=>'ECL1',
-						'BANETE'=>'ECL2',
-						'SELAPARANG'=>'ECU1',
-						'TENAU'=>'XBL1',
-						'EL-TARI'=>'XBU1',
-						'MAPAN'=>'X1U1',
-						"MOTA'AIN"=>'X1D1',
-						'METAMEUK'=>'X1D2',
-						'MAUMERE'=>'X2L1',
-						'AMBON'=>'RCL1',
-						'PATIMURA'=>'RCU1',
-						'TERNATE'=>'RBL1',
-						'FRANS KAISEPO'=>'DBU1',
-						'BIAK'=>'DBL1',
-						'MERAUKE'=>'DCL1',
-						'MOPAH'=>'DCU1',
-						'SKOU'=>'DED1',
-						'JAYAPURA'=>'DEL1',
-						'SENTANI'=>'DEU1',
-						'SORONG'=>'DDL1',
-						'JEFMAN'=>'DDU1',
-						'AMAMAPARE'=>'D1L1',
-						'TIMIKA'=>'D1U1'	
-						} %>
-						<i></i>
-					</label>
-				  </section>
-				  
-				  <section class="col col-3">
-					<label class="label">Date of Entry to Indonesia</label>
-					<label class="input">
-						<i class="icon-append icon-calendar"></i>
-						<%= f.input_field :o_date_entry, class: 'datePick' %>
-					</label>
-					<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
-				  </section>
-				</div>
-								  
+					  </label>
+					  <div class="note">Please bring supporting <strong>Documents</strong> (if any) during interview/visa pick-up session.</div>
+				    </section>
+				    
+				    <section class="col col-2">
+							<label class="label">Duration of Stays</label>	
+							<label class="input">								
+								<%= f.input_field :duration_stays, :size => 3 %>
+							</label>
+						</section>
+					<section class="col col-3">
+							<label class="label">In</label>	
+							<label class="select">
+								<i class="icon-append icon-calendar"></i>
+								<%= f.input_field :duration_stays_unit, 
+								collection: { 'Days' => 'Day(s)', 'Months' => 'Month(s)', 'Years' => 'Month(s)' } %>
+								<i></i>
+							</label>
+					</section>	
+				  </div>
 				</fieldset>
 				
 				

@@ -4,13 +4,13 @@ class Visa
   include Mongoid::Paperclip
   
   before_create :assign_visa_type
+  belongs_to :user, :class_name => "User", :inverse_of => :visa
   
   field :owner_id,               type: String
   field :ref_id,                 type: String
   field :application_type,       type: Integer 
   field :category_type,          type: String
   field :visa_type,              type: Integer #1 = individual, #2 = Family, 3 = Group
-  
   field :reason,                 type: String
   
   field :first_name,					   type: String
@@ -23,9 +23,6 @@ class Visa
   field :nationality,				     type: String 
   field :profession,				     type: String
   field :profession_detail,      type: String
-  field :address_kr,             type: String
-  field :address_city_kr,        type: String
-  field :address_prov_kr,        type: String
    
   field :passport_no,				     type: String 
   field :passport_issued,			   type: String 
@@ -60,42 +57,22 @@ class Visa
   field :checkbox_6,				     type: Boolean, default: false
   field :checkbox_7,				     type: Boolean, default: false
   
-  field :tr_count_dest,          type: String 
-  field :tr_flight_vessel,			 type: String 
-  field :tr_air_sea_port,			   type: String 
-  field :tr_date_entry, 			   type: Date 
+  field :count_dest,             type: String 
+  field :flight_vessel,			     type: String 
+  field :air_sea_port,			     type: String 
+  field :date_entry, 			       type: Date 
+  field :purpose,				         type: String
   
-  field :lim_s_purpose,				   type: String 
-  field :lim_s_flight_vessel,		 type: String 
-  field :lim_s_air_sea_port,		 type: String 
-  field :lim_s_date_entry, 			 type: Date
-  
-  field :v_purpose,					     type: String 
-  field :v_flight_vessel,			   type: String 
-  field :v_air_sea_port,			   type: String 
-  field :v_date_entry, 				   type: Date
-  
-  field :dip_purpose,				     type: String 
-  field :dip_flight_vessel,			 type: String 
-  field :dip_air_sea_port,			 type: String 
-  field :dip_date_entry, 			   type: Date
-  
-  field :o_purpose,					     type: String 
-  field :o_flight_vessel,			   type: String 
-  field :o_air_sea_port,			   type: String 
-  field :o_date_entry, 				   type: Date
-  
-  field :status,                 type: String, default: 'Received'
-  field :status_code,            type: Integer,default: 1
+  field :status,                 type: String,  default: 'Received'
+  field :status_code,            type: Integer, default: 1
   field :payment_slip,           type: String
   field :payment_date,           type: Date
   field :vipa_no,                type: Integer
   
   field :approval_no,            type: String, default: 'N/A'
-  
-  belongs_to :user, :class_name => "User", :inverse_of => :visa
 
   field :is_sync,                type: Integer,     default: 0
+  field :visafee,                type: Integer
   
   #validates :owner_id,               presence: true
   #validates :ref_id,                 presence: true
@@ -112,9 +89,6 @@ class Visa
   validates :marital_status,         presence: true 
   validates :nationality,            presence: true 
   validates :profession,             presence: true, length: { minimum: 1, maximum: 50 }
-  validates :address_kr,             presence: true
-  validates :address_city_kr,        presence: true
-  validates :address_prov_kr,        presence: true
    
   validates :passport_no,            presence: true, length: { minimum: 1, maximum: 15 } 
   validates :passport_issued,        presence: true, length: { minimum: 1, maximum: 30 } 
@@ -192,5 +166,10 @@ class Visa
   end
   def assign_visa_type
     self.ref_id = 'KBRI'+ self.visa_type.to_s + '-' + self.ref_id
+  end
+  def assign_visa_fee
+    if 
+      self.visafee = 0
+    end 
   end
 end
