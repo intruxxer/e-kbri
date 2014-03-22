@@ -17,7 +17,7 @@
 /log/*.log
 /tmp
 /public/uploads/*
-
+/public/system/*
 
 #Gemfile*
 Gemfile.lock
@@ -32,3 +32,4 @@ Gemfile.lock
 /bin/wkhtmltopdf
 /bin/lib/*
 /bin/include/*
+

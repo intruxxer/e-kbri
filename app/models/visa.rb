@@ -3,7 +3,7 @@ class Visa
   include Mongoid::Timestamps
   include Mongoid::Paperclip
   
-  before_create :assign_visa_type
+  before_create :assign_visa_type, :assign_visa_fee
   belongs_to :user, :class_name => "User", :inverse_of => :visa
   
   field :owner_id,               type: String
@@ -168,8 +168,48 @@ class Visa
     self.ref_id = 'KBRI'+ self.visa_type.to_s + '-' + self.ref_id
   end
   def assign_visa_fee
-    if 
+    #visit
+    if self.category_type == 'visit' then
+      if num_entry == 'M' then
+        self.visafee = 100
+      else
+        self.visafee = 45
+      end 
+    #transit  
+    elsif self.category_type == 'transit'
+      self.visafee = 20
+    #limited-stay
+    elsif self.category_type == 'limited-stay'
+      if type_of_visa == '2Y' then
+        self.visafee = 175
+      elsif type_of_visa == '1Y'
+        self.visafee = 100
+      elsif type_of_visa == '6M'
+        self.visafee = 50
+      elsif type_of_visa == '1M'
+        self.visafee = 64
+      else 
+        self.visafee = 0
+      end
+    #official
+    elsif self.category_type == 'official'
       self.visafee = 0
+    #diplomatic
+    elsif self.category_type == 'diplomatic'
+      self.visafee = 0
+    #reentry
+    elsif self.category_type == 'reentry'
+      if type_of_visa == 'extension' then
+        self.visafee = 22
+      elsif type_of_visa == '6M' 
+        self.visafee = 64
+      elsif type_of_visa == '1Y' 
+        self.visafee = 100
+      elsif type_of_visa == '2Y'
+        self.visafee = 187
+      end
+    else
+      self.visafee = 6 #kawat, visa
     end 
   end
 end
