@@ -3,7 +3,7 @@ class Passport
   include Mongoid::Timestamps
   include Mongoid::Paperclip
   
-  before_create :assign_ref_id
+  before_create :assign_ref_id, :assign_passport_fee
   belongs_to :user, :class_name => "User", :inverse_of => :passport
   
   field :owner_id,               type: String
@@ -55,6 +55,8 @@ class Passport
   field :passport_no,            type: String
   field :reg_no,                 type: String
   field :lapordiri_no,           type: String
+  
+  field :passportfee,           type: Integer
   
   
   validates :application_type,   presence: true
@@ -110,14 +112,28 @@ class Passport
       return false
     end     
   end
+  
   def assign_ref_id
     self.ref_id = 'P-KBRI-' + generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s
   end
+  
   def generate_string(length=5)
       chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
       random_characters = ''
       length.times { |i| random_characters << chars[rand(chars.length)] }
       random_characters = random_characters.upcase
+  end
+  
+  def assign_passport_fee
+    type = "passport_" + self.paspor_type
+    if self.application_reason.nil?
+      passport = Passportfee.where(passport_type: type)
+      self.passportfee = passport.passport_fee
+    else
+      passport = Passportfee.where(passport_type: type, passport_reason: self.application_reason)
+      self.passportfee = passport.passport_fee
+    end
+    
   end
   
 end

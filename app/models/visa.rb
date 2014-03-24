@@ -47,7 +47,7 @@ class Visa
   field :duration_stays,		     type: Integer
   field :duration_stays_unit,	   type: String 
 
-  field :num_entry,					     type: String
+  field :num_entry,					     type: String, default: 'S'
   
   field :checkbox_1,				     type: Boolean, default: false
   field :checkbox_2,				     type: Boolean, default: false
@@ -164,13 +164,28 @@ class Visa
       length.times { |i| random_characters << chars[rand(chars.length)] }
       random_characters = random_characters.upcase
   end
+  
   def assign_visa_type
     self.ref_id = 'KBRI'+ self.visa_type.to_s + '-' + self.ref_id
   end
+  
+  def assign_visa_fee_ref
+    if !self.type_of_visa.nil? and !self.num_entry.nil? then
+      visa = Visafee.where(application_of_visa: self.category_type, type_of_visa: self.type_of_visa, num_entry: self.num_entry)
+      self.visafee = visa.fee_of_visa
+    elsif !self.type_of_visa.nil?
+      visa = Visafee.where(application_of_visa: self.category_type, type_of_visa: self.type_of_visa)
+      self.visafee = visa.fee_of_visa
+    else 
+      visa = Visafee.where(application_of_visa: self.category_type)
+      self.visafee = visa.fee_of_visa
+    end
+  end
+  
   def assign_visa_fee
     #visit
     if self.category_type == 'visit' then
-      if num_entry == 'M' then
+      if self.num_entry == 'M' then
         self.visafee = 100
       else
         self.visafee = 45
@@ -180,13 +195,13 @@ class Visa
       self.visafee = 20
     #limited-stay
     elsif self.category_type == 'limited-stay'
-      if type_of_visa == '2Y' then
+      if self.type_of_visa == '2Y' then
         self.visafee = 175
-      elsif type_of_visa == '1Y'
+      elsif self.type_of_visa == '1Y'
         self.visafee = 100
-      elsif type_of_visa == '6M'
+      elsif self.type_of_visa == '6M'
         self.visafee = 50
-      elsif type_of_visa == '1M'
+      elsif self.type_of_visa == '1M'
         self.visafee = 64
       else 
         self.visafee = 0
@@ -199,7 +214,7 @@ class Visa
       self.visafee = 0
     #reentry
     elsif self.category_type == 'reentry'
-      if type_of_visa == 'extension' then
+      if self.type_of_visa == 'extension' then
         self.visafee = 22
       elsif type_of_visa == '6M' 
         self.visafee = 64
