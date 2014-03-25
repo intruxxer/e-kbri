@@ -45,6 +45,41 @@
 						<% end %>
 					</div>
 				</fieldset>
+				<% if @visa.photo.exists? or @visa.idcard.exists? or @visa.passport.exists? %>
+				<fieldset>
+				  <h3>Applicant Soft Copy Documents</h3>
+					<hr /><br />
+				  <div class="row">
+				  <% if @visa.photo.exists? %>
+					<section class="col col-4">
+						<label class="label">Portrait Photo</label>
+							<%= image_tag @visa.photo.url(:thumb) %>
+							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+								<%= link_to 'Download', @visa.photo.url(:original, false), target: "_blank" %>
+							<%end%>
+					</section>				
+				  <%end%>
+				  <% if @visa.idcard.exists? %>
+				    <section class="col col-4">
+				    	<label class="label">ARC/ID Card</label>
+							<%= image_tag @visa.idcard.url(:thumb) %>
+							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+								<%= link_to 'Download', @visa.idcard.url(:original, false), target: "_blank" %>
+							<%end%>
+					</section>
+				  <%end%>
+				  <% if @visa.passport.exists? %>
+				    <section class="col col-4">
+				    	<label class="label">Passport Photo</label>
+							<%= image_tag @visa.passport.url(:thumb) %>
+							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+								<%= link_to 'Download', @visa.passport.url(:original, false), target: "_blank" %>
+							<%end%>
+					</section>
+				  <%end%>
+				  </div>
+				</fieldset>
+				<%end%>
 				
 				<fieldset>
 					<div class="row">
@@ -703,7 +738,7 @@
 					  <div class="row">
 					  	 <section class="col col-3"></section>
 					  <section class="col col-3">
-					  	<label class="label">Regency</label>
+					  	<label class="label">City</label>
 						<label class="select">
 							<%= f.input_field :sponsor_address_kab_id, 
 							collection: { 
@@ -1122,6 +1157,7 @@
 						<i class="icon-append icon-globe"></i>
 						<%= f.input_field :count_dest %>
 					</label>
+					<div class="note"><strong>Note:</strong> Only fill this if you apply for TRANSIT VISA.</div>
 				  </section>
 				  
 				  <section class="col col-2">
@@ -1410,7 +1446,7 @@
 					nextText: '<i class="icon-chevron-right"></i>',
 					changeMonth: true,
       				changeYear: true,
-      				yearRange: '1900:2020'
+      				yearRange: '1920:2040'
 				});
 				
 				$('.fileplaceholder').change(function(){					

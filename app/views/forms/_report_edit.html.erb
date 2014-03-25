@@ -153,7 +153,8 @@
 							<label class="label">Kantor Pengeluaran Paspor</label>
 							<label class="select">
 								<%= f.input_field :immigrationOffice, 
-								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK","BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL" } %>
+								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK",
+									"BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL", "KBRI LAINNYA"=>"KBRI LAINNYA" } %>
 							<i></i>
 							</label>
 						</section>			
@@ -1301,7 +1302,7 @@
 					nextText: '<i class="icon-chevron-right"></i>',
 					changeMonth: true,
       				changeYear: true,
-      				yearRange: '1900:' + new Date().getFullYear()
+      				yearRange: '1900:2040'
 				});
 				
 				$('.fileplaceholder').change(function(){					

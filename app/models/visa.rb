@@ -3,7 +3,7 @@ class Visa
   include Mongoid::Timestamps
   include Mongoid::Paperclip
   
-  before_create :assign_visa_type, :assign_visa_fee
+  before_create :assign_visa_fee  #, :assign_visa_type
   belongs_to :user, :class_name => "User", :inverse_of => :visa
   
   field :owner_id,               type: String
@@ -75,7 +75,7 @@ class Visa
   field :visafee,                type: Integer
   
   #validates :owner_id,               presence: true
-  #validates :ref_id,                 presence: true
+  validates :ref_id,                 presence: true
   validates :application_type,       presence: true 
   validates :category_type,          presence: true
   validates :visa_type,              presence: true
@@ -166,7 +166,7 @@ class Visa
   end
   
   def assign_visa_type
-    self.ref_id = 'KBRI'+ self.visa_type.to_s + '-' + self.ref_id
+    self.ref_id = self.ref_id
   end
   
   def assign_visa_fee_ref

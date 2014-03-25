@@ -4,6 +4,7 @@ gem "rails", "4.0.0"
 gem "mongoid", github: "mongoid/mongoid"
 gem "bson"
 gem "bson_ext"
+gem "mongo_session_store-rails4"
 
 gem "simple_form"
 gem "devise", "~> 3.0.0"

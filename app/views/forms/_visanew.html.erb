@@ -685,7 +685,7 @@
 					  <div class="row">
 					  	 <section class="col col-3"></section>
 					  <section class="col col-3">
-					  	<label class="label">Regency</label>
+					  	<label class="label">City</label>
 						<label class="select">
 							<%= f.input_field :sponsor_address_kab_id, 
 							collection: { 
@@ -1104,6 +1104,7 @@
 						<i class="icon-append icon-globe"></i>
 						<%= f.input_field :count_dest %>
 					</label>
+					<div class="note"><strong>Note:</strong> Only fill this if you apply for TRANSIT VISA.</div>
 				  </section>
 				  
 				  <section class="col col-2">
@@ -1289,7 +1290,7 @@
 							<label class="input">								
 								<%= f.input_field :duration_stays, :size => 3 %>
 							</label>
-						</section>
+					</section>
 					<section class="col col-3">
 							<label class="label">In</label>	
 							<label class="select">
@@ -1373,7 +1374,7 @@
 					nextText: '<i class="icon-chevron-right"></i>',
 					changeMonth: true,
       				changeYear: true,
-      				yearRange: '1900:2020'
+      				yearRange: '1920:2040'
 				});
 				
 				$('.fileplaceholder').change(function(){					

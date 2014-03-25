@@ -1,27 +1,27 @@
 class WelcomeController < ApplicationController
   def index	
-  	  if user_signed_in?
-  	    if current_user.has_role? :admin then
-  	      @uservisa = Visa.all
-  	      @userpassport = Passport.all
-  	      @userreport = Report.all
-  	    else
-  	      visadata = Visa.where(user_id: current_user)
-          @uservisa = Visa.where(owner_id: current_user.id)
+  	if user_signed_in?
+  	  if current_user.has_role? :admin then
+  	    @uservisa = Visa.all
+  	    @userpassport = Passport.all
+  	    @userreport = Report.all
+  	  else
+  	    visadata = Visa.where(user_id: current_user)
+        @uservisa = Visa.where(owner_id: current_user.id)
         
-          passportdata = Passport.where(user_id: current_user)
-          @userpassport = Passport.where(owner_id: current_user.id)
+        passportdata = Passport.where(user_id: current_user)
+        @userpassport = Passport.where(owner_id: current_user.id)
         
-          @userreport = Report.where(user_id: current_user)
-          allunpaidvisa = Visa.where(user_id: current_user, status: 'Received')
-          @unpaidvisa = {}
-          if allunpaidvisa.count > 0
-            allunpaidvisa.each do |x|
-              @unpaidvisa[ "ref_id"=> x.ref_id, "category_type" => x.category_type,
-                         "first_name" => x.first_name, "last_name" => x.last_name   ]
+        @userreport = Report.where(user_id: current_user)
+        allunpaidvisa = Visa.where(user_id: current_user, status: 'Received')
+        @unpaidvisa = {}
+        if allunpaidvisa.count > 0
+           allunpaidvisa.each do |x|
+            @unpaidvisa[ "ref_id"=> x.ref_id, "category_type" => x.category_type,
+                         "first_name" => x.first_name, "last_name" => x.last_name ]
             end
-          end
-  	    end
+        end
+  	  end
 =begin  	  	
     		#if there is at least once visa/passport/report application, 
     		#then visadata == 1 as for the current user

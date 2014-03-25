@@ -3,12 +3,20 @@ class Immigration::VisafamilyController < ApplicationController
   #GET /visa
   def index
     @visa = Visa.new
-    if params[:add_people] then
+    if session[:add_people] then
       @add_people = true
-      @lastvisa = Visa.where(visa_type: 2, user_id: current_user).last
-      @ref_id = @lastvisa.ref_id
+      @ref_id = session[:current_ref_id]
+      puts "Session add_people = True"
+      puts "Session current_ref_id = #{session[:current_ref_id]}"
+      #@lastvisa = Visa.where(visa_type: 2, user_id: current_user).last
+      #@ref_id = @lastvisa.ref_id
     else
-      @ref_id = 'VF-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s
+      time = Time.new
+      coded_date = time.strftime("%y%m%d")
+      @ref_id = '2'+coded_date+generate_string(3)
+      session[:current_ref_id] = @ref_id
+      puts "1st Session current_ref_id = #{session[:current_ref_id]}"
+      #@ref_id = 'VF-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s
     end
   end
   
@@ -76,8 +84,10 @@ class Immigration::VisafamilyController < ApplicationController
       respond_to do |format|
         format.html { 
           #kalau pertama kali sbg org pertama
-          redirect_to :controller => 'visafamily', :action => 'index', 
-          :add_people => true, :ref_id => params[:visa][:ref_id]
+          if session[:add_people].nil? or session[:add_people].blank? or session[:add_people] == false
+             session[:add_people] = true
+          end
+          redirect_to :controller => 'visafamily', :action => 'index' 
           #redirect_to visafamilys_path with GET options
           
           #kalau kedua kali 

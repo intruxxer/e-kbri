@@ -19,6 +19,17 @@ class Immigration::VisaController < ApplicationController
       end
   end
   
+  def finishing_application
+    app_ref = session[:current_ref_id]
+    session[:current_ref_id]  = nil
+    session[:add_people] = nil
+    redirect_to root_path, :notice => "You have ended a recent group/family application under # #{app_ref}. Next application will be another group/family."
+  end
+  
+  def reapply
+    redirect_to root_path, :notice => "You have successfully notified The Embassy staff #{params[:id]} to recheck your previously incomplete application."
+  end
+  
   #GET /new
   def new
   
@@ -105,10 +116,21 @@ class Immigration::VisaController < ApplicationController
       :sponsor_phone_id, :duration_stays, :duration_stays_unit, :num_entry, :checkbox_1, :checkbox_2, :checkbox_3, 
       :checkbox_4, :checkbox_5, :checkbox_6, :checkbox_7, :count_dest, :flight_vessel, :air_sea_port, :date_entry, :purpose, 
       :passport, :idcard, :photo, :status, :status_code, :payment_slip, :payment_date, :ticket, :sup_doc, 
-      :approval_no).merge(owner_id: current_user.id, visa_type: 1)
+      :approval_no).merge(ref_id: reference_no_visa, owner_id: current_user.id, visa_type: 1)
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params
     #  params.require(:post).permit(:some_attribute).merge(user_id: current_user.id)
-    #end    
+    #end   
+    def reference_no_visa
+      time = Time.new
+      coded_date = time.strftime("%y%m%d")
+      ref_id = '1'+coded_date+generate_string(3)
+    end
+    def generate_string(length=5)
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
+      random_characters = ''
+      length.times { |i| random_characters << chars[rand(chars.length)] }
+      random_characters = random_characters.upcase
+    end 
 end

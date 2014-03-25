@@ -1,4 +1,4 @@
-limited-stay<!-- Red color scheme -->
+<!-- Red color scheme -->
 	<% if controller_name == "visafamily"  %>
 		<% @url_response = visafamilys_path %>
 	<% elsif controller_name == "visagroup"  %>
@@ -26,7 +26,7 @@ limited-stay<!-- Red color scheme -->
 					<div class="row">
 						<section class="col col-4">
 							<label class="label">Finish Application</label>
-							  <%= link_to root_path do %>
+							  <%= link_to finishgroupapply_path do %>
 							  <span class="glyphicon-glyphicon-adjust" style="font-size:1.5em;">
 							    <span class="glyphicon glyphicon-home"></span>
 							    Finish
@@ -694,7 +694,7 @@ limited-stay<!-- Red color scheme -->
 					  <div class="row">
 					  	 <section class="col col-3"></section>
 					  <section class="col col-3">
-					  	<label class="label">Regency</label>
+					  	<label class="label">City</label>
 						<label class="select">
 							<%= f.input_field :sponsor_address_kab_id, 
 							collection: { 
@@ -1113,6 +1113,7 @@ limited-stay<!-- Red color scheme -->
 						<i class="icon-append icon-globe"></i>
 						<%= f.input_field :count_dest %>
 					</label>
+					<div class="note"><strong>Note:</strong> Only fill this if you apply for TRANSIT VISA.</div>
 				  </section>
 				  
 				  <section class="col col-2">
@@ -1268,7 +1269,7 @@ limited-stay<!-- Red color scheme -->
 				</div>  
 				</fieldset>
 				
-				<fieldset id="limited-stay" class="specialFieldCat no-show">
+				<fieldset id="limited-stay" class="specialFieldCat">
 			      <div class="row">
 			        <section class="col col-4">
 				      <label class="label">Immigration Approval No.</label>
@@ -1323,9 +1324,7 @@ limited-stay<!-- Red color scheme -->
 				</fieldset>
 
 				<footer>
-					<% if controller_name == "visafamily"  %>
-						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>
-					<% elsif controller_name == "visagroup"  %>
+					<% if controller_name == "visafamily" or controller_name == "visagroup"  %>
 						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>	
 					<% end %>
 				
@@ -1381,7 +1380,7 @@ limited-stay<!-- Red color scheme -->
 					nextText: '<i class="icon-chevron-right"></i>',
 					changeMonth: true,
       				changeYear: true,
-      				yearRange: '1900:2020'
+      				yearRange: '1920:2040'
 				});
 				
 				$('.fileplaceholder').change(function(){					

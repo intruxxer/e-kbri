@@ -63,16 +63,22 @@
 		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h4>Visa Payment History</h4>
+					<h4>Visa Payment Due</h4>
 				</div>
 				<div class="panel-body">
-					USER. ID: <%= "#{current_user._id.to_s.upcase}" %>
+					<% x = 1; @uservisa.each do |v| %>
+					  <div>
+					  	<%= "#{x.to_s}. USD #{v.visafee}" %>
+					  	<%= "(##{v.ref_id}) is unpaid." %>
+					  </div>
+					<% x += 1 %>
+					<% end %>
 				</div>
 			</div>
 		</div>
 	</div>
 <% end %>
-<% if user_signed_in? then %>	
+<% if user_signed_in? and current_user.citizenship then %>	
 		<div class="row">
 		<div class="col-md-9">
 								<!-- start: TABLE WITH IMAGES PANEL -->
@@ -105,7 +111,7 @@
 														<span class="glyphicon-class">Perbaharui</span>
 													<% end %>
 													|&nbsp;
-													<%= link_to('/reapply/passport/'+t.id) do %>
+													<%= link_to('passports/reapply/'+t.id) do %>
 														<span class="glyphicon glyphicon-export"></span>
 														<span class="glyphicon-class">Konfirmasi ke KBRI</span>
 														<% end %>
@@ -137,20 +143,24 @@
 					<h4>Passport Payment History</h4>
 				</div>
 				<div class="panel-body">
-					<% i = 1; @userpassport.each do |h| %>
-					  <% if h.paspor_type == 24 then %>
-					    <div><%= i.to_s+". " +h.ref_id+' = USD 6' %></div>
-					  <% elsif h.paspor_type == 48  %>
-					    <div><%= i.to_s+". " +h.ref_id+' = USD 22' %></div>
+					<% if @userpassport.count > 0   %>
+					  <% i = 1; @userpassport.each do |h| %>
+					    <% if h.paspor_type == 24 then %>
+					      <div><%= i.to_s+". " +h.ref_id+' = USD 6' %></div>
+					    <% elsif h.paspor_type == 48  %>
+					      <div><%= i.to_s+". " +h.ref_id+' = USD 22' %></div>
+					    <% end %>
+					    <% i += 1 %>
 					  <% end %>
-					  <% i += 1 %>
+					<% else   %>
+					    <div><%= 'Anda tidak mempunyai tagihan aplikasi paspor yang harus dibayar.' %></div>
 					<% end %>
 				</div>
 			</div>
 		</div>
 		</div>
 <% end %>
-<% if user_signed_in? then %>
+<% if user_signed_in? and current_user.citizenship then %>
 		<div class="row">
 		<div class="col-md-9">
 								<!-- start: TABLE WITH IMAGES PANEL -->
