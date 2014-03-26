@@ -1325,7 +1325,7 @@
 
 				<footer>
 					<% if controller_name == "visafamily" or controller_name == "visagroup"  %>
-						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>	
+						<%= f.input_field :ref_id, type: 'hidden', value: session[:current_ref_id] %>	
 					<% end %>
 				
 					<% if controller_name == "visafamily" or controller_name == "visagroup"  %>
