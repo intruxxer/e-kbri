@@ -1,4 +1,5 @@
 class Immigration::ReportController < ApplicationController  
+  include SimpleCaptcha::ControllerHelpers
   before_filter :authenticate_user!
   
   def index

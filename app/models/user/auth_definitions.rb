@@ -7,7 +7,8 @@ module User::AuthDefinitions
     # :token_authenticatable, :confirmable,
     # :lockable, :timeoutable and :omniauthable
     devise :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
+           :recoverable, :rememberable, :trackable, 
+           :validatable, :confirmable, :omniauthable
 
     ## Database authenticatable
     field :email,              :type => String, :default => ""

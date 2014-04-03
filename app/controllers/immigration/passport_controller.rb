@@ -1,4 +1,5 @@
 class Immigration::PassportController < ApplicationController
+  include SimpleCaptcha::ControllerHelpers
   #GET /passport
   @@VIPACOUNTERDEF = 6600
   
@@ -32,23 +33,37 @@ class Immigration::PassportController < ApplicationController
   
   #POST /passport
   def create   
- 
     
     @passport = [ Passport.new(post_params) ]
-    current_user.passports = @passport    
+    #current_user.passports = @passport    
+    tempcache = @passport
+    @passport = @passport[0]    
     
-    if current_user.save then      
-      UserMailer.passport_received_email(current_user).deliver
-      respond_to do |format|
-        format.html { redirect_to root_path, :notice => "Pengurusan aplikasi paspor anda, berhasil!" }
-        format.json { render json: {action: "JSON Creating Passport", result: "Saved"} }
-        format.js #if being asked by AJAX to return "script" <-->
-            #passport_processing/create.js.erb -->to execute script JS,
-            #like stopping loading.gif, hiding the element, alerting user
+    if @passport.valid? then   
+      if simple_captcha_valid?  
+          current_user.passports.push(tempcache)
+          current_user.save 
+          UserMailer.passport_received_email(current_user).deliver
+          respond_to do |format|
+            format.html { 
+              
+              #redirect_to root_path, :notice => "Pengurusan aplikasi paspor anda, berhasil!" 
+              flash[:notice] = 'Pengurusan aplikasi paspor anda, berhasil!'
+              render 'pasporconfirm.html.erb'
+              
+              }
+            format.json { render json: {action: "JSON Creating Passport", result: "Saved"} }
+            format.js 
+                #if being asked by AJAX to return "script"
+                #passport_processing/create.js.erb -->to execute script JS,
+                #like stopping loading.gif, hiding the element, alerting user
+          end
+      else
+        @errors = { 'Secret Code' => 'Wrong Code Entered'}
+        render 'index'
       end
     else
-      @passport = @passport[0]
-      @errors = current_user.passports[0].errors.messages
+      @errors = @passport.errors.messages
       render 'index'
            
       #redirect_to :back, :alert => current_user.passports[0].errors.messages 
