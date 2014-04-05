@@ -1,9 +1,13 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include SimpleCaptcha::ControllerHelpers
   before_filter :configure_permitted_parameters # before_filter :resource_params
+  def new
+    super # no customization, simply call the devise implementation
+  end
   
   # POST /user
   def create
+    #super
     if simple_captcha_valid?
       build_resource(sign_up_params)
       resource_saved = resource.save
@@ -25,19 +29,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       #captcha error
       @errors = { 'Secret Code' => 'Wrong Code Entered'}
-      render 'new'
+      render "new"
     end
   end
   
   def update
+    #super
     updated_params = params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, 
-                    :current_password, :citizenship, :origin, :passport, :id_card)
+                    :current_password, :citizenship, :origin, :individual, :passport, :id_card)
     change_password = true
     if params[:user][:password].blank?
       params[:user].delete("password")
       params[:user].delete("password_confirmation")
       params[:user].delete("current_password")
-      updated_params = params.require(:user).permit(:first_name, :last_name, :email, :citizenship, :origin, :passport, :id_card)
+      updated_params = params.require(:user).permit(:first_name, :last_name, :email, :citizenship, :origin, :individual, :passport, :id_card)
       change_password = false
     end
     
