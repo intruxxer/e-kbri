@@ -3,6 +3,7 @@
 <h1>Welcome to electronic KBRI Seoul services (E-KBRI)</h1>
 <hr />
 <% if user_signed_in? then %>
+<% if !current_user.citizenship or current_user.has_role? :admin %>
 		<div class="row">
 		<div class="col-md-9">
 								<!-- start: TABLE WITH IMAGES PANEL -->
@@ -66,17 +67,22 @@
 					<h4>Visa Payment Due</h4>
 				</div>
 				<div class="panel-body">
-					<% x = 1; @uservisa.each do |v| %>
+					<% if @uservisa then %>
+					  <% x = 1; @uservisa.each do |v| %>
 					  <div>
 					  	<%= "#{x.to_s}. USD #{v.visafee}" %>
 					  	<%= "(##{v.ref_id}) is unpaid." %>
 					  </div>
+					  <% end %>
 					<% x += 1 %>
+					<% else   %>
+					<div><%= 'You do not have overdue/unpaid visa application fees.' %></div>
 					<% end %>
 				</div>
 			</div>
 		</div>
 	</div>
+<% end %>
 <% end %>
 <% if user_signed_in? and current_user.citizenship then %>	
 		<div class="row">
