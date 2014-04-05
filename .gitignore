@@ -33,3 +33,4 @@ Gemfile.lock
 /bin/lib/*
 /bin/include/*
 
+/config/mongoid.yml
