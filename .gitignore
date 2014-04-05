@@ -4,6 +4,7 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+.gitignore
 # Ignore bundler config.
 /.bundle
 /vendor/bundle/*
@@ -33,5 +34,5 @@ Gemfile.lock
 /bin/lib/*
 /bin/include/*
 
-/config/mongoid.yml
 /config/initializers/setup_mail.rb
+/config/mongoid.yml
