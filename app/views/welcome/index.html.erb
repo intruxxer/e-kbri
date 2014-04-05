@@ -3,7 +3,7 @@
 <h1>Welcome to electronic KBRI Seoul services (E-KBRI)</h1>
 <hr />
 <% if user_signed_in? then %>
-<% if !current_user.citizenship or current_user.has_role? :admin %>
+<% if !current_user.citizenship or current_user.has_role? :admin or current_user.has_role? :moderator %>
 		<div class="row">
 		<div class="col-md-9">
 								<!-- start: TABLE WITH IMAGES PANEL -->
