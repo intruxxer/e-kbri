@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
   #counselor@kbri.seoul.kr alias: {visa, paspor, konsuler}
   
   def visa_received_email(user)
-  	@url = "http://kbri.seoul.kr"
+  	@url = "http://id-embassy.kr"
   	@email = user.email
   	uservisa = Visa.where(owner_id: user.id).last
   	@ref_id = uservisa.ref_id
@@ -17,7 +17,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def passport_received_email(user)
-    @url = "http://kbri.seoul.kr"
+    @url = "http://id-embassy.kr"
     @email = user.email
     userpassport = Passport.where(owner_id: user.id).last
     @ref_id = userpassport.ref_id
