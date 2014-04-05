@@ -34,18 +34,20 @@
     <fieldset>
   	<div class="row">
 		<section class="col col-4">
-		  <label class="label">Password</label>
+		  <label class="label">New Password</label>
 	      <label class="input">
 		    <%= f.input_field :password, :required => true, :autocomplete => "off", :hint => "Leave it blank if you don't want to change it", :required => false %>
 		    <i class="icon-append icon-lock"></i>
 		  </label>
+		  <div class="note"><strong>Note:</strong> Leave this BLANK if you don't wish to change your password.</div>
 		</section>
 		<section class="col col-4">
-		  <label class="label">Password Confirmation</label>
+		  <label class="label">New Password Confirmation</label>
 	      <label class="input">
   		    <%= f.input_field :password_confirmation, :required => false %>
   		    <i class="icon-append icon-lock"></i>
   		  </label>
+  		  <div class="note"><strong>Note:</strong> Leave this BLANK if you don't wish to change your password.</div>
 		</section>
 		<section class="col col-4">
 		  <label class="label">Your Current Password</label>
@@ -53,7 +55,7 @@
   		    <%= f.input_field :current_password, :hint => "We need your current password to confirm your changes", :required => true %>
   		    <i class="icon-append icon-lock"></i>
   		  </label>
-  		  <div class="note"><strong>Note:</strong> We require your current password to confirm your changes.</div>
+  		  <div class="note"><strong>Note:</strong> We require your current password to confirm your password change. Leave BLANK if no password change.</div>
 		</section>
 	</div>
   </fieldset>
@@ -318,7 +320,7 @@
 									'YEMEN'=>'YEM',
 									'SOUTH AFRICA'=>'ZAF',
 									'ZAMBIA'=>'ZMB',
-									'ZIMBABWE'=>'ZWE' }, :selected => 'IDN' %>
+									'ZIMBABWE'=>'ZWE' } %>
 								<i></i>
 				</label>
 				<div class="note"><strong>Note:</strong> 
