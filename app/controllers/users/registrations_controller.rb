@@ -7,7 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   # POST /user
   def create
-    #super
     if simple_captcha_valid?
       build_resource(sign_up_params)
       resource_saved = resource.save
