@@ -8,6 +8,7 @@ gem "mongo_session_store-rails4"
 
 gem "simple_form"
 gem "devise", "~> 3.0.0"
+gem "devise-encryptable"
 gem "cancan"
 gem "omniauth"
 gem "omniauth-facebook"
@@ -25,12 +26,12 @@ gem "turbolinks"
 gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
 gem "jquery-turbolinks"
-gem "country_select"
+
 gem "paperclip", "~> 3.5.3"
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem "aws-sdk", "~> 1.3.4"
 gem "wicked_pdf"
-gem "wkhtmltopdf-binary"
+gem 'simple_captcha2', require: 'simple_captcha'
 
 group :development do
   gem "guard-rspec"
