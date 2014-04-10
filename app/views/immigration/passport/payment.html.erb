@@ -1,0 +1,120 @@
+
+<div class="body" style="padding-top: 20px;">
+			<div style="text-align: center;">
+			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+			</div>
+			
+			<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Penyimpanan Gagal. Silahkan cek pesan dibawah ini</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
+				
+			<!-- Red color scheme -->
+			<%= simple_form_for @passport, url: payment_proceed_path(@passport), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				<header>Konfirmasi Pembayaran Permohonan Passport</header>
+				<fieldset>
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Passport Reference No.:</label>
+							<b><%= @passport.ref_id %></b>
+						</section>						
+					</div>
+				</fieldset>		
+				
+				<fieldset style="text-align:center;">
+					<h6><b>Jumlah Tagihan</b></h6><Br />
+					<h1>$<%= @passport.passportfee %></h1><Br />
+					<p>Untuk 1 (Satu) Pengajuan Passport <%= @passport.paspor_type %> Halaman</p><br />
+					<p >Di bayarkan melalui <b>Bank KEB (외환은행)</b>. Indonesian Embassy in Seoul account <b>650-005012-179</b> dengan menggunakan <b>slip pembayaran dengan mata uang Dollar (Foreign Currency Deposit Slip / 외화예금전표 )</b>. Currency : <b>USD</b></p>
+					<br />
+					<p><b>Harap tulis Reference Number pada bagian Depositor name. Contoh dapat dilihat melalui link berikut : <a href="">Contoh Pembayaran</a></b></p>
+				</fieldset>	
+				
+				<fieldset style='background:#FFCC00;'>
+					<h4>Konfirmasi Pembayaran</h4>
+					<br />
+					<div class="row">
+						<section class="col col-6">
+							<label class="label" style='background:#FFCC00;'> Scan/Foto Bukti Pembayaran</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :slip_photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<% if @passport.slip_photo.exists? %>
+												
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download Slip', @passport.slip_photo.url(:original, false), target: "_blank" %>
+								<%end%>
+											
+							<%end%>
+							<div class="note"><strong>Catatan:</strong> Hanya berkas JPG/JPEG/PNG/PDF. Ukuran Maks. 2MB</div>
+						</section>	
+						<section class="col col-6">
+							<label class="label" style='background:#FFCC00;'>Tanggal Pembayaran</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :payment_date, class: 'datePick' %>
+							</label>
+						</section>		
+					</div>
+				</fieldset>	
+				<fieldset>
+					<h4>Pickup Location</h4>
+					<br />
+					<section class="col col-6">
+							<label class="label">Office</label>	
+							<label class="select">
+								<%= f.input_field :pickup_office, :required => true,
+								collection: { 'Indonesian Embassy Seoul Office' => 'seoul', 
+								          	  'Indonesian Consulate Busan Branch' => 'busan'} %>
+							<i></i>
+							</label>
+							<div class="note">Find out the location by clicking this link : <a target="_blank" href="http://kbriseoul.kr/kbriseoul/index.php/en/contact-us">Office Location</a></div>
+					</section>	
+						
+				</fieldset>			
+				<fieldset style="text-align:justify;">
+					<h4>Disclaimer</h4>
+					<hr /><br />
+					<p>Dengan mengisi form ini Saya menyatakan bahwa semua data yang diisikan merupakan informasi yang sebenar-benarnya. Segala kesalahan informasi yang dapat menyebabkan kerugian adalah tanggung jawab Saya dan tidak dapat di tangguhkan pada pihak lain. Kelalaian atau kesalahan dapat dikenakan sanksi sesuai dengan hukum yang berlaku</p>
+					<br />
+					<p>Konfirmasi pembayaran hingga pemberitahuan waktu pengambilan dapat memakan waktu setidaknya 1 (satu) hari. Hasil konfirmasi pembayaran serta jadwal pengambilan akan dikirimkan melalui email serta dapat juga dicek melalui website ini.</p>
+					<br />
+					<p><b>Harap sertakan bukti pembayaran ASLI bersama dengan bukti aplikasi pada saat pengambilan</b></p>
+				</fieldset>
+				<footer>
+					<%= f.input_field :status, :value => 'Paid', as: :hidden %>
+					<button type="submit" class="button">Simpan</button>
+					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+				</footer>
+			<% end %>
+			<!--/ Red color scheme -->			
+</div>
+
+
+
+<script type="text/javascript">
+			$(function()
+			{				
+				// Regular datepicker
+				$('.datePick').datepicker({
+					dateFormat: 'yy/mm/dd',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,
+      				yearRange: '1900:2040'
+				});
+				
+				$('.fileplaceholder').change(function(){					
+					filename = $(this).val();
+					$(this).parent().next().val(filename.split("\\").pop());
+				});
+				
+			});			
+</script>

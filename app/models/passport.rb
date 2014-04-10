@@ -1,16 +1,18 @@
 class Passport
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Paperclip
+  include Mongoid::Paperclip  
   
-  before_create :assign_ref_id, :assign_passport_fee
+  before_create :assign_ref_id, :assign_passport_fee, :set_vipacounter
+
   belongs_to :user, :class_name => "User", :inverse_of => :passport
   
   field :owner_id,               type: String
   field :ref_id,                 type: String
   field :application_type,       type: String
   field :application_reason,     type: String
-  field :paspor_type,            type: String
+  field :paspor_type,            type: String, default: 24
+
   
   field :full_name,              type: String
   field :kelamin,                type: String
@@ -49,7 +51,7 @@ class Passport
   
   field :status,                 type: String, default: 'Received'
   field :status_code,            type: Integer
-  field :payment_slip,           type: String
+
   field :payment_date,           type: Date
   
   field :passport_no,            type: String
@@ -57,7 +59,14 @@ class Passport
   field :lapordiri_no,           type: String
   
   field :passportfee,           type: Integer
+
+  field :vipacounter,           type: Integer
+  field :comment,               type: String
   
+  field :printed_date,          type: Date
+  field :pickup_office,         type: String, default: 'seoul'
+  field :pickup_date,           type: Date
+
   
   validates :application_type,   presence: true
   validates :application_reason, presence: true
@@ -68,11 +77,13 @@ class Passport
   validates :dateBirth,          presence: true
   validates :citizenship_status, presence: true
   
-  validates :lastPassportNo,     presence: true, length: { minimum: 0, maximum: 32 }, :if => :check_application_type
-  validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_type
-  validates :dateIssued,         presence: true, :if => :check_application_type
-  validates :dateIssuedEnd,      presence: true, :if => :check_application_type
-  validates :immigrationOffice,  presence: true, :if => :check_application_type
+
+  validates :lastPassportNo,     presence: true, length: { minimum: 0, maximum: 32 }, :if => :check_application_reason
+  validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_reason
+  validates :dateIssued,         presence: true, :if => :check_application_reason
+  validates :dateIssuedEnd,      presence: true, :if => :check_application_reason
+  validates :immigrationOffice,  presence: true, :if => :check_application_reason
+
   
   validates :jobStudyInKorea,    presence: true, length: { minimum: 1, maximum: 50 }
   validates :jobStudyTypeInKorea,presence: true
@@ -89,6 +100,10 @@ class Passport
   validates :kabupatenIndonesia, presence: true, length: { minimum: 1, maximum: 30 }
   validates :kecamatanIndonesia, presence: true, length: { minimum: 1, maximum: 30 }
   
+
+  validates :payment_date, presence: true, :if => :check_paid
+  validates :pickup_office, presence: true, :if => :check_paid  
+
   has_mongoid_attached_file :photo, :styles => { :thumb => "90x120>" }
   validates_attachment_content_type :photo, :content_type => %w(image/jpeg image/jpg image/png)
   validates_attachment_presence :photo
@@ -97,6 +112,8 @@ class Passport
   has_mongoid_attached_file :slip_photo, :styles => { :thumb => "90x120>" }
   validates_attachment_content_type :slip_photo, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf)
   validates_attachment_size :slip_photo, less_than: 2.megabytes
+  validates_attachment_presence :slip_photo, :if => :check_paid
+
   
   has_mongoid_attached_file :supporting_doc
   validates_attachment_content_type :supporting_doc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream)
@@ -105,11 +122,31 @@ class Passport
   
   
   private
-  def check_application_type
-    if self.application_type == 'perpanjang-paspor'
-      return true
+
+  def set_vipacounter
+    if Passport.count > 0
+      begin
+        self.vipacounter = Passport.max(:vipacounter) + 1
+      rescue
+        self.vipacounter = 3000
+      end      
     else
+      self.vipacounter = 3000
+    end
+  end
+  
+  def check_paid
+    if self.status == 'Paid'
+      return true
+    end
+  end
+  
+  def check_application_reason
+    if self.application_reason == 'lainnya'
       return false
+    else
+      return true
+
     end     
   end
   
@@ -120,19 +157,23 @@ class Passport
   end
   
   def generate_string(length=5)
-    chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
-    random_characters = ''
-    length.times { |i| random_characters << chars[rand(chars.length)] }
-    random_characters = random_characters.upcase
+
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
+      random_characters = ''
+      length.times { |i| random_characters << chars[rand(chars.length)] }
+      random_characters = random_characters.upcase
+
   end
   
   def assign_passport_fee
     type = "passport_" + self.paspor_type
-    if self.application_reason.nil?
-      passport = Passportfee.where(passport_type: type)
+
+    if self.application_reason == 'hilang'
+      passport = Passportfee.where(passport_type: type, passport_reason: self.application_reason).first
       self.passportfee = passport.passport_fee
     else
-      passport = Passportfee.where(passport_type: type, passport_reason: self.application_reason)
+      passport = Passportfee.where(passport_type: type, passport_reason: 'regular' ).first      
+
       self.passportfee = passport.passport_fee
     end
     

@@ -1,0 +1,141 @@
+
+<div class="body" style="padding-top: 20px;">
+			<div style="text-align: center;">
+			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+			</div>
+			
+			<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Penyimpanan Gagal. Silahkan cek pesan dibawah ini</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
+				
+			<!-- Red color scheme -->
+			<%= simple_form_for @visagrouppayment, url: visa_payment_proceed_path(), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				<header>Visa Application Payment Confirmation</header>
+				<fieldset>
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Visa Reference No.:</label>
+							<b><%= @visas.first.ref_id %></b>
+						</section>						
+					</div>
+					<center><table cellpadding="2" cellspacing="2" width="600">							
+							<tr>
+								<td>Application Type</td>
+								<td>
+									<% if @visas.count > 1 %>
+										Group/Family Visa : <%= @visas.count %> Person(s)
+									<% else %>
+										Individual Visa
+									<% end %></td>
+							</tr>
+							<tr>
+								<td>Grantee Detail</td>
+								<td><% totalfee = 0
+									 @visas.each do |row| %>
+										<b><%= row.first_name + ' ' + row.last_name %></b> (<%= row.category_type %>) : <%= (row.status_code<3)?'Under Review':'D-10' %><br />
+										
+										<% totalfee += Visafee.find(row.visafee_ref).fee_of_visa %>
+									<% end %>
+								</td>
+							</tr>
+					</table></center>
+				</fieldset>		
+				
+				<fieldset style="text-align:center;">
+					<h6><b>Total Fee </b></h6><Br />
+					<h1>$<%= totalfee %></h1><Br />					
+					<p >Please make your payment through <b>KEB Bank (외환은행)</b>. Indonesian Embassy in Seoul account <b>650-005012-179</b> proceed with <b>Dollar currency payment (Foreign Currency Deposit Slip / 외화예금전표 )</b>. Currency : <b>USD</b></p>
+					<br />
+					<p><b>Please rewrite the Reference Number to the Depositor Name section in the payment slip. Example : <a href="">Payment slip</a></b></p>
+				</fieldset>	
+				
+				<fieldset style='background:#FFCC00;'>
+					<h4>Payment Confirmation</h4>
+					<br />
+					<div class="row">
+						<section class="col col-6">
+							<label class="label" style='background:#FFCC00;'> Scan/Digital Copy of Payment Receipt</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :slip_photo, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<% if @visagrouppayment.slip_photo.exists? %>
+												
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download Slip', @visagrouppayment.slip_photo.url(:original, false), target: "_blank" %>
+								<%end%>
+											
+							<%end%>
+							<div class="note"><strong>Catatan:</strong> Hanya berkas JPG/JPEG/PNG/PDF. Ukuran Maks. 2MB</div>
+						</section>	
+						<section class="col col-6">
+							<label class="label" style='background:#FFCC00;'>Payment Date</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :payment_date, class: 'datePick' %>
+							</label>
+						</section>		
+					</div>
+				</fieldset>			
+				<fieldset>
+					<h4>Pickup Location</h4>
+					<br />
+					<section class="col col-6">
+							<label class="label">Office</label>	
+							<label class="select">
+								<%= f.input_field :pickup_office, :required => true,
+								collection: { 'Indonesian Embassy Seoul Office' => 'seoul', 
+								          	  'Indonesian Consulate Busan Branch' => 'busan'} %>
+							<i></i>
+							</label>
+							<div class="note">Find out the location by clicking this link : <a target="_blank" href="http://kbriseoul.kr/kbriseoul/index.php/en/contact-us">Office Location</a></div>
+					</section>	
+						
+				</fieldset>	
+				<fieldset style="text-align:justify;">
+					<h4>Disclaimer</h4>
+					<hr /><br />
+					<p>Upon submitting this form I am fully aware that every data provided are truthful and correct information. Any misleading or incorrect information which may cause detrimental effect is taken as my responsibility and can not be delegated to any other party. False information may result to sanction or considered as criminal and will be taken action according to the implemented Law</p>
+					<br />
+					<p>The time of payment confirmation to pickup schedule may consume at least 3 (Three) days. Payment confirmation result will be sent to email or may be verified through this website. </p>
+					<br />
+					<p><b>Please bring the REAL payment confirmation slip along with the application receipt during the pickup time</b></p>
+				</fieldset>
+				<footer>
+					<%= f.input_field :status, :value => 'Paid', as: :hidden %>
+					<%= f.input_field :ref_id, :value => @visas.first.ref_id, as: :hidden %>
+					<button type="submit" class="button">Simpan</button>
+					<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
+				</footer>
+			<% end %>
+			<!--/ Red color scheme -->			
+</div>
+
+
+
+<script type="text/javascript">
+			$(function()
+			{				
+				// Regular datepicker
+				$('.datePick').datepicker({
+					dateFormat: 'yy/mm/dd',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,
+      				yearRange: '1900:2040'
+				});
+				
+				$('.fileplaceholder').change(function(){					
+					filename = $(this).val();
+					$(this).parent().next().val(filename.split("\\").pop());
+				});
+				
+			});			
+</script>

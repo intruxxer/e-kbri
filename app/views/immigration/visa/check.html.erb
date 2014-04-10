@@ -1,0 +1,407 @@
+<%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name == :notice ? "success" : name %>">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
+<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Penyimpanan Gagal. Silahkan cek pesan di bawah</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
+<br />
+<div class="sky-form" style="margin:16px;">
+	
+	<fieldset>
+		<div class="row">			
+			<section class="col col-6">
+				No Ref.		   :<b> <%= @visa.ref_id %></b> <br />
+				Jenis Aplikasi : <b><%= @visa.application_type %> </b> , Alasan :  <b><%= @visa.reason %></b>
+			</section>
+			<section class="col col-3">
+				Requested Visa 	 : <b><%= @visa.category_type %></b><br />
+				Duration of Stay : <%= @visa.duration_stays %> <%= @visa.duration_stays_unit %><br />
+				Entry type  	 : <%= @visa.num_entry %>
+			</section>
+			<section class="col col-3" style="background:#FFFFCC;">
+				Current Status : <b><%= @visa.status %></b>
+			</section>
+		</div>
+	</fieldset>
+	<fieldset style="background:#FFCC66;">
+		<div class="row">
+			<%= (Visa.where(:ref_id => @visa.ref_id).all.count > 1)?'Group/Family':'Individual' %> Application			
+			<%  @vg = Visagrouppayment.where(:ref_id => @visa.ref_id).all
+				if @vg.count > 1 %>
+				<section class="col col-6">
+					Status Pembayaran : <b>Sudah dibayar</b><br />
+					<%= link_to 'Download Slip Pembayaran', @vg.slip_photo.url(:original, false), target: "_blank" %>
+				</section>
+				<section class="col col-6">
+					Tanggal Pembayaran : <b><%= @vg.payment_date %></b>
+				</section>
+				<section class="col col-6">
+					Pickup Location : <b><%= @vg.pickup_office %></b>
+					Pickup Date		: <b><%= @visa.pickup_date %></b>
+				</section>
+			<% else %>
+				<section class="col col-6">
+					Status Pembayaran : <b>Belum Diterima</b>
+				</section>
+			<% end %>
+		</div>
+		<div class="row">
+			<section class="col col-6">
+				<%= link_to 'Check Actual Payment Receipt', visa_compile_path(@visa.ref_id), target: "_blank" %>
+			</section>
+		</div>
+	</fieldset>
+	<fieldset>
+		<% if @visa.photo.exists? %>
+		<div class="row" style="float:left;">	
+				<section class="col col-1" style="padding:8px;">
+					<%= image_tag @visa.photo.url(), width: '140'  %>
+					<%= link_to 'Download', @visa.photo.url(:original, false), target: "_blank" %>					
+				</section>				
+		</div>
+		<%end%>	
+		<div class="row" style="float:left;">			
+			<section class="col col-4">
+				<label class="label">Nama Lengkap</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.first_name %>, <%= @visa.last_name %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Jenis Kelamin</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sex %>							
+				</label>
+			</section>		
+			<section class="col col-4">
+				<label class="label">Marital Status</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.marital_status %>							
+				</label>
+			</section>	
+			<section class="col col-4">
+				<label class="label">Tanggal Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.dateBirth %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Tempat Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.placeBirth %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Nationality</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.nationality %>							
+				</label>
+			</section>	
+				
+		</div>
+		<div style="clear:both"></div>
+		<div class="row">
+			<section class="col col-2">
+				<label class="label"> Alien Card</label>
+				<label class="label" style="font-weight:bold;">
+					<%= image_tag @visa.idcard.url(), width: '140'  %>
+					<%= link_to 'Download', @visa.idcard.url(:original, false), target: "_blank" %>						
+				</label>
+			</section>
+			<section class="col col-2">
+				<label class="label">Passport</label>
+				<label class="label" style="font-weight:bold;">
+					<%= image_tag @visa.passport.url(), width: '140'  %>
+					<%= link_to 'Download', @visa.passport.url(:original, false), target: "_blank" %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Passport No.</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.passport_no %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Place of Issue</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.passport_issued%>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Type of Passport</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.passport_type %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">Date of Issuance</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.passport_date_issued %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Date of Expiry</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.passport_date_expired %>							
+				</label>
+			</section>
+		</div>	
+	</fieldset>	
+	
+	<fieldset>
+		<h3>Sponsor/Reference Information</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">Type of Sponsor in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_type_kr%>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Name of Reference in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_name_kr %>							
+				</label>
+			</section>			
+			<section class="col col-3">
+				<label class="label">Phone No in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_phone_kr %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Reference's Address in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_address_kr %> <%= @visa.sponsor_address_city_kr %> <%= @visa.sponsor_address_prov_kr %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">Type of Sponsor in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_type_id %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Name of Reference in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_name_id %>							
+				</label>
+			</section>			
+			<section class="col col-3">
+				<label class="label">Phone No in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_phone_id %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Reference's Address in Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sponsor_address_id %> <%= @visa.sponsor_address_kab_id %> <%= @visa.sponsor_address_prov_id %>							
+				</label>
+			</section>
+		</div>
+	</fieldset>	
+	
+	<fieldset>
+		<div class="row">
+			<section class="col col-6">
+			<div class="inline-group">
+			<label class="label">Other Information</label>
+			<label class="checkbox"><input type="checkbox" onclick="return false" <%= (@visa.checkbox_1)?'checked':'' %> ><i></i>Have you ever been to Indonesia before?</label>
+			<label class="checkbox"><input type="checkbox" onclick="return false" <%= (@visa.checkbox_2)?'checked':'' %> ><i></i>Have you ever been convicted in other country?</label>
+			<label class="checkbox"><input type="checkbox" onclick="return false" <%= (@visa.checkbox_3)?'checked':'' %> ><i></i>Are you in posession of any other country?</label>
+			<label class="checkbox"><input type="checkbox" onclick="return false" <%= (@visa.checkbox_4)?'checked':'' %> ><i></i>Do you have previous visa to enter Indonesia?</label>
+			</div>
+			</section>
+			<section class="col col-6">
+			<div class="inline-group">
+			<label class="label">&nbsp;</label>
+			<label class="checkbox"><input type="checkbox" onclick="return false" <%= (@visa.checkbox_5)?'checked':'' %> ><i></i>Has your visa application been refused before?</label>
+			<label class="checkbox"><input type="checkbox" onclick="return false" <%= (@visa.checkbox_6)?'checked':'' %> ><i></i>Have you ever been deported from Indonesia before?</label>
+			<label class="checkbox"><input type="checkbox" onclick="return false" <%= (@visa.checkbox_7)?'checked':'' %> ><i></i>Have you ever committed crime or any offense?</label>
+			</div>
+			</section>
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<div class="row">
+			<section class="col col-9">
+					<label class="label">Dokumen Pendukung</label>
+					<label class="label" style="font-weight:bold;">
+						<% if @visa.supdoc.exists? %>
+							<%= link_to @visa.supdoc_file_name, @visa.supdoc.url(:original, false) %>
+						<% else %>
+							<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+						<% end %>							
+					</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+					<label class="label">Return Trip Ticket</label>
+					<label class="label" style="font-weight:bold;">
+						<% if @visa.ticket.exists? %>
+							<%= link_to 'Download Return Ticket', @visa.ticket.url(:original, false) %>
+						<% else %>
+							<i style="color:orange;">Return Trip Ticket Tidak di Temukan</i>
+						<% end %>							
+					</label>
+			</section>
+		</div>
+		
+		<div class="row">
+		  <section class="col col-3">
+			<label class="label">Country of Destination</label>
+			<label class="input">
+				<%= @visa.count_dest %>				
+			</label>			
+		  </section>
+		  
+		  <section class="col col-2">
+		    <label class="label">Flight/Vessel Name</label>
+			<label class="input">
+				<%= @visa.flight_vessel %>				
+			</label>
+		  </section>
+		  
+		  <section class="col col-4">
+			<label class="label">Date of Entry to Indonesia</label>
+			<label class="input">
+				<%= @visa.date_entry %>	
+			</label>
+		  </section>
+		  
+		  <section class="col col-4">
+			<label class="label">Immigration Approval No.</label>
+			<label class="input">
+				<%= @visa.approval_no %>	
+			</label>
+		  </section>	  
+		  
+		</div>
+				
+	</fieldset>
+	
+	<fieldset>
+		<h3>Document Journal</h3>
+		<hr /><br />
+		
+		<section class="col col-12">
+		
+		<script type="text/javascript">	
+			$(document).ready(function(){									
+			    $("#sample-table-2").dataTable({
+			    	 "bProcessing": true,
+			         "bServerSide": true,
+			         "sAjaxSource": "<%= document_journal_path(@visa.id) %>",
+			         "bPaginate": false,
+			         "aoColumns": [
+				      null,
+				      null,
+				      null,
+				      null			      											      
+				    ]
+			    });
+			});									
+		</script>									
+		
+		<style>
+			#sample-table-2 td {
+				text-align:center;
+			}
+		</style>
+			
+		<table class="table table-striped table-bordered table-hover" id="sample-table-2">
+			<thead>
+				<tr>				
+					<th></th>								
+					<th class="center" width="300">Action</th>
+					<th class="center" >Method</th>
+					<th class="center" width="300">Timestamp</th>														
+				</tr>
+			</thead>
+			<tbody>								
+															
+
+			</tbody>
+		</table>
+		
+		</section>
+		
+	</fieldset>
+	
+	<footer>
+		<h3>Actions</h3>
+		<br />
+		<%= simple_form_for @visa, url: visa_path(@visa), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				
+				<div class="inline-group" style="padding:4px;">
+				    <section class="col col-9">
+				   		<label class="label" style="width:auto;background:inherit">Assigned Visa</label>
+						<label class="select" style="width:200px;">
+								<%= f.input_field :visafee_ref, collection: Visafee.all, value_method: :_id, label_method: :name_of_visa %>
+							<i></i>
+							</label>
+				    </section>
+			   </div>
+			   
+				<div class="inline-group" style="padding:4px;">		
+				<section class="col col-9">					
+				<label class="label" style="width:auto;background:inherit">Status</label>  							  	
+				<%= f.input_field :status, as: :radio_buttons, :class => 'radio' ,
+					collection: { 'Received' => 'Received', 'Paid' => 'Paid', 
+									'<b style="color:green;">Verify</b>' => 'Verified', '<b style="color:red;">Reject</b>' => 'Rejected', '<b style="color:orange;">Revision</b>' => 'Revision' 
+									}, label_method: lambda { |obj| ('<i></i>' + obj[0]).html_safe } %>
+				</section>								
+		        </div>	
+		       
+		       
+		       <div id="commentcontainer" class="inline-group" style="padding:4px;<% if @visa.status != 'Revision' %>display:none;<% end %>"  >
+				    <section class="col col-9">
+				   		<label class="label" style="width:auto;background:inherit">Comment</label>
+						<label class="select" style="width:200px;">
+								<%= f.input_field :comment, :rows => 5, :maxlength => 100, as: :text %>							
+							</label>
+				    </section>
+			   </div>
+							  
+		  	
+		<a href="/admin/service/prep_visa/<%= @visa.id %>" ><button type="button" class="button" style="background-color:#009933">Insert to SISARI</button></a> 
+		<button type="submit" class="button">Simpan</button>
+		<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+		
+		<% end %>
+	</footer>
+</div>
+
+<script type="text/javascript">
+			$(function()
+			{					
+				$("input[name='visa[status]']").change(function(){
+					if($(this).val() == 'Revision'){
+						$('#commentcontainer').show();						
+					}else{												
+						$('#commentcontainer').hide();
+					}
+				});				
+			});			
+</script>
+
+			

@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
+<%= simple_form_for @reference, url: '/reference/', :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>				
+				<fieldset>					
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Counsellor Name</label>
+							<label class="input">
+								<%= f.input_field :consulat_name %>							
+							</label>
+						</section>
+						<section class="col col-6">
+							<label class="label">Treasurer Name</label>
+							<label class="input">
+								<%= f.input_field :treasurer_name %>							
+							</label>
+						</section>
+						<section class="col col-6">
+							<label class="label">Embassy Office</label>
+							<label class="input">
+								<%= f.input_field :embassy_location %>							
+							</label>
+						</section>
+					</div>					
+				</fieldset>				
+				<footer>
+					<button type="submit" class="button">Simpan</button>
+					<button type="button" class="button button-secondary" onclick="window.close();">Kembali</button>
+				</footer>
+<% end %>

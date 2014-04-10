@@ -1,0 +1,455 @@
+<%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name == :notice ? "success" : name %>">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
+<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Pengajuan Gagal. Silahkan cek pesan dibawah ini</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
+<br />
+<div class="sky-form" style="margin:16px;">	
+	
+	<fieldset>
+		<% if @report.photo.exists? %>
+		<div class="row" style="float:left;">	
+				<section class="col col-1" style="padding:8px;">
+					<%= image_tag @report.photo.url(), width: '140'  %>
+					<%= link_to 'Download', @report.photo.url(:original, false), target: "_blank" %>					
+				</section>				
+		</div>
+		<%end%>	
+		<div class="row" style="float:left;">			
+			<section class="col col-4">
+				<label class="label">Nama Lengkap</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.name %>							
+				</label>
+			</section>				
+			<section class="col col-4">
+				<label class="label">Status Perkawinan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.marriagestatus %>							
+				</label>
+			</section>	
+			<section class="col col-4">
+				<label class="label">Tanggal Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.datebirth %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Tempat Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.birthplace %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Tinggi Badan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.height %> Cm							
+				</label>
+			</section>		
+		</div>
+		<div style="clear:both"></div>
+		<div class="row">
+			<% if @report.aliencard.exists? %>
+			<section class="col col-3" style="padding:8px;">
+				<%= image_tag @report.aliencard.url(), width: '140'  %>
+				<%= link_to 'Download', @report.aliencard.url(:original, false), target: "_blank" %>					
+			</section>
+			<% end %>
+			<section class="col col-2">
+				<label class="label">Nomor Alien Card</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.no_arc %>						
+				</label>
+			</section>
+			<section class="col col-2">
+				<label class="label">Visa Type</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.visatype %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Alien Card Issued Date</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.visadateissued %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Alien Card End Date</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.visadateend %>							
+				</label>
+			</section>
+		</div>			
+	</fieldset>
+	
+	
+	<fieldset>
+		<h3>Detail Passport </h3>
+		<hr /><br />
+		<div class="row">
+			<% if @report.paspor.exists? %>
+			<section class="col col-3" style="padding:8px;">
+				<%= image_tag @report.paspor.url(), width: '140'  %>
+				<%= link_to 'Download', @report.paspor.url(:original, false), target: "_blank" %>					
+			</section>
+			<% end %>
+			<section class="col col-3">
+				<label class="label">Nomor Passport</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.nopaspor %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Tanggal dikeluarkan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.dateissued %>							
+				</label>
+			</section>			
+			<section class="col col-3">
+				<label class="label">Tanggal Habis Berlaku</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.dateend %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Tempat dikeluarkan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.passportplace %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-6"></section>
+			<section class="col col-3"></section>
+			<section class="col col-3">
+				<label class="label">Kantor Imigrasi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.immigrationOffice %>							
+				</label>
+			</section>
+		</div>
+	</fieldset>	
+	
+	
+	<fieldset>
+		<h3>Keterangan di Indonesia</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">Alamat Indonesia</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.indonesianaddress %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kelurahan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.indonesianaddresskelurahan %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kabupaten</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.indonesianaddresskabupaten%>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">No. Telepon</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.indonesianphone%>							
+				</label>
+			</section>
+			<section class="col col-3"></section>
+			<section class="col col-3">
+				<label class="label">Kecamatan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.indonesianaddresskecamatan %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Propinsi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.indonesianaddressprovince %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kode Pos</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.indonesianaddresspostalcode %>							
+				</label>
+			</section>				
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<h3>Keterangan di Korea</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">Alamat Korea</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.koreanaddress %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kota</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.koreanaddresscity %>							
+				</label>
+			</section>			
+		</div>
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">No. Telepon</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.koreanphone%>							
+				</label>
+			</section>
+			<section class="col col-3"></section>			
+			<section class="col col-3">
+				<label class="label">Propinsi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.koreanaddressprovince %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kode Pos</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.koreanaddresspostalcode %>							
+				</label>
+			</section>				
+		</div>
+	</fieldset>	
+	
+	<fieldset>
+		<h3>Kontak yang bisa di hubungi</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">Nama</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationname %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Hubungan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationstatus %>							
+				</label>
+			</section>			
+		</div>
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">Alamat</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationaddress %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kelurahan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationaddresskelurahan %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kabupaten</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationaddresskabupaten %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">No. Telepon</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationphone %>							
+				</label>
+			</section>
+			<section class="col col-3"></section>
+			<section class="col col-3">
+				<label class="label">Kecamatan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationaddresskecamatan %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Propinsi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationaddressprovince %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kode Pos</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @report.relationaddresspostalcode %>							
+				</label>
+			</section>				
+		</div>
+	</fieldset>	
+	
+	<fieldset>		
+		<section class="col col-6">
+			<label class="label">Tanggal Kedatangan (TKI) </label>
+			<label class="label" style="font-weight:bold;">
+				<%= @report.arrivaldate %>							
+			</label>
+		</section>
+		<section class="col col-6">
+			<label class="label">Pengirim (TKI) </label>
+			<label class="label" style="font-weight:bold;">
+				<%= @report.indonesianinstance %>							
+			</label>
+		</section>		
+	</fieldset>
+	<fieldset>
+		<h3>History</h3>
+		<hr /><br />
+		
+		<section class="col col-12">
+		
+		<script type="text/javascript">	
+			$(document).ready(function(){									
+			    $("#sample-table-2").dataTable({
+			    	 "bProcessing": true,
+			         "bServerSide": true,
+			         "sAjaxSource": "/lapordiri/show/history/<%= @report.user_id %>",
+			         "bPaginate": false,
+			         "aoColumns": [
+			          null,
+				      null,
+				      null,
+				      null,				      									      
+				      { "bSortable": false }											      
+				    ]
+			    });
+			});									
+		</script>									
+		
+		<style>
+			#sample-table-2 td {
+				text-align:center;
+			}
+		</style>
+			
+		<table class="table table-striped table-bordered table-hover" id="sample-table-2">
+			<thead>
+				<tr>				
+					<th></th>								
+					<th class="center" width="170">Nomor Lapor Diri</th>
+					<th class="center" width="250">Nama Lengkap</th>
+					<th class="center" width="250">Created at</th>																												
+					<th class="center" width="150"></th>												
+				</tr>
+			</thead>
+			<tbody>								
+															
+
+			</tbody>
+		</table>
+		
+		</section>
+		
+	</fieldset>
+	<fieldset>
+		<h3>Document Journal</h3>
+		<hr /><br />
+		
+		<section class="col col-12">
+		
+		<script type="text/javascript">	
+			$(document).ready(function(){									
+			    $("#sample-table-3").dataTable({
+			    	 "bProcessing": true,
+			         "bServerSide": true,
+			         "sAjaxSource": "<%= document_journal_path(@report.id) %>",
+			         "bPaginate": false,
+			         "aoColumns": [
+				      null,
+				      null,
+				      null,
+				      null			      											      
+				    ]
+			    });
+			});									
+		</script>									
+		
+		<style>
+			#sample-table-3 td {
+				text-align:center;
+			}
+		</style>
+			
+		<table class="table table-striped table-bordered table-hover" id="sample-table-3">
+			<thead>
+				<tr>		
+					<th></th>										
+					<th class="center" width="300">Action</th>
+					<th class="center" >Method</th>
+					<th class="center" width="300">Timestamp</th>														
+				</tr>
+			</thead>
+			<tbody>								
+															
+
+			</tbody>
+		</table>
+		
+		</section>
+		
+	</fieldset>
+	<footer>
+		<h3>Actions</h3>
+		<br />
+		<%= simple_form_for @report, url: adminreportedit_path(@report), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				
+				<div class="inline-group" style="padding:4px;">
+				    <section class="col col-9">
+				   		<label class="label" style="width:auto;background:inherit">Status</label>
+						<label class="select" style="width:200px;">
+								<%= f.input_field :stayinkorea, 
+								collection: { 'Tinggal Korea' => true, 'Sudah Pulang' => false }  %>
+							<i></i>
+							</label>
+				    </section>
+			   </div>
+				<div class="inline-group" style="padding:4px;">		
+				<section class="col col-9">					
+				<label class="label" style="width:auto;background:inherit">Data Valid (Revisi Valid?)</label>  							  	
+				<%= f.input_field :is_valid, as: :radio_buttons, :class => 'radio' ,
+					collection: { '<b style="color:green;">Valid</b>' => true, '<b style="color:red;">Tidak Valid</b>' => false 
+									}, label_method: lambda { |obj| ('<i></i>' + obj[0]).html_safe } %>
+				</section>								
+		        </div>	
+		       
+		       
+		       <div id="commentcontainer" class="inline-group" style="padding:4px;"  >
+				    <section class="col col-9">
+				   		<label class="label" style="width:auto;background:inherit">Comment</label>
+						<label class="select" style="width:200px;">
+								<%= f.input_field :comment, :rows => 5, :maxlength => 100, as: :text %>							
+							</label>
+				    </section>
+			   </div>
+				  	
+		 <a href="/reports/<%= @report.id %>.pdf" ><button type="button" class="button" style="background-color:#009933">Print</button></a>
+		<button type="submit" class="button">Simpan</button>
+		<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+		
+		<% end %>
+	</footer>
+</div>
+			

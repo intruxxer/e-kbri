@@ -17,7 +17,7 @@
 				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
 				<fieldset style="text-align:justify;">
 					Silahkan mengisi formulir  ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'.
-
+					<%= f.input_field :is_valid, :as => :hidden, :value => true %>
 				</fieldset>
 				<fieldset>					
 					<div class="row">
@@ -133,7 +133,7 @@
 							<label class="label">Kantor Pengeluaran Paspor</label>
 							<label class="select">
 								<%= f.input_field :immigrationOffice, 
-								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK","BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL" } %>
+								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK","BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL", "KBRI LAINNYA"=>"KBRI LAINNYA" } %>
 							<i></i>
 							</label>
 						</section>			
@@ -157,7 +157,15 @@
 						<section class="col col-1">
 							<%= image_tag @report.aliencard.url(:thumb) %>
 						</section>				
-						<%end%>	
+						<%end%>
+						
+						<section class="col col-3">
+							<label class="label">Nomor Alien Card</label>
+							<label class="input">
+								<i class="icon-append icon-globe"></i>
+								<%= f.input_field :no_arc %>
+							</label>
+						</section>	
 						
 						<section class="col col-2">
 							<label class="label">Jenis Visa</label>
@@ -1253,6 +1261,19 @@
 						Jika terjadi perubahan data, harap segera hubungi staff KBRI Korea melalui kontak yang telah disediakan.
 					</p>
 				</fieldset>
+
+				<fieldset>
+					<section class="col col-6">
+						<div class="note">
+							Untuk memastikan anda adalah aplikan paspor yang sah, 
+							silakan masukkan kode yang anda lihat ke kolom masukan.
+						</div>					
+						<label class="input">
+							  <%= show_simple_captcha %>
+						</label>
+					</section>
+				</fieldset>
+
 				
 				<footer>
 					<button type="submit" class="button">Laporkan ke KBRI</button>
@@ -1261,7 +1282,7 @@
 			<% end %>
 			<!--/ Red color scheme -->			
 </div>
-<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+
 <script type="text/javascript">
 			$(function()
 			{

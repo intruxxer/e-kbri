@@ -1095,7 +1095,8 @@
 					</div>
 				</fieldset>				
 				
-				<fieldset class="newVisa specialFieldType no-show">
+
+				<fieldset>
 				<div class="row">
 					<section class="col col-6">
 					<div class="inline-group">
@@ -1126,6 +1127,15 @@
 									<%= f.input_field :supdoc, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<input type="text" readonly="readonly" />
 							</label>
+
+							<% if @visa.supdoc.exists? %>
+												
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download Supporting Doc', @visa.supdoc.url(:original, false), target: "_blank" %>
+								<%end%>
+											
+							<%end%>
+
 							<div class="note">
 								<strong>Note:</strong> 
 								It could be company reference letter, sponsor letter, school admission letter, etc. 
@@ -1140,6 +1150,14 @@
 									<%= f.input_field :ticket, as: :file, class: 'fileplaceholder' %>Upload</div>
 									<input type="text" readonly="readonly" />
 							</label>
+							<% if @visa.ticket.exists? %>
+												
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download Return Trip Ticket', @visa.ticket.url(:original, false), target: "_blank" %>
+								<%end%>
+											
+							<%end%>
+
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB</div>
 						</section>	
 					</div>	
@@ -1313,7 +1331,9 @@
 				</div>  
 				</fieldset>
 				
-				<fieldset id="limited-stay" class="specialFieldCat">
+
+				<fieldset id="limited-stay">
+
 			      <div class="row">
 			        <section class="col col-4">
 				      <label class="label">Immigration Approval No.</label>
@@ -1357,11 +1377,13 @@
 				</fieldset>
 				
 				
-				<fieldset class="newVisa specialFieldType no-show">
+
+				<fieldset>
 					<section><p style="text-align: right; font-weight: bold;">Seoul, <%= Date.current.strftime("%A, %v") %></p></section>
 				</fieldset>
 				
-				<fieldset class="newVisa specialFieldType no-show">
+				<fieldset >
+
 					<section class="col col-9">
 					I hereby declare that statements given above are true and I understand that even if granted a visa, 
 					the admission at the airport fully remains the discretion of the immigration authorities in Indonesia.
@@ -1370,29 +1392,9 @@
 					<section class="col col-3">
 					<pre>(Signature & Full Name)</pre>
 					</section>				
-				</fieldset>
-				
-				<fieldset style='background:#FFCC00;'>
-					<div class="row">
-						<section class="col col-6">
-							<label class="label"> Scanned/Photographed Payment Slip for Visa</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :slip_photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
-									<%= f.input_field :payment_slip, readonly: true %>
-							</label>
-							<div class="note"><strong>Catatan:</strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB</div>
-						</section>	
-						<section class="col col-6">
-							<label class="label">Date of Visa Fee Payment</label>	
-							<label class="input">
-									<i class="icon-append icon-calendar"></i>
-									<%= f.input_field :payment_date, class: 'datePick' %>
-							</label>
-							<div class="note"><strong>Note:</strong> Format is DD/MM/YYYY. Example: 02/03/2014 is 02 March 2014.</div>
-						</section>		
-					</div>
-				</fieldset>
+
+				</fieldset>			
+
 				
 				<footer>
 					<button type="submit" class="button">Update Application</button>
@@ -1402,7 +1404,7 @@
 <!--/ Red color scheme -->
 </div>
 
-<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+
 <script type="text/javascript">
 	$(function($)
 		{

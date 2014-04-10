@@ -4,7 +4,7 @@
 <hr />
 <% if user_signed_in? then %>
 		<div class="row">
-		<div class="col-md-9">
+		
 								<!-- start: TABLE WITH IMAGES PANEL -->
 								<div class="panel panel-default">
 									<div class="panel-heading">
@@ -17,40 +17,78 @@
 											<thead>
 												<tr>																										
 													<th>Reference No.</th>
-													<th><center>Date</center></th>													
-													<th><center>Status</center></th>	
-													<th><center>Amendment Menu</center></th>
+													<th><center>Application</center></th>	
+													<th><center>Payment</center></th>
+													<th><center>Retrieve</center></th>													
+													<th><center></center></th>
+													<th><center>Status</center></th>
 												</tr>
 											</thead>
 											<tbody>												
-												<% @uservisa.each do |t| %>
+												<% prevref = '' 
+												   first = true
+												   found = false
+												   status = ''
+												@uservisa.each do |t| %>
+												
+												<% unless first %>
+												
+													<% if prevref == t.ref_id and found == false %>
+														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => t.ref_id).all.count %>" <% found = true %>><%= status.html_safe %></td>												
+													<% elsif prevref == t.ref_id and found == true %>
+														
+													<% elsif prevref != t.ref_id and found == true %>
+														<% found = false %>
+													<% else %>
+														<td class="center"><%= status.html_safe %></td> <% found = false %>
+													<% end %>												
+														
+													</tr>
+													
+												<% end %>
+												
+												<% status = (t.status == 'Verified')? ('<a href="/visas/payment/' + t.ref_id + '"><span class="glyphicon glyphicon-credit-card"></span><span class="glyphicon-class"> Make Payment</span></a>').html_safe : t.status %>
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
-													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>	
-													<td class="center"><%= t.status %></td>													
+													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>
+													<td class="center"><%=  !(t.payment_date.nil?) ? t.payment_date.strftime("%-d %b %Y") : '-' %></td>	
+													<td class="center""><%=  !(t.printed_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (t.printed_date+3).strftime("%-d %b %Y") + '</a>').html_safe : '-' %></td>																										
 													<td class="center">
 													<%= link_to edit_visa_path(t.id) do %>
 														<span class="glyphicon glyphicon-pencil"></span>
 														<span class="glyphicon-class">Update</span>
 														<% end %>
 													|&nbsp;
+													<!--
 													<%= link_to('visas/reapply/'+t.id) do %>
 														<span class="glyphicon glyphicon-export"></span>
 														<span class="glyphicon-class">Notify Update to Embassy</span>
 														<% end %>
-													|&nbsp;
+													|&nbsp;-->
 													<%= link_to'visas/'+t.id, :method=>'delete' do %>
 														<span class="glyphicon glyphicon-trash"></span>
-														<span class="glyphicon-class">Delete</span>
+														<span class="glyphicon-class">Cancel</span>
 														<% end %>
 													|&nbsp;
 													<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
 														<span class="glyphicon glyphicon-save"></span>
-														<span class="glyphicon-class">Download</span>
+														<span class="glyphicon-class">Download Receipt</span>
 														<% end %>
 													</td>
-												</tr>												
+																	
+																												
+													
+												<% prevref = t.ref_id %>												
+												<% first = false %>										
 												<% end %>
+												
+												<% unless found %>
+													<td class="center"><%= status %></td> 
+												<% end %>
+												</tr>
+												
+												
+												
 											</tbody>											
 										</table>
 										<% else %>
@@ -59,33 +97,16 @@
 									</div>
 								</div>
 								<!-- end: TABLE WITH IMAGES PANEL -->
-		</div>
-		<div class="col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4>Visa Payment Due</h4>
-				</div>
-				<div class="panel-body">
-					<% x = 1; @uservisa.each do |v| %>
-					  <div>
-					  	<%= "#{x.to_s}. USD #{v.visafee}" %>
-					  	<%= "(##{v.ref_id}) is unpaid." %>
-					  </div>
-					<% x += 1 %>
-					<% end %>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 <% end %>
 <% if user_signed_in? and current_user.citizenship then %>	
-		<div class="row">
-		<div class="col-md-9">
+		<div class="row">		
 								<!-- start: TABLE WITH IMAGES PANEL -->
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<i class="fa fa-external-link-square"></i>
-										<h4>Rekaman Aplikasi Paspor via e-KBRI</h4>										
+										<h4>Rekaman Aplikasi Paspor</h4>										
 									</div>
 									<div class="panel-body">
 										<% if @userpassport.count > 0 %>
@@ -93,9 +114,11 @@
 											<thead>
 												<tr>																										
 													<th>No. Referensi</th>
-													<th><center>Tanggal</center></th>													
-													<th><center>Status</center></th>	
-													<th><center>Menu Pengubahan</center></th>
+													<th><center>Pengajuan</center></th>														
+													<th><center>Pembayaran</center></th>
+													<th><center>Pengambilan</center></th>	
+													<th><center></center></th>
+													<th><center>Status</center></th>
 													
 												</tr>
 											</thead>
@@ -103,29 +126,37 @@
 												<% @userpassport.each do |t| %>
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
-													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>	
-													<td class="center"><%= t.status %></td>													
+													<td class="center"><%= t.updated_at.strftime("%-d %b %Y") %></td>													
+													<td class="center"><%=  !(t.payment_date.nil?) ? t.payment_date.strftime("%-d %b %Y") : '-' %></td>
+													<td class="center""><%=  !(t.printed_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (t.printed_date+1).strftime("%-d %b %Y") + '</a>').html_safe : '-' %></td>												
 													<td class="center">
+													<% if t.status != 'Printed' %>	
 													<%= link_to (edit_passport_path(t.id)) do %>
 														<span class="glyphicon glyphicon-pencil"></span>
 														<span class="glyphicon-class">Perbaharui</span>
-													<% end %>
-													|&nbsp;
-													<%= link_to('passports/reapply/'+t.id) do %>
-														<span class="glyphicon glyphicon-export"></span>
-														<span class="glyphicon-class">Konfirmasi ke KBRI</span>
-														<% end %>
-													|&nbsp;
+													<% end %>													
+													|&nbsp;													
 													<%= link_to 'passports/'+t.id, :method=>'delete' do %>
 														<span class="glyphicon glyphicon-trash"></span>
-														<span class="glyphicon-class">Buang</span>
+														<span class="glyphicon-class">Batal</span>
 														<% end %>
 													|&nbsp;
+													<% if t.status == 'Verified' or t.status == 'Paid' %>
+													<%= link_to 'passport/payment/' +t.id do %>
+														<span class="glyphicon glyphicon-credit-card"></span>
+														<span class="glyphicon-class">Pembayaran</span>
+														<% end %>													
+													|&nbsp;
+													<% end %>
+													<% end %>
 													<%= link_to 'passports/'+t.id+'.pdf', :target => "_blank" do %>
 														<span class="glyphicon glyphicon-save"></span>
-														<span class="glyphicon-class">Unduh</span>
-														<% end %>
+														<span class="glyphicon-class">Tanda Terima</span>
+													<% end %>			
+													
+													
 													</td>
+													<td class="center"><%= t.status %></td>	
 												</tr>												
 												<% end %>
 											</tbody>											
@@ -135,29 +166,8 @@
 										<% end %>
 									</div>
 								</div>
-								<!-- end: TABLE WITH IMAGES PANEL -->
-		</div>
-		<div class="col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4>Passport Payment History</h4>
-				</div>
-				<div class="panel-body">
-					<% if @userpassport.count > 0   %>
-					  <% i = 1; @userpassport.each do |h| %>
-					    <% if h.paspor_type == 24 then %>
-					      <div><%= i.to_s+". " +h.ref_id+' = USD 6' %></div>
-					    <% elsif h.paspor_type == 48  %>
-					      <div><%= i.to_s+". " +h.ref_id+' = USD 22' %></div>
-					    <% end %>
-					    <% i += 1 %>
-					  <% end %>
-					<% else   %>
-					    <div><%= 'Anda tidak mempunyai tagihan aplikasi paspor yang harus dibayar.' %></div>
-					<% end %>
-				</div>
-			</div>
-		</div>
+								<!-- end: TABLE WITH IMAGES PANEL -->		
+		
 		</div>
 <% end %>
 <% if user_signed_in? and current_user.citizenship then %>
@@ -181,29 +191,24 @@
 												</tr>
 											</thead>
 											<tbody>												
-												<% @userreport.each do |t| %>
+												<% t = @userreport.first %>
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
 													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>	
 													<td class="center"><%= "Terdaftar di KBRI Seoul" %></td>													
 													<td class="center">
-													<%= link_to (edit_report_path(t.user_id)) do %>
+													<%= link_to (edit_report_path(t.id)) do %>
 														<span class="glyphicon glyphicon-pencil"></span>
-														<span class="glyphicon-class">Perbaharui</span>
+														<span class="glyphicon-class">Revisi Data/Ubah Informasi</span>
 													<% end %>
-													&nbsp;atau&nbsp;
-													<%= link_to (edit_report_path(t.user_id)) do %>
-														<span class="glyphicon glyphicon-plane"></span>
-														<span class="glyphicon-class">Laporkan Kepulangan</span>
-														<% end %>
-													|&nbsp;
+													&nbsp;|&nbsp;													
 													<%= link_to 'reports/'+t.id+'.pdf', :target => "_blank" do %>
 														<span class="glyphicon glyphicon-save"></span>
-														<span class="glyphicon-class">Unduh</span>
+														<span class="glyphicon-class">Note Print</span>
 														<% end %>
 													</td>
 												</tr>												
-												<% end %>
+												
 											</tbody>											
 										</table>
 										<% else %>

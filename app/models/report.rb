@@ -36,6 +36,9 @@ class Report
   validates :visadateissued, presence: true 
   field :visadateend,               type:Date 
   validates :visadateend, presence: true
+
+  field :no_arc,        type: String
+  validates :no_arc, presence: true
   
   field :jobStudyInKorea,        type: String
   validates :jobStudyInKorea, presence: true
@@ -91,11 +94,12 @@ class Report
   field :relationaddresspostalcode, type:String
   validates :relationaddresspostalcode, presence: true
   
-  field :arrivaldate,               type:Date
-  field :indonesianinstance,        type:String
+  field :arrivaldate,               type: Date
+  field :indonesianinstance,        type: String
    
-  field :stayinkorea,               type:Boolean, default: true  
-  
+  field :stayinkorea,               type: Boolean, default: true  
+  field :is_valid,                  type: Boolean, default: false
+  field :comment,                   type: String
   
   has_mongoid_attached_file :photo, :styles => { :thumb => "90x120>" }
   validates_attachment_content_type :photo, :content_type => %w(image/jpeg image/jpg image/png)
@@ -114,8 +118,11 @@ class Report
   
   private
   def assign_ref_id
-    self.ref_id = Time.new.year.to_s + "/KONS/" + generate_string(3)
+    if self.ref_id == nil
+      self.ref_id = Time.new.year.to_s + "/KONS/" + generate_string(3)  
+    end    
   end
+  
   def generate_string(length=5)
       chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
       random_characters = ''

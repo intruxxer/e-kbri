@@ -36,21 +36,13 @@
 							<label class="select">
 								<%= f.input_field :application_reason, 
 								collection: { 'Paspor Habis (Masa Berlakunya)' => 'habis-masa', 'Paspor Habis (Halamannya)' => 'habis-halaman',
-								          	  'Paspor Hilang' => 'hilang', 'Lainnya' => 'lainnya' } %>
+								          	  'Paspor Hilang/Rusak' => 'hilang', 'Lainnya' => 'lainnya' } %>
 							<i></i>
 							</label>
 						</section>
-					</div>
-					<div class="row" id="paspor_type" >
-						<section class="col col-6">
-							<label class="label">Jenis Paspor</label>
-							<label class="select">
-								<%= f.input_field :paspor_type, 
-								collection: { '24 Halaman' => '24', '48 Halaman' => '48' }, :selected => '24'  %>
-							<i></i>
-							</label>
-						</section>
-					</div>
+					</div>					
+					
+
 				</fieldset>
 				
 				<fieldset>
@@ -88,12 +80,8 @@
 									<input type="text" name="photopath" readonly="readonly" />
 							</label>
 							<div class="note"><strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a></div>
-						</section>	
-						<% if @passport.photo.exists? %>
-						<section class="col col-1">
-							<%= image_tag @passport.photo.url(:thumb) %>
-						</section>				
-						<%end%>		
+						</section>							
+
 					</div>
 
 					<div class="row">
@@ -132,7 +120,9 @@
 						</section>
 					</div>					
 				</fieldset>
-				<fieldset id="pasporsebelumnya" style="display:none;">
+				<fieldset id="pasporsebelumnya" <% if @passport.application_reason == 'lainnya' %>
+													style="display:none;" 
+												<% end %>>
 					<h3>Detail Paspor Sebelumnya</h3>	
 					<hr /><br />
 					<div class="row">
@@ -766,11 +756,23 @@
 							<div class="note"><strong>Catatan : </strong> Hanya berkas ZIP/RAR. Ukuran Maks. 5MB</div>
 					</section> 
 				</fieldset>
+
+				<fieldset>
+					<section class="col col-6">
+						<div class="note">Please rewrite below code</div>					
+
+						<label class="input">
+							  <%= show_simple_captcha %>
+						</label>
+					</section>
+				</fieldset>
+
 				<fieldset style="text-align:justify;">
 					<h4>Disclaimer</h4>
 					<hr /><br />
 					<p>Dengan mengisi form ini Saya menyatakan bahwa semua data yang diisikan merupakan informasi yang sebenar-benarnya. Segala kesalahan informasi yang dapat menyebabkan kerugian adalah tanggung jawab Saya dan tidak dapat di tangguhkan pada pihak lain. KBRI Seoul dan staff terkait dapat menolak/meminta perubahan data dan informasi terkait permohonan jika tidak sesuai dengan syarat dan ketentuan</p>
 				</fieldset>
+
 				<footer>
 					<button type="submit" class="button">Ajukan Aplikasi</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
@@ -779,7 +781,6 @@
 			<!--/ Red color scheme -->			
 </div>
 
-<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript">
 			$(function()
 			{
@@ -789,11 +790,11 @@
 				$('textarea').keyup(function() {
 				    $(this).val($(this).val().toUpperCase());
 				});
-				$('#passport_application_type').change(function(){
-					if($(this).val() == 'perpanjang-paspor'){
-						$('#pasporsebelumnya').show();						
-					}else{						
-						$('#pasporsebelumnya').hide();
+				$('#passport_application_reason').change(function(){
+					if($(this).val() == 'lainnya'){
+						$('#pasporsebelumnya').hide();						
+					}else{												
+						$('#pasporsebelumnya').show();
 					}
 				});	
 				// Regular datepicker

@@ -64,7 +64,7 @@ Silahkan cek kembali data pemohon
 						<section class="col col-6">
 							<label class="label">Nomor Registrasi</label>
 							<label class="input">
-								<%= f.input_field :reg_no, :maxlength => 15 %>							
+								<%= f.input_field :reg_no, :maxlength => 15, :value => @passport.vipacounter %>							
 							</label>
 						</section>
 					</div>
@@ -76,11 +76,22 @@ Silahkan cek kembali data pemohon
 							</label>
 							<div class="note">System akan mengisi No. Lapor diri (Jika Ada)</div>
 						</section>
+
+						<section class="col col-6">
+							<label class="label">Tanggal Pengambilan</label>
+							<label class="input">
+								<i class="icon-append icon-globe"></i>
+								<%= f.input_field :pickup_date, :class => 'datePick' %>
+							</label>
+						</section>
+
 					</div>
 				</fieldset>				
 				<footer>
 					<button type="submit" class="button">Insert to SPRI</button>
-					<button type="button" class="button button-secondary" onclick="window.close();">Kembali</button>
+
+					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+
 				</footer>
 <% end %>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -99,6 +110,17 @@ Silahkan cek kembali data pemohon
 						}, 
 						dataType: "json" 
 					})					
+
+					$('.datePick').datepicker("setDate", 2);
+				});
+				$('.datePick').datepicker({
+					dateFormat: 'yy/mm/dd',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,      				
+      				yearRange: '1900:2040'      				
+
 				});
 			});			
 </script>

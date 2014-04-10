@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Rekapitulasi Penerimaan Visa dan Lain - lain</title>
+	</head>
+	<body>
+		
+		<div style="width:400px;">
+			<center><h3>KEDUTAAN BESAR REPUBLIK INDONESIA<br />S&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;&nbsp;U&nbsp;&nbsp;&nbsp;L</h3></center>			
+		</div>
+		
+		<div style="width:500px;margin:0 auto;">
+			<center><h3 style="text-decoration:underline;">REKAPITULASI PENERIMAAN VISA DAN LAIN-LAIN</h3></center>
+			<center><h4>Dari Tgl. : <%= @daterange['startperiod'] %> s/d <%= @daterange['endperiod'] %></h4></center>
+		</div>		
+			
+		<% numbering = 0 %>
+		
+		<table cellpadding="2" cellspacing="0" width="100%" border="0" style="text-align:center;">
+			<thead >
+				<tr >												
+					<th rowspan="2" style="border-top:1px solid #000000;border-bottom:3px double #000000;">No.</th>
+					<th rowspan="2" style="border-top:1px solid #000000;border-bottom:3px double #000000;">JENIS PELAYANAN</th>
+					<th rowspan="2" style="border-top:1px solid #000000;border-bottom:3px double #000000;">JUMLAH</th>
+					<th colspan="4" style="border-top:1px solid #000000;">BEA - BEA</th>
+					<th rowspan="2" style="border-top:1px solid #000000;border-bottom:3px double #000000;">TOTAL</th>																						
+				</tr>
+				<tr>
+					<th style="border-top:1px solid #000000;border-bottom:3px double #000000;">VISA</th>
+					<th style="border-top:1px solid #000000;border-bottom:3px double #000000;">PASPOR</th>
+					<th style="border-top:1px solid #000000;border-bottom:3px double #000000;">SPLP</th>
+					<th style="border-top:1px solid #000000;border-bottom:3px double #000000;">LEGALISASI</th>
+				</tr>
+			</thead>			
+			<tbody>
+				<% @passportfee.each do |pfrow| 
+					sliced = pfrow.passport_type
+					sliced.slice! "passport_"					
+					if pfrow.passport_reason == 'hilang'
+						currentrow = @passport.where(:paspor_type => sliced).where(:application_reason => 'hilang')
+						hilang = "(HILANG/RUSAK)"	
+					else
+						currentrow = @passport.where(:paspor_type => sliced)
+						hilang = ""
+					end%>	
+				<tr>
+					<td><%= numbering += 1 %></td>
+					<td style="text-align:left;">SPRI <%= sliced %> HALAMAN <%= hilang %></td>
+					<td><%= currentrow.count %></td>
+					<td></td>
+					<td>$<%= currentrow.sum(:passportfee) %></td>
+					<td></td>
+					<td></td>
+					<td>$<%= currentrow.sum(:passportfee) %></td>
+				</tr>					  
+				<% end %>
+				
+				<tr>
+					<td>2.</td>
+					<td style="text-align:left;">VISA SOSIAL BUDAYA</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>3.</td>
+					<td style="text-align:left;">VISA KUNJUNGAN (DIRJENIM)</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>4.</td>
+					<td style="text-align:left;">VISA WISATA</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>5.</td>
+					<td style="text-align:left;">VISA TRANSIT</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>6.</td>
+					<td style="text-align:left;">VISA BEBERAPA PERJALANAN</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>7.</td>
+					<td style="text-align:left;">VISA TINGGAL TERBATAS 30 HARI</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>8.</td>
+					<td style="text-align:left;">VISA TINGGAL TERBATAS 6 BLN</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>9.</td>
+					<td style="text-align:left;">VISA TINGGAL TERBATAS 1 THN</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+				<tr>
+					<td>10.</td>
+					<td style="text-align:left;">VISA TINGGAL TERBATAS 2 THN</td>
+					<td>17</td>
+					<td>765</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>765</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"></th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"></th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">53</th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">2160</th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">52</th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">10</th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">175</th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">2397</th>
+				</tr>
+			</tfoot>
+		</table>	
+		<div style="width:700px;margin:25px auto;">					
+			<div style="width:450px;float:left;padding-top:38px;">
+				<br />BENDAHARA,<br />
+				<br /><br /><br /><br />
+				<%= Reference.first.treasurer_name %>
+			</div>	
+			<div style="width:250px;float:left;">
+				<center>
+				Seoul, <%= Time.now.strftime("%d/%m/%Y") %> <br /><br />
+				A.N KEPALA PERWAKILAN RI<br />
+				FUNGSI KONSULER,<br />
+				<br /><br /><br /><br />
+				<%= Reference.first.consulat_name %>
+				</center>
+			</div>
+		</div>
+	</body>
+	<!-- end: BODY -->
+</html>

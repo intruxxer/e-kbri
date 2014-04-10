@@ -1,4 +1,6 @@
+
  <!-- Red color scheme -->
+
 	<% if controller_name == "visa" then  %>
 		<% @url_response = visas_path %>
 	<% elsif controller_name == "visafamily"  %>
@@ -38,7 +40,9 @@
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-3 newVisa specialFieldType no-show">
+
+						<section class="col col-3">
+
 							<label class="label">Requested Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
@@ -1259,8 +1263,9 @@
 				  </section>
 				</div>  
 				</fieldset>
-				
-				<fieldset id="limited-stay" class="specialFieldCat no-show">
+
+				<fieldset id="limited-stay" class="specialFieldCat">
+
 			      <div class="row">
 			        <section class="col col-4">
 				      <label class="label">Immigration Approval No.</label>
@@ -1302,8 +1307,17 @@
 					</section>	
 				  </div>
 				</fieldset>
-				
-				<fieldset class="newVisa specialFieldType no-show">
+
+				<fieldset>
+					<section class="col col-6">
+						<div class="note">Please rewrite below code</div>					
+						<label class="input">
+							  <%= show_simple_captcha %>
+						</label>
+					</section>
+				</fieldset>
+				<fieldset class="newVisa specialFieldType">
+
 					<section class="col col-9">
 					I hereby declare that statements given above are true and I understand that even if granted a visa, 
 					the admission at the airport remains fully the discretion of the immigration authorities in Indonesia.
@@ -1313,12 +1327,10 @@
 					<pre>(Signature & Full Name)</pre>
 					</section>				
 				</fieldset>
+
 				<footer>
-					<% if controller_name == "visafamily"  %>
-						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>
-					<% elsif controller_name == "visagroup"  %>
-						<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>	
-					<% end %>
+					<%= f.input_field :ref_id, type: 'hidden', value: @ref_id %>	
+
 				
 					<% if controller_name == "visafamily" or controller_name == "visagroup"  %>
 						<button type="submit" class="button">Create & Add More Applicant(s)</button>
@@ -1330,40 +1342,19 @@
 			<% end %>
 <!--/ Red color scheme -->
 
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+
 <script type="text/javascript">
 	$(function()
-		{
-				//$( ".no-show" ).css("display", "none");
-									//console.log();
+		{				
+
 				$('input[type=text]').keyup(function() {
 				    $(this).val($(this).val().toUpperCase());
 				});
 				$('textarea').keyup(function() {
 				    $(this).val($(this).val().toUpperCase());
-				});					
-				// Adjusting suitable form
-				/*$( "#visa_application_type" ).change(function() {
-  					var str = "";
-    				str = $( "#visa_application_type option:selected" ).val();
-    				if(str == 3){
-    					var aClass = ".newVisa";
-    				}else if(str == 4){
-    					var aClass = ".reEntry";
-    				}
-    				$( ".specialFieldType" ).addClass("no-show").css("display", "none");
-					$( aClass ).removeClass("no-show").css("display","block");
-				});*/
-				
-				/*$( "#visa_category_type" ).change(function() {
-  					var str = "";
-    				str = $( "#visa_category_type option:selected" ).val();
-    				var id = "#"+str;
-    				$( ".specialFieldCat" ).addClass("no-show").css("display", "none");
-					if(id != "none") {
-						$( id ).removeClass("no-show").css("display","block");
-					}
-				});*/
+				});				
+
 				
 				
 				
