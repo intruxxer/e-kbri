@@ -1,7 +1,11 @@
 class Immigration::PassportController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
-  #GET /passport
+
+  before_filter :authenticate_user!
+  #GET /passport  
+
   @@VIPACOUNTERDEF = 6600
+
   
   def index
     #1 Person, 1 Application in 5 years
@@ -21,54 +25,59 @@ class Immigration::PassportController < ApplicationController
   
   end
   
+
+  def check
+    @passport = Passport.find(params[:id])    
+    render layout: "dashboard"    
+  end
+  
+  def payment
+    @passport = Passport.find(params[:id])
+  end
+
   #GET passport/:id
   def show
     @passport = Passport.find(params[:id])
       respond_to do |format|
-      format.html #visa_processing/show.html.erb
+      format.html { render 'edit' }
       format.json { render json: @passport }
       format.xml { render xml: @passport }
+      format.pdf do
+          render :pdf            => "Receipt of Passport Application ["+"#{current_user.full_name}"+"]_" + @passport.ref_id,
+                 :disposition    => "attachment", #{attachment, inline}                 
+                 :template       => "immigration/passport/pasporpayment.html.erb",
+                 :layout         => "pdf_layout.html"                 
+        end
+
     end
   end
   
   #POST /passport
-  def create   
-    
+
+  def create       
     @passport = [ Passport.new(post_params) ]
     #current_user.passports = @passport    
     tempcache = @passport
-    @passport = @passport[0]    
+    @passport = @passport[0]
     
-    if @passport.valid? then   
-      if simple_captcha_valid?  
-          current_user.passports.push(tempcache)
-          current_user.save 
+    if @passport.valid?
+      if simple_captcha_valid?
+          current_user.passports.push(tempcache)   
+          current_user.save
           UserMailer.passport_received_email(current_user).deliver
-          respond_to do |format|
-            format.html { 
-              
-              #redirect_to root_path, :notice => "Pengurusan aplikasi paspor anda, berhasil!" 
-              flash[:notice] = 'Pengurusan aplikasi paspor anda, berhasil!'
-              render 'pasporconfirm.html.erb'
-              
-              }
-            format.json { render json: {action: "JSON Creating Passport", result: "Saved"} }
-            format.js 
-                #if being asked by AJAX to return "script"
-                #passport_processing/create.js.erb -->to execute script JS,
-                #like stopping loading.gif, hiding the element, alerting user
-          end
-      else
+          current_user.journals.push(Journal.new(:action => 'Created', :model => 'Passport', :method => 'Insert', :agent => request.user_agent, :record_id => @passport.id ))
+          flash[:notice] = 'Pengurusan aplikasi paspor anda, berhasil!'
+          render 'pasporconfirm.html.erb'
+      else        
         @errors = { 'Secret Code' => 'Wrong Code Entered'}
         render 'index'
       end
-    else
+    else     
       @errors = @passport.errors.messages
       render 'index'
-           
-      #redirect_to :back, :alert => current_user.passports[0].errors.messages 
-      #do something further 
-    end
+    end    
+    
+
     #debugging
     #logger.debug "We are inspecting PASSPORT PROCESSING PARAMS as follows:"
     #puts params.inspect
@@ -86,6 +95,11 @@ class Immigration::PassportController < ApplicationController
     @passport = Passport.find(params[:id])
     #@passport = Passport.find_by(user_id: params[:id])
     if @passport.update(post_params)
+
+      if current_user.has_role? :admin or current_user.has_role? :moderator        
+        UserMailer.admin_update_passport_email(@passport).deliver
+      end
+      current_user.journals.push(Journal.new(:action => @passport.status, :model => 'Passport', :method => 'Update', :agent => request.user_agent, :record_id => @passport.id ))
       redirect_to :back, :notice => 'Anda telah berhasil memperbaharui data pengurusan paspor anda!'
     else
       @errors = @passport.errors.messages
@@ -93,11 +107,25 @@ class Immigration::PassportController < ApplicationController
     end
   end
   
+
+  def update_payment 
+    @passport = Passport.find(params[:id])
+    if @passport.update(post_params)    
+      current_user.journals.push(Journal.new(:action => @passport.status, :model => 'Passport', :method => 'Update', :agent => request.user_agent, :record_id => @passport.id  ))  
+      redirect_to :back, :notice => 'Data Pembayaran anda berhasil disimpan!'
+    else
+      @errors = @passport.errors.messages
+      render 'payment'
+    end
+  end
+  
+
   #DELETE /passport
   def destroy 
    @passport = Passport.find(params[:id])
     reference = @passport.ref_id
     if @passport.delete
+      current_user.journals.push(Journal.new(:action => 'Removed', :model => 'Passport', :method => 'Delete', :agent => request.user_agent, :record_id => params[:id] ))
       redirect_to :back, :notice => "Visa Application of Ref. No #{reference} has been erased."
     else
       redirect_to :back, :notice => "Visa Application of Ref. No #{reference} is not found."
@@ -108,9 +136,8 @@ class Immigration::PassportController < ApplicationController
     def post_params()
       params.require(:passport).permit(:application_type, :application_reason, :paspor_type, :full_name, :height, :kelamin, :placeBirth, :dateBirth,              
       :citizenship_status, :lastPassportNo, :dateIssued, :placeIssued, :jobStudyInKorea, :jobStudyTypeInKorea, :jobStudyOrganization, :jobStudyAddress, 
-      :phoneKorea, :addressKorea, :cityKorea, :phoneIndonesia, :addressIndonesia, :kelurahanIndonesia, :kecamatanIndonesia, :kabupatenIndonesia, :dateArrival, 
-      :sendingParty, :photo, :status, :payment_slip, :arc, :dateIssuedEnd, :immigrationOffice, :sponsor_address_prov_kr, :sponsor_address_prov_id, :supporting_doc)
-      .merge(owner_id: current_user.id)
+      :phoneKorea, :addressKorea, :cityKorea, :phoneIndonesia, :addressIndonesia, :kelurahanIndonesia, :kecamatanIndonesia, :kabupatenIndonesia, :dateArrival, :sendingParty, :photo, :status, :slip_photo, :payment_date, :arc, :dateIssuedEnd, :immigrationOffice, :sponsor_address_prov_kr, :sponsor_address_prov_id, :supporting_doc, :comment)
+
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params

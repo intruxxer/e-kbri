@@ -3,9 +3,12 @@ class Visa
   include Mongoid::Timestamps
   include Mongoid::Paperclip
   
-  before_create :assign_visa_fee  #, :assign_visa_type
+
+  before_create :set_vipacounter #:assign_visa_fee  #, :assign_visa_type
   belongs_to :user, :class_name => "User", :inverse_of => :visa
   
+  
+
   field :owner_id,               type: String
   field :ref_id,                 type: String
   field :application_type,       type: Integer 
@@ -64,8 +67,10 @@ class Visa
   field :purpose,				         type: String
   
   field :status,                 type: String,  default: 'Received'
-  field :status_code,            type: Integer, default: 1
-  field :payment_slip,           type: String
+
+  field :status_code,            type: Integer, default: 1  
+
+
   field :payment_date,           type: Date
   field :vipa_no,                type: Integer
   
@@ -73,9 +78,17 @@ class Visa
 
   field :is_sync,                type: Integer,     default: 0
   field :visafee,                type: Integer
+
+  field :visafee_ref,            type: String
   
-  #validates :owner_id,               presence: true
-  validates :ref_id,                 presence: true
+  field :comment,                type: String
+  field :printed_date,           type: Date
+  field :pickup_office,          type: String, default: 'seoul'
+  field :pickup_date,            type: Date
+  
+  validates :pickup_office,         presence: true, :if => :check_paid
+  
+
   validates :application_type,       presence: true 
   validates :category_type,          presence: true
   validates :visa_type,              presence: true
@@ -114,6 +127,8 @@ class Visa
   validates :duration_stays_unit,    presence: true 
 
   validates :num_entry,              presence: true
+  validates :visafee_ref,            presence: true, :if => :check_verified
+
   
   #validates :checkbox_1,             presence: true
   #validates :checkbox_2,             presence: true
@@ -154,7 +169,39 @@ class Visa
   validates_attachment_content_type :ticket, :content_type => %w(image/jpeg image/jpg image/png application/pdf)  
   validates_attachment_size :ticket, less_than: 2.megabytes
   
+
+  has_mongoid_attached_file :slip_photo, :styles => { :thumb => "90x120>" }
+  validates_attachment_content_type :slip_photo, :content_type => %w(image/jpeg image/jpg image/png application/pdf)  
+  validates_attachment_size :slip_photo, less_than: 2.megabytes
+  
   private
+  def set_vipacounter
+    if Visa.count > 0
+      begin
+        self.vipa_no = Visa.max(:vipa_no) + 1
+      rescue
+        self.vipa_no = 5850
+      end      
+    else
+      self.vipa_no = 5850
+    end
+  end
+  def check_verified
+    if self.status == 'Verified'
+      return true
+    else
+      return false
+    end
+  end
+  
+  def check_paid
+    if self.status == 'Paid'
+      return true
+    else
+      return false
+    end
+  end  
+
   def assign_ref_id
     self.ref_id = generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s
   end

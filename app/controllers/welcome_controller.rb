@@ -1,18 +1,21 @@
 class WelcomeController < ApplicationController
   def index	
   	if user_signed_in?
+  	  @userreport = Report.where(user_id: current_user.id).where(is_valid: true).desc(:updated_at)
   	  if current_user.has_role? :admin then
   	    @uservisa = Visa.all
   	    @userpassport = Passport.all
-  	    @userreport = Report.all
+  	    
   	  else
   	    visadata = Visa.where(user_id: current_user)
-        @uservisa = Visa.where(owner_id: current_user.id)
+
+        @uservisa = Visa.where(user_id: current_user.id)
         
         passportdata = Passport.where(user_id: current_user)
-        @userpassport = Passport.where(owner_id: current_user.id)
+        @userpassport = Passport.where(user_id: current_user.id)
+
         
-        @userreport = Report.where(user_id: current_user)
+        
         allunpaidvisa = Visa.where(user_id: current_user, status: 'Received')
         @unpaidvisa = {}
         if allunpaidvisa.count > 0

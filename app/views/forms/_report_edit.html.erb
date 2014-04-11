@@ -14,14 +14,18 @@
 			
 			<!-- Red color scheme -->
 			
-			<%= simple_form_for @report, url: report_path(@report), method: :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
-				<header>Formulir Lapor Diri dan Pendataan WNI di Korea Selatan</header>
+			<%= simple_form_for @report, url: report_path, method: :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				<header>Revisi Informasi Lapor Diri dan Pendataan WNI di Korea Selatan</header>
+				<fieldset style="text-align:justify;">
+					Silahkan mengisi formulir  ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'.
+					<br />Data anda sebelumnya akan kami simpan sebagai rekam jejak. Data anda akan berubah setelah admin mem-verifikasi perubahan informasi yang anda berikan
+				</fieldset>
 				<fieldset>
 				  <div class="row">
 				  	<section class="col col-4">
 				  		<label class="label" for='nourut' >No. Ref Lapor Diri:</label>
 							<label class="input">
-				  	 			<b><%= @report.ref_id %></b>
+				  	 			<%= f.input_field :ref_id, :value => @report.ref_id, :readonly => true %>
 				  	 		</label>
 				  	</section>
 					<section class="col col-2">
@@ -60,14 +64,7 @@
 							</label>
 							<div class="note"><strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a></div>
 						</section>	
-						<% if @report.photo.exists? %>
-						<section class="col col-1">
-							<%= image_tag @report.photo.url(:thumb) %>
-							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
-								<%= link_to 'Download', @report.photo.url(:original, false), target: "_blank" %>
-							<%end%>
-						</section>				
-						<%end%>					
+						
 					</div>
 					
 					<div class="row">
@@ -108,14 +105,7 @@
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
 						</section>	
-						<% if @report.paspor.exists? %>
-						<section class="col col-1">
-							<%= image_tag @report.paspor.url(:thumb) %>
-							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
-								<%= link_to 'Download', @report.paspor.url(:original, false), target: "_blank" %>
-							<%end%>
-						</section>				
-						<%end%>		
+						
 						
 						<section class="col col-2">
 							<label class="label">No Passport</label>
@@ -153,8 +143,7 @@
 							<label class="label">Kantor Pengeluaran Paspor</label>
 							<label class="select">
 								<%= f.input_field :immigrationOffice, 
-								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK",
-									"BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL", "KBRI LAINNYA"=>"KBRI LAINNYA" } %>
+								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK","BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL", "KBRI LAINNYA"=>"KBRI LAINNYA" } %>
 							<i></i>
 							</label>
 						</section>			
@@ -174,14 +163,14 @@
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB<br />Harap scan dan gabungkan kedua sisi kartu</div>
 						</section>	
-						<% if @report.aliencard.exists? %>
-						<section class="col col-1">
-							<%= image_tag @report.aliencard.url(:thumb) %>
-							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
-								<%= link_to 'Download', @report.aliencard.url(:original, false), target: "_blank" %>
-							<%end%>
-						</section>				
-						<%end%>	
+						
+						<section class="col col-3">
+							<label class="label">Nomor Alien Card</label>
+							<label class="input">
+								<i class="icon-append icon-globe"></i>
+								<%= f.input_field :no_arc %>
+							</label>
+						</section>
 						
 						<section class="col col-2">
 							<label class="label">Jenis Visa</label>
@@ -1278,6 +1267,18 @@
 					</p>
 				</fieldset>
 				
+				<fieldset>
+					<section class="col col-6">
+						<div class="note">
+							Untuk memastikan anda adalah aplikan paspor yang sah, 
+							silakan masukkan kode yang anda lihat ke kolom masukan.
+						</div>					
+						<label class="input">
+							  <%= show_simple_captcha %>
+						</label>
+					</section>
+				</fieldset>
+				
 				<footer>
 					<button type="submit" class="button">Laporkan ke KBRI</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
@@ -1285,7 +1286,7 @@
 			<% end %>
 			<!--/ Red color scheme -->			
 </div>
-<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+
 <script type="text/javascript">
 			$(function()
 			{

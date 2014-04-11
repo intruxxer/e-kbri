@@ -7,6 +7,16 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, :alert => exception.message
   end
 
+  
+  def after_sign_in_path_for(resource)
+    if current_user.has_role? :admin
+      dashboard_path
+    else
+      authenticated_root_path
+    end
+  end
+
+
   private
 
   def check_registration
@@ -21,5 +31,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| 
       u.permit(:username, :first_name, :last_name, :email, :passport, :id_card, :citizenship, :origin, :individual, :password, :password_confirmation, :current_password, :roles => []) }
   end
+
 
 end

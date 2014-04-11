@@ -3,7 +3,7 @@ EKbri::Application.routes.draw do
   resources :visafamilys, controller: 'immigration/visafamily'
   resources :visagroups, controller: 'immigration/visagroup'
   resources :passports, controller: 'immigration/passport'
-  resources :reports, controller: 'immigration/report'
+  resources :reports, controller: 'immigration/report'  
   
   get "dashboard/protocols", :to => "protocol#index"
   
@@ -32,11 +32,13 @@ EKbri::Application.routes.draw do
   get "infopassports", :to => "immigration/passport#info"
   get "inforeports", :to => "immigration/report#info"
   get "marriage/info", :to => "immigration/marriage#info"
+
   get "finishgroupapply", :to => "immigration/visa#finishing_application"
   get "visas/reapply/:id", :to => "immigration/visa#reapply"
   get "passports/reapply/:id", :to => "immigration/passport#reapply"
   
   get "dashboard/index"
+
   get "dashboard/counsel"
   get "dashboard/immigration"
   get "dashboard/immigration/:document" => "dashboard#immigration" 
@@ -55,18 +57,49 @@ EKbri::Application.routes.draw do
   get "test", :to => "playground#test"
   
   get "visa/show/all", :to => "desktop#show_all_sisari"
-  get "visa/tosisari/:id", :to => "desktop#exec_toSisari"
+  get "lapordiri/show/all", :to => "desktop#show_all_lapordiri"
+  get "lapordiri/show/history/:user_id", :to => "desktop#show_all_lapordiri_history"
   get "passport/show/all", :to => "desktop#show_all_spri"
   get "dashboard/service/:document", :to => "dashboard#immigration"
   get "admin/service/:document/:id", :to => "dashboard#immigration"
   get "dashboard/syncpanel", :to => "dashboard#syncpanel"
   
-  match "passport/tospri/:id", to: "immigration/dekstop#exec_toSPRI", via: :post
+
+  match "passport/tospri/:id", to: "desktop#exec_toSPRI", via: :post
+  match "visa/tosisari/:id", to: "desktop#exec_toSisari", via: :post
+  
+  get "passports/:id/check", :to => "immigration/passport#check"
+  get "visas/:id/check", :to => "immigration/visa#check"
+  get "reports/:id/check", :to => "immigration/report#check"
   
   get "protocol/synccloudtolocal/:collection", :to => "protocol#syncCollectionCloudtoLocal"
   get "protocol/syncdbcomplete", :to => "protocol#syncDBComplete"
   
+
+  match "report/findbynameandbirth", to: "immigration/report#findbyNameandBirth", via: :get
   
+  get "report/panel/periodical", :to => "dashboard#periodical_reporting"
+  
+  match "report/generate/periodical", to: "dashboard#generate_periodical_reporting", via: :post
+  
+  get '/images/:name', :to => 'images#show', :as => :custom_image
+  
+  get "finishgroupapply", :to => "immigration/visa#finishing_application"
+  get "visas/reapply/:id", :to => "immigration/visa#reapply"
+  get "passports/reapply/:id", :to => "immigration/passport#reapply"
+  
+  get "dashboard/reference/list", :to => "reference#index"
+  get "dashboard/reference/edit/:type/:id", :to => "reference#edit"
+  
+  get "passport/payment/:id", :to => "immigration/passport#payment"
+  match "passport/payment/:id", to: "immigration/passport#update_payment", via: :patch, :as => :payment_proceed
+  
+  get "visas/compile/:ref_id", :to => "immigration/visa#show_receipt", :as => :visa_compile
+  get "visas/payment/:ref_id", :to => "immigration/visa#payment"
+  match "visas/payment/:ref_id", to: "immigration/visa#update_payment", via: :patch, :as => :visa_payment_proceed
+
+  match "report/admin/:id/edit", to: "immigration/report#adminupdate", via: :patch, :as => :adminreportedit
+  get "journal/show/:id", :to => "journal#retrieve_document_journal", :as => :document_journal
   
   #resources :dashboard_immigration, path: "dashboard/immigration"
   

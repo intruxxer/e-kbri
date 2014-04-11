@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
+<%= simple_form_for @passportfee, url: '/passport/tospri/', :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>				
+				<fieldset>					
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Jenis Passport</label>
+							<label class="input">
+								<% 
+									sliced = @passportfee.passport_type
+									sliced.slice! "passport_"					
+									if @passportfee.passport_reason == 'hilang'					
+										hilang = "(HILANG/RUSAK)"	
+									else					
+										hilang = ""
+									end%>	
+									SPRI <%= sliced %> HALAMAN <%= hilang %>						
+							</label>
+						</section>
+						<section class="col col-6">
+							<label class="label">Biaya</label>
+							<label class="input">
+								<%= f.input_field :passport_fee %>							
+							</label>
+						</section>
+					</div>					
+				</fieldset>				
+				<footer>
+					<button type="submit" class="button">Simpan</button>
+					<button type="button" class="button button-secondary" onclick="window.close();">Kembali</button>
+				</footer>
+<% end %>

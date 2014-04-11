@@ -1,12 +1,16 @@
 class Immigration::VisafamilyController < ApplicationController
-   include SimpleCaptcha::ControllerHelpers
-   before_filter :authenticate_user!
+  include SimpleCaptcha::ControllerHelpers
+  before_filter :authenticate_user!
+
   #GET /visa
   def index
     @visa = Visa.new
     if session[:add_people] then
-      @add_people = true
-      @ref_id = session[:current_ref_id]
+
+      @add_people = true      
+      
+      @lastvisa = Visa.where(visa_type: 2, user_id: current_user).last
+      session[:current_ref_id] = @lastvisa.ref_id 
       puts "Session add_people = True"
       puts "Session current_ref_id = #{session[:current_ref_id]}"
       #@lastvisa = Visa.where(visa_type: 2, user_id: current_user).last
@@ -28,81 +32,43 @@ class Immigration::VisafamilyController < ApplicationController
 
   #POST /visa
   def create
-=begin   
-   uploaded_passport = params[:visa][:passport]
-   if (uploaded_passport != nil)
-      new_passport = uploaded_passport.read
-      File.open(Rails.root.join('public', 'uploads', uploaded_passport.original_filename), 'wb') do |file|
-        file.write(new_passport)
-      end
-   end
-   
-   uploaded_idcard = params[:visa][:idcard]
-   if (uploaded_idcard != nil)
-      new_idcard = uploaded_idcard.read
-      File.open(Rails.root.join('public', 'uploads', uploaded_idcard.original_filename), 'wb') do |file|
-        file.write(new_idcard)
-      end
-   end
-   
-   uploaded_passport_picture = params[:visa][:photo]
-   if (uploaded_passport_picture != nil)
-      new_pass_picture = uploaded_passport_picture.read
-      File.open(Rails.root.join('public', 'uploads', uploaded_passport_picture.original_filename), 'wb') do |file|
-        file.write(new_pass_picture)
-      end
-   end
-   
-   uploaded_paymentslip = params[:visa][:slip_photo]
-   if (uploaded_paymentslip != nil)
-      new_pay_picture = uploaded_paymentslip.read
-      File.open(Rails.root.join('public', 'uploads', uploaded_paymentslip.original_filename), 'wb') do |file|
-        file.write(new_pay_picture)
-      end
-   end
-   
-   uploaded_supdoc = params[:visa][:supdoc]
-   if (uploaded_supdoc != nil)
-      new_supdoc_picture = uploaded_supdoc.read
-      File.open(Rails.root.join('public', 'uploads', uploaded_supdoc.original_filename), 'wb') do |file|
-        file.write(new_supdoc_picture)
-      end
-   end
-   
-   uploaded_ticket = params[:visa][:supdoc]
-   if (uploaded_ticket != nil)
-      new_ticket_picture = uploaded_ticket.read
-      File.open(Rails.root.join('public', 'uploads', uploaded_ticket.original_filename), 'wb') do |file|
-        file.write(new_ticket_picture)
-      end
-   end
-=end
+
+   @visa =  [Visa.new(post_params)]  
      
-   @visa = [ Visa.new(post_params) ] 
-   current_user.visas = @visa   
-    if current_user.save then
-      UserMailer.visa_received_email(current_user).deliver
-      respond_to do |format|
-        format.html { 
-          #kalau pertama kali sbg org pertama
+   
+    if session[:add_people] then
+      @add_people = true      
+      
+      @lastvisa = Visa.where(visa_type: 2, user_id: current_user).last
+      session[:current_ref_id] = @lastvisa.ref_id
+      
+    end
+    
+    time = Time.new
+    coded_date = time.strftime("%y%m%d")
+    @ref_id = '1'+coded_date+generate_string(3)
+   
+    if @visa[0].valid?
+      if simple_captcha_valid?
+          current_user.visas.push(@visa[0])   
+          current_user.save
+          current_user.journals.push(Journal.new(:action => 'Created', :model => 'Visa', :method => 'Insert', :agent => request.user_agent, :record_id => @visa[0].id ))
+          UserMailer.visa_received_email(current_user).deliver
+          #flash[:notice] = 'Pengurusan aplikasi paspor anda, berhasil!'
+          #render 'pasporconfirm.html.erb'
+          
           if session[:add_people].nil? or session[:add_people].blank? or session[:add_people] == false
              session[:add_people] = true
           end
-          redirect_to :controller => 'visafamily', :action => 'index' 
-          #redirect_to visafamilys_path with GET options
-          
-          #kalau kedua kali 
-          
-          #kalau finish
-          
-        }
+          flash[:notice] = 'Application saved successfully. You may add another person or end your application by clicking "Finish" '
+          redirect_to :controller => 'visafamily', :action => 'index'
+      else        
+        @errors = { 'Secret Code' => 'Wrong Code Entered'}
+        render 'index'
       end
-    else
-      @visa = @visa[0]
-      @errors = current_user.visas[0].errors.messages
+    else      
+      @errors = @visa[0].errors.messages
       render 'index'
-      #redirect_to :back, :notice => "Unfortunately, your current visa application fails to be submitted."
-      #do something further 
     end
     #*Debugging*#
     #logger.debug "We are inspecting VISA PROCESSING PARAMS as follows:"
@@ -125,6 +91,7 @@ class Immigration::VisafamilyController < ApplicationController
     #@visa = Visa.find_by(user_id: params[:id])
     @visa = Visa.find(params[:id])
     if @visa.update(post_params)
+      current_user.journals.push(Journal.new(:action => @visa.status, :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => @visa.id ))
       redirect_to root_path, :notice => 'You have updated your visa application data!'
     else
       render 'edit'
@@ -143,6 +110,7 @@ class Immigration::VisafamilyController < ApplicationController
     @visa = Visa.find(params[:id])
     reference = @visa.ref_id
     if @visa.delete
+      current_user.journals.push(Journal.new(:action => 'Removed', :model => 'Visa', :method => 'Delete', :agent => request.user_agent, :record_id => params[:id] ))
       redirect_to :back, :notice => "Visa Application of Ref. No #{reference} has been erased."
     else
       redirect_to :back, :notice => "Visa Application of Ref. No #{reference} is not found."
@@ -158,8 +126,9 @@ class Immigration::VisafamilyController < ApplicationController
       :sponsor_type_id, :sponsor_name_id, :sponsor_address_id, :sponsor_address_kab_id, :sponsor_address_prov_id,
       :sponsor_phone_id, :duration_stays, :duration_stays_unit, :num_entry, :checkbox_1, :checkbox_2, :checkbox_3, 
       :checkbox_4, :checkbox_5, :checkbox_6, :checkbox_7, :count_dest, :flight_vessel, :air_sea_port, :date_entry, 
-      :purpose, :passport, :idcard, :photo, :status, :status_code, :payment_slip, 
-      :payment_date, :ticketpath, :sup_docpath, :ref_id, :approval_no).merge(owner_id: current_user.id, visa_type: 2)
+      :purpose, :passport, :idcard, :photo, :status, :status_code, :slip_photo, 
+      :payment_date, :ticket, :supdoc, :ref_id, :approval_no).merge(visa_type: 2)
+
     end
     #Notes: to add attribute/variable after POST params received, do
     #def post_params

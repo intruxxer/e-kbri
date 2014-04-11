@@ -1,0 +1,345 @@
+<%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name == :notice ? "success" : name %>">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
+<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Pengajuan Gagal. Silahkan cek pesan dibawah ini</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
+<br />
+<div class="sky-form" style="margin:16px;">
+	
+	<fieldset>
+		<div class="row">			
+			<section class="col col-6">
+				Jenis Aplikasi : <b><%= @passport.application_type %> </b> , Alasan :  <b><%= @passport.application_reason %></b>
+			</section>
+			<section class="col col-3"></section>
+			<section class="col col-3" style="background:#FFFFCC;">
+				Current Status : <b><%= @passport.status %></b>
+			</section>			
+		</div>
+	</fieldset>
+	<fieldset style="background:#FFCC66;">
+		<div class="row">			
+			<% if @passport.slip_photo.exists? %>
+				<section class="col col-6">
+					Status Pembayaran : <b>Sudah dibayar</b><br />
+					<%= link_to 'Download Slip Pembayaran', @passport.slip_photo.url(:original, false), target: "_blank" %>
+				</section>
+				<section class="col col-6">
+					Tanggal Pembayaran : <b><%= @passport.payment_date %></b>
+				</section>
+				<section class="col col-6">
+					Pickup Location : <b><%= @passport.pickup_office %></b> <br />
+					Pickup Date		: <b><%= @passport.pickup_date %></b>
+				</section>
+			<% else %>
+				<section class="col col-6">
+					Status Pembayaran : <b>Belum Diterima</b>
+				</section>
+			<% end %>
+		</div>
+	</fieldset>
+	<fieldset>
+		<% if @passport.photo.exists? %>
+		<div class="row" style="float:left;">	
+				<section class="col col-1" style="padding:8px;">
+					<%= image_tag @passport.photo.url(), width: '140'  %>
+					<%= link_to 'Download', @passport.photo.url(:original, false), target: "_blank" %>					
+				</section>				
+		</div>
+		<%end%>	
+		<div class="row" style="float:left;">			
+			<section class="col col-4">
+				<label class="label">Nama Lengkap</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.full_name %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Jenis Kelamin</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.kelamin %>							
+				</label>
+			</section>		
+			<section class="col col-4">
+				<label class="label">Kewarganegaraan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.citizenship_status %>							
+				</label>
+			</section>	
+			<section class="col col-4">
+				<label class="label">Tanggal Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.dateBirth %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Tempat Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.placeBirth %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Tinggi Badan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.height %> Cm							
+				</label>
+			</section>		
+		</div>
+		<div style="clear:both"></div>
+		<div class="row">
+			<section class="col col-2">
+				<label class="label">Nomor Alien Card</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.arc %>						
+				</label>
+			</section>
+			<section class="col col-2">
+				<label class="label">Pekerjaan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.jobStudyInKorea %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Keterangan Pekerjaan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.jobStudyTypeInKorea %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Nama Perusahaan/Instansi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.jobStudyOrganization %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-4"></section>
+			<section class="col col-3">
+				<label class="label">Alamat Perusahaan/Instansi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.jobStudyAddress %>							
+				</label>
+			</section>
+		</div>	
+	</fieldset>
+	
+	<% if @passport.application_reason != 'lainnya' %>
+	<fieldset>
+		<h3>Detail Passport Sebelumnya</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">Nomor Passport</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.lastPassportNo %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Tanggal dikeluarkan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.dateIssued %>							
+				</label>
+			</section>			
+			<section class="col col-3">
+				<label class="label">Tanggal Habis Berlaku</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.dateIssuedEnd %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Tempat dikeluarkan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.placeIssued %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-6"></section>
+			<section class="col col-3"></section>
+			<section class="col col-3">
+				<label class="label">Kantor Imigrasi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.immigrationOffice %>							
+				</label>
+			</section>
+		</div>
+	</fieldset>	
+	<% end %>
+	
+	<fieldset>
+		<h3>Keterangan di Indonesia</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">Alamat Indonesia</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.addressIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kelurahan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.kelurahanIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kabupaten</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.kabupatenIndonesia %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">No. Telepon</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.phoneIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3"></section>
+			<section class="col col-3">
+				<label class="label">Kecamatan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.kecamatanIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Propinsi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @passport.sponsor_address_prov_id %>							
+				</label>
+			</section>		
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<section class="col col-9">
+				<label class="label">Dokumen Pendukung</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @passport.supporting_doc.exists? %>
+						<%= link_to @passport.supporting_doc_file_name, @passport.supporting_doc.url(:original, false) %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+	</fieldset>
+	
+	<fieldset>
+		<h3>Document Journal</h3>
+		<hr /><br />
+		
+		<section class="col col-12">
+		
+		<script type="text/javascript">	
+			$(document).ready(function(){									
+			    $("#sample-table-2").dataTable({
+			    	 "bProcessing": true,
+			         "bServerSide": true,
+			         "sAjaxSource": "<%= document_journal_path(@passport.id) %>",
+			         "bPaginate": false,
+			         "aoColumns": [
+			          null,
+				      null,
+				      null,
+				      null			      											      
+				    ]
+			    });
+			});									
+		</script>									
+		
+		<style>
+			#sample-table-2 td {
+				text-align:center;
+			}
+		</style>
+			
+		<table class="table table-striped table-bordered table-hover" id="sample-table-2">
+			<thead>
+				<tr>				
+					<th></th>								
+					<th class="center" width="300">Action</th>
+					<th class="center" >Method</th>
+					<th class="center" width="300">Timestamp</th>														
+				</tr>
+			</thead>
+			<tbody>								
+															
+
+			</tbody>
+		</table>
+		
+		</section>
+		
+	</fieldset>
+	
+	<footer>
+		<h3>Actions</h3>
+		<br />
+		<%= simple_form_for @passport, url: passport_path(@passport), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				
+				<div class="inline-group" style="padding:4px;">
+				    <section class="col col-9">
+				   		<label class="label" style="width:auto;background:inherit">Jenis Passport</label>
+						<label class="select" style="width:200px;">
+								<%= f.input_field :paspor_type, 
+								collection: { '24 Halaman' => '24', '48 Halaman' => '48' }  %>
+							<i></i>
+							</label>
+				    </section>
+			   </div>
+				<div class="inline-group" style="padding:4px;">		
+				<section class="col col-9">					
+				<label class="label" style="width:auto;background:inherit">Status</label>  							  	
+				<%= f.input_field :status, as: :radio_buttons, :class => 'radio' ,
+					collection: { 'Received' => 'Received', 'Paid' => 'Paid', 
+									'<b style="color:green;">Verify</b>' => 'Verified', '<b style="color:red;">Reject</b>' => 'Rejected', '<b style="color:orange;">Revision</b>' => 'Revision' 
+									}, label_method: lambda { |obj| ('<i></i>' + obj[0]).html_safe } %>
+				</section>								
+		        </div>	
+		       
+		       
+		       <div id="commentcontainer" class="inline-group" style="padding:4px;<% if @passport.status != 'Revision' %>display:none;<% end %>"  >
+				    <section class="col col-9">
+				   		<label class="label" style="width:auto;background:inherit">Comment</label>
+						<label class="select" style="width:200px;">
+								<%= f.input_field :comment, :rows => 5, :maxlength => 100, as: :text %>							
+							</label>
+				    </section>
+			   </div>
+							  
+		  	
+		<a href="/admin/service/prep_spri/<%= @passport.id %>" ><button type="button" class="button" style="background-color:#009933">Insert to SPRI</button></a> 
+		<button type="submit" class="button">Simpan</button>
+		<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+		
+		<% end %>
+	</footer>
+</div>
+
+<script type="text/javascript">
+			$(function()
+			{					
+				$("input[name='passport[status]']").change(function(){
+					if($(this).val() == 'Revision'){
+						$('#commentcontainer').show();						
+					}else{												
+						$('#commentcontainer').hide();
+					}
+				});				
+			});			
+</script>
+
+			

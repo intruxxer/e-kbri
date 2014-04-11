@@ -1,4 +1,4 @@
-class Immigration::ReportController < ApplicationController  
+class Immigration::ReportController < ApplicationController 
   include SimpleCaptcha::ControllerHelpers
   before_filter :authenticate_user!
   
@@ -9,54 +9,121 @@ class Immigration::ReportController < ApplicationController
 	   end
   end
   
+  def check
+    @report = Report.find(params[:id])
+    render layout: "dashboard"
+  end
+  
   def create		
    @report =  Report.new(post_params)
-	 current_user.reports = @report
-	 if current_user.save
-	    respond_to do |format|
-        format.html { redirect_to root_path, :notice => "Data Lapor Diri Anda Berhasil Disimpan" }        
+	 
+	 
+	 if @report.valid?
+	   if simple_captcha_valid?
+	     
+	     current_user.reports.push(@report)
+	     current_user.save
+	     
+	     current_user.journals.push(Journal.new(:action => 'Create', :model => 'Report', :method => 'Insert', :agent => request.user_agent, :record_id => @report.id ))
+	     respond_to do |format|
+          format.html { redirect_to root_path, :notice => "Data Lapor Diri Anda Berhasil Disimpan" }        
+       end            
+      else        
+        @errors = { 'Secret Code' => 'Wrong Code Entered'}
+        render 'index'
       end
-   else      
-      @errors = @report.errors.messages
+	 else
+	   @errors = @report.errors.messages
       render 'index'
-	 end	 	 
+	 end	 
+	 	 	 
+  end
+  
+  def adminupdate
+    @report = Report.find(params[:id])
+    if @report.update(post_params)
+        
+          if @report.is_valid == true
+            @col = Report.where(user_id: @report.user_id).ne(id: @report.id)
+            @col.each do |row|              
+              row.update(is_valid: false)      
+              current_user.journals.push(Journal.new(:action => 'Validated : ' + row.is_valid.to_s , :model => 'Passport', :method => 'Update', :agent => request.user_agent, :record_id => row.id ))      
+            end
+          end
+          current_user.journals.push(Journal.new(:action => 'Validated : ' + @report.is_valid.to_s , :model => 'Passport', :method => 'Update', :agent => request.user_agent, :record_id => row.id ))
+          UserMailer.admin_update_report_email(@report).deliver
+        
+        redirect_to :back, :notice => 'Anda telah berhasil memperbaharui data lapor diri'
+    else
+      @errors = @report.errors.messages
+      render 'edit'
+    end
   end
   
   #PATCH, PUT /report/:id
   def update
 	  #@post = Report.find_by(user_id: params[:id])
-	  @report = Report.find(params[:id])
-    if @report.update(post_params)
-    	 redirect_to :back, :notice => 'Data Lapor Diri Anda Berhasil Diubah!'
-    else
-      @errors = @report.errors.messages
-    	 render 'edit'
-    end
+	  #@report = Report.find(params[:id])
+	  
+	  @report = Report.new(post_params)
+	  #keep every save as new record but not valid until admin verified it
+	  
+	  if @report.valid?
+	    if simple_captcha_valid?
+	      current_user.reports.push(@report)
+	      current_user.save
+	      
+	      current_user.journals.push(Journal.new(:action => 'Create', :model => 'Report', :method => 'Insert', :agent => request.user_agent, :record_id => @report.id ))
+	      
+	      respond_to do |format|
+	        format.html { redirect_to :back, :notice => "Revisi Data Lapor Diri Anda Berhasil Disimpan. Silahkan tunggu email konfirmasi dari admin" }
+	      end
+	    else
+	      @errors = { 'Secret Code' => 'Wrong Code Entered' }
+	      render 'edit'
+	    end
+	  else
+	    @errors = @report.errors.messages
+	    render 'edit'    
+	  end	  
+    
   end
   
   def edit   
-	   @report = Report.find_by(user_id: params[:id])
+	   @report = Report.where(id: params[:id]).first
 	   #@post = Report.find(params[:id])
   end
   
-  #GET report/:id
+
+  def findbyNameandBirth
+    params.permit(:name, :datebirth)        
+    @report = Report.where( name: params[:name] ).where( datebirth: params[:datebirth] ).all
+    catch = { 'ref_id' => 'null' }
+    if @report.exists?
+      catch = { 'ref_id' => @report.first.ref_id }
+    end    
+    render :json => catch
+  end
+  
+
   def show
     @report = Report.find(params[:id])
       respond_to do |format|
-      format.html #visa_processing/show.html.erb
+      format.html { render 'edit' }
       format.json { render json: @report }
       format.xml  { render xml: @report }
       format.pdf do
-        render :pdf            => "Data Lapor Diri ["+"#{current_user.full_name}"+"]",
+        render :pdf            => "Data Lapor Diri [" + @report.name + "]",
                :disposition    => "inline", #{attachment, inline}
                :show_as_html   => params[:debug].present?,
                #:template       => "immigration/visa/visarecapitulation.html.erb",
-               :layout         => "visa_pdf.html",
-               :footer         => { :center => "The Embassy of Republic of Indonesia at Seoul" }
+               :template       => "immigration/report/adminprint.html.erb"
+                              
       end
     end
   end
   
+
   
   def findbyNameandBirth
     params.permit(:name, :datebirth)        
@@ -68,6 +135,7 @@ class Immigration::ReportController < ApplicationController
     render :json => catch
   end
   
+
   private
 	def post_params	    
 		params.require(:report).permit(:name, :height, :birthplace, :datebirth, :marriagestatus, :nopaspor, :dateissued, :dateend, :passportplace, :immigrationOffice, :visatype, :visadateissued, :visadateend,
@@ -75,7 +143,7 @@ class Immigration::ReportController < ApplicationController
 		:koreanphone, :koreanaddress, :koreanaddresscity, :koreanaddressprovince, :koreanaddresspostalcode, :indonesianphone, :indonesianaddress, :indonesianaddresskelurahan, 
 		:indonesianaddresskecamatan, :indonesianaddresskabupaten, :indonesianaddressprovince, :indonesianaddresspostalcode, :relationname, :relationstatus, :relationaddress,
 		:relationphone, :relationaddresskelurahan, :relationaddresskecamatan, :relationaddresskabupaten, :relationaddressprovince, :relationaddresspostalcode, :arrivaldate, :indonesianinstance,
-		:paspor, :aliencard, :photo, :stayinkorea).merge(owner_id: current_user.id)
+		:paspor, :aliencard, :photo, :stayinkorea, :is_valid, :ref_id, :no_arc)
 	end
   
   

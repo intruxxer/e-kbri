@@ -1,0 +1,69 @@
+Silahkan cek kembali data pemohon
+
+<div class="sky-form">
+	
+	<% if @visa.photo.exists? %>
+	
+			<section class="col col-1" style="padding:8px;">
+				<%= image_tag @visa.photo.url(), width: '140'  %>
+				<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+					<%= link_to 'Download', @visa.photo.url(:original, false), target: "_blank" %>
+				<%end%>
+			</section>				
+	<%end%>
+	<fieldset>
+		<div class="row">		
+			<section class="col col-1"></section>
+			<section class="col col-4">
+				<label class="label">Nama Lengkap</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.first_name %>, <%= @visa.last_name %>							
+				</label>
+			</section>
+			<section class="col col-1">
+				<label class="label">Jenis Kelamin</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @visa.sex %>							
+				</label>
+			</section>
+		</div>	
+	</fieldset>
+	<div class="note">Harap simpan foto jika dipergunakan untuk visa diplomatik </div>
+</div>
+
+<%= simple_form_for :visa, url: '/visa/tosisari/' + @visa.id, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>				
+				<fieldset>
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">Tanggal Pengambilan</label>
+							<label class="input">
+								<i class="icon-append icon-globe"></i>
+								<%= f.input_field :pickup_date, :class => 'datePick' %>
+							</label>
+						</section>
+					</div>					
+				</fieldset>				
+				<footer>
+					<button type="submit" class="button">Insert to SISARI</button>
+					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+				</footer>
+<% end %>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+			$(function()
+			{		
+				$(window).load(function(){
+					$('.datePick').datepicker("setDate", 4);
+				});		
+				// Regular datepicker
+				$('.datePick').datepicker({
+					dateFormat: 'yy/mm/dd',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,
+      				yearRange: '1900:2040'
+				});				
+				
+			});			
+</script>
