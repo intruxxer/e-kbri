@@ -145,7 +145,7 @@ class Immigration::ReportController < ApplicationController
 		:koreanphone, :koreanaddress, :koreanaddresscity, :koreanaddressprovince, :koreanaddresspostalcode, :indonesianphone, :indonesianaddress, :indonesianaddresskelurahan, 
 		:indonesianaddresskecamatan, :indonesianaddresskabupaten, :indonesianaddressprovince, :indonesianaddresspostalcode, :relationname, :relationstatus, :relationaddress,
 		:relationphone, :relationaddresskelurahan, :relationaddresskecamatan, :relationaddresskabupaten, :relationaddressprovince, :relationaddresspostalcode, :arrivaldate, :indonesianinstance,
-		:paspor, :aliencard, :photo, :stayinkorea, :is_valid, :ref_id, :no_arc)
+		:paspor, :aliencard, :photo, :stayinkorea, :is_valid, :ref_id, :no_arc, :comment)
 	end
   
   
