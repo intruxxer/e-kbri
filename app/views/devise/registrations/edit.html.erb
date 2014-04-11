@@ -2,8 +2,16 @@
 <div style="text-align: center;">
   <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 </div>
+<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Registration Failed. Please check messages below</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'sky-form' }) do |f| %>
-  <header>E-KBRI Account Modification</header>
+  <header>eKBRI Account Modification</header>
   <fieldset>
 	<div class="row">
 		<section class="col col-4">
@@ -23,7 +31,7 @@
 		<section class="col col-4">
 		  <label class="label">Email</label>
 		  <label class="input">
-		    <%= f.input_field :email, :required => true %>
+		    <%= f.input_field :email, :required => true, :readonly => true %>
 		    <i class="icon-append icon-envelope"></i>
 		  </label>
 		</section>
@@ -35,6 +43,7 @@
   	<div class="row">
 		<section class="col col-4">
 		  <label class="label">New Password</label>
+
 	      <label class="input">
 		    <%= f.input_field :password, :required => true, :autocomplete => "off", :hint => "Leave it blank if you don't want to change it", :required => false %>
 		    <i class="icon-append icon-lock"></i>
@@ -58,6 +67,7 @@
   		    <i class="icon-append icon-lock"></i>
   		  </label>
   		  <div class="note"><strong>Note:</strong> We require your current password to confirm your password change. Leave BLANK if no password change.</div>
+
 		</section>
 	</div>
   </fieldset>
@@ -66,9 +76,9 @@
   <fieldset>
 	<div class="row">
 		<section class="col col-3">
-		  <label class="label">Are you really an Indonesian?</label>
+		  <label class="label">Are you Indonesian?</label>
 		  <label class="select">
-		    <%= f.input_field :citizenship, collection: { 'Nope, I am indeed Indonesia Citizen' => 'true', 'Yes, Actually I am Foreigner' => 'false' } %>
+		    <%= f.input_field :citizenship, collection: { 'Yes' => 'true', 'No' => 'false' } %>
 		  <i></i>
 		  </label>
 		</section>
@@ -322,7 +332,7 @@
 									'YEMEN'=>'YEM',
 									'SOUTH AFRICA'=>'ZAF',
 									'ZAMBIA'=>'ZMB',
-									'ZIMBABWE'=>'ZWE' } %>
+									'ZIMBABWE'=>'ZWE' }, :selected => 'IDN' %>
 								<i></i>
 				</label>
 				<div class="note"><strong>Note:</strong> 
@@ -350,13 +360,13 @@
 	<button type="submit" class="button">Update</button>
 	<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
   </footer>
-  <fieldset>&copy; 2013-2014 by The Embassy of Republic of Indonesia in Seoul. All Rights Reserved.</fieldset>
+  
 <% end %>
 </div>
 
 
-<h3>Hapus akun di E-KBRI</h3>
-<p>Ada kesalahan? Enggan menggunakan layanan E-KBRI? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+<h3>Revoke your Account</h3>
+<p>Revoke your account? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript">

@@ -13,7 +13,7 @@ class Visa
   field :ref_id,                 type: String
   field :application_type,       type: Integer 
   field :category_type,          type: String
-  field :visa_type,              type: Integer #1 = individual, #2 = Family, 3 = Group
+  field :visa_type,              type: Integer, default: 1 #1 = individual, #2 = Family, 3 = Group
   field :reason,                 type: String
   
   field :first_name,					   type: String
@@ -33,7 +33,7 @@ class Visa
   field :passport_date_issued,	 type: Date 
   field :passport_date_expired,	 type: Date
   
-  field :sponsor_type_kr,			   type: Integer
+  field :sponsor_type_kr,			   type: String
   field :sponsor_name_kr,			   type: String  
   field :sponsor_address_kr,		 type: String
   field :sponsor_address_city_kr,type: String
@@ -180,10 +180,10 @@ class Visa
       begin
         self.vipa_no = Visa.max(:vipa_no) + 1
       rescue
-        self.vipa_no = 5850
+        self.vipa_no = 100
       end      
     else
-      self.vipa_no = 5850
+      self.vipa_no = 100
     end
   end
   def check_verified

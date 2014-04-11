@@ -1,4 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+
   include SimpleCaptcha::ControllerHelpers
   before_filter :configure_permitted_parameters # before_filter :resource_params
   def new
@@ -6,9 +7,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   
   # POST /user
-  def create
-    if simple_captcha_valid?
-      build_resource(sign_up_params)
+  def create    
+    build_resource(sign_up_params)
+    if simple_captcha_valid?    
       resource_saved = resource.save
       yield resource if block_given?
       if resource_saved
@@ -22,6 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
       else
+        @errors = resource.errors.messages
         clean_up_passwords resource
         respond_with resource
       end
@@ -51,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if change_password
       is_valid = @user.update_with_password(updated_params)
     else
-      @user.update_without_password(updated_params)
+      is_valid = @user.update_without_password(updated_params)      
     end
     
     if is_valid
@@ -59,11 +61,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in @user, :bypass => true
       redirect_to after_update_path_for(@user)
     else
+      @errors = @user.errors.messages
       render "edit"
     end
   end
   
   
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|

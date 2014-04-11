@@ -1,5 +1,5 @@
 <div class="navbar-header">
-  <%= link_to "E-KBRI Seoul", root_path, :class => 'navbar-brand' %>
+  <%= link_to "Home", root_path, :class => 'navbar-brand' %>
 </div>
 
 <div class="collapse navbar-collapse">
@@ -59,8 +59,8 @@
     <ul class="dropdown-menu">
     <li><%= link_to 'Pengaturan Profil Pribadi', edit_user_registration_path %></li>
         <% if current_user.has_role? :admin %>
-      	   <li><%= link_to 'Aturcara & Pengelolaan Pengguna E-KBRI', users_path %></li>
-      	   <li><%= link_to 'Statistik & Laporan via Sistem Panel E-KBRI', dashboard_path %></li>
+      	   <li><%= link_to 'Aturcara & Pengelolaan Pengguna eKBRI', users_path %></li>
+      	   <li><%= link_to 'Statistik & Laporan via Sistem Panel eKBRI', dashboard_path %></li>
    	    <% end %>
     </ul>
   </li>

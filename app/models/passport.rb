@@ -4,7 +4,7 @@ class Passport
   include Mongoid::Paperclip  
   
   before_create :assign_ref_id, :assign_passport_fee, :set_vipacounter
-
+  after_update :assign_passport_fee
   belongs_to :user, :class_name => "User", :inverse_of => :passport
   
   field :owner_id,               type: String

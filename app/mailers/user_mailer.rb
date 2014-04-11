@@ -13,8 +13,8 @@ class UserMailer < ActionMailer::Base
 
   	mail(
   		:to => @email, 
-  		:subject => "Thank you for using e-KBRI to gain entry to Indonesia!", 
-  		:from => "Administrator of e-KBRI <admin@kbri.seoul.kr>",
+  		:subject => "Thank you for using eKBRI to gain entry to Indonesia!", 
+  		:from => "Administrator of eKBRI <admin@kbri.seoul.kr>",
   		:reply_to => "Visa Counselor of Indonesian Embassy at Seoul <visa@kbri.seoul.kr>" 
   		)
   end
@@ -31,8 +31,8 @@ class UserMailer < ActionMailer::Base
 
     mail(
       :to => @email, 
-      :subject => "Terimakasih atas penggunaan e-KBRI untuk pengurusan paspor anda!", 
-      :from => "Administrator of e-KBRI <admin@kbri.seoul.kr>",
+      :subject => "Terimakasih atas penggunaan eKBRI untuk pengurusan paspor anda!", 
+      :from => "Administrator of eKBRI <admin@kbri.seoul.kr>",
       :reply_to => "Fungsi Konsuler KBRI Seoul <paspor@kbri.seoul.kr>" 
       )
   end
@@ -50,7 +50,7 @@ class UserMailer < ActionMailer::Base
     mail(
       :to => @email, 
       :subject => "Hasil Review Permohonan Passport [Status : " + passport.status + "]", 
-      :from => "Administrator of e-KBRI <admin@kbri.seoul.kr>",
+      :from => "Administrator of eKBRI <admin@kbri.seoul.kr>",
       :reply_to => "Fungsi Konsuler KBRI Seoul <paspor@kbri.seoul.kr>" 
       )
   end
@@ -67,7 +67,7 @@ class UserMailer < ActionMailer::Base
     mail(
       :to => @email, 
       :subject => "Visa Application Result [Status : " + visa.status + "]", 
-      :from => "Administrator of e-KBRI <admin@kbri.seoul.kr>",
+      :from => "Administrator of eKBRI <admin@kbri.seoul.kr>",
       :reply_to => "Fungsi Konsuler KBRI Seoul <paspor@kbri.seoul.kr>" 
       )
   end

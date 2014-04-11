@@ -1,11 +1,11 @@
 module ApplicationHelper
   def site_name
-    "E-KBRI Seoul"
+    "eKBRI : Indonesian Embassy in South Korea"
   end
   
   def site_url
     if Rails.env.production? then
-      uri = "http://kbri.seoul.kr/"
+      uri = "http://id-embassy.kr/"
     end
     if Rails.env.development? then
       uri = "http://localhost:3000/"

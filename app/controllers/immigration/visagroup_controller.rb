@@ -1,6 +1,7 @@
 class Immigration::VisagroupController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
   before_filter :authenticate_user!
+
   #GET /visa
   def index
     @visa = Visa.new
