@@ -1,37 +1,35 @@
 class UserMailer < ActionMailer::Base
   #counselor@kbri.seoul.kr alias: {visa, paspor, konsuler}
   
-  def visa_received_email(user)
+  def visa_received_email(visa)
   	@url = "http://id-embassy.kr"
-  	@email = user.email
+  	@email = User.find(visa.user_id).email
 
-  	uservisa = Visa.where(user_id: user.id).last
-  	@ref_id = uservisa.ref_id
-  	@uid = user.id
+  	@visa = visa
+  	@ref_id = @visa.ref_id  	
   	attachments["garuda.png"] = File.read("#{Rails.root}/public/assets/images/garuda.png")
   	#attachments["ot-presentation-small.png"] = File.read("#{Rails.root}/public/images/ot-presentation-small.png")
 
   	mail(
   		:to => @email, 
-  		:subject => "Thank you for using eKBRI to gain entry to Indonesia!", 
+  		:subject => "Thank you for using eKBRI of Indonesian Embassy in Seoul!", 
   		:from => "Administrator of eKBRI <admin@kbri.seoul.kr>",
   		:reply_to => "Visa Counselor of Indonesian Embassy at Seoul <visa@kbri.seoul.kr>" 
   		)
   end
   
-  def passport_received_email(user)
+  def passport_received_email(passport)
     @url = "http://id-embassy.kr"
-    @email = user.email
+    @email = User.find(passport.user_id).email
 
-    userpassport = Passport.where(user_id: user.id).last
-    @ref_id = userpassport.ref_id
-    @uid = user.id
+    @passport = passport
+    @ref_id = @passport.ref_id    
     attachments["garuda.png"] = File.read("#{Rails.root}/public/assets/images/garuda.png")
     #attachments["ot-presentation-small.png"] = File.read("#{Rails.root}/public/images/ot-presentation-small.png")
 
     mail(
       :to => @email, 
-      :subject => "Terimakasih atas penggunaan eKBRI untuk pengurusan paspor anda!", 
+      :subject => "Terimakasih atas penggunaan eKBRI", 
       :from => "Administrator of eKBRI <admin@kbri.seoul.kr>",
       :reply_to => "Fungsi Konsuler KBRI Seoul <paspor@kbri.seoul.kr>" 
       )

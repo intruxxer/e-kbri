@@ -230,7 +230,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 		<td></td>
 		<td class="container" bgcolor="#FFFFFF">
 			<p>Kami sudah selesai memerika permohonan anda. <br />Status permohonan anda saat ini adalah : <b><%= @passport.status %></b></p>
-			<% if @passport.status == 'Revision' and !@passport.comment.nil? %>
+			<% if !@passport.comment.nil? %>
 				<h3><b>Catatan : <%= @passport.comment %></b></h3>
 			<% end %>
 			<% if @passport.status == 'Verified' %>

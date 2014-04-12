@@ -252,13 +252,15 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 		<td class="container" bgcolor="#FFFFFF">
 			<br />
 			<p>Your current application status : <b><%= @visa.status %></b></p>
-			<% if @visa.status == 'Revision' and !@visa.comment.nil? %>
+			<% if !@visa.comment.nil? %>
 				<h3><b>Catatan : <%= @visa.comment %></b></h3>
 			<% end %>
 			<% if @visa.status == 'Verified' %>				
 				<p>Please scroll below to find out your payment information</p>
 			<% else %>
-				<p><b>Your application is currently under review/process</b></p>
+				<% if @visa.status != 'Printed' %>
+					<p><b>Your application is currently under review/process</b></p>
+				<% end %>
 			<% end %>
 			<div class="content">
 			<table>

@@ -108,7 +108,7 @@ class Immigration::VisaController < ApplicationController
       if simple_captcha_valid?
           current_user.visas.push(@visa[0])   
           current_user.save
-          UserMailer.visa_received_email(current_user).deliver
+          UserMailer.visa_received_email(@visa[0]).deliver
           current_user.journals.push(Journal.new(:action => 'Created', :model => 'Visa', :method => 'Insert', :agent => request.user_agent, :record_id => @visa[0].id ))
           @visa = Visa.where(:ref_id => @visa[0].ref_id)
           

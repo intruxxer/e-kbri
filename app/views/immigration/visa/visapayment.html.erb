@@ -255,7 +255,9 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 			<% if @visa.status == 'Verified' %>				
 				<p>Please scroll below to find out your payment information</p>
 			<% else %>
-				<p><b>Your application is currently under review/process</b></p>
+				<% if @visa.status != 'Printed'%>
+					<p><b>Your application is currently under review/process</b></p>
+				<% end %>
 			<% end %>
 			<div class="content">
 			<table>
@@ -269,13 +271,16 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 					<center><table>							
 							<tr>
 								<td>Application Type</td>
-								<td>
+								<td><div style="z-index:1;"><%= image_tag(site_url+"public/images/redcircle.png") %></div>
+									<div style="float:left;z-index:2;">
 									<% tc = Visa.where(:ref_id => @visa.ref_id).count 
 									if  tc > 1 %>
 										Group/Family Visa : <%= tc %> Person(s)
 									<% else %>
 										Individual Visa
-									<% end %></td>
+									<% end %>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td>Grantee Detail</td>
