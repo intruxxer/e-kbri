@@ -158,8 +158,13 @@ class DesktopController < ApplicationController
       paymentdate = !(visa.payment_date.nil?) ? visa.payment_date.strftime("%-d %b %Y") : '-'
       retrievedate = !(visa.printed_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (visa.printed_date+3).strftime("%-d %b %Y") + '</a>').html_safe : '-'
       
+      print_code = '-'
+      unless visa.print_code.nil?
+        print_code = visa.print_code
+      end
       
-      aaData.push([i, visa.ref_id, visa.print_code, visa.first_name + " " + visa.last_name , visa.status, visa.created_at.strftime("%-d %b %Y") , paymentdate, retrievedate, checkLink + "&nbsp;|&nbsp;" + editLink])
+      
+      aaData.push([i, visa.ref_id, print_code, visa.first_name + " " + visa.last_name , visa.status, visa.created_at.strftime("%-d %b %Y") , paymentdate, retrievedate, checkLink + "&nbsp;|&nbsp;" + editLink])
       i += 1                        
     end
     
