@@ -100,7 +100,7 @@ EKbri::Application.routes.draw do
 
   match "report/admin/:id/edit", to: "immigration/report#adminupdate", via: :patch, :as => :adminreportedit
   get "journal/show/:id", :to => "journal#retrieve_document_journal", :as => :document_journal
-  
+  get "samplepayment", :to =>"welcome#showsamplebayar"
   #resources :dashboard_immigration, path: "dashboard/immigration"
   
 

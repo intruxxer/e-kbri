@@ -48,6 +48,10 @@ class WelcomeController < ApplicationController
     	end
   end
   
+  def showsamplebayar
+    
+  end
+  
   def concept
     #E-KBRI Concepts
   end

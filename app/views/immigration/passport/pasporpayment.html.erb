@@ -262,7 +262,9 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 					<td>						
 						<p></p>						
 						<h6><b>Ref. No of Application</b></h6>
-						<p><h3><b><%= @passport.ref_id %></b></h3></p>	
+						<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
+						<div style="clear:both;"></div>
+						<p><h3><b style="float:left;margin-top:-60px;margin-left:10px;z-index:2;"><%= @passport.ref_id %></b></h3></p>	
 						<h6><b>Applicant Detail</b></h6>
 						<table >
 							<tr>
@@ -271,7 +273,11 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 							</tr>
 							<tr>
 								<td>Nama</td>
-								<td><%= @passport.full_name %></td>
+								<td>
+									<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
+									<div style="clear:both;"></div>
+									<b style="float:left;margin-top:-50px;margin-left:10px;z-index:2"><%= @passport.full_name %></b>
+								</td>
 							</tr>
 							<tr>
 								<td>Tanggal Lahir</td>
@@ -295,10 +301,13 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 						<hr /><br />
 						<% if @passport.status == 'Verified' %>
 						<h6><b>Keterangan Pembayaran</b></h6>
-						<h2>$<%= @passport.passportfee %></h2>
+						<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
+						<div style="clear:both;"></div>
+						<h2 style="float:left;margin-top:-60px;margin-left:10px;z-index:2;">$<%= @passport.passportfee %></h2>
 						<p style="text-align:justify;">Di bayarkan melalui <b>Bank KEB (외환은행)</b>. Indonesian Embassy in Seoul account <b>650-005012-179</b> dengan menggunakan <b>slip pembayaran dengan mata uang Dollar (Foreign Currency Deposit Slip / 외화예금전표 )</b>. Currency : <b>USD</b></p>
 						<br />
-						<p><b>Harap tulis Reference Number pada bagian Depositor name. Contoh dapat dilihat melalui link berikut : <a href="">Contoh Pembayaran</a></b></p>
+						<p><b>Harap tulis Reference Number pada bagian Depositor name.</b></p>
+						<p style="font-size:11pt;"><b>납부서에 예금자의 이름, 송금액 및 참조 번호를 재 작성하십시오</b></p>
 						<hr /><br />
 						
 						<center><h4>Silahkan bawa bukti ini kepada Loket Konsuler di Kantor Kedutaan Besar Indonesia di Korea Selatan</h4></center>
