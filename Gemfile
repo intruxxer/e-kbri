@@ -33,8 +33,6 @@ gem "aws-sdk", "~> 1.3.4"
 gem "wicked_pdf"
 gem 'simple_captcha2', require: 'simple_captcha'
 
-gem 'simple_captcha2', require: 'simple_captcha'
-
 group :development do
   gem "guard-rspec"
   gem "pry"
