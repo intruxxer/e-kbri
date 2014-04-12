@@ -124,7 +124,7 @@ class Passport
   private
 
   def set_vipacounter
-    if Passport.count > 0
+    if Passport.all.count > 0
       begin
         self.vipacounter = Passport.max(:vipacounter) + 1
       rescue

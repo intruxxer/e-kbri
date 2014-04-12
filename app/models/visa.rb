@@ -73,7 +73,7 @@ class Visa
 
   field :payment_date,           type: Date
   field :vipa_no,                type: Integer
-  
+  field :print_code,             type: String
   field :approval_no,            type: String, default: 'N/A'
 
   field :is_sync,                type: Integer,     default: 0
@@ -123,7 +123,7 @@ class Visa
   #validates :sponsor_address_prov_id,presence: true
   #validates :sponsor_phone_id,       presence: true
     
-  validates :duration_stays,         presence: true
+  validates :duration_stays,         presence: true, numericality: { only_integer: true }
   validates :duration_stays_unit,    presence: true 
 
   validates :num_entry,              presence: true
@@ -176,7 +176,7 @@ class Visa
   
   private
   def set_vipacounter
-    if Visa.count > 0
+    if Visa.all.count > 0
       begin
         self.vipa_no = Visa.max(:vipa_no) + 1
       rescue
