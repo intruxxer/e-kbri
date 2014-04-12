@@ -90,8 +90,8 @@ class Visa
   
 
   validates :application_type,       presence: true 
-  validates :category_type,          presence: true
-  validates :visa_type,              presence: true
+  validates :category_type,          presence: true, :if => :check_not_reentry
+  validates :visa_type,              presence: true, :if => :check_not_reentry
   
   validates :first_name,             presence: true, length: { minimum: 1, maximum: 25 }
   validates :last_name,              presence: true, length: { minimum: 1, maximum: 30 }
@@ -109,26 +109,33 @@ class Visa
   validates :passport_date_issued,   presence: true 
   validates :passport_date_expired,  presence: true
   
-  validates :sponsor_type_kr,        presence: true
-  validates :sponsor_name_kr,        presence: true  
-  validates :sponsor_address_kr,     presence: true
-  validates :sponsor_address_city_kr,presence: true
-  validates :sponsor_address_prov_kr,presence: true
-  validates :sponsor_phone_kr,       presence: true
+  validates :sponsor_type_kr,        presence: true, :if => :check_not_reentry
+  validates :sponsor_name_kr,        presence: true, :if => :check_not_reentry  
+  validates :sponsor_address_kr,     presence: true, :if => :check_not_reentry
+  validates :sponsor_address_city_kr,presence: true, :if => :check_not_reentry
+  validates :sponsor_address_prov_kr,presence: true, :if => :check_not_reentry
+  validates :sponsor_phone_kr,       presence: true, :if => :check_not_reentry
       
-  #validates :sponsor_type_id,        presence: true
-  #validates :sponsor_name_id,        presence: true  
-  #validates :sponsor_address_id,     presence: true
-  #validates :sponsor_address_kab_id, presence: true
-  #validates :sponsor_address_prov_id,presence: true
-  #validates :sponsor_phone_id,       presence: true
+  validates :sponsor_type_id,        presence: true
+  validates :sponsor_name_id,        presence: true  
+  validates :sponsor_address_id,     presence: true
+  validates :sponsor_address_kab_id, presence: true
+  validates :sponsor_address_prov_id,presence: true
+  validates :sponsor_phone_id,       presence: true
     
-  validates :duration_stays,         presence: true, numericality: { only_integer: true }
-  validates :duration_stays_unit,    presence: true 
+  validates :duration_stays,         presence: true, numericality: { only_integer: true }, :if => :check_not_reentry
+  validates :duration_stays_unit,    presence: true, :if => :check_not_reentry 
 
-  validates :num_entry,              presence: true
+  validates :num_entry,              presence: true, :if => :check_not_reentry
   validates :visafee_ref,            presence: true, :if => :check_verified
 
+  validates :air_sea_port,           presence: true
+  
+  validates :count_dest,             presence: true, :if => :check_transit
+  validates :flight_vessel,          presence: true, :if => :check_transit 
+  validates :date_entry,             presence: true, :if => :check_transit
+  
+  validates :approval_no,             presence: true, :if => :check_limited_stay
   
   #validates :checkbox_1,             presence: true
   #validates :checkbox_2,             presence: true
@@ -193,7 +200,27 @@ class Visa
       return false
     end
   end
-  
+  def check_not_reentry
+    if self.application_type == 3
+      return true
+    else
+      return false
+    end
+  end
+  def check_transit
+    if self.category_type == 'transit'
+      return true
+    else
+      return false
+    end
+  end
+  def check_limited_stay
+    if self.category_type == 'limited-stay'
+      return true
+    else
+      return false
+    end
+  end
   def check_paid
     if self.status == 'Paid'
       return true

@@ -47,7 +47,9 @@
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-3 newVisa specialFieldType no-show">
+						
+						<section class="col col-3 isnotreentry">
+
 							<label class="label">Requested Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
@@ -57,17 +59,17 @@
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-2">
+						<section class="col col-2 isnotreentry">
 							<label class="label">Type</label>
 							<label class="select">
 							<%= f.input_field :num_entry, 
 							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
 							<i></i>
 							</label>
-							<div class="note">The decision is <strong>subject</strong> to The Embassy of Indonesia's discretion.</div>
+							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
 						</section>			
 				
-						<section class="col col-4">
+						<section class="col col-4 isnotreentry">
 							<label class="label">Reason of Application (in Detail)</label>
 							<label class="textarea textarea-expandable">
 								<i class="icon-append icon-question"></i>
@@ -75,6 +77,24 @@
 							</label>
 							<div class="note"><strong>Please state your reason of visit.</strong> Example : Work, Training of Company X</div>
 						</section>
+					</div>
+					<div class="row isnotreentry">
+						<section class="col col-6"></section>
+						<section class="col col-2">
+							<label class="label">Duration of Stays</label>	
+							<label class="input">								
+								<%= f.input_field :duration_stays, :size => 3 %>
+							</label>
+						</section>
+						<section class="col col-2">
+								<label class="label">In</label>	
+								<label class="select">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :duration_stays_unit, 
+									collection: { 'Days' => 'Day(s)', 'Months' => 'Month(s)', 'Years' => 'Month(s)' } %>
+									<i></i>
+								</label>
+						</section>	
 					</div>
 				</fieldset>
 				
@@ -408,15 +428,7 @@
 								          'Housewife' => 'Housewife', 'Others' => 'Other' } %>
 							<i></i>
 							</label>
-						</section>
-						
-						<section class="col col-4">
-							<label class="label">Occupation Detail</label>
-							<label class="input">
-								<i class="icon-append icon-wrench"></i>
-								<%= f.input_field :profession_detail %>
-							</label>
-						</section>
+						</section>						
 					</div>	
 					
 					</fieldset>
@@ -501,7 +513,7 @@
 				<fieldset class="newVisa specialFieldType no-show">
 					<h3>Sponsor/Reference Information</h3>
 					<hr /><br />
-					<div class="row">
+					<div class="row isnotreentry">
 					  <section class="col col-3">
 						<label class="label">Type of Sponsor in Korea</label>
 						<label class="select">
@@ -530,7 +542,7 @@
 					  </section>
 					</div>  
 					
-					<div class="row">
+					<div class="row isnotreentry">
 					  <section class="col col-3"></section>
 					  <section class="col col-6">
 					  	<label class="label">Reference's Address in Korea</label>
@@ -540,7 +552,7 @@
 						</label>
 					  </section>
 					</div>
-					<div class="row">
+					<div class="row isnotreentry">
 					  <section class="col col-3"></section>
 					  <section class="col col-3">
 					  	<label class="label">City</label>
@@ -1065,8 +1077,8 @@
 					<div class="inline-group">
 					<label class="label">Other Information (Tick each item if you want to say: "Yes".)</label>
 					<label class="checkbox"><input type="checkbox" value="true" name="visa[checkbox_1]"><i></i>Have you ever been to Indonesia before?</label>
-					<label class="checkbox"><input type="checkbox" value="true" name="visa[checkbox_2]"><i></i>Have you ever been convicted in another country?</label>
-					<label class="checkbox"><input type="checkbox" value="true" name="visa[checkbox_3]"><i></i>Are you in posession of another country's nationality?</label>
+					<label class="checkbox"><input type="checkbox" value="true" name="visa[checkbox_2]"><i></i>Have you ever been convicted in other country?</label>
+					<label class="checkbox"><input type="checkbox" value="true" name="visa[checkbox_3]"><i></i>Are you in posession of any other country?</label>
 					<label class="checkbox"><input type="checkbox" value="true" name="visa[checkbox_4]"><i></i>Do you have previous visa to enter Indonesia?</label>
 					</div>
 					</section>
@@ -1079,6 +1091,144 @@
 					</div>
 					</section>
 				</div>
+				</fieldset>
+				
+				<fieldset>
+					<div class="row">
+						<section class="col col-4">
+							<label class="label">Airport/Seaport Destination</label>
+							<label class="select">
+								<%= f.input_field :air_sea_port, 
+								collection: { 
+								'MALAHAYATI'=>'TCL1',
+								'KRUENG RAYA'=>'TCL2',
+								'SABANG'=>'TFL1',
+								'LHOK SEUMAWE'=>'TBL1',
+								'KUALA LANGSA'=>'TDL1',
+								'POLONIA'=>'G1U1',
+								'TELUK NIBUNG'=>'GCL1',
+								'KUALA TANJUNG'=>'GCL2',
+								'BELAWAN'=>'G2L1',
+								'SIBOLGA'=>'G3L1',
+								'GUNUNG SITOLI'=>'G3L2',
+								'BINAKA'=>'G3U1',
+								'TELUK BAYUR'=>'QBL1',
+								'TABING'=>'QBU1',
+								'SUNGAI SIAK'=>'BLL1',
+								'SIMPANG TIGA'=>'BLU1',
+								'SRI BINTAN'=>'BDL1',
+								'SRI BINTAN / SELAT KIJANG'=>'BDL2',
+								'KIJANG'=>'BDU1',
+								'BATU AMPAR'=>'BKL1',
+								'SEKUPANG'=>'BKL2',
+								'NONGSA TERMINAL BAHARI'=>'BKL3',
+								'KABIL'=>'BKL4',
+								'MARINA TELUK SENIMBA'=>'BKL5',
+								'HANG NADIM'=>'BKU1',
+								'TG BALAI KARIMUN'=>'BCL1',
+								'TG. BATU'=>'BCL2',
+								'BENGKALIS'=>'BFL1',
+								'TEMBILAHAN'=>'BHL1',
+								'SEI GUNUNG'=>'BHL2',
+								'KUALA ELOK'=>'BHL3',
+								'DUMAI'=>'BGL1',
+								'BAGAN SIAPI API'=>'BEL1',
+								'SELAT PANJANG'=>'BJL1',
+								'TEREMPA'=>'B4L1',
+								'TG. UBAN'=>'B1L1',
+								'BANDAR BENTAN TELANI,LAG'=>'B1L2',
+								'BANDAR SRI UDANA LOBAM'=>'B1L3',
+								'BELAKANG PADANG'=>'BBL1',
+								'RANAI'=>'BML1',
+								'PALEMBANG'=>'HCL1',
+								'ST MAHMUD BAHARUDIN II'=>'HCU1',
+								'JAMBI'=>'UAL1',
+								'KUALA TUNGKAL'=>'UCL1',
+								'PULAU BAAI'=>'4AL1',
+								'PADANG KEMILING'=>'4AU1',
+								'PANGKALAN BALAM'=>'HBL1',
+								'MUNTOK'=>'HBL2',
+								'BELINYU'=>'HBL3',
+								'PANGKAL PINANG'=>'HBU1',
+								'TG PANDAN'=>'HDL1',
+								'BELITUNG'=>'HDL2',
+								'BELITUNG'=>'HDU1',
+								'PANJANG'=>'VCL1',
+								'HALIM PERDANA KUSUMA'=>'JCU1',
+								'SOEKARNO - HATTA'=>'J1U1',
+								'TANJUNG PRIOK'=>'J2L1',
+								'HUSEIN SASTRA NEGARA'=>'ADU1',
+								'CIREBON'=>'ACL1',
+								'MERAK'=>'AEL1',
+								'TANJUNG MAS'=>'LCL1',
+								'ADI SUMARNO'=>'LDU1',
+								'CILACAP'=>'CBL1',
+								'ADI SUCIPTO'=>'YAU1',
+								'BESUKI'=>'CBL1',
+								'PANARUKAN'=>'CBL2',
+								'BANYUWANGI'=>'CBL3',
+								'PASURUAN'=>'CCL1',
+								'PROBOLINGGO'=>'CCL2',
+								'JUANDA'=>'CDU1',
+								'TG. PERAK'=>'C1L1',
+								'PONTIANAK'=>'KCL1',
+								'SUPADIO'=>'KCU1',
+								'SINGKAWANG'=>'KBL1',
+								'PEMANGKAT'=>'KBL2',
+								'SINTETE'=>'KBL3',
+								'ENTIKONG'=>'KED1',
+								'TRISAKTI'=>'PBL1',
+								'KOTABARU'=>'PIL1',
+								'SAMARINDA'=>'MCL1',
+								'BALIKPAPAN'=>'MDL1',
+								'SEPINGGAN'=>'MDU1',
+								'NUNUKAN'=>'M1L1',
+								'MALUNDUNG'=>'MBL1',
+								'JUWATA'=>'MBU1',
+								'SAMPIT'=>'PCL1',
+								'MANADO'=>'SBL1',
+								'MARORE'=>'SBL2',
+								'MIANGAS'=>'SBL3',
+								'TAHUNA'=>'SBL4',
+								'SAM RATULANGI'=>'SBU1',
+								'BITUNG'=>'S1L1',
+								'SOEKARNO - HATTA'=>'FBL1',
+								'HASANUDIN'=>'FBU1',
+								'PARE - PARE'=>'FCL1',
+								'PANTOLOAN'=>'1AL1',
+								'KENDARI'=>'3AL1',
+								'BULELENG'=>'EBL1',
+								'BENOA'=>'EBL2',
+								'PADANG BAI'=>'EBL3',
+								'NGURAH RAI'=>'E1U1',
+								'LEMBAR'=>'ECL1',
+								'BANETE'=>'ECL2',
+								'SELAPARANG'=>'ECU1',
+								'TENAU'=>'XBL1',
+								'EL-TARI'=>'XBU1',
+								'MAPAN'=>'X1U1',
+								"MOTA'AIN"=>'X1D1',
+								'METAMEUK'=>'X1D2',
+								'MAUMERE'=>'X2L1',
+								'AMBON'=>'RCL1',
+								'PATIMURA'=>'RCU1',
+								'TERNATE'=>'RBL1',
+								'FRANS KAISEPO'=>'DBU1',
+								'BIAK'=>'DBL1',
+								'MERAUKE'=>'DCL1',
+								'MOPAH'=>'DCU1',
+								'SKOU'=>'DED1',
+								'JAYAPURA'=>'DEL1',
+								'SENTANI'=>'DEU1',
+								'SORONG'=>'DDL1',
+								'JEFMAN'=>'DDU1',
+								'AMAMAPARE'=>'D1L1',
+								'TIMIKA'=>'D1U1'	
+								}
+								%><i></i>
+							</label>
+						  </section>
+					</div>
 				</fieldset>
 				
 				<fieldset>
@@ -1132,139 +1282,7 @@
 					</label>
 				  </section>
 				  
-				  <section class="col col-4">
-					<label class="label">Airport/Seaport Destination</label>
-					<label class="select">
-						<%= f.input_field :air_sea_port, 
-						collection: { 
-						'MALAHAYATI'=>'TCL1',
-						'KRUENG RAYA'=>'TCL2',
-						'SABANG'=>'TFL1',
-						'LHOK SEUMAWE'=>'TBL1',
-						'KUALA LANGSA'=>'TDL1',
-						'POLONIA'=>'G1U1',
-						'TELUK NIBUNG'=>'GCL1',
-						'KUALA TANJUNG'=>'GCL2',
-						'BELAWAN'=>'G2L1',
-						'SIBOLGA'=>'G3L1',
-						'GUNUNG SITOLI'=>'G3L2',
-						'BINAKA'=>'G3U1',
-						'TELUK BAYUR'=>'QBL1',
-						'TABING'=>'QBU1',
-						'SUNGAI SIAK'=>'BLL1',
-						'SIMPANG TIGA'=>'BLU1',
-						'SRI BINTAN'=>'BDL1',
-						'SRI BINTAN / SELAT KIJANG'=>'BDL2',
-						'KIJANG'=>'BDU1',
-						'BATU AMPAR'=>'BKL1',
-						'SEKUPANG'=>'BKL2',
-						'NONGSA TERMINAL BAHARI'=>'BKL3',
-						'KABIL'=>'BKL4',
-						'MARINA TELUK SENIMBA'=>'BKL5',
-						'HANG NADIM'=>'BKU1',
-						'TG BALAI KARIMUN'=>'BCL1',
-						'TG. BATU'=>'BCL2',
-						'BENGKALIS'=>'BFL1',
-						'TEMBILAHAN'=>'BHL1',
-						'SEI GUNUNG'=>'BHL2',
-						'KUALA ELOK'=>'BHL3',
-						'DUMAI'=>'BGL1',
-						'BAGAN SIAPI API'=>'BEL1',
-						'SELAT PANJANG'=>'BJL1',
-						'TEREMPA'=>'B4L1',
-						'TG. UBAN'=>'B1L1',
-						'BANDAR BENTAN TELANI,LAG'=>'B1L2',
-						'BANDAR SRI UDANA LOBAM'=>'B1L3',
-						'BELAKANG PADANG'=>'BBL1',
-						'RANAI'=>'BML1',
-						'PALEMBANG'=>'HCL1',
-						'ST MAHMUD BAHARUDIN II'=>'HCU1',
-						'JAMBI'=>'UAL1',
-						'KUALA TUNGKAL'=>'UCL1',
-						'PULAU BAAI'=>'4AL1',
-						'PADANG KEMILING'=>'4AU1',
-						'PANGKALAN BALAM'=>'HBL1',
-						'MUNTOK'=>'HBL2',
-						'BELINYU'=>'HBL3',
-						'PANGKAL PINANG'=>'HBU1',
-						'TG PANDAN'=>'HDL1',
-						'BELITUNG'=>'HDL2',
-						'BELITUNG'=>'HDU1',
-						'PANJANG'=>'VCL1',
-						'HALIM PERDANA KUSUMA'=>'JCU1',
-						'SOEKARNO - HATTA'=>'J1U1',
-						'TANJUNG PRIOK'=>'J2L1',
-						'HUSEIN SASTRA NEGARA'=>'ADU1',
-						'CIREBON'=>'ACL1',
-						'MERAK'=>'AEL1',
-						'TANJUNG MAS'=>'LCL1',
-						'ADI SUMARNO'=>'LDU1',
-						'CILACAP'=>'CBL1',
-						'ADI SUCIPTO'=>'YAU1',
-						'BESUKI'=>'CBL1',
-						'PANARUKAN'=>'CBL2',
-						'BANYUWANGI'=>'CBL3',
-						'PASURUAN'=>'CCL1',
-						'PROBOLINGGO'=>'CCL2',
-						'JUANDA'=>'CDU1',
-						'TG. PERAK'=>'C1L1',
-						'PONTIANAK'=>'KCL1',
-						'SUPADIO'=>'KCU1',
-						'SINGKAWANG'=>'KBL1',
-						'PEMANGKAT'=>'KBL2',
-						'SINTETE'=>'KBL3',
-						'ENTIKONG'=>'KED1',
-						'TRISAKTI'=>'PBL1',
-						'KOTABARU'=>'PIL1',
-						'SAMARINDA'=>'MCL1',
-						'BALIKPAPAN'=>'MDL1',
-						'SEPINGGAN'=>'MDU1',
-						'NUNUKAN'=>'M1L1',
-						'MALUNDUNG'=>'MBL1',
-						'JUWATA'=>'MBU1',
-						'SAMPIT'=>'PCL1',
-						'MANADO'=>'SBL1',
-						'MARORE'=>'SBL2',
-						'MIANGAS'=>'SBL3',
-						'TAHUNA'=>'SBL4',
-						'SAM RATULANGI'=>'SBU1',
-						'BITUNG'=>'S1L1',
-						'SOEKARNO - HATTA'=>'FBL1',
-						'HASANUDIN'=>'FBU1',
-						'PARE - PARE'=>'FCL1',
-						'PANTOLOAN'=>'1AL1',
-						'KENDARI'=>'3AL1',
-						'BULELENG'=>'EBL1',
-						'BENOA'=>'EBL2',
-						'PADANG BAI'=>'EBL3',
-						'NGURAH RAI'=>'E1U1',
-						'LEMBAR'=>'ECL1',
-						'BANETE'=>'ECL2',
-						'SELAPARANG'=>'ECU1',
-						'TENAU'=>'XBL1',
-						'EL-TARI'=>'XBU1',
-						'MAPAN'=>'X1U1',
-						"MOTA'AIN"=>'X1D1',
-						'METAMEUK'=>'X1D2',
-						'MAUMERE'=>'X2L1',
-						'AMBON'=>'RCL1',
-						'PATIMURA'=>'RCU1',
-						'TERNATE'=>'RBL1',
-						'FRANS KAISEPO'=>'DBU1',
-						'BIAK'=>'DBL1',
-						'MERAUKE'=>'DCL1',
-						'MOPAH'=>'DCU1',
-						'SKOU'=>'DED1',
-						'JAYAPURA'=>'DEL1',
-						'SENTANI'=>'DEU1',
-						'SORONG'=>'DDL1',
-						'JEFMAN'=>'DDU1',
-						'AMAMAPARE'=>'D1L1',
-						'TIMIKA'=>'D1U1'	
-						}
-						%><i></i>
-					</label>
-				  </section>
+				  
 				  
 				  <section class="col col-3">
 					<label class="label">Date of Entry to Indonesia</label>
@@ -1276,9 +1294,8 @@
 				  </section>
 				</div>  
 				</fieldset>
-				
 
-				<fieldset id="limited-stay">
+				<fieldset id="limited-stay" class="specialFieldCat">
 
 			      <div class="row">
 			        <section class="col col-4">
@@ -1304,21 +1321,7 @@
 					  <div class="note">Please bring supporting <strong>Documents</strong> (if any) during interview/visa pick-up session.</div>
 				    </section>
 				    
-				    <section class="col col-2">
-							<label class="label">Duration of Stays</label>	
-							<label class="input">								
-								<%= f.input_field :duration_stays, :size => 3 %>
-							</label>
-						</section>
-					<section class="col col-3">
-							<label class="label">In</label>	
-							<label class="select">
-								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :duration_stays_unit, 
-								collection: { 'Days' => 'Day(s)', 'Months' => 'Month(s)', 'Years' => 'Month(s)' } %>
-								<i></i>
-							</label>
-					</section>	
+				    
 				  </div>
 				</fieldset>
 
@@ -1330,11 +1333,11 @@
 						</label>
 					</section>
 				</fieldset>
-				<fieldset>
+				<fieldset class="newVisa specialFieldType">
 
 					<section class="col col-9">
-					I hereby declare that the statements given above are true and I understand that even if granted a visa, 
-					the admission at the airport remains fully in the discretion of the immigration authorities in Indonesia.
+					I hereby declare that statements given above are true and I understand that even if granted a visa, 
+					the admission at the airport remains fully the discretion of the immigration authorities in Indonesia.
 					</section>
 					
 					<section class="col col-3">
@@ -1367,7 +1370,40 @@
 				});
 				$('textarea').keyup(function() {
 				    $(this).val($(this).val().toUpperCase());
-				});									
+				});		
+				
+				<% if @visa.category_type != 'transit' %>
+					$('#transit').hide();
+				<% end %>
+				<% if @visa.category_type != 'limited-stay' %>
+					$('#limited-stay').hide();
+				<% end %>
+				<% if @visa.application_type != 3 %>
+					$('.isnotreentry').hide();
+				<% end %>
+				
+				$('#visa_application_type').change(function(){
+					obj = $(this);
+					if(obj.val()==3){						
+						$('.isnotreentry').show();
+					}else{
+						$('.isnotreentry').hide();
+					}
+				});
+				
+				$('#visa_category_type').change(function(){
+					obj = $(this);
+					if(obj.val()=='transit'){
+						$('#transit').show();
+						$('#limited-stay').hide();
+					}else if(obj.val()=='limited-stay'){
+						$('#transit').hide();
+						$('#limited-stay').show();
+					}else{
+						$('#transit').hide();
+						$('#limited-stay').hide();
+					}
+				});							
 				// Adjusting suitable form
 				/*$( "#visa_application_type" ).change(function() {
 
