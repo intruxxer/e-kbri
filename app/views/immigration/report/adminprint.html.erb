@@ -229,25 +229,25 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 	<h1 style="font-weight:bold;font-size:10pt;text-decoration:underline;">Telah melapor pada KBRI Seoul:</h1>	
 	<table border="0" cellpadding="2" cellspacing="2" style="font-size:9pt;">
 		<tr>
-			<td style="width:200px;" valign="top">No.</td><td valign="top">:</td><td style="width:250px;">10239213</td>
+			<td style="width:200px;" valign="top">No.</td><td valign="top">:</td><td style="width:250px;"><%= @report.ref_id %></td>
 		</tr>
 		<tr>
-			<td style="width:200px;" valign="top">Pekerjaan</td><td valign="top">:</td><td style="width:250px;">TENAGA KERJA</td>
+			<td style="width:200px;" valign="top">Pekerjaan</td><td valign="top">:</td><td style="width:250px;"><%= @report.jobStudyInKorea %></td>
 		</tr>
 		<tr>
-			<td style="width:200px;" valign="top">Alamat di Korea</td><td valign="top">:</td><td style="width:250px;">GYEONGSANGBUKDO ANDONG-SI SUSANG DONG 197-1</td>
+			<td style="width:200px;" valign="top">Alamat di Korea</td><td valign="top">:</td><td style="width:250px;"><%= @report.koreanaddress %></td>
 		</tr>
 	</table>
 	<div style="float:right;width:150px;font-size:9pt;margin-top:20px;">
 		<center>
-			SEOUL, &nbsp;09 Apr 2014
+			SEOUL, &nbsp;<%= Time.now.strftime("%-d %b %Y") %>
 			<br /><br />
 			A.n Kepala Perwakilan R.I.
 			<br />
 			Fungsi Konsuler
 			<br /><br /><br /><br />
-			<span style="text-decoration:underline;">KETRIN TRIWIDIASTUTY</span><br />
-			THIRD SECRETARY
+			<span style="text-decoration:underline;"><%= Reference.first.consulat_name %></span><br />
+			<%= Reference.first.title_name %>
 		</center>
 	</div>
 </div>

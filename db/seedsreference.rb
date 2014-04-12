@@ -9,7 +9,8 @@
 ref = Reference.new(
   consulat_name: 'Didik Eko Pujianto',
   treasurer_name: 'Damayanti',
-  embassy_location: 'Seoul'  
+  embassy_location: 'Seoul',
+  title_name: 'Counsellor'  
 )
 
 ref.save!
