@@ -35,3 +35,4 @@ Gemfile.lock
 /config/mongoid.yml
 /config/environments/*
 
+.gitignore
