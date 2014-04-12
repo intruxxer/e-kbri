@@ -255,9 +255,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 			<% if @visa.status == 'Verified' %>				
 				<p>Please scroll below to find out your payment information</p>
 			<% else %>
-				<% if @visa.status != 'Printed'%>
-					<p><b>Your application is currently under review/process</b></p>
-				<% end %>
+				<p><b>Your application is currently under review/process</b></p>
 			<% end %>
 			<div class="content">
 			<table>
@@ -265,29 +263,32 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 					<td>						
 						<p></p>						
 						<h6><b>Application Ref.</b></h6>
-						<p><h3><b><%= @visa.ref_id %></b></h3></p>	
+						<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
+						<div style="clear:both;"></div>
+						<p><h3><b style="float:left;margin-top:-60px;margin-left:10px;z-index:2;"><%= @visa.ref_id %></b></h3></p>	
 						<h6><b>Applicant Detail</b></h6>
 						
 					<center><table>							
 							<tr>
 								<td>Application Type</td>
-								<td><div style="z-index:1;"><%= image_tag(site_url+"public/images/redcircle.png") %></div>
-									<div style="float:left;z-index:2;">
+								<td>
 									<% tc = Visa.where(:ref_id => @visa.ref_id).count 
 									if  tc > 1 %>
 										Group/Family Visa : <%= tc %> Person(s)
 									<% else %>
 										Individual Visa
-									<% end %>
-									</div>
-								</td>
+									<% end %></td>
 							</tr>
 							<tr>
 								<td>Grantee Detail</td>
 								<td><center><table>							
 												<tr>
 													<td>Full Name</td>
-													<td><%= @visa.first_name %>, <%= @visa.last_name %></td>
+													<td>
+														<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
+														<div style="clear:both;"></div>
+														<b style="float:left;margin-top:-50px;margin-left:10px;z-index:2"><%= @visa.first_name %>, <%= @visa.last_name %></b>
+													</td>
 												</tr>
 												<tr>
 													<td>Birthdate</td>
@@ -319,11 +320,13 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 						<% tp = 0 %>
 						 <% tp += Visafee.where(:id => @visa.visafee_ref).first.fee_of_visa %> 
 						
-						
-						<h2>$<%= tp %></h2>
+						<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
+						<div style="clear:both;"></div>
+						<h2 style="float:left;margin-top:-60px;margin-left:10px;z-index:2;">$<%= tp %></h2>
 						<p style="text-align:justify;">Please make your payment through <b>KEB Bank (외환은행)</b>. Indonesian Embassy in Seoul account <b>650-005012-179</b> proceed with <b>Dollar currency payment (Foreign Currency Deposit Slip / 외화예금전표 )</b>. Currency : <b>USD</b></p>
 						<br />
-						<p><b>Please rewrite the Reference Number to the Depositor Name section in the payment slip. Example : <a href="">Payment slip</a></b></p>
+						<p><b>Please rewrite the Reference Number to the Depositor Name section in the payment slip.</b></p>
+						<p style="font-size:11pt;"><b>납부서에 예금자의 이름, 송금액 및 참조 번호를 재 작성하십시오</b></p>
 						<br />
 						<br />
 						<hr /><br />						
