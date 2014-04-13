@@ -10,8 +10,8 @@ development:
       # of host:port pairs. (required)
       hosts:
         - 127.0.0.1:27017
-      username: #admin
-      password: #ekbri2014adm1n
+      #username: admin
+      #password: ekbri2014adm1n
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
