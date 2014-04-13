@@ -50,7 +50,7 @@ class Visa
   field :duration_stays,		     type: Integer
   field :duration_stays_unit,	   type: String 
 
-  field :num_entry,					     type: String, default: 'S'
+  field :num_entry,					     type: String, default: 'Single'
   
   field :checkbox_1,				     type: Boolean, default: false
   field :checkbox_2,				     type: Boolean, default: false

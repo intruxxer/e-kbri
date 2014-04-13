@@ -68,8 +68,10 @@ class Immigration::VisagroupController < ApplicationController
         render 'index'
       end
     else
-     @visa = @visa[0]
+     
       @errors = @visa[0].errors.messages
+      @visa = @visa[0]
+      
       render 'index'
     end  
     

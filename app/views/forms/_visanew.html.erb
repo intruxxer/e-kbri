@@ -48,7 +48,7 @@
 							<label class="label">Requested Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
-							collection: { 'Transit Visa' => 'transit', 'Visit Visa' => 'visit', 
+							collection: { 'Transit Visa' => 'transit', 'Visit Visa' => 'visit', 'Multiple Visa' => 'multiple', 'Visit Visa (with Immigration Approval)' => 'dirjenim',
 								          'Limited Stay Visa' => 'limited-stay', 'Diplomatic Visa' => 'diplomatic', 
 								          'Official Visa' => 'official' } %>
 							<i></i>
@@ -57,8 +57,7 @@
 						<section class="col col-2 isnotreentry">
 							<label class="label">Type</label>
 							<label class="select">
-							<%= f.input_field :num_entry, 
-							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
+							<%= f.input_field :num_entry, :readonly => true, :default => 'Single' %>
 							<i></i>
 							</label>
 							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
@@ -1392,7 +1391,7 @@
 					if(obj.val()=='transit'){
 						$('#transit').show();
 						$('#limited-stay').hide();
-					}else if(obj.val()=='limited-stay'){
+					}else if((obj.val()=='limited-stay')||(obj.val()=='dirjenim')||(obj.val()=='multiple')){
 						$('#transit').hide();
 						$('#limited-stay').show();
 					}else{
