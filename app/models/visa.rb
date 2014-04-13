@@ -185,12 +185,17 @@ class Visa
   def set_vipacounter
     if Visa.all.count > 0
       begin
-        self.vipa_no = Visa.max(:vipa_no) + 1
+        cur = Visa.max(:vipa_no)
+        if cur > 9999
+          self.vipa_no =  1000  
+        else
+          self.vipa_no =  cur + 1
+        end        
       rescue
-        self.vipa_no = 100
+        self.vipa_no = 1000
       end      
     else
-      self.vipa_no = 100
+      self.vipa_no = 1000
     end
   end
   def check_verified
