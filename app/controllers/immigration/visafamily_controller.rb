@@ -53,7 +53,7 @@ class Immigration::VisafamilyController < ApplicationController
           current_user.visas.push(@visa[0])   
           current_user.save
           current_user.journals.push(Journal.new(:action => 'Created', :model => 'Visa', :method => 'Insert', :agent => request.user_agent, :record_id => @visa[0].id ))
-          UserMailer.visa_received_email(current_user).deliver
+          UserMailer.visa_received_email(@visa[0]).deliver
           #flash[:notice] = 'Pengurusan aplikasi paspor anda, berhasil!'
           #render 'pasporconfirm.html.erb'
           
@@ -63,11 +63,15 @@ class Immigration::VisafamilyController < ApplicationController
           flash[:notice] = 'Application saved successfully. You may add another person or end your application by clicking "Finish" '
           redirect_to :controller => 'visafamily', :action => 'index'
       else        
+        @visa = @visa[0]
         @errors = { 'Secret Code' => 'Wrong Code Entered'}
         render 'index'
       end
     else      
+      
       @errors = @visa[0].errors.messages
+      @visa = @visa[0]
+      
       render 'index'
     end
     #*Debugging*#

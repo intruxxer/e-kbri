@@ -14,6 +14,8 @@
 					<% @errors.each do |fs| %>
 						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
 					<%end%>
+					<br />
+					Silahkan Upload File - file anda kembali.
 				</div>
 	<%end%>
 	<%= simple_form_for @visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
@@ -46,17 +48,16 @@
 							<label class="label">Requested Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
-							collection: { 'Transit Visa' => 'transit', 'Visit Visa' => 'visit', 
+							collection: { 'Transit Visa' => 'transit', 'Visit Visa' => 'visit', 'Multiple Visa' => 'multiple', 'Visit Visa (with Immigration Approval)' => 'dirjenim',
 								          'Limited Stay Visa' => 'limited-stay', 'Diplomatic Visa' => 'diplomatic', 
 								          'Official Visa' => 'official' } %>
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-2 isnotreentry">
+						<section class="col col-2 " style="display:none;">
 							<label class="label">Type</label>
 							<label class="select">
-							<%= f.input_field :num_entry, 
-							collection: { 'Single Entry' => 'S', 'Multiple Entry' => 'M' } %>
+							<%= f.input_field :num_entry, :readonly => true, :default => 'Single' %>
 							<i></i>
 							</label>
 							<div class="note">The decision is <strong>Subject</strong> to The Embassy of Indonesia's discretion.</div>
@@ -1237,7 +1238,7 @@
 								<strong>Note:</strong> 
 								It could be company reference letter, sponsor letter, school admission letter, etc. 
 								Combine all documents into one.
-								Max Size: 2MB in ZIP/RAR.</div>
+								Max Size: 2MB in ZIP/RAR or JPEG/JPEG/PNG.</div>
 						</section>
 						
 						<section class="col col-6">
@@ -1369,7 +1370,13 @@
 				<% if @visa.category_type != 'transit' %>
 					$('#transit').hide();
 				<% end %>
-				<% if @visa.category_type != 'limited-stay' %>
+				<% if @visa.category_type != 'limited-stay'  %>
+					$('#limited-stay').hide();
+				<% end %>
+				<% if @visa.category_type != 'dirjenim'  %>
+					$('#limited-stay').hide();
+				<% end %>
+				<% if @visa.category_type != 'multiple'  %>
 					$('#limited-stay').hide();
 				<% end %>
 				<% if @visa.application_type != 3 %>
@@ -1390,9 +1397,10 @@
 					if(obj.val()=='transit'){
 						$('#transit').show();
 						$('#limited-stay').hide();
-					}else if(obj.val()=='limited-stay'){
+					}else if((obj.val()=='limited-stay')||(obj.val()=='dirjenim')||(obj.val()=='multiple')){
 						$('#transit').hide();
 						$('#limited-stay').show();
+						$("#visa_num_entry").val("Multiple");
 					}else{
 						$('#transit').hide();
 						$('#limited-stay').hide();

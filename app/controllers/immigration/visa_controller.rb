@@ -118,13 +118,15 @@ class Immigration::VisaController < ApplicationController
       else        
         
         
-        
+        @visa = @visa[0]
         @errors = { 'Secret Code' => 'Wrong Code Entered'}
         render 'index'
       end
     else
      
       @errors = @visa[0].errors.messages
+      @visa = @visa[0]
+      
       render 'index'
 
     end

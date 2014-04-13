@@ -5,11 +5,15 @@
 			
 			<% unless @errors.nil? %>
 			<h2 style="color:white;background:red;">Penyimpanan Data Gagal. Silahkan cek pesan dibawah ini</h2>
+			
 				<div style="padding:4px;color:red;font-size:10pt;">
 					<% @errors.each do |fs| %>
 						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
 					<%end%>
+					<br />
+					Silahkan Upload File - file anda kembali.
 				</div>
+				
 			<%end%>	
 			
 			<!-- Red color scheme -->

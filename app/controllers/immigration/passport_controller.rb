@@ -64,7 +64,7 @@ class Immigration::PassportController < ApplicationController
       if simple_captcha_valid?
           current_user.passports.push(tempcache)   
           current_user.save
-          UserMailer.passport_received_email(current_user).deliver
+          UserMailer.passport_received_email(@passport).deliver
           current_user.journals.push(Journal.new(:action => 'Created', :model => 'Passport', :method => 'Insert', :agent => request.user_agent, :record_id => @passport.id ))
           flash[:notice] = 'Pengurusan aplikasi paspor anda, berhasil!'
           render 'pasporconfirm.html.erb'
