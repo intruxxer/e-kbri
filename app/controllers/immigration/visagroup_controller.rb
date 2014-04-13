@@ -63,11 +63,12 @@ class Immigration::VisagroupController < ApplicationController
           flash[:notice] = 'Application saved successfully. You may add another person or end your application by clicking "Finish" '
           redirect_to :controller => 'visagroup' , :action => 'index' 
       else        
+        @visa = @visa[0]
         @errors = { 'Secret Code' => 'Wrong Code Entered'}
         render 'index'
       end
     else
-     
+     @visa = @visa[0]
       @errors = @visa[0].errors.messages
       render 'index'
     end  
