@@ -10,6 +10,8 @@
 					<% @errors.each do |fs| %>
 						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
 					<%end%>
+					<br />
+					Silahkan Upload File - file anda kembali.
 				</div>
 	<%end%>
 	<%= simple_form_for @visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
