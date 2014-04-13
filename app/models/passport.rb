@@ -79,7 +79,7 @@ class Passport
   
 
   validates :lastPassportNo,     presence: true, length: { minimum: 0, maximum: 32 }, :if => :check_application_reason
-  validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_reason
+  #validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_reason
   validates :dateIssued,         presence: true, :if => :check_application_reason
   validates :dateIssuedEnd,      presence: true, :if => :check_application_reason
   validates :immigrationOffice,  presence: true, :if => :check_application_reason
