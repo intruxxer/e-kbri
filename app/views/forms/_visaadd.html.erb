@@ -1374,13 +1374,13 @@
 				    $(this).val($(this).val().toUpperCase());
 				});		
 				
-				<% if @visa.category_type != 'transit' %>
+				<% if @visa[0].category_type != 'transit' %>
 					$('#transit').hide();
 				<% end %>
-				<% if @visa.category_type != 'limited-stay' %>
+				<% if @visa[0].category_type != 'limited-stay' %>
 					$('#limited-stay').hide();
 				<% end %>
-				<% if @visa.application_type != 3 %>
+				<% if @visa[0].application_type != 3 %>
 					$('.isnotreentry').hide();
 				<% end %>
 				
