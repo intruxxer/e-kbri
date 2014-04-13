@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   def index	
+    @ip_visitor = request.remote_ip
   	if user_signed_in?
   	  @userreport = Report.where(user_id: current_user.id).where(is_valid: true).desc(:updated_at)
   	  if current_user.has_role? :admin then
