@@ -1,6 +1,31 @@
-<h2>Forgot your password?</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post , :class => 'form-vertical' }) do |f| %>
-  <%= f.input :email, :required => true, :autofocus => true %>
-  <%= f.button :submit, 'Send me reset password instructions', :class => 'btn-primary' %>
+<div class="body" style="padding-top: 20px;">
+<div style="text-align: center;">
+  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+</div>
+<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Email is not found. Please check messages below</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
+<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post, :class => 'sky-form' }) do |f| %>
+  <header>Forgot your password? Reset your E-KBRI Account</header>
+  <fieldset>
+	<div class="row">
+		<section class="col col-6">
+		  <label class="label">Insert your e-mail address that's associated with your E-KBRI account.</label>
+	      <label class="input">
+		    <%= f.input_field :email, :required => true, :autofocus => true, :html => { :class => 'hurufBesar' } %>
+		    <i class="icon-append icon-envelope"></i>
+		  </label>
+		</section>
+	</div>
+  </fieldset>
+  <footer>
+  	<p>By clicking this button, an email containing instruction <strong>how to reset current, forgotten password</strong> will be mailed to the given email account.</p>
+	<button type="submit" class="button">Reset My Passwrod</button>
+	<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
+  </footer>
 <% end %>
-<%= render "devise/shared/links" %>
