@@ -25,7 +25,7 @@ class Passport
   
   field :lastPassportNo,         type: String
   field :dateIssued,             type: Date
-  field :placeIssued,            type: String
+  field :placeIssued,            type: String, default: 'Imigrasi'
   field :dateIssuedEnd,          type: String
   field :immigrationOffice,      type: String
   
