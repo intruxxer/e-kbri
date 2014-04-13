@@ -54,7 +54,7 @@ class Immigration::VisagroupController < ApplicationController
           current_user.visas.push(@visa[0])   
           current_user.save
           current_user.journals.push(Journal.new(:action => 'Created', :model => 'Visa', :method => 'Insert', :agent => request.user_agent, :record_id => @visa[0].id ))
-          UserMailer.visa_received_email(current_user).deliver
+          UserMailer.visa_received_email(@visa[0]).deliver
           #flash[:notice] = 'Pengurusan aplikasi paspor anda, berhasil!'
           #render 'pasporconfirm.html.erb'
           if session[:add_people].nil? or session[:add_people].blank? or session[:add_people] == false
