@@ -54,7 +54,7 @@
 							<i></i>
 							</label>
 						</section>
-						<section class="col col-2 isnotreentry">
+						<section class="col col-2 " style="display:none;">
 							<label class="label">Type</label>
 							<label class="select">
 							<%= f.input_field :num_entry, :readonly => true, :default => 'Single' %>
@@ -1394,6 +1394,7 @@
 					}else if((obj.val()=='limited-stay')||(obj.val()=='dirjenim')||(obj.val()=='multiple')){
 						$('#transit').hide();
 						$('#limited-stay').show();
+						$("#visa_num_entry").val("Multiple");
 					}else{
 						$('#transit').hide();
 						$('#limited-stay').hide();
