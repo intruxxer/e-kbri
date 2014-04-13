@@ -1238,7 +1238,7 @@
 								<strong>Note:</strong> 
 								It could be company reference letter, sponsor letter, school admission letter, etc. 
 								Combine all documents into one.
-								Max Size: 2MB in ZIP/RAR.</div>
+								Max Size: 2MB in ZIP/RAR or JPEG/JPEG/PNG.</div>
 						</section>
 						
 						<section class="col col-6">
@@ -1370,7 +1370,13 @@
 				<% if @visa.category_type != 'transit' %>
 					$('#transit').hide();
 				<% end %>
-				<% if @visa.category_type != 'limited-stay' %>
+				<% if @visa.category_type != 'limited-stay'  %>
+					$('#limited-stay').hide();
+				<% end %>
+				<% if @visa.category_type != 'dirjenim'  %>
+					$('#limited-stay').hide();
+				<% end %>
+				<% if @visa.category_type != 'multiple'  %>
 					$('#limited-stay').hide();
 				<% end %>
 				<% if @visa.application_type != 3 %>

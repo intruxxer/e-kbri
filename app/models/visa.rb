@@ -169,7 +169,7 @@ class Visa
   validates_attachment_size :passport, less_than: 2.megabytes
   
   has_mongoid_attached_file :supdoc
-  validates_attachment_content_type :supdoc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream)
+  validates_attachment_content_type :supdoc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream image/jpeg image/jpg image/png application/pdf)
   validates_attachment_size :supdoc, less_than: 5.megabytes
   
   has_mongoid_attached_file :ticket, :styles => { :thumb => "90x120>" }
