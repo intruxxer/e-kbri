@@ -37,7 +37,7 @@
 	<fieldset style="background:#FFCC66;">
 		<div class="row">
 			<%= (Visa.where(:ref_id => @visa.ref_id).all.count > 1)?'Group/Family':'Individual' %> Application			
-			<%  @vg = Visagrouppayment.where(:ref_id => @visa.ref_id).all
+			<%  @vg = Visagrouppayment.where(:ref_id => @visa.ref_id).last
 				if @vg.count > 1 %>
 				<section class="col col-6">
 					Status Pembayaran : <b>Sudah dibayar</b><br />

@@ -89,9 +89,9 @@
 					<section class="col col-6">
 							<label class="label">Office</label>	
 							<label class="select">
-								<%= f.input_field :pickup_office, :required => true,
+								<%= f.input_field :pickup_office, :required => true, :include_blank => false,
 								collection: { 'Indonesian Embassy Seoul Office' => 'seoul', 
-								          	  'Indonesian Consulate Busan Branch' => 'busan'} %>
+								          	  'Indonesian Consulate Busan Branch' => 'busan' } %>
 							<i></i>
 							</label>
 							<div class="note">Find out the location by clicking this link : <a target="_blank" href="http://kbriseoul.kr/kbriseoul/index.php/en/contact-us">Office Location</a></div>

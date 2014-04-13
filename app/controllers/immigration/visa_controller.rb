@@ -46,7 +46,7 @@ class Immigration::VisaController < ApplicationController
     @visagrouppayment = Visagrouppayment.where(:ref_id => params[:ref_id]).all
     
     if @visagrouppayment.count > 0
-      @visagrouppayment = @visagrouppayment.first
+      @visagrouppayment = @visagrouppayment.last
     else
       @visagrouppayment = Visagrouppayment.new
     end 
