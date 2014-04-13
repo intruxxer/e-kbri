@@ -46,7 +46,8 @@ class Immigration::PassportController < ApplicationController
           render :pdf            => "Receipt of Passport Application ["+"#{current_user.full_name}"+"]_" + @passport.ref_id,
                  :disposition    => "attachment", #{attachment, inline}                 
                  :template       => "immigration/passport/pasporpayment.html.erb",
-                 :layout         => "pdf_layout.html"                 
+                 :layout         => "pdf_layout.html",
+                 :encoding       => "utf8"                 
         end
 
     end

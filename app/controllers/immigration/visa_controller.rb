@@ -46,7 +46,7 @@ class Immigration::VisaController < ApplicationController
     @visagrouppayment = Visagrouppayment.where(:ref_id => params[:ref_id]).all
     
     if @visagrouppayment.count > 0
-      @visagrouppayment = @visagrouppayment.first
+      @visagrouppayment = @visagrouppayment.last
     else
       @visagrouppayment = Visagrouppayment.new
     end 
@@ -145,7 +145,8 @@ class Immigration::VisaController < ApplicationController
                :disposition    => "inline", #{attachment, inline}
                :show_as_html   => params[:debug].present?,
                :template       => "immigration/visa/visapayment.html.erb",
-               :layout         => "pdf_layout.html"              
+               :layout         => "pdf_layout.html",
+               :encoding       => "utf8"              
 
       end
     end
