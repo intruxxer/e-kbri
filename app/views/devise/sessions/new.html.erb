@@ -3,7 +3,7 @@
   <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 </div>
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'sky-form' }) do |f| %>
-  <header>Login Authentication for eKBRI Access</header>
+  <header>Login Authentication for accessing eKBRI services</header>
   <fieldset>
 	<div class="row">
 		<section class="col col-5">
@@ -34,7 +34,7 @@
   </fieldset>
   
   <footer>
-	<button type="submit" class="button">Reset My Password</button>
+	<button type="submit" class="button">Sign Me In</button>
 	<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
   </footer>
   

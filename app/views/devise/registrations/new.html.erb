@@ -329,8 +329,8 @@
 								<i></i>
 				</label>
 				<div class="note"><strong>Note:</strong> 
-				Please state your country of origin
-				if you are not Indonesian/holding Indonesian Citizenship.</div>
+				Please declare your country of origin if you are
+				NOT Indonesian/holding Indonesian Citizenship.</div>
 		</section>
 		<section class="col col-3">
 		  <label class="label">Passport No.</label>
@@ -345,14 +345,17 @@
   		    <%= f.input_field :id_card %>
   		    <i class="icon-append icon-book"></i>
   		  </label>
+  		  <div class="note"><strong>Note:</strong> Please take note that The Embassy of Republic of Indonesia only provide consular services to Koreans/Foreigners living in Korea.</div>
 		</section>
 	</div>
   </fieldset>
   
   <fieldset>
-  	<div>Please take note that upon agreeing to create an account in e-KBRI, 
-  		you hereby explicitly grant permission to us to monitor, observe, and
-  		log your personal data like IP and beyond for security purposes.</div>
+  	<div>Please kindly be reminded that upon agreeing to create an account in e-KBRI, 
+  		you hereby explicitly grant permission to us to monitor, observe, and log
+  		your personal data, like IP address and geolocation for security monitoring purposes.
+  		We will not use data collected through e-KBRI beyond that purpose whatsoever.
+  		</div>
   </fieldset>
   
 
@@ -363,9 +366,14 @@
 			<%= show_simple_captcha %>
 		</label>
 	</section>
- </fieldset>
+  </fieldset>
   
-
+  <fieldset>
+  	<p>If the email you wish to register has been taken,you won't be able to register. Maybe you already have an account but <b>forget your own account's password? </b></p>
+  	<p>You can reset password through <%= link_to "Reset my password.", new_password_path(resource_name) %> Upon clicking "Reset my password", please check your e-mail 
+  	   and follow the link to reset your password to eKBRI instead of registering new account.</p>
+  </fieldset>
+  
   <footer>
 	<button type="submit" class="button">Sign Up</button>
 	<button type="button" class="button button-secondary" onclick="window.history.back();">Back</button>
