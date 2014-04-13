@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
-<%= simple_form_for @reference, url: '/reference/', :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>				
+<%= simple_form_for @reference, url: update_reference_list_path, :method => :put, :html => { :class => "sky-form", :multipart => true } do |f| %>				
 				<fieldset>					
 					<div class="row">
 						<section class="col col-6">
@@ -20,7 +20,9 @@
 								<%= f.input_field :embassy_location %>							
 							</label>
 						</section>
-					</div>					
+					</div>
+					<%= f.hidden_field :id, value: @reference.id %>	
+					<%= f.hidden_field :type, value: 'reference' %>				
 				</fieldset>				
 				<footer>
 					<button type="submit" class="button">Simpan</button>

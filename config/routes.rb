@@ -90,6 +90,9 @@ EKbri::Application.routes.draw do
   
   get "dashboard/reference/list", :to => "reference#index"
   get "dashboard/reference/edit/:type/:id", :to => "reference#edit"
+  match "/dashboard/reference/update_visafee", :to => "reference#update_visafee", via: :put, :as => :update_visafee_list
+  match "/dashboard/reference/update_passportfee", :to => "reference#update_passportfee", via: :put, :as => :update_passportfee_list
+  match "/dashboard/reference/update_signature", :to => "reference#update_reference", via: :put, :as => :update_reference_list
   
   get "passport/payment/:id", :to => "immigration/passport#payment"
   match "passport/payment/:id", to: "immigration/passport#update_payment", via: :patch, :as => :payment_proceed
@@ -101,6 +104,7 @@ EKbri::Application.routes.draw do
   match "report/admin/:id/edit", to: "immigration/report#adminupdate", via: :patch, :as => :adminreportedit
   get "journal/show/:id", :to => "journal#retrieve_document_journal", :as => :document_journal
   get "samplepayment", :to =>"welcome#showsamplebayar"
+  
   #resources :dashboard_immigration, path: "dashboard/immigration"
   
 

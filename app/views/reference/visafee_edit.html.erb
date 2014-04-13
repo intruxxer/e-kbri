@@ -1,5 +1,14 @@
 <%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
-<%= simple_form_for @visafee, url: '/passport/tospri/', :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>				
+			<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Visa Fee Update has failed. Check the Error below.</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+					<br />
+				</div>
+			<%end%>	
+<%= simple_form_for @visafee, url: update_visafee_list_path, :method => :put, :html => { :class => "sky-form", :multipart => true } do |f| %>				
 				<fieldset>					
 					<div class="row">
 						<section class="col col-6">
@@ -11,7 +20,9 @@
 						<section class="col col-6">
 							<label class="label">Biaya</label>
 							<label class="input">
-								<%= f.input_field :fee_of_visa %>							
+								<%= f.input_field :fee_of_visa %>	
+								<%= f.hidden_field :id, value: @visafee.id %>
+								<%= f.hidden_field :type, value: 'visafee' %>						
 							</label>
 						</section>
 					</div>					

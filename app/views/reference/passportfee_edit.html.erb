@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
-<%= simple_form_for @passportfee, url: '/passport/tospri/', :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>				
+<%= simple_form_for @passportfee, url: update_passportfee_list_path, :method => :put, :html => { :class => "sky-form", :multipart => true } do |f| %>				
 				<fieldset>					
 					<div class="row">
 						<section class="col col-6">
@@ -19,7 +19,9 @@
 						<section class="col col-6">
 							<label class="label">Biaya</label>
 							<label class="input">
-								<%= f.input_field :passport_fee %>							
+								<%= f.input_field :passport_fee %>
+								<%= f.hidden_field :id, value: @passportfee.id %>
+								<%= f.hidden_field :type, value: 'passportfee' %>							
 							</label>
 						</section>
 					</div>					
