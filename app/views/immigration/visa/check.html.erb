@@ -38,7 +38,7 @@
 		<div class="row">
 			<%= (Visa.where(:ref_id => @visa.ref_id).all.count > 1)?'Group/Family':'Individual' %> Application			
 			<%  @vg = Visagrouppayment.where(:ref_id => @visa.ref_id).all
-				if @vg.count > 1 %>
+				if @vg.count > 0 %>
 				<section class="col col-6">
 					Status Pembayaran : <b>Sudah dibayar</b><br />
 					<%= link_to 'Download Slip Pembayaran', @vg.last.slip_photo.url(:original, false), target: "_blank" %>

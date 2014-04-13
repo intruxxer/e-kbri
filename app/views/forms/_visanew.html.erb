@@ -15,7 +15,7 @@
 						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
 					<%end%>
 					<br />
-					Silahkan Upload File - file anda kembali.
+					*Please reupload your files*.
 				</div>
 	<%end%>
 	<%= simple_form_for @visa, url: @url_response, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
@@ -111,7 +111,7 @@
 							</label>
 						</section>
 						<section class="col col-4">
-							<label class="label">Passport Photo</label>
+							<label class="label">Photo</label>
 							<label for="file" class="input input-file">
 								<div class="button">
 									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Upload</div>
@@ -418,7 +418,7 @@
 							<label class="select">
 							<%= f.input_field :profession, 
 							collection: { 'Professional' => 'Professional', 'Government' => 'Government',
-								          'Businessman' => 'Businessman', 'Student' => 'Student', 
+								          'Diplomat' => 'Diplomat', 'Businessman' => 'Businessman', 'Student' => 'Student', 
 								          'Housewife' => 'Housewife', 'Others' => 'Other' } %>
 							<i></i>
 							</label>

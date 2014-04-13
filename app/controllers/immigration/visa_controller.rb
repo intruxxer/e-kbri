@@ -65,7 +65,7 @@ class Immigration::VisaController < ApplicationController
         row.update(params.require(:visagrouppayment).permit(:status, :payment_date, :pickup_office))
         current_user.journals.push(Journal.new(:action => 'Paid', :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => row.id ))
       end
-      redirect_to :back, :notice => 'Payment Information Successfully saved!'
+      redirect_to root_path, :notice => 'Payment Information Successfully saved!'
     else
       @errors = @visagrouppayment.errors.messages
       render 'payment'

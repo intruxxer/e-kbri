@@ -113,7 +113,7 @@ class Immigration::PassportController < ApplicationController
     @passport = Passport.find(params[:id])
     if @passport.update(post_params)    
       current_user.journals.push(Journal.new(:action => @passport.status, :model => 'Passport', :method => 'Update', :agent => request.user_agent, :record_id => @passport.id  ))  
-      redirect_to :back, :notice => 'Data Pembayaran anda berhasil disimpan!'
+      redirect_to root_path, :notice => 'Data Pembayaran anda berhasil disimpan!'
     else
       @errors = @passport.errors.messages
       render 'payment'
