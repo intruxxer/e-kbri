@@ -57,8 +57,8 @@ class Immigration::VisaController < ApplicationController
     @visagrouppayment = Visagrouppayment.new(params.require(:visagrouppayment).permit(:payment_date, :slip_photo, :ref_id))   
     
     
-    if @visagrouppayment.upsert
-      
+    if @visagrouppayment.valid?
+      @visagrouppayment.save
       current_user.journals.push(Journal.new(:action => 'Payment', :model => 'Visagrouppayment', :method => 'Insert', :agent => request.user_agent, :record_id => @visagrouppayment.id ))
       
       Visa.where(params.require(:visagrouppayment).permit(:ref_id)).all.each do |row|
