@@ -119,7 +119,8 @@ class Immigration::ReportController < ApplicationController
                :disposition    => "inline", #{attachment, inline}
                :show_as_html   => params[:debug].present?,
                #:template       => "immigration/visa/visarecapitulation.html.erb",
-               :template       => "immigration/report/adminprint.html.erb"
+               :template       => "immigration/report/adminprint.html.erb",
+               :encoding       => "utf8"
                               
       end
     end
