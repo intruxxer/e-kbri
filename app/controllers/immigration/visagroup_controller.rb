@@ -19,7 +19,7 @@ class Immigration::VisagroupController < ApplicationController
     else
       time = Time.new
       coded_date = time.strftime("%y%m%d")
-      @ref_id = '3'+coded_date+generate_string(3)
+      @ref_id = 'C'+coded_date+generate_string(3)
       session[:current_ref_id] = @ref_id 
       puts "1st Session current_ref_id = #{session[:current_ref_id]}"
     end

@@ -18,7 +18,7 @@ class Immigration::VisafamilyController < ApplicationController
     else
       time = Time.new
       coded_date = time.strftime("%y%m%d")
-      @ref_id = '2'+coded_date+generate_string(3)
+      @ref_id = 'B'+coded_date+generate_string(3)
       session[:current_ref_id] = @ref_id
       puts "1st Session current_ref_id = #{session[:current_ref_id]}"
       #@ref_id = 'VF-KBRI-'+generate_string+"-"+Random.new.rand(10**5..10**6).to_s

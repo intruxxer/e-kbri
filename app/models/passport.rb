@@ -153,7 +153,7 @@ class Passport
   def assign_ref_id
     time = Time.new
     coded_date = time.strftime("%y%m%d")
-    self.ref_id = '4'+coded_date+generate_string(3)
+    self.ref_id = 'D'+coded_date+generate_string(3)
   end
   
   def generate_string(length=5)

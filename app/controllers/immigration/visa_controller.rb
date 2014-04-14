@@ -35,7 +35,7 @@ class Immigration::VisaController < ApplicationController
     
     @visa = Visa.where(:ref_id => app_ref)
           
-    flash[:notice] = 'You have ended a recent group/family application under # #{app_ref}. Next application will be another group/family.'
+    flash[:notice] = 'You have ended a recent group/family application under ##{app_ref}. Next application will be another group/family member.'
     render 'visaconfirm.html.erb'
     
   #  redirect_to root_path, :notice => "You have ended a recent group/family application under # #{app_ref}. Next application will be another group/family."
@@ -101,7 +101,7 @@ class Immigration::VisaController < ApplicationController
     
     time = Time.new
     coded_date = time.strftime("%y%m%d")
-    @ref_id = '1'+coded_date+generate_string(3)
+    @ref_id = 'A'+coded_date+generate_string(3)
     
     
     if @visa[0].valid?
@@ -112,7 +112,6 @@ class Immigration::VisaController < ApplicationController
           current_user.journals.push(Journal.new(:action => 'Created', :model => 'Visa', :method => 'Insert', :agent => request.user_agent, :record_id => @visa[0].id ))
           @visa = Visa.where(:ref_id => @visa[0].ref_id)
           
-          flash[:notice] = 'Application Saved successfully!'
           render 'visaconfirm.html.erb'
           #redirect_to root_path, :notice => "Your visa application is successfully received!"
       else        

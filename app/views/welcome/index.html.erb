@@ -2,7 +2,9 @@
 <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 <h1>Welcome to electronic KBRI Seoul services (E-KBRI)</h1>
 <hr />
-<p><%= "Your IP address is: #{@ip_visitor}. Your IP is automatically logged." %></p>
+<% if !user_signed_in? and false then %>
+<p><%= "Your IP address is: #{@ip_visitor}. Your IP is automatically logged for monitoring." %></p>
+<% end %>
 <% if user_signed_in? then %>
 <% if !current_user.citizenship or current_user.has_role? :admin or current_user.has_role? :moderator %>
 		<div class="row">

@@ -5,6 +5,7 @@ gem "mongoid", github: "mongoid/mongoid"
 gem "bson"
 gem "bson_ext"
 gem "mongo_session_store-rails4"
+gem "geocoder"
 
 gem "simple_form"
 gem "devise"
