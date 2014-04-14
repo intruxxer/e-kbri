@@ -23,7 +23,8 @@
 													<th>Reference No.</th>
 													<th><center>Application</center></th>	
 													<th><center>Payment</center></th>
-													<th><center>Retrieve</center></th>													
+													<th><center>Retrieve</center></th>	
+													<th><center>Application Receipt</center></th>												
 													<th><center></center></th>
 													<th><center>Status</center></th>
 												</tr>
@@ -38,12 +39,24 @@
 												<% unless first %>
 												
 													<% if prevref == t.ref_id and found == false %>
+														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => t.ref_id).all.count %>" <% found = true %>>
+															<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
+															<span class="glyphicon glyphicon-save"></span>
+															<span class="glyphicon-class">Download Receipt</span>
+															<% end %>
+														</td>
 														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => t.ref_id).all.count %>" <% found = true %>><%= status.html_safe %></td>												
 													<% elsif prevref == t.ref_id and found == true %>
 														
 													<% elsif prevref != t.ref_id and found == true %>
 														<% found = false %>
 													<% else %>
+														<td>
+														<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
+															<span class="glyphicon glyphicon-save"></span>
+															<span class="glyphicon-class">Download Receipt</span>
+															<% end %>
+														</td>
 														<td class="center"><%= status.html_safe %></td> <% found = false %>
 													<% end %>												
 														
@@ -73,12 +86,8 @@
 														<span class="glyphicon glyphicon-trash"></span>
 														<span class="glyphicon-class">Cancel</span>
 														<% end %>
-													|&nbsp;
-													<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
-														<span class="glyphicon glyphicon-save"></span>
-														<span class="glyphicon-class">Download Receipt</span>
-														<% end %>
 													</td>
+													
 																	
 																												
 													
