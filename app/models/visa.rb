@@ -136,7 +136,7 @@ class Visa
   validates :date_entry,             presence: true, :if => :check_transit
   
   validates :approval_no,             presence: true, :if => :check_limited_stay
-  
+  validates :pickup_date,            presence: true, :if => :check_approved
   #validates :checkbox_1,             presence: true
   #validates :checkbox_2,             presence: true
   #validates :checkbox_3,             presence: true
@@ -233,7 +233,13 @@ class Visa
       return false
     end
   end  
-
+  def check_approved
+    if self.status == 'Approved'
+      return true
+    else
+      return false
+    end
+  end
   def assign_ref_id
     self.ref_id = generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s
   end

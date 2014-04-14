@@ -23,7 +23,8 @@
 													<th>Reference No.</th>
 													<th><center>Application</center></th>	
 													<th><center>Payment</center></th>
-													<th><center>Retrieve</center></th>													
+													<th><center>Retrieve</center></th>	
+													<th><center>Application Receipt</center></th>												
 													<th><center></center></th>
 													<th><center>Status</center></th>
 												</tr>
@@ -38,12 +39,24 @@
 												<% unless first %>
 												
 													<% if prevref == t.ref_id and found == false %>
+														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => t.ref_id).all.count %>" <% found = true %>>
+															<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
+															<span class="glyphicon glyphicon-save"></span>
+															<span class="glyphicon-class">Download Receipt</span>
+															<% end %>
+														</td>
 														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => t.ref_id).all.count %>" <% found = true %>><%= status.html_safe %></td>												
 													<% elsif prevref == t.ref_id and found == true %>
 														
 													<% elsif prevref != t.ref_id and found == true %>
 														<% found = false %>
 													<% else %>
+														<td>
+														<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
+															<span class="glyphicon glyphicon-save"></span>
+															<span class="glyphicon-class">Download Receipt</span>
+															<% end %>
+														</td>
 														<td class="center"><%= status.html_safe %></td> <% found = false %>
 													<% end %>												
 														
@@ -56,7 +69,7 @@
 													<td align="left"><%= t.ref_id %></td>
 													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>
 													<td class="center"><%=  !(t.payment_date.nil?) ? t.payment_date.strftime("%-d %b %Y") : '-' %></td>	
-													<td class="center""><%=  !(t.printed_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (t.printed_date+3).strftime("%-d %b %Y") + '</a>').html_safe : '-' %></td>																										
+													<td class="center""><%=  !(t.pickup_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (t.pickup_date).strftime("%-d %b %Y") + '</a>').html_safe : '-' %></td>																										
 													<td class="center">
 													<%= link_to edit_visa_path(t.id) do %>
 														<span class="glyphicon glyphicon-pencil"></span>
@@ -73,12 +86,8 @@
 														<span class="glyphicon glyphicon-trash"></span>
 														<span class="glyphicon-class">Cancel</span>
 														<% end %>
-													|&nbsp;
-													<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
-														<span class="glyphicon glyphicon-save"></span>
-														<span class="glyphicon-class">Download Receipt</span>
-														<% end %>
 													</td>
+													
 																	
 																												
 													
@@ -133,7 +142,7 @@
 													<td align="left"><%= t.ref_id %></td>
 													<td class="center"><%= t.updated_at.strftime("%-d %b %Y") %></td>													
 													<td class="center"><%=  !(t.payment_date.nil?) ? t.payment_date.strftime("%-d %b %Y") : '-' %></td>
-													<td class="center""><%=  !(t.printed_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (t.printed_date+1).strftime("%-d %b %Y") + '</a>').html_safe : '-' %></td>												
+													<td class="center""><%=  !(t.pickup_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (t.pickup_date).strftime("%-d %b %Y") + '</a>').html_safe : '-' %></td>												
 													<td class="center">
 													<% if t.status != 'Printed' %>	
 													<%= link_to (edit_passport_path(t.id)) do %>

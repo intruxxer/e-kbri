@@ -25,9 +25,9 @@ class Passport
   
   field :lastPassportNo,         type: String
   field :dateIssued,             type: Date
-  field :placeIssued,            type: String, default: 'Imigrasi'
+  field :placeIssued,            type: String
   field :dateIssuedEnd,          type: String
-  field :immigrationOffice,      type: String
+  field :immigrationOffice,      type: String, default: 'Imigrasi'
   
   field :jobStudyInKorea,        type: String
   field :jobStudyTypeInKorea,    type: String
@@ -79,10 +79,10 @@ class Passport
   
 
   validates :lastPassportNo,     presence: true, length: { minimum: 0, maximum: 32 }, :if => :check_application_reason
-  #validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_reason
+  validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_reason
   validates :dateIssued,         presence: true, :if => :check_application_reason
   validates :dateIssuedEnd,      presence: true, :if => :check_application_reason
-  validates :immigrationOffice,  presence: true, :if => :check_application_reason
+  #validates :immigrationOffice,  presence: true, :if => :check_application_reason
 
   
   validates :jobStudyInKorea,    presence: true, length: { minimum: 1, maximum: 50 }
@@ -103,7 +103,7 @@ class Passport
 
   validates :payment_date, presence: true, :if => :check_paid
   validates :pickup_office, presence: true, :if => :check_paid  
-
+  validates :pickup_date, presence: true, :if => :check_approved
   has_mongoid_attached_file :photo, :styles => { :thumb => "90x120>" }
   validates_attachment_content_type :photo, :content_type => %w(image/jpeg image/jpg image/png)
   validates_attachment_presence :photo
@@ -149,7 +149,13 @@ class Passport
 
     end     
   end
-  
+  def check_approved
+    if self.status == 'Approved'
+      return true
+    else
+      return false
+    end
+  end
   def assign_ref_id
     time = Time.new
     coded_date = time.strftime("%y%m%d")

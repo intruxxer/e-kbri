@@ -300,12 +300,22 @@
 							</label>
 				    </section>
 			   </div>
+			   
+			   <div class="inline-group" style="padding:4px;<% if @passport.status != 'Approved' %>display:none;<% end %>" id="pickupdatecont">
+				    <section class="col col-9">
+				   		<label class="label" style="width:auto;background:inherit">Pickup Date</label>
+						<label class="select" style="width:200px;">
+								<%= f.input_field :pickup_date, class: 'datePick' %>
+							</label>
+				    </section>
+			   </div>
+			   
 				<div class="inline-group" style="padding:4px;">		
 				<section class="col col-9">					
 				<label class="label" style="width:auto;background:inherit">Status</label>  							  	
 				<%= f.input_field :status, as: :radio_buttons, :class => 'radio' ,
-					collection: { 'Received' => 'Received', 'Paid' => 'Paid', 
-									'<b style="color:green;">Verify</b>' => 'Verified', '<b style="color:red;">Reject</b>' => 'Rejected', '<b style="color:orange;">Revision</b>' => 'Revision' 
+					collection: { 'Received' => 'Received', 
+									'<b style="color:green;">Verify</b>' => 'Verified','<b>Approved</b>' => 'Approved', 'Paid' => 'Paid', '<b style="color:red;">Reject</b>' => 'Rejected', '<b style="color:orange;">Revision</b>' => 'Revision' 
 									}, label_method: lambda { |obj| ('<i></i>' + obj[0]).html_safe } %>
 				</section>								
 		        </div>	
@@ -332,13 +342,28 @@
 <script type="text/javascript">
 			$(function()
 			{					
-				$("input[name='passport[status]']").change(function(){
+				$("input[name='visa[status]']").change(function(){
 					if($(this).val() == 'Revision'){
+						$("#pickupdatecont").hide();
 						$('#commentcontainer').show();						
-					}else{												
+					}else if($(this).val() == 'Approved'){
+						$("#pickupdatecont").show();
+						$('#commentcontainer').hide();
+					}else{
+						$("#pickupdatecont").hide();												
 						$('#commentcontainer').hide();
 					}
-				});				
+				});		
+				
+				$('.datePick').datepicker({
+					dateFormat: 'yy/mm/dd',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,
+      				yearRange: '1900:2040'
+
+				});					
 			});			
 </script>
 
