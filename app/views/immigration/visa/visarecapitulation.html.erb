@@ -258,10 +258,9 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 						
 						<fieldset>
 							<div class="row">
-								<section class="col col-6">
-									<label class="label">Visa Reference No.:</label>
-									<b><%= @visas.first.ref_id %></b>
-								</section>						
+								<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
+								<div style="clear:both;"></div>
+								<p><h3><b style="float:left;margin-top:-60px;margin-left:10px;z-index:2;"><%= @visa.ref_id %></b></h3></p>					
 							</div>
 							<center><table cellpadding="2" cellspacing="2" width="600">							
 									<tr>
@@ -277,7 +276,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 										<td>Grantee Detail</td>
 										<td><% totalfee = 0
 											 @visas.each do |row| %>
-												<b><%= row.first_name + ' ' + row.last_name %></b> (<%= row.category_type %>) : <%= (row.status_code<3)?'Under Review':'D-10' %><br />
+												<b><%= row.first_name + ' ' + row.last_name %></b> (<%= row.category_type %>) : <%= (row.status == 'Received' || row.status == 'Printed')?Visafee.where(:id => row.visafee_ref).first.name_of_visa:'Under Review' %><br />
 												
 												<% totalfee += Visafee.find(row.visafee_ref).fee_of_visa %>
 											<% end %>
@@ -295,6 +294,8 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 							<br />
 							<p><b>Please rewrite the Reference Number to the Depositor Name section in the payment slip. Example : <a target="_blank" href="/samplepayment">Payment slip</a></b></p>
 							<p style="font-size:11pt;"><b>납부서에 예금자의 이름, 송금액 및 참조 번호를 재 작성하십시오</b></p>
+							<p>The Depositor Name should be one of the Visa Grantee</p>
+							<p style="font-size:11pt;">예금주 이름은 비자 피부 여자 중 하나 여야합니다</p>
 						</fieldset>	
 					
 						<p class="callout" style="text-align:justify;">
