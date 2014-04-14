@@ -105,6 +105,8 @@ EKbri::Application.routes.draw do
   get "journal/show/:id", :to => "journal#retrieve_document_journal", :as => :document_journal
   get "samplepayment", :to =>"welcome#showsamplebayar"
   
+  get "visas/group/:ref_id", to: "immigration/visa#group_recap"
+  
   #resources :dashboard_immigration, path: "dashboard/immigration"
   
 

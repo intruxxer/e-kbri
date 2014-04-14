@@ -151,6 +151,21 @@ class Immigration::VisaController < ApplicationController
     end
   end
   
+  def group_recap
+    @visas = Visa.where(:ref_id => params[:ref_id])
+      respond_to do |format|      
+      format.pdf do
+        render :pdf            => "Visa Application Form Group/Family["+"#{params[:ref_id]}"+"]",
+               :disposition    => "inline", #{attachment, inline}
+               :show_as_html   => params[:debug].present?,
+               :template       => "immigration/visa/visarecapitulation.html.erb",
+               :layout         => "pdf_layout.html",
+               :encoding       => "utf8"              
+
+      end
+    end
+  end
+  
   #PATCH, PUT /visa/:id
   def update
     #@visa = Visa.find_by(user_id: params[:id])
