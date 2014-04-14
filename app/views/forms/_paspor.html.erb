@@ -158,9 +158,7 @@
 						<section class="col col-3">
 							<label class="label">Kantor Imigrasi </label>
 							<label class="select">
-								<%= f.input_field :immigrationOffice, 
-								collection: { "JAKARTA TIMUR" => "JAKARTA TIMUR", "JAKARTA BARAT" => "JAKARTA BARAT","JAKARTA UTARA"=>"JAKARTA UTARA","JAKARTA SELATAN"=>"JAKARTA SELATAN","TANJUNG PRIOK"=>"TANJUNG PRIOK","BANDUNG"=>"BANDUNG","SEMARANG"=>"SEMARANG","YOGYAKARTA"=>"YOGYAKARTA","SOLO"=>"SOLO","MADIUN"=>"MADIUN","SURABAYA"=>"SURABAYA","SUBANG"=>"SUBANG","CIREBON"=>"CIREBON","KBRI SEOUL"=>"KBRI SEOUL", "Lainnya" => "Lainnya" } %>
-							<i></i>
+								<%= f.input_field :placeIssued %>
 							</label>							
 						</section>
 						
@@ -174,7 +172,7 @@
 							<label class="label">Pekerjaan di Korea</label>
 							<label class="select">
 								<%= f.input_field :jobStudyInKorea, 
-								collection: { "Tenaga Kerja Indonesia" => "TKI" ,"ABK"=>"ABK", "Mahasiswa/Pelajar" => "Pelajar", 
+								collection: { "Tenaga Kerja Indonesia" => "Tenaga Kerja" ,"ABK"=>"ABK", "Mahasiswa/Pelajar" => "Pelajar", 
 									"Profesional" => "Profesional" ,"Ikut Keluarga" => "Ikut Keluarga" , "Lainnya" => "Lainnya" } %>
 							<i></i>
 							</label>

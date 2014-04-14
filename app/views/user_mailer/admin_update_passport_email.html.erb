@@ -238,6 +238,10 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 			<p>Jumlah Pembayaran yang harus anda bayarkan dapat dilihat di bagian bawah</p>
 			<br />
 			<% end %>
+			<% if @passport.status == 'Approved' %>
+				<h3>Silahkan datang ke KBRI pada tanggal : <b><%= @visa.pickup_date.strftime("%-d %b %Y") %></b></h3><br />
+				Silahkan bawa kelengkapan dokumen serta bukti pembayaran bank dan bukti aplikasi.
+			<% end %>
 			<div class="content">
 			<table>
 				<tr>

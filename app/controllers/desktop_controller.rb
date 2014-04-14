@@ -156,7 +156,7 @@ class DesktopController < ApplicationController
       #printLink = "<a href=\"/visa/tosisari/" + visa.id + "\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SISARI</span></a>"
       
       paymentdate = !(visa.payment_date.nil?) ? visa.payment_date.strftime("%-d %b %Y") : '-'
-      retrievedate = !(visa.printed_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (visa.printed_date+3).strftime("%-d %b %Y") + '</a>').html_safe : '-'
+      retrievedate = !(visa.pickup_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (visa.pickup_date).strftime("%-d %b %Y") + '</a>').html_safe : '-'
       
       print_code = '-'
       unless visa.print_code.nil?
@@ -186,9 +186,10 @@ class DesktopController < ApplicationController
     
     begin
       db.execute("INSERT INTO tblData(kntrKeluarLama, noFile, pekerjaan, alasanBuat, sponsorLuar, negaraLuar, alamatLuar, kotaLuar, alamatDalam, kelurahan, kabupaten, kecamatan, noPass, noReg, tglKeluar, tglExpire, namaLkP, tmpLahir, tglLahir, jmlHal, noLama, tglKeluarLama, tmpKeluarLama, idCode, KantorPerwakilan, jnsKel, statusWN, namaKlrg) 
-        VALUES('KBRI SEOUL','" + params[:passport][:lapordiri_no] + "','" + @passport.jobStudyInKorea + "','" + @passport.application_reason + "','" +  @passport.jobStudyOrganization.to_s + "','KOREA SELATAN','" +  @passport.addressKorea.to_s + "','" +  @passport.cityKorea.to_s + "','" +  @passport.addressIndonesia.to_s + "','" +  @passport.kelurahanIndonesia.to_s + "','" +  @passport.kabupatenIndonesia.to_s + "','" +  @passport.kecamatanIndonesia.to_s + "','" + params[:passport][:passport_no] + "','" + params[:passport][:reg_no] + "','" + Time.new.year.to_s + "/" + Time.new.month.to_s + "/" + Time.new.day.to_s + "','" + (Time.new.year + 5).to_s + "/" + Time.new.month.to_s + "/" + Time.new.day.to_s + "','" + @passport.full_name + "','" + @passport.placeBirth + "','" + @passport.dateBirth.to_s + "','" +  @passport.paspor_type.to_s + "','" + @passport.lastPassportNo + "','" + @passport.dateIssued.to_s + "','" + @passport.placeIssued + "','37A','KBRI SEOUL', '" +  @passport.kelamin.to_s + "', '" +  @passport.citizenship_status.to_s + "','')")
+        VALUES('KBRI SEOUL','" + params[:passport][:lapordiri_no] + "','" + @passport.jobStudyInKorea + "','" + @passport.application_reason + "','" +  @passport.jobStudyOrganization.to_s + "','KOREA SELATAN','" +  @passport.addressKorea.to_s + "','" +  @passport.cityKorea.to_s + "','" +  @passport.addressIndonesia.to_s + "','" +  @passport.kelurahanIndonesia.to_s + "','" +  @passport.kabupatenIndonesia.to_s + "','" +  @passport.kecamatanIndonesia.to_s + "','" + params[:passport][:passport_no] + "','" + params[:passport][:reg_no] + "','" + @passport.dateIssued.to_s + "','" + (Time.new.year + 5).to_s + "/" + Time.new.month.to_s + "/" + Time.new.day.to_s + "','" + @passport.full_name + "','" + @passport.placeBirth + "','" + @passport.dateBirth.to_s + "','" +  @passport.paspor_type.to_s + "','" + @passport.lastPassportNo + "','" + @passport.dateIssued.to_s + "','" + @passport.placeIssued + "','37A','KBRI SEOUL', '" +  @passport.kelamin.to_s + "', '" +  @passport.citizenship_status.to_s + "','')")
       @passport.update_attributes({ :status => 'Printed', :passport_no => params[:passport][:passport_no], :reg_no => params[:passport][:reg_no],:printed_date => Time.now, :pickup_date => params[:passport][:pickup_date]})      
-       
+      
+      UserMailer.admin_update_passport_email(@passport).deliver 
       msg = { :notice => 'Data berhasil dipindahkan' }  
         
     rescue Exception=>e
@@ -229,7 +230,7 @@ class DesktopController < ApplicationController
       checkLink = "<a href=\"/passports/" + passport.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>Check</span></a>"
       
       paymentdate = !(passport.payment_date.nil?) ? passport.payment_date.strftime("%-d %b %Y") : '-'
-      retrievedate = !(passport.printed_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (passport.printed_date+1).strftime("%-d %b %Y") + '</a>').html_safe : '-'
+      retrievedate = !(passport.pickup_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (passport.pickup_date).strftime("%-d %b %Y") + '</a>').html_safe : '-'
       
       aaData.push([i, passport.ref_id, passport.full_name, passport.status, passport.created_at.strftime("%-d %b %Y"), paymentdate , retrievedate , checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;"])
       i += 1                        

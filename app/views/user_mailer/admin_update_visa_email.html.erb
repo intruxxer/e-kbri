@@ -258,9 +258,13 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 			<% if @visa.status == 'Verified' %>				
 				<p>Please scroll below to find out your payment information</p>
 			<% else %>
-				<% if @visa.status != 'Printed' %>
+				<% if @visa.status != 'Printed' and @visa.status != 'Approved' %>
 					<p><b>Your application is currently under review/process</b></p>
 				<% end %>
+			<% end %>
+			<% if @visa.status == 'Approved' %>
+				<h3>You may pick up your VISA on : <b><%= @visa.pickup_date.strftime("%-d %b %Y") %></b></h3><br />
+				Please bring your passport along with payment slip (from bank) and The application receipt
 			<% end %>
 			<div class="content">
 			<table>
