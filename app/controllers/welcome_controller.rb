@@ -3,11 +3,11 @@ class WelcomeController < ApplicationController
     if !user_signed_in? then
       @ip_visitor = request.remote_ip
       session[:ip_address]  = @ip_visitor
-      @visitor =  Visitor.new( ip_address: @ip_address.to_s, action: "Visiting Main Page")
+      @visitor =  Visitor.new( ip_address: @ip_visitor.to_s, action: "Visiting Main Page")
       if @visitor.valid?
         @visitor.save!
       end
-      flash[:warning] = "Please take note that your IP is automatically logged for monitoring. Your IP address is: #{@ip_visitor}. "
+      flash[:warning] = "Please take note that your IP is automatically logged for monitoring during access to E-KBRI. Your IP address is: #{@ip_visitor}. "
     end
   	if user_signed_in?
   	  @userreport = Report.where(user_id: current_user.id).where(is_valid: true).desc(:updated_at)
