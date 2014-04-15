@@ -48,7 +48,13 @@
 									<%= f.input_field :photo, as: :file, class: 'fileplaceholder'  %>Unggah</div>
 									<input type='text' readonly='readonly' />
 							</label>
-							<div class="note"><strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a></div>
+							<div class="note">
+								<strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />
+								<!--Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. 
+									Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a>
+								-->
+								Pas foto dapat diunggah berupa photo yg diambil dengan kamera digital (pocket/DSLR) sendiri atau smartphone masing-masing.<br />
+							</div>
 						</section>	
 						<% if @report.photo.exists? %>
 						<section class="col col-1">
@@ -87,13 +93,19 @@
 						<h3>Kelengkapan Dokumen</h3>	
 						<hr /><br />
 						<section class="col col-3">
-							<label class="label">Scan Paspor</label>
+							<label class="label">Scan/Photo Paspor</label>
 							<label for="file" class="input input-file">
 								<div class="button">
 									<%= f.input_field :paspor, as: :file, class: 'fileplaceholder'  %>Unggah</div>
 									<input type="text" readonly="readonly" />
 							</label>
-							<div class="note"><strong><u>Note:</u></strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
+														<div class="note">
+								<strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />
+								<!--Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. 
+									Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a>
+								-->
+								Scan/photo paspor dapat diunggah berupa hasil scan paspor atau photo yg diambil dengan kamera digital (pocket/DSLR) sendiri atau smartphone masing-masing.<br />
+							</div>
 						</section>	
 						<% if @report.paspor.exists? %>
 						<section class="col col-1">
@@ -170,7 +182,14 @@
 									<%= f.input_field :aliencard, as: :file, class: 'fileplaceholder'  %>Unggah</div>
 									<input type="text" readonly="readonly" />
 							</label>
-							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB<br />Harap scan dan gabungkan kedua sisi kartu</div>
+							<div class="note">
+								<strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />
+								<!--Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. 
+									Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a>
+								-->
+								Scan/photo ID card/Alien card/외국인등록증 dapat diunggah berupa hasil scan atau photo yg diambil dengan kamera digital (pocket/DSLR) sendiri atau smartphone masing-masing.<br />
+								Harap gabungkan kedua sisi kartu menjadi satu file gambar yg sama, yakni gambar ID card depan-belakang pada satu file gambar saja.
+							</div>
 						</section>	
 						<% if @report.aliencard.exists? %>
 						<section class="col col-1">
