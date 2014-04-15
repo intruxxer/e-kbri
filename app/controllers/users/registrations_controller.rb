@@ -4,6 +4,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters # before_filter :resource_params
   def new
     super # no customization, simply call the devise implementation
+    @ip_visitor = request.remote_ip
+    message_one = "Dear Visitor,  Please kindly be notified that your IP address & Location is automatically 
+                         logged for security monitoring during your active access to E-KBRI."
+    message_two = "Your IP address is<b> #{@ip_visitor} </b>."
+    warning = [ message_one, message_two ]
+    flash[:alert] = warning.join("<br/>").html_safe
   end
   
   # POST /user

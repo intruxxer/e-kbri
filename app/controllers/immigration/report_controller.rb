@@ -4,6 +4,7 @@ class Immigration::ReportController < ApplicationController
   before_filter :authenticate_user!
   
   def index
+     session[:warned_on_login] += 1
      @report = Report.new
      @last = Report.where(user_id: current_user).where(is_valid: true)
 	   if  @last.count > 0

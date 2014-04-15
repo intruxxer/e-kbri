@@ -4,6 +4,7 @@ class Immigration::VisagroupController < ApplicationController
 
   #GET /visa
   def index
+    session[:warned_on_login] += 1
     @visa = Visa.new
     if session[:add_people] then
       @add_people = true

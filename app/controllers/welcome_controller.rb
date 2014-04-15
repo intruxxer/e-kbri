@@ -5,33 +5,38 @@ class WelcomeController < ApplicationController
     session[:ip_address]  = @ip_visitor
     if !user_signed_in? then
       @visitorname = "Visitor"
+      #session[:warned_on_login] = 0
     else
       @visitorname = current_user.full_name
+      # session[:warned_on_login] += 1
+      # user_session[:test] = "User session upon logged in."
     end
     @visitor =  Visitor.new( who: @visitorname, ip_address: @ip_visitor.to_s, action: "Visiting Main Page")
     if @visitor.valid?
         @visitor.save!
-        message_one = "Dear "+ @visitorname.to_s + ",  Please kindly be notified that your IP address & Location is automatically 
-                       logged for security monitoring during your active access to E-KBRI."
-        message_two = "Your IP address is<b> #{@ip_visitor} </b>that is identified to be located in <b> #{@visitor.coordinates[0]}&deg; long </b> & <b> #{@visitor.coordinates[1]}&deg; lat </b>."
-        warning = [ message_one, message_two ]
-        flash[:warning] = warning.join("<br/>").html_safe
+        if !user_signed_in?
+          message_one = "Dear Visitor, Please kindly be notified that your IP address & Location is automatically 
+                         logged for security monitoring during your active access to E-KBRI."
+          message_two = "Your IP address is<b> #{@ip_visitor} </b>that is identified to be located in <b> #{@visitor.coordinates[0]}&deg; longitude </b> & <b> #{@visitor.coordinates[1]}&deg; latitude </b>."
+          warning = [ message_one, message_two ]
+          flash[:alert] = warning.join("<br/>").html_safe
+        end
                            
     end
                          
   	if user_signed_in?
   	  @userreport = Report.where(user_id: current_user.id).where(is_valid: true).desc(:updated_at)
   	  if current_user.has_role? :admin then
-  	    @uservisa = Visa.all
-  	    @userpassport = Passport.all
+  	    @uservisa = Visa.all.page(params[:page]).per(5)
+  	    @userpassport = Passport.all.page(params[:page]).per(5)
   	    
   	  else
   	    visadata = Visa.where(user_id: current_user)
 
-        @uservisa = Visa.where(user_id: current_user.id)
+        @uservisa = Visa.where(user_id: current_user.id).page(params[:page]).per(5)
         
         passportdata = Passport.where(user_id: current_user)
-        @userpassport = Passport.where(user_id: current_user.id)
+        @userpassport = Passport.where(user_id: current_user.id).page(params[:page]).per(5)
 
         
         

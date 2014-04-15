@@ -5,6 +5,7 @@ class Immigration::VisaController < ApplicationController
   
   #GET /visa
   def index
+    session[:warned_on_login] += 1
     #if individual 1 person, 1 application
     #if Visa.where(user_id: current_user).count > 0
         #redirect_to root_path
