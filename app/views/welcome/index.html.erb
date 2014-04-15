@@ -35,13 +35,14 @@
 												   found = false
 												   status = ''
 												   curid = ''
+												   currefid = ''
 												@uservisa.each do |t| %>
 												
 												<% unless first %>
 												
 													<% if prevref == t.ref_id and found == false %>
-														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => t.ref_id).all.count %>" <% found = true %>>
-															<%= link_to 'visas/group/'+t.ref_id+'.pdf', :target => "_blank" do %>
+														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => currefid ).all.count %>" <% found = true %>>
+															<%= link_to 'visas/group/'+ t.currefid +'.pdf', :target => "_blank" do %>
 															<span class="glyphicon glyphicon-save"></span>
 															<span class="glyphicon-class">Download Receipt</span>
 															<% end %>
@@ -67,6 +68,7 @@
 												
 												<% status = (t.status == 'Verified')? ('<a href="/visas/payment/' + t.ref_id + '"><span class="glyphicon glyphicon-credit-card"></span><span class="glyphicon-class"> Make Payment</span></a>').html_safe : t.status %>
 												<% curid = t.id %>
+												<% currefid = t.ref_id %>
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
 													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>
