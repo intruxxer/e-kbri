@@ -34,6 +34,7 @@
 												   first = true
 												   found = false
 												   status = ''
+												   curid = ''
 												@uservisa.each do |t| %>
 												
 												<% unless first %>
@@ -98,7 +99,7 @@
 												
 												<% unless found %>
 													<td>
-													<%= link_to 'visas/'+curid+'.pdf', :target => "_blank" do %>
+													<%= link_to 'visas/'+ curid +'.pdf', :target => "_blank" do %>
 														<span class="glyphicon glyphicon-save"></span>
 														<span class="glyphicon-class">Download Receipt</span>
 														<% end %>
