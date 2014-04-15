@@ -55,7 +55,7 @@
 							<label class="label">Requested Visa</label>
 							<label class="select">
 							<%= f.input_field :category_type, 
-							collection: { 'Transit Visa' => 'transit', 'Visit Visa' => 'visit', 'Multiple Visa' => 'multiple', 'Visit Visa (with Immigration Approval)' => 'dirjenim',
+							collection: { 'Transit Visa' => 'transit', 'Business Visa' => 'business','Business Visa (with Immigration Approval Code)' => 'business-app','Social Culture' => 'social', 'Social Culture (with Immigration Approval Code)' => 'social-app', 'Tourist Visa' => 'tourist', 'Multiple Visa' => 'multiple',
 								          'Limited Stay Visa' => 'limited-stay', 'Diplomatic Visa' => 'diplomatic', 
 								          'Official Visa' => 'official' } %>
 							<i></i>
@@ -1280,6 +1280,7 @@
 					<label class="input">
 						<i class="icon-append icon-plane"></i>
 						<%= f.input_field :flight_vessel %>
+						<div class="note"><strong>Note:</strong>unless you are requesting for transit visa. you may leave this blank</div>
 					</label>
 				  </section>
 				  
@@ -1305,7 +1306,7 @@
 						<i class="icon-append icon-book"></i>
 						<%= f.input_field :approval_no %>
 					  </label>
-					  <div class="note"><strong>Note:</strong> Input this Immigration Approval No. if you apply for Limited Stay Visa.</div>
+					  <div class="note"><strong>Note:</strong> Input this Immigration Approval No. if you apply for Limited Stay Visa. <a target="_blank" href="http://visa.imigrasi.go.id">Check your Immigration approval code here</a></div>
 				    </section>
 
 				    <section class="col col-3">
@@ -1377,6 +1378,12 @@
 					$('#transit').hide();
 				<% end %>
 				<% if @visa.category_type != 'limited-stay' %>
+					$('#limited-stay').hide();
+				<% end %>
+				<% if @visa.category_type != 'business-app'  %>
+					$('#limited-stay').hide();
+				<% end %>
+				<% if @visa.category_type != 'social-app'  %>
 					$('#limited-stay').hide();
 				<% end %>
 				<% if @visa.category_type != 'dirjenim'  %>

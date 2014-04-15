@@ -96,6 +96,12 @@
 												<% end %>
 												
 												<% unless found %>
+													<td>
+													<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
+														<span class="glyphicon glyphicon-save"></span>
+														<span class="glyphicon-class">Download Receipt</span>
+														<% end %>
+													</td>
 													<td class="center"><%= status %></td> 
 												<% end %>
 												</tr>
