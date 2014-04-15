@@ -220,7 +220,7 @@ class Visa
     end
   end
   def check_limited_stay
-    if self.category_type == 'limited-stay' or self.category_type == 'multiple' or self.category_type == 'dirjenim'
+    if self.category_type == 'limited-stay' || self.category_type == 'multiple' || self.category_type == 'dirjenim' || self.category_type == 'business-app' || self.category_type == 'social-app'
       return true
     else
       return false
