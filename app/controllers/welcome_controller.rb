@@ -17,7 +17,7 @@ class WelcomeController < ApplicationController
         if !user_signed_in?
           message_one = "Dear Visitor, Please kindly be notified that your IP address & Location is automatically 
                          logged for security monitoring during your active access to E-KBRI."
-          message_two = "Your IP address is<b> #{@ip_visitor} </b>that is identified to be located in <b> #{@visitor.coordinates[0]}&deg; longitude </b> & <b> #{@visitor.coordinates[1]}&deg; latitude </b>."
+          message_two = "Your IP address is<b> #{@ip_visitor} </b>that is identified to be located in <b> #{@visitor.coordinates[0]}&deg; longitude </b> & <b> #{@visitor.coordinates[1]}&deg; latitude</b>."
           warning = [ message_one, message_two ]
           flash[:warning] = warning.join("<br/>").html_safe
         end

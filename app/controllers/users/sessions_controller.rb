@@ -14,7 +14,7 @@ class Users::SessionsController < Devise::SessionsController
                          logged for security monitoring during your active access to E-KBRI."
     message_two = "Your IP address is<b> #{@ip_visitor} </b>."
     warning = [ message_one, message_two ]
-    flash[:alert] = warning.join("<br/>").html_safe
+    flash[:warning] = warning.join("<br/>").html_safe
   end
 
   # POST /resource/sign_in
