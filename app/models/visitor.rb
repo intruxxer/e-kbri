@@ -12,9 +12,7 @@ class Visitor
   #Geocode stores geocode info in coordinates[0] as latitude, coordinates[1] as longitude)
   
   geocoded_by :ip_address, :latitude => :lat, :longitude => :lon
-  after_validation :geocode
-  
   reverse_geocoded_by :coordinates
-  after_validation :reverse_geocode
+  after_validation :geocode, :reverse_geocode
   
 end
