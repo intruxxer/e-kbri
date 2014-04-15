@@ -42,7 +42,7 @@
 												
 													<% if prevref == t.ref_id and found == false %>
 														<td class="center" style="vertical-align: middle;" valign="middle" rowspan="<%= Visa.where(:ref_id => currefid ).all.count %>" <% found = true %>>
-															<%= link_to 'visas/group/'+ t.currefid +'.pdf', :target => "_blank" do %>
+															<%= link_to 'visas/group/'+ currefid +'.pdf', :target => "_blank" do %>
 															<span class="glyphicon glyphicon-save"></span>
 															<span class="glyphicon-class">Download Receipt</span>
 															<% end %>
