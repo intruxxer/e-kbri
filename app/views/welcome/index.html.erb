@@ -65,6 +65,7 @@
 												<% end %>
 												
 												<% status = (t.status == 'Verified')? ('<a href="/visas/payment/' + t.ref_id + '"><span class="glyphicon glyphicon-credit-card"></span><span class="glyphicon-class"> Make Payment</span></a>').html_safe : t.status %>
+												<% curid = t.id %>
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
 													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>
@@ -97,7 +98,7 @@
 												
 												<% unless found %>
 													<td>
-													<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
+													<%= link_to 'visas/'+curid+'.pdf', :target => "_blank" do %>
 														<span class="glyphicon glyphicon-save"></span>
 														<span class="glyphicon-class">Download Receipt</span>
 														<% end %>
