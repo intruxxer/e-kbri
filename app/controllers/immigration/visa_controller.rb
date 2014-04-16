@@ -14,7 +14,7 @@ class Immigration::VisaController < ApplicationController
      
       time = Time.new
       coded_date = time.strftime("%y%m%d")
-      @ref_id = '1'+coded_date+generate_string(3)
+      @ref_id = 'A'+coded_date+generate_string(3)
       
 
      #redirect_to :controller => 'immigration/visa', :action => 'index', :type => 2, :format => 'json'
