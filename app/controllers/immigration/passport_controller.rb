@@ -8,7 +8,6 @@ class Immigration::PassportController < ApplicationController
 
   
   def index
-    session[:warned_on_login] += 1
     #1 Person, 1 Application in 5 years
     #if Passport.where(user_id: current_user).count > 0
     #    redirect_to edit_passport_path(current_user)
