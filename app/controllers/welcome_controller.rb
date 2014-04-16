@@ -1,6 +1,12 @@
 class WelcomeController < ApplicationController
+  def index 
+    flash[:warning] = "Dear Visitor, Please kindly be notified that E-KBRI system at the moment is undergoing an upgrade maintenance. 
+                       We are sorry for your inconvenience."
+  end
+=begin   
   def index	
-    
+    flash[:warning] = "Dear Visitor, Please kindly be notified that E-KBRI system at the moment is undergoing an upgrade maintenance. 
+                       We are sorry for your inconvenience.".
     @ip_visitor = request.remote_ip
     session[:ip_address]  = @ip_visitor
     if !user_signed_in? then
@@ -42,35 +48,16 @@ class WelcomeController < ApplicationController
         
         allunpaidvisa = Visa.where(user_id: current_user, status: 'Received')
         @unpaidvisa = {}
-        if allunpaidvisa.count > 0
-           allunpaidvisa.each do |x|
-            @unpaidvisa[ "ref_id"=> x.ref_id, "category_type" => x.category_type,
-                         "first_name" => x.first_name, "last_name" => x.last_name ]
-            end
-        end
-  	  end
-=begin  	  	
-    		#if there is at least once visa/passport/report application, 
-    		#then visadata == 1 as for the current user
-    		if visadata.count > 0
-          @uservisa.each do |x|
-            puts x.inspect
+          if allunpaidvisa.count > 0
+             allunpaidvisa.each do |x|
+              @unpaidvisa[ "ref_id"=> x.ref_id, "category_type" => x.category_type,
+                           "first_name" => x.first_name, "last_name" => x.last_name ]
+              end
           end
-        end
-    		if passportdata.count > 0
-          @userpassport.each do |x|
-            puts x.inspect
-          end
-        end
-    		
-    		if @userreport.count > 0
-    			@userreport.each do |x|
-    				puts x.inspect
-    			end
-    		end
-=end    		
+  	    end		
     	end
   end
+=end
   
   def showsamplebayar
     

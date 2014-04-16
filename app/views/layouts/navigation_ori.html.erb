@@ -1,0 +1,85 @@
+<div class="navbar-header">
+  <%= link_to "Home", root_path, :class => 'navbar-brand' %>
+</div>
+
+<div class="collapse navbar-collapse">
+
+<ul class="nav navbar-nav navbar-right">
+<% if user_signed_in? and !current_user.citizenship then %>
+    <li><p class="navbar-text" href="#"> Welcome, <%= "#{current_user.full_name}" %>.</p></li>
+<% elsif user_signed_in? and current_user.citizenship %>
+    <li><p class="navbar-text" href="#"> Selamat Datang, <%= "#{current_user.full_name}" %>.</p></li>
+<% end %>
+
+<% if user_signed_in? and !current_user.citizenship then %>
+    <li><%= link_to '(Logout)', destroy_user_session_path, :method=>'delete' %></li>
+<% elsif user_signed_in? and current_user.citizenship %>
+   <li><%= link_to '(Log Keluar)', destroy_user_session_path, :method=>'delete' %></li>
+<% end %>
+</ul>
+
+<ul class="nav navbar-nav">  
+  <% if user_signed_in? then %>
+  <% if !current_user.citizenship or current_user.has_role? :admin or current_user.has_role? :moderator %>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visa<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Visa/Extension of Re-Entry Permit Requirements', controller: "immigration/visa", action: "info" %></li>	
+      <li class="divider"></li>
+      <% if true %> <!-- <% current_user.individual %> -->
+      <li><%= link_to 'Individual Visa/Re-entry Permit', visas_path %></li>
+      <li><%= link_to 'Visa Application as Family', visafamilys_path %></li>
+      <% end %>
+      <% if true %>
+      <li><%= link_to 'Visa Application as Travel/Group', visagroups_path %></li>
+      <% end %>      
+    </ul>
+  </li>
+  <% end %>
+  <% if user_signed_in? and current_user.citizenship then %>	
+  <li class="dropdown">
+  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Paspor/SPLP & Lapor Diri<b class="caret"></b></a>
+  	<ul class="dropdown-menu">
+  	  <li><%= link_to 'Persyaratan Pembuatan/Perpanjang Paspor', controller: "immigration/passport", action: "info" %></li>      
+      <li><%= link_to 'Pembuatan/Perpanjang Paspor', passports_path %></li>
+      <li class="divider"></li>
+      <li><%= link_to 'Persyaratan untuk Lapor Diri', controller: "immigration/report", action: "info" %></li>
+      <li><%= link_to 'Pembuatan Lapor Diri', reports_path %></li>
+      <!--
+      <li class="divider"></li>
+      <li><%= link_to 'Persyaratan Pembuatan SPLP', controller: "immigration/report", action: "info" %></li>
+      <li><%= link_to 'Pembuatan SPLP', reports_path %></li>
+      -->
+    </ul>
+  </li>
+  <% end %>
+  <% else %>
+  <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+  <% end %>
+  
+  <% if user_signed_in? %>
+  <li class="dropdown">
+  	<% if user_signed_in? and !current_user.citizenship then %>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Settings <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+    <li><%= link_to 'My Account', edit_user_registration_path %></li>
+        <% if current_user.has_role? :admin %>      	   
+      	   <li><%= link_to 'Dashboard Management E-KBRI', dashboard_path %></li>
+   	    <% end %>
+    </ul>
+    <% elsif user_signed_in? and current_user.citizenship %>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pengaturan Akun <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+    <li><%= link_to 'Profile Akun Saya', edit_user_registration_path %></li>
+        <% if current_user.has_role? :admin %>      	   
+      	   <li><%= link_to 'Dashboard Management E-KBRI', dashboard_path %></li>
+   	    <% end %>
+    </ul>
+    <% end %>
+  </li>
+  <% else %>
+    <li><%= link_to 'Login', new_user_session_path %></li>
+  <% end %>
+  
+</ul>
+</div>
