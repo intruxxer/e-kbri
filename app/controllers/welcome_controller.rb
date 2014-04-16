@@ -1,12 +1,6 @@
 class WelcomeController < ApplicationController
-  def index 
-    flash[:warning] = "Dear Visitor, Please kindly be notified that E-KBRI system at the moment is undergoing an upgrade maintenance. 
-                       We are sorry for your inconvenience."
-  end
-=begin   
+   
   def index	
-    flash[:warning] = "Dear Visitor, Please kindly be notified that E-KBRI system at the moment is undergoing an upgrade maintenance. 
-                       We are sorry for your inconvenience.".
     @ip_visitor = request.remote_ip
     session[:ip_address]  = @ip_visitor
     if !user_signed_in? then
@@ -55,9 +49,8 @@ class WelcomeController < ApplicationController
               end
           end
   	    end		
-    	end
+    end
   end
-=end
   
   def showsamplebayar
     
