@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "4.0.0"
-gem "mongoid", github: "mongoid/mongoid"
+gem "mongoid"   #, github: "mongoid/mongoid"
 gem "bson"
 gem "bson_ext"
 gem "mongo_session_store-rails4"
