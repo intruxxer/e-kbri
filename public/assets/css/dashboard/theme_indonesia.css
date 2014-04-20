@@ -8,7 +8,8 @@ body, .main-container, .footer, .main-navigation, ul.main-navigation-menu > li >
 }
 .navbar-inverse {
 	/*background: rgba(20, 20, 20, 1.0);*/
-	background: rgba(200, 10, 10, 1.0);
+	/*background: rgba(200, 10, 10, 1.0);*/
+	background: rgba(0, 0, 153, 1.0);
 	border-color: #C8C7CC;
 }
 /* ie8 fixes */
@@ -115,12 +116,14 @@ ul.main-navigation-menu > li a > i {
 	font-weight: normal;
 }
 ul.main-navigation-menu > li.active > a {
-	background: #A60A0A !important;
+	/*background: #A60A0A !important;*/
+	background: rgba(0, 0, 153, 1.0) !important;
 	border-top: none !important;
 	color: #fff;
 }
 ul.main-navigation-menu > li.active > a .selected:before {
-	color: #A60A0A !important;
+	/*color: #A60A0A !important;*/
+	color: rgba(0, 0, 153, 1.0) !important;
 }
 ul.main-navigation-menu > li.active > a i {
 	color: #fff;
@@ -129,7 +132,8 @@ ul.main-navigation-menu > li.open > a, ul.main-navigation-menu > li > a:hover, u
 	background-color: #D9D9D9;
 }
 .navigation-toggler, .go-top {
-	background-color: #A60A0A !important;
+	/*background-color: #A60A0A !important;*/
+	background-color: rgba(0, 0, 153, 1.0) !important;
 	color:#FFF;
 }
 .navigation-toggler:hover i:first-child, .go-top:hover {
