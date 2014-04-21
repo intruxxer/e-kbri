@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     respond_to do |format|
 
       if @user.update_attributes(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to :back, notice: "User was successfully updated having role(s) as #{params[:user][:roles].reject(&:empty?).join(', ').titleize}." }
       else
         format.html { render action: 'edit' }
       end

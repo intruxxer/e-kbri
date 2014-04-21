@@ -6,15 +6,15 @@
 	<thead>
 		<tr>
 			<td><b>Counsellor Name</b></td>
-			<td><%= @reference.consulat_name %></td>
+			<td><%= @reference.consulat_name.upcase %></td>
 		</tr>
 		<tr>
 			<td><b>Treasurer Name</b></td>
-			<td><%= @reference.treasurer_name %></td>
+			<td><%= @reference.treasurer_name.upcase %></td>
 		</tr>
 		<tr>
 			<td><b>Embassy Office</b></td>
-			<td><%= @reference.embassy_location%></td>
+			<td><%= @reference.embassy_location.upcase %></td>
 		</tr>
 	</thead>
 </table>
@@ -51,7 +51,7 @@
 					hilang = ""
 				end%>
 		<tr>
-			<td width="500"><b>SPRI <%= sliced %> HALAMAN <%= hilang %></b></td>
+			<td width="500"><b>SPRI <%= sliced.to_s.upcase %> HALAMAN <%= hilang %></b></td>
 			<td>$<%= row.passport_fee %></td>
 			<td><a href="/dashboard/reference/edit/passportfee/<%= row.id %>">EDIT</a></td>
 		</tr>			
