@@ -268,4 +268,21 @@ class DesktopController < ApplicationController
     end
   end
   
+  def destroy_user
+    authorize! :destroy, @user, :message => 'Not authorized as an administrator.'
+    @user = User.find(params[:id])
+    name = @user.full_name
+    email = @user.email
+    if @user.destroy
+      current_user.journals.push(Journal.new(:action => 'Removed', :model => 'User', :method => 'Delete from Dashboard', :agent => request.user_agent, :record_id => params[:id] ))
+      respond_to do |format|
+        format.html { redirect_to users_url, :notice => "User eKBRI bernama #{name.titleize} (#{email}) berhasil dihapus dari sistem." }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to users_url, :notice => "User eKBRI bernama #{name} & email #{email} tidak berhasil dihapus dari sistem." }
+      end
+    end
+  end
+  
 end

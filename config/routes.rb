@@ -88,6 +88,7 @@ EKbri::Application.routes.draw do
   get "finishgroupapply", :to => "immigration/visa#finishing_application"
   get "deletepassportviadashboard/:id", :to => "desktop#destroy_passport", via: :delete, :as => :deletepassportviadashboard
   get "deletevisaviadashboard/:id", :to => "desktop#destroy_visa", via: :delete, :as => :deletevisaviadashboard
+  get "deleteuserviadashboard/:id", :to => "desktop#destroy_user", via: :delete, :as => :deleteuserviadashboard
   
   get "visas/reapply/:id", :to => "immigration/visa#reapply"
   get "passports/reapply/:id", :to => "immigration/passport#reapply"
