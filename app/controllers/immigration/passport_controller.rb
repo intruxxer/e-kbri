@@ -127,9 +127,9 @@ class Immigration::PassportController < ApplicationController
     reference = @passport.ref_id
     if @passport.delete
       current_user.journals.push(Journal.new(:action => 'Removed', :model => 'Passport', :method => 'Delete', :agent => request.user_agent, :record_id => params[:id] ))
-      redirect_to :back, :notice => "Visa Application of Ref. No #{reference} has been erased."
+      redirect_to :back, :notice => "Paspor dengan No. Ref. #{reference} telah berhasil dihapuskan dari sistem."
     else
-      redirect_to :back, :notice => "Visa Application of Ref. No #{reference} is not found."
+      redirect_to :back, :notice => "Paspor No. Ref. #{reference} tidak dapat ditemukan."
     end
   end    
   
