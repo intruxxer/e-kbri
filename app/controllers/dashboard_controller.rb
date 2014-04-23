@@ -82,7 +82,7 @@ class DashboardController < ApplicationController
       @daterange = { 'startperiod' => params[:periodical][:startperiod], 'endperiod' => params[:periodical][:endperiod] }
       
       @visa = Visa.where(:printed_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
-      @passport = Passport.where(:payment_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
+      @passport = Passport.where(:printed_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
             
       @passportfee = Passportfee.all
       @visafee = Visafee.all
