@@ -2,4 +2,4 @@
 <p>User: <%= @user.full_name.titleize %></p>
 <p>Email: <%= @user.email if @user.email %></p>
 <p>Roles: <%= @user.roles.join(', ').capitalize if @user.roles %></p>
-<p><br /><%= link_to "Back to Dashboard", users_url, :class => 'btn btn-mini btn-primary' %></p>
+<p><br /><%= link_to "Back to Dashboard", :back, :class => 'btn btn-mini btn-primary' %><!-- users_url -->
