@@ -4,7 +4,9 @@ class DashboardController < ApplicationController
   #because /layouts/dashboard.html.erb exists, default layout used is "dashboard"
   
   def index
-
+    @allvisa = Visa.all.count
+    @allpassport = Passport.all.count
+    @allreport = Report.all.count
   end
   
   def counsel
