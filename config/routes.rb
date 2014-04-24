@@ -28,6 +28,7 @@ EKbri::Application.routes.draw do
   end 
   
   resources :users
+  get "searchuser", :to => "users#search"
   
   get "infovisas", :to => "immigration/visa#info"   
   get "infopassports", :to => "immigration/passport#info"

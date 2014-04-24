@@ -1,53 +1,56 @@
 <div class="body" style="padding-top: 20px;">
 <div style="text-align: center;">
-  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+  <%= image_tag("/assets/images/garuda.png", height: '120', width: '120') %>
 </div>
-<h3>Users' Quick Management Panel</h3>
-<!--
+<h3 style="text-align: center;">Users' Management Panel</h3>
+
 <div class="span8">
-	<div class="span4">
-		&nbsp;
-	</div>
-	<div class="span4">
-		<form class="simple_form sky-form" action="/searchuser" method="get">
-		  <label for="email">Email:</label>
-		  <input id="email" type="text" name="email"> &nbsp;OR&nbsp; 
-		  <label for="email">Name:</label>
-		  <input id="name" type="text" name="name">
-		  <input type="submit" class="button" value="Search"></button>
-		</form>
+	<div class="col-md-12 text-center">
+		<div class="form-container">
+				<p id="response-form">
+					Find a user to lookup or modify. Simply key in their email or full name.
+				</p>
+				<%= form_for :user, url: searchuser_path, method: :post, remote: true, html: {id: "searchuser-form", class: "sky-form"} do |f| %>
+					<%= f.text_field :name, class: "input-large", :placeholder => "Enter user's name." %>
+					<%= f.text_field :email, class: "input-large", :placeholder => "Enter user's e-mail." %>
+					<%=	f.submit 'Search', class: "btn btn-primary btn-mini btn-submit" %>
+					<span id="loading" style="display: none;"><img src="/images/loadingBarBlue.gif" /></span>
+				<% end %>
+				<p id="response-form"></p>
+		</div>
 	</div>
 </div>
+
 <hr />
--->
+
 <div class="span8">
-<table class="table table-condensed">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Registered</th>
-      <th>Role</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= link_to user.full_name, user %></td>
-      <td><%= user.email %></td>
-      <td><%= user.created_at.to_date %></td>
-      <td><%= user.roles.join(', ').titleize unless user.roles.first.nil? %></td>
-      <td>
-        <a data-toggle="modal" href="#role-options-<%= user.id %>" class="btn btn-mini btn-primary" type="button">Change role</a>
-        <%= render user %>
-      </td>
-      <td><%= link_to("Delete user", deleteuserviadashboard_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini btn-danger') unless user == current_user %></td>
-      <!--<td><%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini btn-danger') unless user == current_user %></td>-->
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-  <%= paginate @users %>
+	<table class="table table-condensed">
+	  <thead>
+	    <tr>
+	      <th>Username</th>
+	      <th>Email</th>
+	      <th>Registered</th>
+	      <th>Role</th>
+	      <th></th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  <% @users.each do |user| %>
+	    <tr>
+	      <td><%= link_to user.full_name, user %></td>
+	      <td><%= user.email %></td>
+	      <td><%= user.created_at.to_date %></td>
+	      <td><%= user.roles.join(', ').titleize unless user.roles.first.nil? %></td>
+	      <td>
+	        <a data-toggle="modal" href="#role-options-<%= user.id %>" class="btn btn-mini btn-primary" type="button">Change role</a>
+	        <%= render user %>
+	      </td>
+	      <td><%= link_to("Delete user", deleteuserviadashboard_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini btn-danger') unless user == current_user %></td>
+	      <!--<td><%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini btn-danger') unless user == current_user %></td>-->
+	    </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+	  <%= paginate @users %>
 </div>
