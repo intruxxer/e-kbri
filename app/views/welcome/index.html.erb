@@ -215,7 +215,27 @@
 													<th><center>Menu Pengubahan</center></th>
 												</tr>
 											</thead>
-											<tbody>												
+											<tbody>
+										    <% if current_user.has_role? :admin or current_user.has_role? :moderator %>												
+												<% @userreport.each do |t| %>
+												<tr>													
+													<td align="left"><%= t.ref_id %></td>
+													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>	
+													<td class="center"><%= "Terdaftar di KBRI Seoul" %></td>													
+													<td class="center">
+													<%= link_to (edit_report_path(t.id)) do %>
+														<span class="glyphicon glyphicon-pencil"></span>
+														<span class="glyphicon-class">Revisi Data/Ubah Informasi</span>
+													<% end %>
+													&nbsp;|&nbsp;													
+													<%= link_to 'reports/'+t.id+'.pdf', :target => "_blank" do %>
+														<span class="glyphicon glyphicon-save"></span>
+														<span class="glyphicon-class">Note Print</span>
+														<% end %>
+													</td>
+												</tr>
+												<% end %>
+											<% else %>
 												<% t = @userreport.first %>
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
@@ -233,13 +253,14 @@
 														<% end %>
 													</td>
 												</tr>												
-												
+											<% end %>	
 											</tbody>											
 										</table>
 										<% else %>
 										Anda belum pernah melaporkan diri ke KBRI Seoul melalui sistem e-KBRI.
 										<% end %>
 									</div>
+									<%= paginate @userreport %>
 								</div>
 								<!-- end: TABLE WITH IMAGES PANEL -->
 		</div>

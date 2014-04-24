@@ -33,7 +33,6 @@ class WelcomeController < ApplicationController
   	    
   	  else
   	    visadata = Visa.where(user_id: current_user)
-
         @uservisa = Visa.where(user_id: current_user.id).page(params[:page]).per(5)
         
         passportdata = Passport.where(user_id: current_user)
