@@ -64,31 +64,17 @@ class Immigration::ReportController < ApplicationController
   
   #PATCH, PUT /report/:id
   def update
-	  #@post = Report.find_by(user_id: params[:id])
-	  #@report = Report.find(params[:id])
-	  
-	  @report = Report.new(post_params)
-	  #keep every save as new record but not valid until admin verified it
-	  
-	  if @report.valid?
-	    if simple_captcha_valid?
-	      current_user.reports.push(@report)
-	      current_user.save
-	      
-	      current_user.journals.push(Journal.new(:action => 'Create', :model => 'Report', :method => 'Insert', :agent => request.user_agent, :record_id => @report.id ))
-	      
-	      respond_to do |format|
-	        format.html { redirect_to :back, :notice => "Revisi Data Lapor Diri Anda Berhasil Disimpan. Silahkan tunggu email konfirmasi dari admin" }
-	      end
-	    else
-	      @errors = { 'Secret Code' => 'Wrong Code Entered' }
-	      render 'edit'
-	    end
+	  @report = Report.find(params[:id])
+	  if @report.update(post_params)
+	    current_user.journals.push(Journal.new(:action => 'Updating Report', :model => 'Report', :method => 'Update', :agent => request.user_agent, :record_id => @report.id ))
+	    redirect_to :back, :notice => "Revisi Data Lapor Diri Anda Berhasil Disimpan. Silahkan tunggu email konfirmasi dari admin" 
+	    if current_user.has_role? :admin or current_user.has_role? :moderator        
+        UserMailer.admin_update_report_email(@report).deliver
+      end
 	  else
 	    @errors = @report.errors.messages
 	    render 'edit'    
 	  end	  
-    
   end
   
   def edit   
