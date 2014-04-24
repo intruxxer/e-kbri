@@ -16,7 +16,7 @@
 			
 		<% numbering = 0 %>
 		
-		<table cellpadding="2" cellspacing="0" width="100%" border="0" style="text-align:center;">
+		<table cellpadding="2" cellspacing="0" width="100%" border="0" style="text-align:center;font-size:10pt;">
 			<thead >
 				<tr >												
 					<th rowspan="2" style="border-top:1px solid #000000;border-bottom:3px double #000000;">No.</th>
@@ -33,6 +33,9 @@
 				</tr>
 			</thead>			
 			<tbody>
+				<% grandtotal = 0 %>				
+				<% totalpassport = 0 %>
+				<% totalapp = 0 %>
 				<% @passportfee.each do |pfrow| 
 					sliced = pfrow.passport_type
 					sliced.slice! "passport_"					
@@ -52,110 +55,39 @@
 					<td></td>
 					<td></td>
 					<td>$<%= currentrow.sum(:passportfee) %></td>
-				</tr>					  
+				</tr>				
+				<% totalpassport += currentrow.sum(:passportfee) %>	
+				<% totalapp += currentrow.count %>	
+				<% grandtotal += currentrow.sum(:passportfee) %>		  
 				<% end %>
-				
+				<% orvisa = @visa %>
+				<% totalvisa = 0 %>
+				<% @visafee.each do |vrow| %>
 				<tr>
-					<td>2.</td>
-					<td style="text-align:left;">VISA SOSIAL BUDAYA</td>
-					<td>17</td>
-					<td>765</td>
+					<td><%= numbering += 1 %></td>
+					<td style="text-align:left;"><%= vrow.name_of_visa %></td>
+					<td><%= orvisa.where(:visafee_ref => vrow.id).count %></td>
+					<td>$<%= orvisa.where(:visafee_ref => vrow.id).count * vrow.fee_of_visa %></td>
 					<td></td>
 					<td></td>
 					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>3.</td>
-					<td style="text-align:left;">VISA KUNJUNGAN (DIRJENIM)</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>4.</td>
-					<td style="text-align:left;">VISA WISATA</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>5.</td>
-					<td style="text-align:left;">VISA TRANSIT</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>6.</td>
-					<td style="text-align:left;">VISA BEBERAPA PERJALANAN</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>7.</td>
-					<td style="text-align:left;">VISA TINGGAL TERBATAS 30 HARI</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>8.</td>
-					<td style="text-align:left;">VISA TINGGAL TERBATAS 6 BLN</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>9.</td>
-					<td style="text-align:left;">VISA TINGGAL TERBATAS 1 THN</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
-				<tr>
-					<td>10.</td>
-					<td style="text-align:left;">VISA TINGGAL TERBATAS 2 THN</td>
-					<td>17</td>
-					<td>765</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>765</td>
-				</tr>
+					<td>$<%= orvisa.where(:visafee_ref => vrow.id).count * vrow.fee_of_visa %></td>
+				</tr>	
+				<% totalvisa += orvisa.where(:visafee_ref => vrow.id).count * vrow.fee_of_visa %>
+				<% totalapp += orvisa.where(:visafee_ref => vrow.id).count %>	
+				<% grandtotal += orvisa.where(:visafee_ref => vrow.id).count * vrow.fee_of_visa %>
+				<% end %>				
 			</tbody>
 			<tfoot>
 				<tr>
 					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"></th>
 					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"></th>
-					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">53</th>
-					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">2160</th>
-					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">52</th>
-					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">10</th>
-					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">175</th>
-					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;">2397</th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"><%= totalapp %></th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"><%= totalvisa %></th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"><%= totalpassport %></th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"></th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"></th>
+					<th style="border-top:3px double #000000;border-bottom:1px solid #000000;"><%= grandtotal %></th>
 				</tr>
 			</tfoot>
 		</table>	
