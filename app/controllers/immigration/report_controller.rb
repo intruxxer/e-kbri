@@ -55,7 +55,7 @@ class Immigration::ReportController < ApplicationController
           current_user.journals.push(Journal.new(:action => 'Validated : ' + @report.is_valid.to_s , :model => 'Passport', :method => 'Update', :agent => request.user_agent, :record_id => @report.id ))
           UserMailer.admin_update_report_email(@report).deliver
         
-        redirect_to :back, :notice => 'Anda telah berhasil memperbaharui data lapor diri'
+        redirect_to root_path, :notice => 'Anda telah berhasil memperbaharui data lapor diri'
     else
       @errors = @report.errors.messages
       render 'edit'

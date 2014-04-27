@@ -236,7 +236,7 @@
 												</tr>
 												<% end %>
 											<% else %>
-												<% t = @userreport.first %>
+												<% t = @userreport.last %>
 												<tr>													
 													<td align="left"><%= t.ref_id %></td>
 													<td class="center"><%= t.updated_at.strftime("%-d %b %y") %></td>	
