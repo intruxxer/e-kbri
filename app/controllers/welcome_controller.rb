@@ -25,7 +25,8 @@ class WelcomeController < ApplicationController
     end
                          
   	if user_signed_in?
-  	  @userreport = Report.where(user_id: current_user.id).where(is_valid: true).desc(:updated_at)
+  	  @userreport = Report.where(user_id: current_user.id)
+  	                .where(is_valid: true).desc(:updated_at).page(params[:page]).per(10)
   	  if current_user.has_role? :admin then
   	    @uservisa = Visa.all.page(params[:page]).per(10)
   	    @userpassport = Passport.all.page(params[:page]).per(10)
