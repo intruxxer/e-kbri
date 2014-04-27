@@ -119,7 +119,7 @@ class Report
   private
   def assign_ref_id
     if self.ref_id == nil
-      self.ref_id = Time.new.year.to_s + "/KONS/" + generate_string(3)  
+      self.ref_id = Time.new.year.to_s + "" + Time.new.month.to_s + "/KONS/" + generate_string(3)  
     end    
   end
   
