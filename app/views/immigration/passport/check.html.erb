@@ -315,7 +315,8 @@
 				<label class="label" style="width:auto;background:inherit">Status</label>  							  	
 				<%= f.input_field :status, as: :radio_buttons, :class => 'radio' ,
 					collection: { 'Received' => 'Received', 
-									'<b style="color:green;">Verify</b>' => 'Verified','<b>Approved</b>' => 'Approved', 'Paid' => 'Paid', '<b style="color:red;">Reject</b>' => 'Rejected', '<b style="color:orange;">Revision</b>' => 'Revision' 
+									'<b style="color:green;">Verify</b>' => 'Verified','<b>Approved</b>' => 'Approved', 'Paid' => 'Paid', '<b style="color:red;">Reject</b>' => 'Rejected', '<b style="color:orange;">Revision</b>' => 'Revision',
+									'<b style="color:green;">Printed</b>' => 'Printed' 
 									}, label_method: lambda { |obj| ('<i></i>' + obj[0]).html_safe } %>
 				</section>								
 		        </div>	
