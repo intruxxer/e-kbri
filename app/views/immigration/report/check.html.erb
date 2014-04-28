@@ -445,9 +445,9 @@
 				    </section>
 			   </div>
 				  	
-	    <a href="/reports/<%= @report.id %>.pdf?whosign=1" >
+	    <a href="/reports/<%= @report.id&whosign=1 %>.pdf" >
 		  <button type="button" class="button" style="background-color:#009933">Print (Pak Didik)</button></a>
-	    <a href="/reports/<%= @report.id %>.pdf?whosign=2" >
+	    <a href="/reports/<%= @report.id&whosign=2 %>.pdf?" >
 		  <button type="button" class="button" style="background-color:#009933">Print (Bu Ketrin)</button></a>
 		<button type="submit" class="button">Simpan</button>
 		<a href="/dashboard/service/lapordiri">
