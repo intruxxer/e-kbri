@@ -126,14 +126,17 @@ class Immigration::ReportController < ApplicationController
 
   def show
     @report = Report.find(params[:id])
-    whosign = params[:whosign]
-      if whosign == 1 then
+    if !(params[:whosign].nil?) or !(params[:whosign].blank?)
+      if params[:whosign] == 1 then
           templateReport = "immigration/report/adminprint.html.erb"
-      elsif whosign == 2
+      elsif params[:whosign] == 2
           templateReport = "immigration/report/adminprinttwo.html.erb"
-      else
+      else 
           templateReport = "immigration/report/adminprint.html.erb"
       end
+    else
+          templateReport = "immigration/report/adminprint.html.erb"
+    end
       respond_to do |format|
       format.html { render 'edit' }
       format.json { render json: @report }
