@@ -126,19 +126,19 @@ class Immigration::ReportController < ApplicationController
 
   def show
     @report = Report.find(params[:id])
+    whosign = params[:whosign]
+      if whosign == 1 then
+          templateReport = "immigration/report/adminprint.html.erb"
+      elsif whosign == 2
+          templateReport = "immigration/report/adminprinttwo.html.erb"
+      else
+          templateReport = "immigration/report/adminprint.html.erb"
+      end
       respond_to do |format|
       format.html { render 'edit' }
       format.json { render json: @report }
       format.xml  { render xml: @report }
       format.pdf do
-        whosign = params[:whosign]
-        if whosign == 1 then
-          templateReport = "immigration/report/adminprint.html.erb"
-        elsif whosign == 2
-          templateReport = "immigration/report/adminprinttwo.html.erb"
-        else
-          templateReport = "immigration/report/adminprint.html.erb"
-        end
         render :pdf            => "Data Lapor Diri [" + @report.name + "]",
                :disposition    => "inline", #{attachment, inline}
                :show_as_html   => params[:debug].present?,
