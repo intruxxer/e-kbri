@@ -78,17 +78,17 @@ class Passport
   validates :citizenship_status, presence: true
   
 
-  validates :lastPassportNo,     presence: true, length: { minimum: 0, maximum: 32 }, :if => :check_application_reason
-  validates :placeIssued,        presence: true, length: { minimum: 0, maximum: 30 }, :if => :check_application_reason
+  validates :lastPassportNo,     presence: true, length: { minimum: 1, maximum: 32 }, :if => :check_application_reason
+  validates :placeIssued,        presence: true, length: { minimum: 1, maximum: 30 }, :if => :check_application_reason
   validates :dateIssued,         presence: true, :if => :check_application_reason
   validates :dateIssuedEnd,      presence: true, :if => :check_application_reason
   #validates :immigrationOffice,  presence: true, :if => :check_application_reason
 
   
   validates :jobStudyInKorea,    presence: true, length: { minimum: 1, maximum: 50 }
-  validates :jobStudyTypeInKorea,presence: true
-  validates :jobStudyOrganization,length: { minimum: 0, maximum: 50 }
-  validates :jobStudyAddress,    length: { minimum: 0, maximum: 50 }
+  validates :jobStudyTypeInKorea, presence: true
+  validates :jobStudyOrganization, length: { minimum: 1, maximum: 50 }
+  validates :jobStudyAddress,    length: { minimum: 1, maximum: 50 }
   
   validates :phoneKorea,         presence: true, length: { minimum: 1, maximum: 30 }
   validates :addressKorea,       presence: true, length: { minimum: 1, maximum: 100 }

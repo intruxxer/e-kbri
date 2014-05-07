@@ -131,13 +131,27 @@ class DesktopController < ApplicationController
   
   
   def show_all_sisari
-    @visas = Visa.desc(:created_at).all   
+    @visas = Visa.desc(:created_at)   
     
     params.permit(:sSearch,:iDisplayLength,:iDisplayStart)
     
+    unless ( params[:filterdstart]=='' && params[:filterdend]=='' )
+      if params[:filterd] == "Pembayaran"
+        @visas = @visas.where(:payment_date => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      elsif params[:filterd] == "Pengambilan"
+        @visas = @visas.where(:pickup_date => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      elsif params[:filterd] == "Pembuatan"
+        @visas = @visas.where(:created_at => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      else
+        @visas = @visas.where(:created_at => { '$gte' => params[:filterdstart].to_s + " 00:00:00" , '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      end      
+    end 
+    
+    @visas = @visas.all
+    
     unless (params[:sSearch].nil? || params[:sSearch] == "")    
       searchparam = params[:sSearch]  
-      @visas = @visas.any_of({:full_name => /#{searchparam}/},{:ref_id => /#{searchparam}/},{:status => /#{searchparam}/})
+      @visas = @visas.any_of({:first_name => /#{searchparam}/},{:last_name => /#{searchparam}/},{:ref_id => /#{searchparam}/},{:status => /#{searchparam}/})
     end   
     
     unless (params[:iDisplayStart].nil? || params[:iDisplayLength] == '-1')
@@ -187,7 +201,7 @@ class DesktopController < ApplicationController
     
     begin
       db.execute("INSERT INTO tblData(kntrKeluarLama, noFile, pekerjaan, alasanBuat, sponsorLuar, negaraLuar, alamatLuar, kotaLuar, alamatDalam, kelurahan, kabupaten, kecamatan, noPass, noReg, tglKeluar, tglExpire, namaLkP, tmpLahir, tglLahir, jmlHal, noLama, tglKeluarLama, tmpKeluarLama, idCode, KantorPerwakilan, jnsKel, statusWN, namaKlrg) 
-        VALUES('" + @passport.placeIssued + "','" + params[:passport][:lapordiri_no] + "','" + @passport.jobStudyInKorea + "','" + @passport.application_reason + "','" +  @passport.jobStudyOrganization.to_s + "','KOREA SELATAN','" +  @passport.addressKorea.to_s + "','" +  @passport.cityKorea.to_s + "','" +  @passport.addressIndonesia.to_s + "','" +  @passport.kelurahanIndonesia.to_s + "','" +  @passport.kabupatenIndonesia.to_s + "','" +  @passport.kecamatanIndonesia.to_s + "','" + params[:passport][:passport_no] + "','" + params[:passport][:reg_no] + "','" + Time.new.year.to_s + "/" + Time.new.month.to_s + "/" + Time.new.day.to_s + "','" + (Time.new.year + 5).to_s + "/" + Time.new.month.to_s + "/" + Time.new.day.to_s + "','" + @passport.full_name + "','" + @passport.placeBirth + "','" + @passport.dateBirth.to_s + "','" +  @passport.paspor_type.to_s + "','" + @passport.lastPassportNo + "','" + @passport.dateIssued.to_s + "','" + @passport.placeIssued + "','37A','KBRI SEOUL', '" +  @passport.kelamin.to_s + "', '" +  @passport.citizenship_status.to_s + "','')")
+        VALUES('" + @passport.placeIssued + "','" + params[:passport][:lapordiri_no] + "','" + @passport.jobStudyInKorea + "','" + @passport.application_reason + "','" +  @passport.jobStudyOrganization.to_s + "','KOREA SELATAN','" +  @passport.addressKorea.to_s + "','" +  @passport.cityKorea.to_s + "','" +  @passport.addressIndonesia.to_s + "','" +  @passport.kelurahanIndonesia.to_s + "','" +  @passport.kabupatenIndonesia.to_s + "','" +  @passport.kecamatanIndonesia.to_s + "','" + params[:passport][:passport_no] + "','" + params[:passport][:reg_no] + "','" + Time.new.year.to_s + "/" + Time.new.month.to_s + "/" + Time.new.day.to_s + "','" + (Time.new.year + 5).to_s + "/" + Time.new.month.to_s + "/" + Time.new.day.to_s + "','" + @passport.full_name + "','" + @passport.placeBirth.to_s + "','" + @passport.dateBirth.to_s + "','" +  @passport.paspor_type.to_s + "','" + @passport.lastPassportNo.to_s + "','" + @passport.dateIssued.to_s + "','" + @passport.placeIssued.to_s + "','37A','KBRI SEOUL', '" +  @passport.kelamin.to_s + "', '" +  @passport.citizenship_status.to_s + "','')")
       @passport.update_attributes({ :status => 'Printed', :passport_no => params[:passport][:passport_no], :reg_no => params[:passport][:reg_no],:printed_date => Time.now, :pickup_date => params[:passport][:pickup_date]})      
       
       if params[:passport][:datanglgs] == true
@@ -209,9 +223,25 @@ class DesktopController < ApplicationController
   end
   
   def show_all_spri
-    @passport = Passport.desc(:created_at).all   
+    @passport = Passport.desc(:created_at)   
     
     params.permit(:sSearch,:iDisplayLength,:iDisplayStart)
+    
+    unless ( params[:filterdstart]=='' && params[:filterdend]=='' )
+      if params[:filterd] == "Pembayaran"
+        @passport = @passport.where(:payment_date => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      elsif params[:filterd] == "Pengambilan"
+        @passport = @passport.where(:pickup_date => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      elsif params[:filterd] == "Pembuatan"
+        @passport = @passport.where(:created_at => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      else
+        @passport = @passport.where(:created_at => { '$gte' => params[:filterdstart].to_s + " 00:00:00" , '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      end      
+    end    
+    
+    @passport = @passport.all
+    
+    
     
     unless (params[:sSearch].nil? || params[:sSearch] == "")    
       searchparam = params[:sSearch]  

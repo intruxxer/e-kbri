@@ -117,7 +117,7 @@ class Visa
   validates :sponsor_phone_kr,       presence: true, :if => :check_not_reentry
       
   validates :sponsor_type_id,        presence: true
-  validates :sponsor_name_id,        presence: true  
+  validates :sponsor_name_id,        presence: true, length: { minimum: 1, maximum: 25 }  
   validates :sponsor_address_id,     presence: true
   validates :sponsor_address_kab_id, presence: true
   validates :sponsor_address_prov_id,presence: true

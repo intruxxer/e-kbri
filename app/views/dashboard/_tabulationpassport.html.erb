@@ -1,5 +1,33 @@
+<form class="sky-form" method="GET">
+	<fieldset>
+		<div class="row">	
+			
+			<section class="col col-8">
+				<label class="label">Filter</label>
+				<label class="label" style="font-weight:bold;">
+					<input type="radio" name="filterd" value="all" <%= (params[:filterd].nil?||params[:filterd]=="all")?"checked":"" %> />&nbsp;All&nbsp;
+					<input type="radio" name="filterd" value="Pembuatan" <%= (params[:filterd]=="Pembuatan")?"checked":"" %> />&nbsp;Pembuatan&nbsp;
+					<input type="radio" name="filterd" value="Pembayaran" <%= (params[:filterd]=="Pembayaran")?"checked":"" %> />&nbsp;Pembayaran&nbsp;
+					<input type="radio" name="filterd" value="Pengambilan" <%= (params[:filterd]=="Pengambilan")?"checked":"" %> />&nbsp;Pengambilan&nbsp;						
+				</label>
+			</section>			
+		</div>
+		<div class="row">		
+			
+			<section class="col col-8">
+				<label class="label">within</label>
+				<label class="label" style="font-weight:bold;">
+					<input type="text" class="datePick" name="filterdstart" value="<%= params[:filterdstart] %>"/>&nbsp;&nbsp;to&nbsp;&nbsp;<input type="text" class="datePick" name="filterdend" value="<%= params[:filterdend] %>" />						
+				</label>
+			</section>			
+		</div>
+	</fieldset>	
+	<footer>
+					<button type="submit" class="button">Filter</button>
+    </footer>
+</form>	
 
-<div class="row">
+<div class="row" style="margin-top:8px;">
 	<div class="col-md-12">
 							<!-- start: TABLE WITH IMAGES PANEL -->
 							<div class="panel panel-default">
@@ -33,7 +61,10 @@
 											      null,
 
 											      { "bSortable": false }											      
-											    ]
+											    ],
+											    "fnServerParams": function ( aoData ) {
+												  aoData.push( { "name" : "filterd", "value" : $("input:checked[name='filterd']").val() },{ "name" : "filterdstart", "value" : $("input[name='filterdstart']").val() },{ "name" : "filterdend", "value" : $("input[name='filterdend']").val() } );
+												}
 										    });
 										});									
 									</script>									
@@ -66,3 +97,19 @@
 							<!-- end: TABLE WITH IMAGES PANEL -->
 	</div>
 </div>
+
+<script type="text/javascript">
+			$(function()
+			{			
+				
+				$('.datePick').datepicker({
+					dateFormat: 'yy-mm-dd',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,      				
+      				yearRange: '1900:2040'      				
+
+				});
+			});			
+</script>
