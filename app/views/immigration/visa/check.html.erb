@@ -22,7 +22,7 @@
 		<div class="row">			
 			<section class="col col-6">
 				No Ref.		   :<b> <%= @visa.ref_id %></b> <br />
-				Jenis Aplikasi : <b><%= @visa.application_type %> </b> , Alasan :  <b><%= @visa.reason %></b>
+				Jenis Aplikasi : <b><%= (@visa.application_type == 4)?'Re-entry Permit':'New Visa Application' %> </b> , Alasan :  <b><%= @visa.reason %></b>
 			</section>
 			<section class="col col-3">
 				Requested Visa 	 : <b><%= @visa.category_type %></b><br />
@@ -37,7 +37,7 @@
 	<fieldset style="background:#FFCC66;">
 		<div class="row">
 			<%= (Visa.where(:ref_id => @visa.ref_id).all.count > 1)?'Group/Family':'Individual' %> Application			
-			<%  @vg = Visagrouppayment.where(:ref_id => @visa.ref_id) %>
+			<%  @vg = Visagrouppayment.where(:ref_id => @visa.ref_id).asc(:created_at) %>
 			<% if @vg.count > 0 %>
 				<section class="col col-6">
 					Status Pembayaran : <b>Sudah dibayar</b><br />
@@ -243,10 +243,34 @@
 	<fieldset>
 		<div class="row">
 			<section class="col col-9">
-					<label class="label">Dokumen Pendukung</label>
+					<label class="label">Dokumen Pendukung 1</label>
 					<label class="label" style="font-weight:bold;">
 						<% if @visa.supdoc.exists? %>
-							<%= link_to @visa.supdoc_file_name, @visa.supdoc.url(:original, false) %>
+							<%= link_to @visa.supdoc_file_name, @visa.supdoc.url(:original, false), target: "_blank" %>
+						<% else %>
+							<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+						<% end %>							
+					</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+					<label class="label">Dokumen Pendukung 2</label>
+					<label class="label" style="font-weight:bold;">
+						<% if @visa.supdoc_2.exists? %>
+							<%= link_to @visa.supdoc_2_file_name, @visa.supdoc_2.url(:original, false), target: "_blank" %>
+						<% else %>
+							<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+						<% end %>							
+					</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+					<label class="label">Dokumen Pendukung 3</label>
+					<label class="label" style="font-weight:bold;">
+						<% if @visa.supdoc_3.exists? %>
+							<%= link_to @visa.supdoc_3_file_name, @visa.supdoc_3.url(:original, false), target: "_blank" %>
 						<% else %>
 							<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
 						<% end %>							
@@ -258,7 +282,7 @@
 					<label class="label">Return Trip Ticket</label>
 					<label class="label" style="font-weight:bold;">
 						<% if @visa.ticket.exists? %>
-							<%= link_to 'Download Return Ticket', @visa.ticket.url(:original, false) %>
+							<%= link_to 'Download Return Ticket', @visa.ticket.url(:original, false), target: "_blank" %>
 						<% else %>
 							<i style="color:orange;">Return Trip Ticket Tidak di Temukan</i>
 						<% end %>							

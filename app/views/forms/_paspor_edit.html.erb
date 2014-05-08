@@ -819,26 +819,67 @@
 				<fieldset>
 					<h3>Dokumen Pendukung</h3>
 					<hr /><br />
-					Daftar dokumen pendukung yang harus di lampirkan harap mengacu pada <a target="_blank" href="http://kbriseoul.kr/kbriseoul/index.php/id/2013-01-07-14-59-13/pelaynan-kekonsuleran">halaman panduan</a> untuk setiap jenis permohonan Paspor. <br />
+					Daftar dokumen pendukung yang harus di lampirkan harap mengacu pada <a target="_blank" href="/infopassports">halaman panduan</a> untuk setiap jenis permohonan Paspor. <br />
 					Dokumen yang di lampirkan harus di bawa dalam bentuk cetak ketika datang ke KBRI<br />
-					Gabungkan setiap dokumen menjadi satu dalam format ZIP/RAR dengan ukurang tidak lebih dari 5MB <br /><br />
+					Gabungkan setiap dokumen hanya dalam format berkas JPG/JPEG/PNG/PDF. dengan ukuran tidak lebih dari 2MB <br /><br />
 					
-					<section class="col col-6">
-							<label class="label">Dokumen Pendukung</label>
-							<label for="file" class="input input-file">
-								<div class="button">									
-									<%= f.input_field :supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
-									<input type="text" readonly="readonly" />
-							</label>
-							
-							<div class="note"><strong>Catatan : </strong> Hanya berkas ZIP/RAR. Ukuran Maks. 5MB</div>
-					</section> 
-					<% if @passport.supporting_doc.exists? %>
-						<section class="col col-4">
-							Dokumen Terunggah : <br />
-							<%= link_to @passport.supporting_doc_file_name, @passport.supporting_doc.url(:original, false) %>							
-						</section>				
-					<%end%>
+					<div class="row">
+						<section class="col col-6">
+								<label class="label">Dokumen Pendukung 1</label>
+								<label for="file" class="input input-file">
+									<div class="button">									
+										<%= f.input_field :supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
+										<input type="text" readonly="readonly" />
+								</label>
+								
+								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF. Ukuran Maks. 2MB</div>
+						</section> 
+						<% if @passport.supporting_doc.exists? %>
+							<section class="col col-4">
+								Dokumen Terunggah : <br />
+								<%= link_to @passport.supporting_doc_file_name, @passport.supporting_doc.url(:original, false) %>							
+							</section>				
+						<%end%>
+					</div>
+					
+					<div class="row">
+						<section class="col col-6">
+								<label class="label">Dokumen Pendukung 2</label>
+								<label for="file" class="input input-file">
+									<div class="button">									
+										<%= f.input_field :supporting_doc_2, as: :file, class: 'fileplaceholder' %>Unggah</div>
+										<input type="text" readonly="readonly" />
+								</label>
+								
+								<div class="note"><strong>Catatan : </strong> HHanya berkas JPG/JPEG/PNG/PDF. Ukuran Maks. 2MB</div>
+						</section> 
+						<% if @passport.supporting_doc_2.exists? %>
+							<section class="col col-4">
+								Dokumen Terunggah : <br />
+								<%= link_to @passport.supporting_doc_2_file_name, @passport.supporting_doc_2.url(:original, false) %>							
+							</section>				
+						<%end%>
+					</div>
+					
+					<div class="row">
+						<section class="col col-6">
+								<label class="label">Dokumen Pendukung 3</label>
+								<label for="file" class="input input-file">
+									<div class="button">									
+										<%= f.input_field :supporting_doc_3, as: :file, class: 'fileplaceholder' %>Unggah</div>
+										<input type="text" readonly="readonly" />
+								</label>
+								
+								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF. Ukuran Maks. 2MB</div>
+						</section> 
+						<% if @passport.supporting_doc_3.exists? %>
+							<section class="col col-4">
+								Dokumen Terunggah : <br />
+								<%= link_to @passport.supporting_doc_3_file_name, @passport.supporting_doc_3.url(:original, false) %>							
+							</section>				
+						<%end%>
+					</div>
+					
 				</fieldset>
 				<fieldset style="text-align:justify;">
 					<h4>Disclaimer</h4>

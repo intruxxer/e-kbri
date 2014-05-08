@@ -58,6 +58,12 @@ class Immigration::VisaController < ApplicationController
     
     
     if @visagrouppayment.valid?
+      
+      @vgs = Visagrouppayment.where(params.require(:visagrouppayment).permit(:ref_id))
+      if @vgs.count > 0
+        @vgs.delete
+      end
+      
       @visagrouppayment.save
       current_user.journals.push(Journal.new(:action => 'Payment', :model => 'Visagrouppayment', :method => 'Insert', :agent => request.user_agent, :record_id => @visagrouppayment.id ))
       
@@ -173,11 +179,10 @@ class Immigration::VisaController < ApplicationController
     if @visa.update(post_params)
 
       
-      if current_user.has_role? :admin or current_user.has_role? :moderator
-        current_user.journals.push(Journal.new(:action => @visa.status, :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => @visa.id ))
+      if current_user.has_role? :admin or current_user.has_role? :moderator        
         UserMailer.admin_update_visa_email(@visa).deliver
       end
-      
+      current_user.journals.push(Journal.new(:action => @visa.status, :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => @visa.id ))
       redirect_to :back, :notice => 'You have updated your visa application data!'
 
     else
@@ -215,7 +220,7 @@ class Immigration::VisaController < ApplicationController
       :sponsor_phone_id, :duration_stays, :duration_stays_unit, :num_entry, :checkbox_1, :checkbox_2, :checkbox_3, 
       :checkbox_4, :checkbox_5, :checkbox_6, :checkbox_7, :count_dest, :flight_vessel, :air_sea_port, :date_entry, :purpose, 
       :passport, :idcard, :photo, :status, :status_code, :slip_photo, :payment_date, :ticket, :supdoc, :ref_id,
-      :approval_no, :visafee_ref, :comment, :pickup_office, :pickup_date)
+      :approval_no, :visafee_ref, :comment, :pickup_office, :pickup_date, :supdoc_2, :supdoc_3)
 
     end
     #Notes: to add attribute/variable after POST params received, do

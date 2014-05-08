@@ -170,7 +170,15 @@ class Visa
   
   has_mongoid_attached_file :supdoc
   validates_attachment_content_type :supdoc, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream image/jpeg image/jpg image/png application/pdf)
-  validates_attachment_size :supdoc, less_than: 5.megabytes
+  validates_attachment_size :supdoc, less_than: 2.megabytes
+  
+  has_mongoid_attached_file :supdoc_2
+  validates_attachment_content_type :supdoc_2, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream image/jpeg image/jpg image/png application/pdf)
+  validates_attachment_size :supdoc_2, less_than: 2.megabytes
+  
+  has_mongoid_attached_file :supdoc_3
+  validates_attachment_content_type :supdoc_3, :content_type => %w(application/zip application/x-rar-compressed application/octet-stream image/jpeg image/jpg image/png application/pdf)
+  validates_attachment_size :supdoc_3, less_than: 2.megabytes
   
   has_mongoid_attached_file :ticket, :styles => { :thumb => "90x120>" }
   validates_attachment_content_type :ticket, :content_type => %w(image/jpeg image/jpg image/png application/pdf)  

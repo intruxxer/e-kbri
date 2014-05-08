@@ -225,16 +225,42 @@
 	</fieldset>
 	
 	<fieldset>
-		<section class="col col-9">
-				<label class="label">Dokumen Pendukung</label>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 1</label>
 				<label class="label" style="font-weight:bold;">
 					<% if @passport.supporting_doc.exists? %>
-						<%= link_to @passport.supporting_doc_file_name, @passport.supporting_doc.url(:original, false) %>
+						<%= link_to @passport.supporting_doc_file_name, @passport.supporting_doc.url(:original, false), target: "_blank" %>
 					<% else %>
 						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
 					<% end %>							
 				</label>
 			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 2</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @passport.supporting_doc_2.exists? %>
+						<%= link_to @passport.supporting_doc_2_file_name, @passport.supporting_doc_2.url(:original, false), target: "_blank" %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 3</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @passport.supporting_doc_3.exists? %>
+						<%= link_to @passport.supporting_doc_3_file_name, @passport.supporting_doc_3.url(:original, false), target: "_blank" %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+		</div>
 	</fieldset>
 	
 	<fieldset>

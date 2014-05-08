@@ -131,7 +131,7 @@ class Immigration::VisafamilyController < ApplicationController
       :sponsor_phone_id, :duration_stays, :duration_stays_unit, :num_entry, :checkbox_1, :checkbox_2, :checkbox_3, 
       :checkbox_4, :checkbox_5, :checkbox_6, :checkbox_7, :count_dest, :flight_vessel, :air_sea_port, :date_entry, 
       :purpose, :passport, :idcard, :photo, :status, :status_code, :slip_photo, 
-      :payment_date, :ticket, :supdoc, :ref_id, :approval_no).merge(visa_type: 2)
+      :payment_date, :ticket, :supdoc, :ref_id, :approval_no, :supdoc_2, :supdoc_3).merge(visa_type: 2)
 
     end
     #Notes: to add attribute/variable after POST params received, do

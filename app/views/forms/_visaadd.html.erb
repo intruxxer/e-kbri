@@ -1233,20 +1233,14 @@
 				</fieldset>
 				
 				<fieldset>
-					<div class="row">	
-						<section class="col col-6">
-							<label class="label">Supporting Document</label>
-							<label for="file" class="input input-file">
-								<div class="button">
-									<%= f.input_field :supdoc, as: :file, class: 'fileplaceholder' %>Upload</div>
-									<input type="text" readonly="readonly" />
-							</label>
-							<div class="note">
-								<strong>Note:</strong> 
-								It could be company reference letter, sponsor letter, school admission letter, etc. 
-								Combine all documents into one.
-								Max Size: 2MB in ZIP/RAR or JPEG/JPG/PNG.</div>
-						</section>
+					<h3>Supporting Documents</h3>
+					<hr /><br />
+					Please refer to following link for list of required documents <a target="_blank" href="/infovisas">REQUIREMENTS</a>. <br />
+					Please bring your real copy of attached document upon retrieving your visa to the Indonesian Embassy Office<br />
+					Files must be in format of JPG/JPEG/PNG/PDF. Max Size for each file : 2MB <br /><br />
+					
+					
+					<div class="row">							
 						
 						<section class="col col-6">
 							<label class="label">Return Trip Ticket</label>
@@ -1258,6 +1252,51 @@
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG/PDF. Max Size: 2MB</div>
 						</section>	
 					</div>	
+					
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Supporting Document 1</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :supdoc_2, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Note:</strong> 
+								It could be company reference letter, sponsor letter, school admission letter, etc.								
+								Max Size: 2MB JPG/JPEG/PNG/PDF.</div>
+						</section>
+					</div>
+					
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Supporting Document 2</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :supdoc_3, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Note:</strong> 
+								It could be company reference letter, sponsor letter, school admission letter, etc.								
+								Max Size: 2MB JPG/JPEG/PNG/PDF.</div>
+						</section>
+					</div>
+					
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">Supporting Document 3</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :supdoc, as: :file, class: 'fileplaceholder' %>Upload</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Note:</strong> 
+								It could be company reference letter, sponsor letter, school admission letter, etc.								
+								Max Size: 2MB JPG/JPEG/PNG/PDF.</div>
+						</section>
+					</div>
 				</fieldset>
 				
 				<fieldset class="newVisa specialFieldType no-show">

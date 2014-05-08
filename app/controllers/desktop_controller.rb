@@ -31,8 +31,8 @@ class DesktopController < ApplicationController
         revisionLink = "<a href=\"/reports/" + @revision.last.id + "/check\">Revisi</a> (" + @revision.last.created_at.strftime("%Y %b %d %H:%M:%S").to_s + ")"
       end
       
-      editLink = "<a href=\"/reports/" + row.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>Update</span></a>"
-      checkLink = "<a target=\"_blank\" href=\"/reports/" + row.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>Check</span></a>"
+      editLink = "<a target=\"_blank\" href=\"/reports/" + row.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>Update</span></a>"
+      checkLink = "<a target=\"_blank\" target=\"_blank\" href=\"/reports/" + row.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>Check</span></a>"
       #printLink = "<a href=\"/visa/tosisari/" + visa.id + "\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SISARI</span></a>"
       
       
@@ -125,7 +125,7 @@ class DesktopController < ApplicationController
       
     db.close   
     
-    redirect_to '/dashboard/service/visa', msg
+    redirect_to '/visas/' + params[:id] + '/check', msg
   end
   
   
@@ -165,8 +165,8 @@ class DesktopController < ApplicationController
     i = 1
     
     @visas.each do |visa|
-      editLink = "<a href=\"/visas/" + visa.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>Update</span></a>"
-      checkLink = "<a href=\"/visas/" + visa.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>Check</span></a>"
+      editLink = "<a target=\"_blank\" href=\"/visas/" + visa.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>Update</span></a>"
+      checkLink = "<a target=\"_blank\" href=\"/visas/" + visa.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>Check</span></a>"
       deleteLink = "<a rel=\"nofollow\" data-method=\"delete\" href=\"/deletevisaviadashboard/#{visa.id}\"><span class='glyphicon glyphicon-trash'></span><span class='glyphicon-class'>Delete</span></a>"
       #printLink = "<a href=\"/visa/tosisari/" + visa.id + "\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SISARI</span></a>"
       
@@ -179,7 +179,7 @@ class DesktopController < ApplicationController
       end
       
       
-      aaData.push([i, visa.ref_id, print_code, visa.first_name + " " + visa.last_name , visa.status, visa.created_at.strftime("%-d %b %Y") , paymentdate, retrievedate, checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;|&nbsp;" + deleteLink + "&nbsp;"])
+      aaData.push([i, visa.ref_id, print_code, visa.category_type, visa.first_name + " " + visa.last_name , visa.status, visa.created_at.strftime("%-d %b %Y") , paymentdate, retrievedate, checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;|&nbsp;" + deleteLink + "&nbsp;"])
       i += 1                        
     end
     
@@ -219,7 +219,7 @@ class DesktopController < ApplicationController
       
     db.close    
     
-    redirect_to '/dashboard/service/passport', msg
+    redirect_to '/passports/' + params[:id] + '/check', msg
   end
   
   def show_all_spri
@@ -259,9 +259,9 @@ class DesktopController < ApplicationController
     
     i = 1
     @passport.each do |passport|
-      editLink = "<a href=\"/passports/" + passport.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>Edit</span></a>"
+      editLink = "<a target=\"_blank\" href=\"/passports/" + passport.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>Edit</span></a>"
       #printLink = "<a href=\"/admin/service/prep_spri/" + passport.id + "\" target=\"_blank\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SPRI</span></a>"
-      checkLink = "<a href=\"/passports/" + passport.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>Check</span></a>"
+      checkLink = "<a target=\"_blank\" href=\"/passports/" + passport.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>Check</span></a>"
       #deleteLink = "<a rel=\"nofollow\" data-method=\"delete\" href=\"/deletepassportviadashboard/#{passport.id}\"><span class='glyphicon glyphicon-trash'></span><span class='glyphicon-class'>Delete</span></a>"
       deleteLink = "<a rel=\"nofollow\" data-method=\"delete\" href=\"/deletepassportviadashboard/#{passport.id}\"><span class='glyphicon glyphicon-trash'></span><span class='glyphicon-class'>Delete</span></a>"
       
