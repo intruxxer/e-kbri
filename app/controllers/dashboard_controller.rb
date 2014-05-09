@@ -81,8 +81,8 @@ class DashboardController < ApplicationController
       
       @daterange = { 'startperiod' => params[:periodical][:startperiod], 'endperiod' => params[:periodical][:endperiod] }
       
-      @visa = Visa.where(:pickup_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
-      @passport = Passport.where(:pickup_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
+      @visa = Visa.where(:payment_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
+      @passport = Passport.where(:payment_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
             
       @passportfee = Passportfee.all
       @visafee = Visafee.all
@@ -102,7 +102,7 @@ class DashboardController < ApplicationController
         respond_to do |format|
           format.pdf do
             render :pdf         => "Rekapitulasi Visa & Paspor " + params[:periodical][:startperiod] + " _ " + params[:periodical][:endperiod],
-                   :disposition => "inline",
+                   :disposition => "attacment",
                    :template    => 'dashboard/report/rekap.html.erb',
                    :page_size   => 'A4',                           
                    :footer      => { :center => "The Embassy of Republic of Indonesia at Seoul" }

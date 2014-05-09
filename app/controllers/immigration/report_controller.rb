@@ -133,6 +133,8 @@ class Immigration::ReportController < ApplicationController
       elsif params[:whosign] == 'second'
           templateReport = "immigration/report/adminprinttwo.html.erb"
       end 
+    else
+        templateReport = "immigration/report/userprint.html.erb"
     end
       respond_to do |format|
       format.html { render 'edit' }

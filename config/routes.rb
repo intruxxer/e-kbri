@@ -74,6 +74,7 @@ EKbri::Application.routes.draw do
   get "visas/:id/check", :to => "immigration/visa#check"
   get "reports/:id/check", :to => "immigration/report#check"
   get "reports/:whosign/:id", :to => "immigration/report#show"
+  get "reports/user/print/:id", :to => "immigration/report#show"
   
   get "protocol/synccloudtolocal/:collection", :to => "protocol#syncCollectionCloudtoLocal"
   get "protocol/syncdbcomplete", :to => "protocol#syncDBComplete"
