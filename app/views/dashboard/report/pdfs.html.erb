@@ -3,8 +3,8 @@
 <hr />
 <% @passport.each do |ps| %>
 	<h4><%= ps.ref_id %><br /><%= ps.full_name %></h4>
-	<% if @ps.slip_photo.exists? %>		
-		<img src="<%= File.expand_path(Rails.root) + "/public" + @ps.slip_photo.url(:original) %>" />
+	<% if ps.slip_photo.exists? %>		
+		<img src="<%= File.expand_path(Rails.root) + "/public" + ps.slip_photo.url(:original) %>" />
 	<% else %>
 		Bukti tidak ditemukan
 	<% end %>
