@@ -1,0 +1,26 @@
+<center><h1>REKAPITULASI BUKTI PASSPORT</h1></center>
+<center><h4>Dari Tgl. : <%= @daterange['startperiod'] %> s/d <%= @daterange['endperiod'] %></h4></center>
+<hr />
+<% @passport.each do |ps| %>
+	<h4><%= ps.ref_id %><br /><%= ps.full_name %></h4>
+	<% if @ps.slip_photo.exists? %>		
+		<img src="<%= File.expand_path(Rails.root) + "/public" + @ps.slip_photo.url(:original) %>" />
+	<% else %>
+		Bukti tidak ditemukan
+	<% end %>
+<% end %>
+<br />
+<br />
+
+<center><h1>REKAPITULASI BUKTI VISA</h1></center>
+<center><h4>Dari Tgl. : <%= @daterange['startperiod'] %> s/d <%= @daterange['endperiod'] %></h4></center>
+<hr />
+<% @visa.each do |vs| %>
+	<h4><%= vs.ref_id %><br /><%= vs.first_name %>&nbsp;<%= vs.last_name %></h4>
+	<%  @vg = Visagrouppayment.where(:ref_id => vs.ref_id).asc(:created_at) %>
+	<% if @vg.count > 0 %>
+		<img src="<%= File.expand_path(Rails.root) + "/public" + @vg.last.slip_photo.url(:original) %>" />
+	<% else %>
+		Bukti tidak ditemukan
+	<% end %>	
+<% end %>

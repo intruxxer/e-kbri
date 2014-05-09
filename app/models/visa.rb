@@ -154,17 +154,17 @@ class Visa
   ##validates :approval_no,            presence: true
   
   has_mongoid_attached_file :photo, :styles => { :thumb => "90x120>" }
-  validates_attachment_content_type :photo, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_content_type :photo, :content_type => %w(image/jpeg image/jpg image/png application/pdf)
   validates_attachment_presence :photo
   validates_attachment_size :photo, less_than: 2.megabytes
   
   has_mongoid_attached_file :idcard, :styles => { :thumb => "90x120>" }
-  validates_attachment_content_type :idcard, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_content_type :idcard, :content_type => %w(image/jpeg image/jpg image/png application/pdf)
   validates_attachment_presence :idcard
   validates_attachment_size :idcard, less_than: 2.megabytes
   
   has_mongoid_attached_file :passport, :styles => { :thumb => "90x120>" }
-  validates_attachment_content_type :passport, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_content_type :passport, :content_type => %w(image/jpeg image/jpg image/png application/pdf)
   validates_attachment_presence :passport
   validates_attachment_size :passport, less_than: 2.megabytes
   

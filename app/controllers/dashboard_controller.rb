@@ -70,7 +70,7 @@ class DashboardController < ApplicationController
   
   def periodical_reporting
     @layout_part = 'top'
-  end
+  end  
   
   def generate_periodical_reporting
     @layout_part = 'bottom'
@@ -81,30 +81,41 @@ class DashboardController < ApplicationController
       
       @daterange = { 'startperiod' => params[:periodical][:startperiod], 'endperiod' => params[:periodical][:endperiod] }
       
-      @visa = Visa.where(:printed_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
-      @passport = Passport.where(:printed_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
+      @visa = Visa.where(:pickup_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
+      @passport = Passport.where(:pickup_date => {'$gte' => params[:periodical][:startperiod],'$lte' => params[:periodical][:endperiod]})
             
       @passportfee = Passportfee.all
       @visafee = Visafee.all
       
-      respond_to do |format|
-        format.pdf do
-          render :pdf         => "Rekapitulasi Visa & Paspor " + params[:periodical][:startperiod] + " _ " + params[:periodical][:endperiod],
-                 :disposition => "inline",
-                 :template    => 'dashboard/report/rekap.html.erb',
-                 :page_size   => 'A4',                           
-                 :footer      => { :center => "The Embassy of Republic of Indonesia at Seoul" }
+      if(params[:type]=='rekap')
+        respond_to do |format|
+          format.pdf do
+            render :pdf         => "Rekapitulasi Bukti Visa & Paspor " + params[:periodical][:startperiod] + " _ " + params[:periodical][:endperiod],
+                   :disposition => "attachment",
+                   :template    => 'dashboard/report/pdfs.html.erb',
+                   :page_size   => 'A4'                          
+                   
+          end
         end
-      end  
+        
+      else
+        respond_to do |format|
+          format.pdf do
+            render :pdf         => "Rekapitulasi Visa & Paspor " + params[:periodical][:startperiod] + " _ " + params[:periodical][:endperiod],
+                   :disposition => "inline",
+                   :template    => 'dashboard/report/rekap.html.erb',
+                   :page_size   => 'A4',                           
+                   :footer      => { :center => "The Embassy of Republic of Indonesia at Seoul" }
+          end
+        end
+        
+      end      
         
     else     
        
        redirect_to :back, :flash => { warning: "Laporan Gagal Dibuat" }
           
-    end
-    
-    
-    
+    end    
   end
   
   protected
@@ -122,7 +133,7 @@ class DashboardController < ApplicationController
 
   
   def periodical_post_params
-    params.require(:periodical).permit(:startperiod, :endperiod)
+    params.require(:periodical).permit(:startperiod, :endperiod, :type)
   end
 
 end

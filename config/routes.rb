@@ -83,7 +83,7 @@ EKbri::Application.routes.draw do
   
   get "report/panel/periodical", :to => "dashboard#periodical_reporting"
   
-  match "report/generate/periodical", to: "dashboard#generate_periodical_reporting", via: :post
+  match "report/generate/periodical", to: "dashboard#generate_periodical_reporting", via: :post  
   
   get '/images/:name', :to => 'images#show', :as => :custom_image
   

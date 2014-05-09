@@ -111,13 +111,13 @@ class DesktopController < ApplicationController
     db = Accessdb.new( folderloc )
     db.open('imigrasiRI')    
     
-        
+    db.execute("DELETE * FROM TTVISA WHERE [NO_APLIKASI] = '" + print_code + "' ")    
              
-    #begin      
+    begin      
       
       db.execute(query)      
       @visa.update_attributes({:print_code => print_code,:status => 'Printed', :printed_date => Time.now, :pickup_date => params[:visa][:pickup_date]})       
-    begin   
+    #begin   
        msg = { :notice => 'Data berhasil dipindahkan' }
     rescue 
        msg = { :flash => { warning: "Data Gagal dipindahkan" } }
