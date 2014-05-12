@@ -1,3 +1,11 @@
+<style>
+	.ui-datepicker{
+		width:280px;
+	}
+</style>
+<div id="dialog-confirm" title="Delete this Data? " style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
 <form class="sky-form" method="GET">
 	<fieldset>
 		<div class="row">	
@@ -14,7 +22,7 @@
 		</div>
 		<div class="row">		
 			
-			<section class="col col-8">
+			<section class="col col-8" font-size:8pt;>
 				<label class="label">within</label>
 				<label class="label" style="font-weight:bold;">
 					<input type="text" class="datePick" name="filterdstart" value="<%= params[:filterdstart] %>"/>&nbsp;&nbsp;to&nbsp;&nbsp;<input type="text" class="datePick" name="filterdend" value="<%= params[:filterdend] %>" />						
@@ -36,9 +44,7 @@
 									<div class="panel-tools">
 										<a class="btn btn-xs btn-link panel-collapse collapses" href="#">
 										</a>										
-										<a class="btn btn-xs btn-link panel-refresh" href="#">
-											<i class="fa fa-refresh"></i>
-										</a>																				
+																														
 									</div>
 								</div>
 								<div class="panel-body">
@@ -66,7 +72,26 @@
 												  aoData.push( { "name" : "filterd", "value" : $("input:checked[name='filterd']").val() },{ "name" : "filterdstart", "value" : $("input[name='filterdstart']").val() },{ "name" : "filterdend", "value" : $("input[name='filterdend']").val() } );
 												}
 										    });
-										});									
+										});		
+										
+										$(document).on("click",".deldata", function(e){												
+											    link =  $(this).attr("href");
+										    	e.preventDefault();									    								
+												$( "#dialog-confirm" ).dialog({
+											      resizable: false,
+											      height:200,
+											      modal: true,
+											      buttons: {
+											        "Delete" : function() {
+											          window.location = link;
+											        },
+											        Cancel: function() {											         	
+											          $( this ).dialog( "close" );
+											        }
+											      }
+											    });
+											});	
+																			
 									</script>									
 									
 									<style>

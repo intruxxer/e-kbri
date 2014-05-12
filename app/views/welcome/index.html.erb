@@ -1,3 +1,7 @@
+<div id="dialog-confirm" title="Delete this Application? " style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. <br />Any payment made to this point <b>WILL BE NOT</b> refundable<br />Are you sure?</p>
+</div>
+
 <div style="text-align: center; padding-top: 20px; position: relative;">
 <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 <h1>Welcome to electronic KBRI Seoul services (E-KBRI)</h1>
@@ -86,7 +90,7 @@
 														<span class="glyphicon-class">Notify Update to Embassy</span>
 														<% end %>
 													|&nbsp;-->
-													<%= link_to'visas/'+t.id, :method=>'delete' do %>
+													<%= link_to userdeletevisa_path(t.id), :class=>'deldata' do %>
 														<span class="glyphicon glyphicon-trash"></span>
 														<span class="glyphicon-class">Cancel</span>
 														<% end %>
@@ -161,7 +165,7 @@
 														<span class="glyphicon-class">Perbaharui</span>
 													<% end %>													
 													|&nbsp;													
-													<%= link_to 'passports/'+t.id, :method=>'delete' do %>
+													<%= link_to userdeletepassport_path(t.id), :class=>'deldata' do %>
 														<span class="glyphicon glyphicon-trash"></span>
 														<span class="glyphicon-class">Batal</span>
 														<% end %>
@@ -279,23 +283,43 @@
 </p>
 </div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>
+<%= stylesheet_link_tag "/assets/plugins/jquery-ui/jquery-ui-1.10.4.custom.min.css"%>
+
 <script type="text/javascript">
 	$(function($)
-		{
-				// Regular datepicker
-				$( '.datePick' ).datepicker({
-					dateFormat: 'dd.mm.yy',
-					prevText: '<i class="icon-chevron-left"></i>',
-					nextText: '<i class="icon-chevron-right"></i>'
-				});
-				
-				$('.fileplaceholder').change(function(){					
-					filename = $(this).val();
-					$(this).parent().next().val(filename.split("\\").pop());
-				});
-								
-				//console.log();
-				
-		});			
+	{
+			// Regular datepicker
+			$( '.datePick' ).datepicker({
+				dateFormat: 'dd.mm.yy',
+				prevText: '<i class="icon-chevron-left"></i>',
+				nextText: '<i class="icon-chevron-right"></i>'
+			});
+			
+			$('.fileplaceholder').change(function(){					
+				filename = $(this).val();
+				$(this).parent().next().val(filename.split("\\").pop());
+			});
+							
+			//console.log();
+			$(".deldata").click(function(e){												
+			    link =  $(this).attr("href");
+		    	e.preventDefault();							    								
+				$( "#dialog-confirm" ).dialog({
+			      resizable: false,
+			      height:250,
+			      modal: true,
+			      buttons: {
+			        "Delete" : function() {
+			           window.location = link;
+			        },
+			        Cancel: function() {											         	
+			          $( this ).dialog( "close" );
+			        }
+			      }
+			    });
+			});	
+			
+	});		
+	
 </script>

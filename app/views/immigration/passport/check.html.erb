@@ -261,6 +261,18 @@
 				</label>
 			</section>
 		</div>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 4</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @passport.supporting_doc_4.exists? %>
+						<%= link_to @passport.supporting_doc_4_file_name, @passport.supporting_doc_4.url(:original, false), target: "_blank" %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+		</div>
 	</fieldset>
 	
 	<fieldset>

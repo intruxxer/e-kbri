@@ -91,11 +91,11 @@ class Passport
   validates :jobStudyAddress,    length: { minimum: 1, maximum: 50 }
   
   validates :phoneKorea,         presence: true, length: { minimum: 1, maximum: 30 }
-  validates :addressKorea,       presence: true, length: { minimum: 1, maximum: 100 }
+  validates :addressKorea,       presence: true #, length: { minimum: 1, maximum: 100 } #maximum of 100 characters for SPRI
   validates :cityKorea,          presence: true
   
   validates :phoneIndonesia,     presence: true, length: { minimum: 1, maximum: 30 }
-  validates :addressIndonesia,   presence: true, length: { minimum: 1, maximum: 50 }
+  validates :addressIndonesia,   presence: true #, length: { minimum: 1, maximum: 50 } #maximum of 50 characters for SPRI
   validates :kelurahanIndonesia, presence: true, length: { minimum: 1, maximum: 30 }
   validates :kabupatenIndonesia, presence: true, length: { minimum: 1, maximum: 30 }
   validates :kecamatanIndonesia, presence: true, length: { minimum: 1, maximum: 30 }
@@ -116,16 +116,20 @@ class Passport
 
   
   has_mongoid_attached_file :supporting_doc
-  validates_attachment_content_type :supporting_doc, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf)
+  validates_attachment_content_type :supporting_doc, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
   validates_attachment_size :supporting_doc, less_than: 2.megabytes
   
   has_mongoid_attached_file :supporting_doc_2
-  validates_attachment_content_type :supporting_doc_2, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf)
+  validates_attachment_content_type :supporting_doc_2, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
   validates_attachment_size :supporting_doc_2, less_than: 2.megabytes
   
   has_mongoid_attached_file :supporting_doc_3
-  validates_attachment_content_type :supporting_doc_3, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf)
+  validates_attachment_content_type :supporting_doc_3, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
   validates_attachment_size :supporting_doc_3, less_than: 2.megabytes
+  
+  has_mongoid_attached_file :supporting_doc_4
+  validates_attachment_content_type :supporting_doc_4, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+  validates_attachment_size :supporting_doc_4, less_than: 2.megabytes
   
   
   

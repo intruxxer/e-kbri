@@ -2,11 +2,11 @@
 <center><h4>Dari Tgl. : <%= @daterange['startperiod'] %> s/d <%= @daterange['endperiod'] %></h4></center>
 <hr />
 <% @passport.each do |ps| %>
-	<h4><%= ps.ref_id %><br /><%= ps.full_name %></h4>
+	<h2><%= ps.ref_id %><br /><%= ps.full_name %></h2>
 	<% if ps.slip_photo.exists? %>		
 		<img src="<%= File.expand_path(Rails.root) + "/public" + ps.slip_photo.url(:original) %>" />
 	<% else %>
-		Bukti tidak ditemukan
+		<h3>Bukti tidak ditemukan</h3>
 	<% end %>
 <% end %>
 <br />
@@ -16,11 +16,11 @@
 <center><h4>Dari Tgl. : <%= @daterange['startperiod'] %> s/d <%= @daterange['endperiod'] %></h4></center>
 <hr />
 <% @visa.each do |vs| %>
-	<h4><%= vs.ref_id %><br /><%= vs.first_name %>&nbsp;<%= vs.last_name %></h4>
+	<h2><%= vs.ref_id %><br /><%= vs.first_name %>&nbsp;<%= vs.last_name %></h2>
 	<%  @vg = Visagrouppayment.where(:ref_id => vs.ref_id).asc(:created_at) %>
 	<% if @vg.count > 0 %>
 		<img src="<%= File.expand_path(Rails.root) + "/public" + @vg.last.slip_photo.url(:original) %>" />
 	<% else %>
-		Bukti tidak ditemukan
+		<h3>Bukti tidak ditemukan</h3>
 	<% end %>	
 <% end %>

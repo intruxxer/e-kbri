@@ -178,12 +178,13 @@ class Immigration::VisaController < ApplicationController
     @visa = Visa.find(params[:id])
     if @visa.update(post_params)
 
-      
+      current_user.journals.push(Journal.new(:action => @visa.status, :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => @visa.id ))
       if current_user.has_role? :admin or current_user.has_role? :moderator        
         UserMailer.admin_update_visa_email(@visa).deliver
-      end
-      current_user.journals.push(Journal.new(:action => @visa.status, :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => @visa.id ))
-      redirect_to :back, :notice => 'You have updated your visa application data!'
+        redirect_to :back, :notice => 'A Visa Application Data has been updated'
+      else
+        redirect_to root_path, :notice => 'You have updated your visa application data!'
+      end      
 
     else
       @errors = @visa.errors.messages

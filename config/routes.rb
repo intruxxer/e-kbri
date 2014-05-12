@@ -115,6 +115,9 @@ EKbri::Application.routes.draw do
   
   get "visas/group/:ref_id", to: "immigration/visa#group_recap"
   
+  get "delete/user/passport/:id", :to => "immigration/passport#destroy", :as => :userdeletepassport
+  get "delete/user/visa/:id", :to => "immigration/visa#destroy", :as => :userdeletevisa
+  
   #resources :dashboard_immigration, path: "dashboard/immigration"
   
 
