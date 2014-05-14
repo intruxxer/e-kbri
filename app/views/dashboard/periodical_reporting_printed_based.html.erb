@@ -1,0 +1,65 @@
+<%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
+<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name == :notice ? "success" : name %>">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @layout_part == 'top' %>
+<%= simple_form_for :periodical , url: '/report/generate/periodical_printed_based.pdf', :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
+	<fieldset>
+		<div class="row">
+			
+			<section class="col col-2">
+				<label class="label">Awal Periode</label>	
+				<label class="input">
+						<i class="icon-append icon-calendar"></i>
+						<%= f.input_field :startperiod, :class => 'datePick' %>
+				</label>
+			</section>
+			<section class="col col-2">
+				<label class="label">Akhir Periode</label>	
+				<label class="input">
+						<i class="icon-append icon-calendar"></i>
+						<%= f.input_field :endperiod, :class => 'datePick'  %>
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<input type="radio" name="type" value="pnbp" checked>&nbsp;PNBP&nbsp;&nbsp;
+			<input type="radio" name="type" value="rekap">&nbsp;Rekap Bukti Slip
+		</div>
+	</fieldset>	
+	<footer>		
+		<button type="submit" class="button">Generate</button>		
+	</footer>
+<%end%>
+
+<script type="text/javascript">
+			$(function()
+			{				
+				$('.datePick').datepicker({
+					dateFormat: 'yy/mm/dd',
+					prevText: '<i class="icon-chevron-left"></i>',
+					nextText: '<i class="icon-chevron-right"></i>',
+					changeMonth: true,
+      				changeYear: true,
+      				yearRange: '1900:' + new Date().getFullYear()
+				});				
+			});			
+</script>
+<% elsif @layout_part == 'bottom' %>
+
+<div id="result_placeholder">PASSPORT = <%= @passport.count %>&nbsp;VISA = <%= @visa.count %></div>
+
+<% end %>
+
+
+
+
+

@@ -65,11 +65,11 @@ class Immigration::VisaController < ApplicationController
       end
       
       @visagrouppayment.save
-      current_user.journals.push(Journal.new(:action => 'Payment', :model => 'Visagrouppayment', :method => 'Insert', :agent => request.user_agent, :record_id => @visagrouppayment.id ))
+      current_user.journals.push(Journal.new(:action => 'Payment', :model => 'Visagrouppayment', :method => 'Insert', :agent => request.user_agent, :record_id => @visagrouppayment.id, :ref_id => @visagrouppayment.ref_id ))
       
       Visa.where(params.require(:visagrouppayment).permit(:ref_id)).all.each do |row|
         row.update(params.require(:visagrouppayment).permit(:status, :payment_date, :pickup_office))
-        current_user.journals.push(Journal.new(:action => 'Paid', :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => row.id ))
+        current_user.journals.push(Journal.new(:action => 'Paid', :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => row.id, :ref_id => row.ref_id ))
       end
       redirect_to root_path, :notice => 'Payment Information Successfully saved!'
     else
@@ -115,7 +115,7 @@ class Immigration::VisaController < ApplicationController
           current_user.visas.push(@visa[0])   
           current_user.save
           UserMailer.visa_received_email(@visa[0]).deliver
-          current_user.journals.push(Journal.new(:action => 'Created', :model => 'Visa', :method => 'Insert', :agent => request.user_agent, :record_id => @visa[0].id ))
+          current_user.journals.push(Journal.new(:action => 'Created', :model => 'Visa', :method => 'Insert', :agent => request.user_agent, :record_id => @visa[0].id, :ref_id => @visa[0].ref_id ))
           @visa = Visa.where(:ref_id => @visa[0].ref_id)
           
           render 'visaconfirm.html.erb'
@@ -178,7 +178,7 @@ class Immigration::VisaController < ApplicationController
     @visa = Visa.find(params[:id])
     if @visa.update(post_params)
 
-      current_user.journals.push(Journal.new(:action => @visa.status, :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => @visa.id ))
+      current_user.journals.push(Journal.new(:action => @visa.status, :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => @visa.id, :ref_id => @visa.ref_id ))
       if current_user.has_role? :admin or current_user.has_role? :moderator        
         UserMailer.admin_update_visa_email(@visa).deliver
         redirect_to :back, :notice => 'A Visa Application Data has been updated'
@@ -204,7 +204,7 @@ class Immigration::VisaController < ApplicationController
     @visa = Visa.find(params[:id])
     reference = @visa.ref_id
     if @visa.delete
-      current_user.journals.push(Journal.new(:action => 'Removed', :model => 'Visa', :method => 'Delete', :agent => request.user_agent, :record_id => params[:id] ))
+      current_user.journals.push(Journal.new(:action => 'Removed', :model => 'Visa', :method => 'Delete', :agent => request.user_agent, :record_id => params[:id], :ref_id => reference ))
       redirect_to :back, :notice => "Visa Application of Ref. No #{reference} has been erased."
     else
       redirect_to :back, :notice => "Visa Application of Ref. No #{reference} is not found."

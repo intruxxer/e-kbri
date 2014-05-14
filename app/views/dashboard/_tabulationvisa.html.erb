@@ -42,6 +42,17 @@
 									<i class="fa fa-external-link-square"></i>
 									Aplikasi Visa
 									<div class="panel-tools">
+										<% link = '/export/table/visa.xlsx' 
+										 unless request.query_parameters.empty? %>
+										 	<script type="text/javascript">
+										 		$(document).ready(function(){
+										 			$(".export").attr("href","/export/table/visa.xlsx?" + $("form").serialize());	
+										 		});										 		
+										 	</script>
+										 <% end	 %>
+										<a class="btn btn-xs btn-link panel-export export" href="<%= link %>">
+											<i class="fa fa-book"></i>
+										</a>
 										<a class="btn btn-xs btn-link panel-collapse collapses" href="#">
 										</a>										
 																														
@@ -58,6 +69,7 @@
 										         "sAjaxSource": "/visa/show/all",
 										         "aoColumns": [
 										          null,
+											      null,
 											      null,
 											      null,
 											      null,
@@ -111,6 +123,7 @@
 												<th class="center">Status</th>
 												<th class="center">Pembuatan</th>
 												<th class="center">Pembayaran</th>	
+												<th class="center">Pencetakan</th>
 												<th class="center">Pengambilan</th>
 												<th class="center" width="300"></th>												
 											</tr>

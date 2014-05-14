@@ -8,6 +8,9 @@ gem "mongo_session_store-rails4"
 gem "geocoder"
 gem "kaminari"
 
+gem "axlsx"
+gem 'axlsx_rails'
+
 gem "simple_form"
 gem "devise"
 gem "devise-encryptable"

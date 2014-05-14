@@ -83,8 +83,11 @@ EKbri::Application.routes.draw do
   match "report/findbynameandbirth", to: "immigration/report#findbyNameandBirth", via: :get
   
   get "report/panel/periodical", :to => "dashboard#periodical_reporting"
-  
+  get "report/panel/periodical_printed_based", :to => "dashboard#periodical_reporting_printed_based"
   match "report/generate/periodical", to: "dashboard#generate_periodical_reporting", via: :post  
+  match "report/generate/periodical_printed_based", to: "dashboard#generate_periodical_reporting_printed_based", via: :post
+  
+  get "export/table/:doc", :to => "desktop#export_table"
   
   get '/images/:name', :to => 'images#show', :as => :custom_image
   
