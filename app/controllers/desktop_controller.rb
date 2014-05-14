@@ -166,9 +166,9 @@ class DesktopController < ApplicationController
     
     i = 1
     
-    visafeeh = Hash.new
-    Visafee.each do |vf|
-      visafeeh[vf.id] = vf.name_of_visa
+    visafeeh = {}
+    Visafee.all.each do |vf|
+      visafeeh[vf.id.to_s] = vf.name_of_visa
     end
     
     @visas.each do |visa|
@@ -326,27 +326,47 @@ class DesktopController < ApplicationController
     
     
     wb = p.workbook
-    
-    wb.add_worksheet(:name => "Export Table") do |sheet|
-      sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan"]
-    
-      i = 1
-      @doc.each do |docs|        
-        
-        paymentdate = !(docs.payment_date.nil?) ? docs.payment_date.strftime("%-d %b %Y") : '-'
-        retrievedate = !(docs.pickup_date.nil?) ? docs.pickup_date.strftime("%-d %b %Y") : '-'
-        printeddate = !(docs.printed_date.nil?) ? docs.printed_date.strftime("%-d %b %Y") : '-'
-        
+    wb.styles do |s|
+      style_1 = s.add_style :b => true
+      wb.add_worksheet(:name => "Export Table") do |sheet|        
         if params[:doc] == "passport"
-          sheet.add_row [i, docs.ref_id, docs.full_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate ]  
+          sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
         elsif params[:doc] == "visa"
-          sheet.add_row [i, docs.ref_id, docs.last_name + " " + docs.first_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate ]
+          sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan", "Jenis Visa"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
+          
+          visafeeh = {}
+          Visafee.all.each do |vf|
+            visafeeh[vf.id.to_s] = vf.name_of_visa
+          end
+          
+        end      
+      
+        i = 1
+        @doc.each do |docs|        
+          
+          paymentdate = !(docs.payment_date.nil?) ? docs.payment_date.strftime("%-d %b %Y") : '-'
+          retrievedate = !(docs.pickup_date.nil?) ? docs.pickup_date.strftime("%-d %b %Y") : '-'
+          printeddate = !(docs.printed_date.nil?) ? docs.printed_date.strftime("%-d %b %Y") : '-'
+          
+          if params[:doc] == "passport"
+            sheet.add_row [i, docs.ref_id, docs.full_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate ]  
+          elsif params[:doc] == "visa"
+            
+            visatype = "-"
+            unless docs.visafee_ref.nil?
+              visatype = visafeeh[docs.visafee_ref]
+            end 
+          
+            
+            sheet.add_row [i, docs.ref_id, docs.last_name + " " + docs.first_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate, visatype ]
+          end
+          
+          i += 1                        
         end
         
-        i += 1                        
       end
-      
     end
+    
 
     
     respond_to do |format|        

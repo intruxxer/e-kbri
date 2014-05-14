@@ -116,19 +116,19 @@ class Passport
 
   
   has_mongoid_attached_file :supporting_doc
-  validates_attachment_content_type :supporting_doc, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+  validates_attachment_content_type :supporting_doc, :content_type => %w(application/octet-stream application/zip application/x-rar-compressed image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
   validates_attachment_size :supporting_doc, less_than: 2.megabytes
   
   has_mongoid_attached_file :supporting_doc_2
-  validates_attachment_content_type :supporting_doc_2, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+  validates_attachment_content_type :supporting_doc_2, :content_type => %w(application/octet-stream application/zip application/x-rar-compressed image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
   validates_attachment_size :supporting_doc_2, less_than: 2.megabytes
   
   has_mongoid_attached_file :supporting_doc_3
-  validates_attachment_content_type :supporting_doc_3, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+  validates_attachment_content_type :supporting_doc_3, :content_type => %w(application/octet-stream application/zip application/x-rar-compressed image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
   validates_attachment_size :supporting_doc_3, less_than: 2.megabytes
   
   has_mongoid_attached_file :supporting_doc_4
-  validates_attachment_content_type :supporting_doc_4, :content_type => %w(image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+  validates_attachment_content_type :supporting_doc_4, :content_type => %w(application/octet-stream application/zip application/x-rar-compressed image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
   validates_attachment_size :supporting_doc_4, less_than: 2.megabytes
   
   
