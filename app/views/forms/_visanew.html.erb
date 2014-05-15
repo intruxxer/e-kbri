@@ -53,6 +53,7 @@
 								          'Official Visa' => 'official' } %>
 							<i></i>
 							</label>
+							<div class="note">For <b>Diplomatic Passport Holder</b>, please choose <b>Diplomatic Visa</b> Request instead other Visa Request</div>
 						</section>
 						<section class="col col-2 " style="display:none;">
 							<label class="label">Type</label>
@@ -1260,7 +1261,7 @@
 					
 					<div class="row">
 						<section class="col col-6">
-							<label class="label">Supporting Document 1</label>
+							<label class="label">Supporting Document 1 (Travel Order/Immigration Approval Letter/Admission Letter)</label>
 							<label for="file" class="input input-file">
 								<div class="button">
 									<%= f.input_field :supdoc_2, as: :file, class: 'fileplaceholder' %>Upload</div>
@@ -1275,7 +1276,7 @@
 					
 					<div class="row">
 						<section class="col col-6">
-							<label class="label">Supporting Document 2</label>
+							<label class="label">Supporting Document 2 (Sponsor Letter/Invitation Letter)</label>
 							<label for="file" class="input input-file">
 								<div class="button">
 									<%= f.input_field :supdoc_3, as: :file, class: 'fileplaceholder' %>Upload</div>
@@ -1290,7 +1291,7 @@
 					
 					<div class="row">
 						<section class="col col-6">
-							<label class="label">Supporting Document 3</label>
+							<label class="label">Supporting Document 3 (Diplomatic Note/Etc)</label>
 							<label for="file" class="input input-file">
 								<div class="button">
 									<%= f.input_field :supdoc, as: :file, class: 'fileplaceholder' %>Upload</div>

@@ -67,7 +67,7 @@ class Immigration::VisaController < ApplicationController
       @visagrouppayment.save
       current_user.journals.push(Journal.new(:action => 'Payment', :model => 'Visagrouppayment', :method => 'Insert', :agent => request.user_agent, :record_id => @visagrouppayment.id, :ref_id => @visagrouppayment.ref_id ))
       
-      Visa.where(params.require(:visagrouppayment).permit(:ref_id)).all.each do |row|
+      Visa.where(params.require(:visagrouppayment).permit(:ref_id)).each do |row|
         row.update(params.require(:visagrouppayment).permit(:status, :payment_date, :pickup_office))
         current_user.journals.push(Journal.new(:action => 'Paid', :model => 'Visa', :method => 'Update', :agent => request.user_agent, :record_id => row.id, :ref_id => row.ref_id ))
       end

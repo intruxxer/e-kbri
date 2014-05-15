@@ -47,7 +47,7 @@
 					Tanggal Pembayaran : <b><%= @vg.last.payment_date %></b>
 				</section>
 				<section class="col col-6">
-					Pickup Location : <b><%= @vg.last.pickup_office %></b>
+					Pickup Location : <b><%= @visa.pickup_office %></b>
 					Pickup Date		: <b><%= @visa.pickup_date %></b>
 				</section>
 			<% else %>
@@ -410,7 +410,7 @@
 				    <section class="col col-9">
 				   		<label class="label" style="width:auto;background:inherit">Comment</label>
 						<label class="select" style="width:200px;">
-								<%= f.input_field :comment, :rows => 5, :maxlength => 100, as: :text %>							
+								<%= f.input_field :comment, :rows => 5, :maxlength => 200, as: :text %>							
 							</label>
 				    </section>
 			   </div>

@@ -211,7 +211,8 @@
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
 							<%= f.input_field :jobStudyAddress, :row => 5, :maxlength => 50, as: :text %>
-						</label>						
+						</label>		
+						<div class="note">Pastikan alamat sesuai dengan SLC/Kop Surat resmi Instansi terkait</div>				
 						</section>
 					</div>
 
@@ -747,7 +748,22 @@
 						
 					</div>
 
-				</fieldset>				
+				</fieldset>		
+				<fieldset>
+					<h4>Tempat Pengambilan</h4>
+					<br />
+					<section class="col col-6">
+							<label class="label">Lokasi Kantor</label>	
+							<label class="select">
+								<%= f.input :pickup_office, :required => true, 
+								collection: { 'KBRI Seoul' => 'seoul', 
+								          	  'KUKRI Busan' => 'busan'}, :include_blank => false, :label => false %>
+							<i></i>
+							</label>	
+							<div class="note">Jika anda datang langsung ke kantor cabang Seoul/Busan, Harap pilih kantor yang sesuai. Untuk Pemohon online, Passport akan di kirim ditempat pengambilan yang anda pilih</div>						
+					</section>	
+						
+				</fieldset>			
 				<fieldset>
 					<h3>Dokumen Pendukung</h3>
 					<hr /><br />
@@ -757,46 +773,46 @@
 					
 					<div class="row">
 						<section class="col col-6">
-								<label class="label">Dokumen Pendukung 1</label>
+								<label class="label"><b>Dokumen Pendukung 1</b> (Scan/Foto Depan & Belakang Passport dan ID Card)<br /><%= link_to "Contoh Dokumen Passpor & ID", '/system/sample-pasporid.pdf', :target => :_blank %></label>
 								<label for="file" class="input input-file">
 									<div class="button">									
 										<%= f.input_field :supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
-								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX. Ukuran Maks. 2MB</div>
+								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
 						</section> 
 					</div>
 					<div class="row">
 						<section class="col col-6">
-								<label class="label">Dokumen Pendukung 2</label>
+								<label class="label"><b>Dokumen Pendukung 2</b> (Scan/Foto Depan & Belakang SLC/Admission Letter/Buku Nikah)<br /><%= link_to "Contoh Dokumen SLC", '/system/sample-slc.pdf', :target => :_blank %></label>
 								<label for="file" class="input input-file">
 									<div class="button">									
 										<%= f.input_field :supporting_doc_2, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
-								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX. Ukuran Maks. 2MB</div>
+								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
 						</section> 
 					</div>
 					<div class="row">
 						<section class="col col-6">
-								<label class="label">Dokumen Pendukung 3</label>
+								<label class="label"><b>Dokumen Pendukung 3</b> (Scan/Foto Depan & Belakang Kartu Keluarga/Paspor Orang Tua)</label>
 								<label for="file" class="input input-file">
 									<div class="button">									
 										<%= f.input_field :supporting_doc_3, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
-								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX. Ukuran Maks. 2MB</div>
+								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
 						</section> 
 					</div>
 					<div class="row">
 						<section class="col col-6">
-								<label class="label">Dokumen Pendukung 4</label>
+								<label class="label"><b>Dokumen Pendukung 4</b> (Scan/Foto Depan & Belakang Lainnya)<br /><%= link_to "Contoh Dokumen", '/system/sample-birthcert.pdf', :target => :_blank %></label>
 								<label for="file" class="input input-file">
 									<div class="button">									
 										<%= f.input_field :supporting_doc_4, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
-								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX. Ukuran Maks. 2MB</div>
+								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
 						</section> 
 					</div>
 				</fieldset>
