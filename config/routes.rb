@@ -34,6 +34,13 @@ EKbri::Application.routes.draw do
   get "infopassports", :to => "immigration/passport#info"
   get "inforeports", :to => "immigration/report#info"
   get "marriage/info", :to => "immigration/marriage#info"
+  
+  get "visaflow", :to => "immigration/flow#visa"   
+  get "visadocs", :to => "immigration/flow#visadocs"
+  get "passportflow", :to => "immigration/flow#passport"
+  get "passportdocs", :to => "immigration/flow#passportdocs"
+  get "reportflow", :to => "immigration/flow#report"
+  get "reportdocs", :to => "immigration/flow#reportdocs"
 
   get "finishgroupapply", :to => "immigration/visa#finishing_application"
   get "visas/reapply/:id", :to => "immigration/visa#reapply"

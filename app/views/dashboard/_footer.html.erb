@@ -1,9 +1,11 @@
 <div class="footer clearfix">
 		<div class="footer-inner">
-
+			<% if Rails.env.production? %>
+			<script type="text/javascript" src="https://seal.geotrust.com/getgeotrustsslseal?host_name=www.id-embassy.kr&amp;size=M&amp;lang=en"></script>
+			<a href="http://www.geotrust.com/ssl/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">
+	 		</a>
+			<% end %>
 			E-KBRI 2013-2014 &copy; The Embassy of Republic of Indonesia in Seoul. 
-			Security is <script type="text/javascript" src="https://seal.geotrust.com/getgeotrustsslseal?host_name=www.id-embassy.kr&amp;size=M&amp;lang=en"></script>
-
 		</div>
 		<div class="footer-items">
 			<span class="go-top"><i class="clip-chevron-up"></i></span>

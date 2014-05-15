@@ -4,9 +4,11 @@
 	Your data have been secured everywhere deemed necessary through an enterprise grade encryption algorithm & encrypted communication media during every data transmission from you to The Embassy's servers.
 	<br /> 
 	<img src="/images/geotrust-ssl.jpg" />
-	<script type="text/javascript" src="https://seal.geotrust.com/getgeotrustsslseal?host_name=www.id-embassy.kr&amp;size=M&amp;lang=en"></script>
-	<a href="http://www.geotrust.com/ssl/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">
-	</a>
+	<% if Rails.env.production? %>
+	 <script type="text/javascript" src="https://seal.geotrust.com/getgeotrustsslseal?host_name=www.id-embassy.kr&amp;size=M&amp;lang=en"></script>
+	 <a href="http://www.geotrust.com/ssl/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">
+	 </a>
+	<% end %>
 </p>
 <p>		 
 	To ensure best experience using this site, you are strongly advised to use modern & latest browser like Google&copy; Chrome or Mozilla&copy; Firefox or Opera&copy; browser.<br />
