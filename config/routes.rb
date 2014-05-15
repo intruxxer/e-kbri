@@ -35,6 +35,7 @@ EKbri::Application.routes.draw do
   get "inforeports", :to => "immigration/report#info"
   get "marriage/info", :to => "immigration/marriage#info"
   
+  get "systemoverview", :to => "immigration/flow#systemoverview"
   get "visaflow", :to => "immigration/flow#visa"   
   get "visadocs", :to => "immigration/flow#visadocs"
   get "passportflow", :to => "immigration/flow#passport"
