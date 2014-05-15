@@ -258,7 +258,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 							<tr>
 								<td>Grantee Detail</td>
 								<td><% @visa.each do |row| %>
-										<b><%= row.first_name + ' ' + row.last_name %></b>  (<%= row.category_type %>) :  <%= (row.status=='Verified' or row.status == 'Printed' )? Visafee.where(:id => row.visafee_ref).first.name_of_visa : 'Under Review' %><br />
+										<b><%= row.first_name + ' ' + row.last_name %></b>  (<%= row.category_type %>) :  <%= (row.status=='Verified' || row.status == 'Printed' || row.status == 'Paid' || row.status == 'Approved' )? Visafee.where(:id => row.visafee_ref).first.name_of_visa : 'Under Review' %><br />
 									<% end %>
 								</td>
 							</tr>
