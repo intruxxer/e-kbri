@@ -364,7 +364,7 @@
 				    <section class="col col-9">
 				   		<label class="label" style="width:auto;background:inherit">Comment</label>
 						<label class="select" style="width:200px;">
-								<%= f.input_field :comment, :rows => 5, :maxlength => 100, as: :text %>							
+								<%= f.input_field :comment, :rows => 5, :maxlength => 200, as: :text %>							
 							</label>
 				    </section>
 			   </div>
@@ -381,7 +381,7 @@
 <script type="text/javascript">
 			$(function()
 			{					
-				$("input[name='visa[status]']").change(function(){
+				$("input[name='passport[status]']").change(function(){
 					if($(this).val() == 'Revision'){
 						$("#pickupdatecont").hide();
 						$('#commentcontainer').show();						

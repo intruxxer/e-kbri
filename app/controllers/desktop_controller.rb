@@ -153,7 +153,7 @@ class DesktopController < ApplicationController
     
     unless (params[:sSearch].nil? || params[:sSearch] == "")    
       searchparam = params[:sSearch]  
-      @visas = @visas.any_of({:first_name => /#{searchparam}/},{:last_name => /#{searchparam}/},{:ref_id => /#{searchparam}/},{:status => /#{searchparam}/})
+      @visas = @visas.any_of({:first_name => /#{searchparam}/},{:last_name => /#{searchparam}/},{:ref_id => /#{searchparam}/},{:status => /#{searchparam}/},{:pickup_office => /#{searchparam}/})
     end   
     
     unless (params[:iDisplayStart].nil? || params[:iDisplayLength] == '-1')
@@ -191,7 +191,7 @@ class DesktopController < ApplicationController
         visatype = visafeeh[visa.visafee_ref]
       end      
       
-      aaData.push([i, visa.ref_id, print_code, visatype, visa.first_name + " " + visa.last_name , visa.status, visa.created_at.strftime("%-d %b %Y") , paymentdate, printeddate, retrievedate, checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;|&nbsp;" + deleteLink + "&nbsp;"])
+      aaData.push([i, visa.ref_id, print_code, visatype, visa.first_name + " " + visa.last_name , visa.status, visa.created_at.strftime("%-d %b %Y") , paymentdate, printeddate, retrievedate, visa.pickup_office , checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;|&nbsp;" + deleteLink + "&nbsp;"])
       i += 1                        
     end
     
@@ -259,7 +259,7 @@ class DesktopController < ApplicationController
     
     unless (params[:sSearch].nil? || params[:sSearch] == "")    
       searchparam = params[:sSearch]  
-      @passport = @passport.any_of({:full_name => /#{searchparam}/},{:ref_id => /#{searchparam}/},{:status => /#{searchparam}/})
+      @passport = @passport.any_of({:full_name => /#{searchparam}/},{:ref_id => /#{searchparam}/},{:status => /#{searchparam}/},{:pickup_office => /#{searchparam}/})
     end   
     
     unless (params[:iDisplayStart].nil? || params[:iDisplayLength] == '-1')
@@ -277,13 +277,13 @@ class DesktopController < ApplicationController
       #printLink = "<a href=\"/admin/service/prep_spri/" + passport.id + "\" target=\"_blank\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SPRI</span></a>"
       checkLink = "<a target=\"_blank\" href=\"/passports/" + passport.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>&nbsp;Check</span></a>"
       #deleteLink = "<a rel=\"nofollow\" data-method=\"delete\" href=\"/deletepassportviadashboard/#{passport.id}\"><span class='glyphicon glyphicon-trash'></span><span class='glyphicon-class'>Delete</span></a>"
-      deleteLink = "<a class=\"deldata\" data-value=\"#{passport.ref_id}\" href=\"/deletepassportviadashboard/#{passport.id}\"><span class='glyphicon glyphicon-trash'></span><span class='glyphicon-class'>&nbsp;Delete</span></a>"
+      deleteLink = "<a class=\"deldata\" data-value=\"#{passport.ref_id}\" href=\"/deletepassportviadashboard/#{passport.id}\"><span class='glyphicon glyphicon-trash'></span></a>"
       
       paymentdate = !(passport.payment_date.nil?) ? passport.payment_date.strftime("%-d %b %Y") : '-'
       retrievedate = !(passport.pickup_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (passport.pickup_date).strftime("%-d %b %Y") + '</a>').html_safe : '-'
       printeddate = !(passport.printed_date.nil?) ? passport.printed_date.strftime("%-d %b %Y") : '-'
       
-      aaData.push([i, passport.ref_id, passport.full_name, passport.status, passport.created_at.strftime("%-d %b %Y"), paymentdate , retrievedate , printeddate, checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;|&nbsp;" + deleteLink + "&nbsp;" ])
+      aaData.push([i, passport.ref_id, passport.full_name, passport.status, passport.created_at.strftime("%-d %b %Y"), paymentdate , retrievedate , printeddate, passport.pickup_office , checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;|&nbsp;" + deleteLink + "&nbsp;" ])
       i += 1                        
     end
     
@@ -330,9 +330,9 @@ class DesktopController < ApplicationController
       style_1 = s.add_style :b => true
       wb.add_worksheet(:name => "Export Table") do |sheet|        
         if params[:doc] == "passport"
-          sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
+          sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan", "Kantor"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
         elsif params[:doc] == "visa"
-          sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan", "Jenis Visa"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
+          sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan", "Jenis Visa", "Kantor"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
           
           visafeeh = {}
           Visafee.all.each do |vf|
@@ -349,7 +349,7 @@ class DesktopController < ApplicationController
           printeddate = !(docs.printed_date.nil?) ? docs.printed_date.strftime("%-d %b %Y") : '-'
           
           if params[:doc] == "passport"
-            sheet.add_row [i, docs.ref_id, docs.full_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate ]  
+            sheet.add_row [i, docs.ref_id, docs.full_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate, docs.pickup_office ]  
           elsif params[:doc] == "visa"
             
             visatype = "-"
@@ -358,7 +358,7 @@ class DesktopController < ApplicationController
             end 
           
             
-            sheet.add_row [i, docs.ref_id, docs.last_name + " " + docs.first_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate, visatype ]
+            sheet.add_row [i, docs.ref_id, docs.last_name + " " + docs.first_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate, visatype, docs.pickup_office ]
           end
           
           i += 1                        
