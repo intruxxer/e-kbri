@@ -61,11 +61,22 @@
 														<% found = false %>
 													<% else %>
 														<td>
-														<%= link_to 'visas/'+t.id+'.pdf', :target => "_blank" do %>
-															<span class="glyphicon glyphicon-save"></span>
-															<span class="glyphicon-class">Download Receipt</span>
-															<% end %>
-														</td>
+														
+														<% if Visa.where(:ref_id => currefid).count > 1 %>
+															<%= link_to 'visas/group/'+currefid+'.pdf', :target => "_blank" do %>
+																<span class="glyphicon glyphicon-save"></span>
+																<span class="glyphicon-class">Download Receipt</span>
+																<% end %>
+															</td>
+														<% else %>
+															<%= link_to 'visas/'+curid+'.pdf', :target => "_blank" do %>
+																<span class="glyphicon glyphicon-save"></span>
+																<span class="glyphicon-class">Download Receipt</span>
+																<% end %>
+															</td>
+														<% end %>	
+															
+														
 														<td class="center"><%= status.html_safe %></td> <% found = false %>
 													<% end %>												
 														

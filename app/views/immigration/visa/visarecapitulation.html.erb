@@ -276,15 +276,16 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 										<td>Grantee Detail</td>
 										<td><% totalfee = 0
 											 @visas.each do |row| %>
-												<b><%= row.first_name + ' ' + row.last_name %></b> (<%= row.category_type %>) : <%= (row.status == 'Received' || row.status == 'Printed')? Visafee.where(:id => row.visafee_ref).first.name_of_visa : 'Under Review' %><br />
-												
-												<% totalfee += Visafee.find(row.visafee_ref).fee_of_visa %>
+												<b><%= row.first_name + ' ' + row.last_name %></b> (<%= row.category_type %>) : <%= (row.status == 'Verified' || row.status == 'Paid' || row.status == 'Printed')? Visafee.where(:id => row.visafee_ref).first.name_of_visa : 'Under Review' %><br />
+												<% if ( row.status == 'Verified' || row.status == 'Printed' || row.status == 'Paid' ) %>
+													<% totalfee += Visafee.find(row.visafee_ref).fee_of_visa %>
+												<% end %>
 											<% end %>
 										</td>
 									</tr>
 							</table></center>
 						</fieldset>		
-						
+						<% if ( @visas.first.status == 'Verified' || @visas.first.status == 'Printed' || @visas.first.status == 'Paid' ) %>
 						<fieldset style="text-align:center;">
 							<h6><b>Total Fee </b></h6><Br />
 							<img width="200px" src="<%= File.expand_path(Rails.root) + "/public/images/redcircle.png" %>" style="float:left;z-index:1;" />
@@ -297,7 +298,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 							<p>The Depositor Name should be one of the Visa Grantee</p>
 							<p style="font-size:11pt;">예금주 이름은 비자 피부 여자 중 하나 여야합니다</p>
 						</fieldset>	
-					
+						<% end %>
 						<p class="callout" style="text-align:justify;">
 						 You may visit <a href="http://kbri.seoul.kr">http://kbri.seoul.kr</a> or contact our office for more information about your application
 						</p><!-- /Callout Panel -->
