@@ -4,7 +4,7 @@ EKbri::Application.configure do
   config.to_prepare { Devise::RegistrationsController.force_ssl }
   config.to_prepare { Devise::PasswordsController.force_ssl }
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = {host: "kbri.seoul.kr"}
+  config.action_mailer.default_url_options = {host: "id-embassy.kr"}
   # Code is not reloaded between requests.
   config.cache_classes = true
 
