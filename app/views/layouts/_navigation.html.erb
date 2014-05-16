@@ -87,22 +87,20 @@
     <ul class="dropdown-menu">
     	<li><%= link_to 'Overview of E-KBRI System (Indonesian & English)', overview_path %></li>
     	<li class="divider"></li>
-    	<li><%= link_to 'How to Pay Your Application Fees (Indonesian & English)', payment_path %></li>
+    	
+    	<li><%= link_to 'How to Pay Your Visa Fees', payment_path %></li>
     	<li class="divider"></li>
+    	
     	<li><%= link_to 'Documents for Visa Application', visadocs_path %></li>
     	<li><%= link_to 'Step-by-step Visa Application using E-KBRI', visaflow_path %></li>
     	<li class="divider"></li>
-    	
-    	<li class="dropdown-submenu">
-	    	<a tabindex="-1" href="#">Untuk orang Indonesia</a>
-	    	<ul class="dropdown-menu">   	   
-		      	<li><%= link_to 'Dokumen yang Diperlukan dalam Aplikasi Paspor', passportdocs_path %></li>   	   
-		      	<li><%= link_to 'Langkah-Langkah Aplikasi Paspor via E-KBRI', passportflow_path %></li>
-		      	<li class="divider"></li>   	   
-		      	<li><%= link_to 'Dokumen yang Diperlukan dalam Lapor Diri', reportdocs_path %></li>
-		      	<li><%= link_to 'Langkah-Langkah Lapor Diri Online via E-KBRI', reportflow_path %></li>
-	      	</ul>
-      	</li>
+   
+   	    <li><%= link_to 'Dokumen yang Diperlukan dalam Aplikasi Paspor', passportdocs_path %></li>   	   
+	    <li><%= link_to 'Langkah-Langkah Aplikasi Paspor via E-KBRI', passportflow_path %></li>
+	    <li class="divider"></li>   
+	    	   
+	    <li><%= link_to 'Dokumen yang Diperlukan dalam Lapor Diri', reportdocs_path %></li>
+	    <li><%= link_to 'Langkah-Langkah Lapor Diri Online via E-KBRI', reportflow_path %></li>
     </ul>
   </li>
   <% end %>
