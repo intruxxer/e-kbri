@@ -294,6 +294,7 @@ class DesktopController < ApplicationController
   end
   
   
+  
   def export_table
     
     if params[:doc] == "passport"
