@@ -3,9 +3,15 @@
 				<fieldset>					
 					<div class="row">
 						<section class="col col-6">
-							<label class="label">Counsellor Name</label>
+							<label class="label">Head of Consulat Name</label>
 							<label class="input">
 								<%= f.input_field :consulat_name %>							
+							</label>
+						</section>
+						<section class="col col-6">
+							<label class="label">Diplomat Name</label>
+							<label class="input">
+								<%= f.input_field :consulat_name_two %>							
 							</label>
 						</section>
 						<section class="col col-6">
@@ -26,6 +32,6 @@
 				</fieldset>				
 				<footer>
 					<button type="submit" class="button">Simpan</button>
-					<button type="button" class="button button-secondary" onclick="window.close();">Kembali</button>
+					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
 				</footer>
 <% end %>
