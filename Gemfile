@@ -7,6 +7,7 @@ gem "bson_ext"
 gem "mongo_session_store-rails4"
 gem "geocoder"
 gem "kaminari"
+gem "sidekiq"
 
 gem "axlsx"
 gem 'axlsx_rails'

@@ -63,9 +63,9 @@ EKbri::Application.routes.draw do
   get "concept/index"
   get "concept", :to => "concept#index"
   
-  #Unit Test Framework#
+  #Experimental Controller#
   get "playground", :to => "playground#index"
-  get "test", :to => "playground#test"
+  match "experiment", :to => "playground#experiment", via: :all
   
   get "visa/show/all", :to => "desktop#show_all_sisari"
   get "lapordiri/show/all", :to => "desktop#show_all_lapordiri"

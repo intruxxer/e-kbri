@@ -4,7 +4,7 @@ class Journal #its User action Logs | Differentiated with system Logs
   
   belongs_to :user, :class_name => "User", :inverse_of => :journal  
   
-  field :action,      type: String #Verified, Paid, Reject, Print, etc
+  field :action,      type: String #Created, Verified, Paid, Reject, Print, etc
   field :model,       type: String #Visa,Passport,Report,etc
   field :method,      type: String #Insert, Delete, Update
   field :agent,       type: String #User Agent : Mozilla/5.0 (Windows; U; Windows NT 6.0; en-us) AppleWebKit/531.9 (KHTML, like Gecko) Version/4.0.3 Safari/531.9

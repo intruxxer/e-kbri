@@ -46,7 +46,7 @@ class Immigration::VisafamilyController < ApplicationController
     
     time = Time.new
     coded_date = time.strftime("%y%m%d")
-    @ref_id = '1'+coded_date+generate_string(3)
+    @ref_id = 'B'+coded_date+generate_string(3)
    
     if @visa[0].valid?
       if simple_captcha_valid?
