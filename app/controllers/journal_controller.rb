@@ -107,7 +107,7 @@ class JournalController < ApplicationController
         link = " - "
       end
       
-      aaData.push([ journ.action, journ.user_id, journ.model, journ.method, journ.created_at.strftime("%-d %b %Y"), link ])
+      aaData.push([ journ.action.to_s, journ.user_id.to_s, journ.model, journ.method, journ.created_at.strftime("%-d %b %Y"), link ])
               
     end
     
