@@ -70,7 +70,7 @@ class ReferenceController < ApplicationController
     params.require(:passportfee).permit(:passport_fee)
   end
   def reference_post_params()
-    params.require(:reference).permit(:consulat_name, :treasurer_name, :embassy_location)
+    params.require(:reference).permit(:consulat_name, :consulat_name_two, :treasurer_name, :embassy_location)
   end
   
 end
