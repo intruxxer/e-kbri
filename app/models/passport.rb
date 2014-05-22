@@ -24,9 +24,9 @@ class Passport
   field :citizenship_status,     type: String
   
   field :lastPassportNo,         type: String
-  field :dateIssued,             type: Date
+  field :dateIssued,             type: Date, default: Date.today
   field :placeIssued,            type: String
-  field :dateIssuedEnd,          type: String
+  field :dateIssuedEnd,          type: String, default: Date.today
   field :immigrationOffice,      type: String, default: 'Imigrasi'
   
   field :jobStudyInKorea,        type: String

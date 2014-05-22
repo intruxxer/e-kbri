@@ -74,8 +74,10 @@ EKbri::Application.routes.draw do
   get "dashboard/service/:document", :to => "dashboard#immigration"
   get "admin/service/:document/:id", :to => "dashboard#immigration"
   get "dashboard/syncpanel", :to => "dashboard#syncpanel"
-  
+  get "journal/list/all", :to => "journal#show_all_journal"
 
+  
+  
   match "passport/tospri/:id", to: "desktop#exec_toSPRI", via: :post
   match "visa/tosisari/:id", to: "desktop#exec_toSisari", via: :post
   
