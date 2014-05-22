@@ -1,1 +1,18 @@
-<p>Playground Controller, Index Action</p>
+<div style="text-align: center; padding-top: 20px; position: relative;" class="row">
+	<h3>Playground Controller, Index Action</h3>
+	<!--<a data-toggle="modal" href="#role-options- #user.id" class="btn btn-mini btn-primary" type="button">Change role</a>-->
+	<a href="/experiment.js" class="btn btn-mini btn-primary" type="button">Experiment</a>
+	<!--<p>link_to('Show XML', formatted_resource_path(@resource, :format=> :xml))</p>-->
+	<%= link_to(experiment_path, html_options = {class: "btn btn-mini btn-primary", type: "button"}) do %>
+  		Sidekiq Experimental 
+	<% end %>
+	
+	
+	<h4>Past Completed Calculations</h4>
+	<ul>
+	  	<% @message.each do |hello| %>
+	    <li>Say: <%= hello %></li>
+	  	<% end %>
+	</ul>
+
+</div>

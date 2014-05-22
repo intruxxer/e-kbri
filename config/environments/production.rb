@@ -48,6 +48,7 @@ EKbri::Application.configure do
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
+  config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),3,5*1024*1024)
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]

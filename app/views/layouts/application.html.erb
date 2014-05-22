@@ -24,6 +24,7 @@
     <%= yield(:head) %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
+    <%= render 'layouts/ga' %>
     
     <% if user_signed_in? %>
     	<% #%= render 'layouts/sticky' %>

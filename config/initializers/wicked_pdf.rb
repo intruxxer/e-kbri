@@ -6,5 +6,5 @@ WickedPdf.config = {
     #:exe_path => '/Users/alpha/.rvm/gems/ruby-1.9.3-p484/bin/wkhtmltopdf'
     
     #Gem-based (Linux)
-    :exe_path => '/home/admin/.rvm/gems/ruby-1.9.3-p484/bin/wkhtmltopdf'
+    :exe_path => '/home/admin/.rvm/gems/ruby-1.9.3-p545/bin/wkhtmltopdf'
 }

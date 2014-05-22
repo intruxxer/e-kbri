@@ -8,6 +8,7 @@ gem "mongo_session_store-rails4"
 gem "geocoder"
 gem "kaminari"
 gem "sidekiq"
+gem "redis"
 
 gem "axlsx"
 gem 'axlsx_rails'
@@ -32,6 +33,7 @@ gem "turbolinks"
 gem "jbuilder", "~> 1.2"
 gem "introjs-rails"
 gem "jquery-turbolinks"
+gem 'rails-secrets'
 
 gem "paperclip", "~> 3.5.3"
 gem "mongoid-paperclip", :require => "mongoid_paperclip"

@@ -1,1 +1,18 @@
-<p>Playground Controller, Experiment Action</p>
+<script type="text/javascript">
+$(document).ready(function(){
+    // reload page after 5 seconds so we can see some progress
+    // setTimeout("location.reload(true)",5000);
+ });
+</script>
+
+<div style="text-align: center; padding-top: 20px; position: relative;" class="row">
+	<h3>Playground Controller, Experiment Action</h3>
+	
+	<h4>Past Completed Calculations</h4>
+	<ul>
+	  	<% @message.each do |hello| %>
+	    <li>Say: <%= hello %></li>
+	  	<% end %>
+	</ul>
+	Say: @playground.value
+</div>

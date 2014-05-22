@@ -60,7 +60,7 @@ class DashboardController < ApplicationController
   end
   
   def statistics
-  
+    @document = "dashboard/statistics"
   end 
   
 

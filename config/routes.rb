@@ -63,9 +63,7 @@ EKbri::Application.routes.draw do
   get "concept/index"
   get "concept", :to => "concept#index"
   
-  #Experimental Controller#
-  get "playground", :to => "playground#index"
-  match "experiment", :to => "playground#experiment", via: :all
+  match "statistics", :to => "statistics#index", via: :get
   
   get "visa/show/all", :to => "desktop#show_all_sisari"
   get "lapordiri/show/all", :to => "desktop#show_all_lapordiri"
@@ -133,6 +131,9 @@ EKbri::Application.routes.draw do
   get "delete/user/visa/:id", :to => "immigration/visa#destroy", :as => :userdeletevisa
   
   #resources :dashboard_immigration, path: "dashboard/immigration"
+  #Experimental Controller#
+  get "playground", :to => "playground#index"
+  match "experiment", :to => "playground#experiment", via: :all
   
 
   # The priority is based upon order of creation: first created -> highest priority.

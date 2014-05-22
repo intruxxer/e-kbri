@@ -106,6 +106,15 @@
 								<span class="arrow "></span>
 							<% end %>	
 						</li>	
+						<% if current_user.has_role? :admin %>
+						<li>
+							<%= link_to dashboard_statistics_path do %>
+								<i class="clip-stats"></i>
+								<span class="title"> Performa & Statistik </span>
+								<span class="arrow "></span>
+							<% end %>	
+						</li>
+						<% end %>
 
 						
 </ul>
