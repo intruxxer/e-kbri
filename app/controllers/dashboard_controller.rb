@@ -61,6 +61,7 @@ class DashboardController < ApplicationController
   
   def statistics
     @document = "dashboard/statistics"
+    @redis_sample = $redis.get('ali')
   end 
   
 
@@ -189,6 +190,12 @@ class DashboardController < ApplicationController
   
   def periodical_post_params
     params.require(:periodical).permit(:startperiod, :endperiod, :type)
+  end
+  
+  
+  private
+  def redis
+    @redis ||= Redis.new
   end
 
 end
