@@ -3,7 +3,7 @@ class Passport
   include Mongoid::Timestamps
   include Mongoid::Paperclip  
   
-  before_create :assign_ref_id, :assign_passport_fee, :set_vipacounter
+  before_create :assign_ref_id, :assign_passport_fee, :set_vipacounter, :set_capitalized
   after_update :assign_passport_fee
   belongs_to :user, :class_name => "User", :inverse_of => :passport
   
@@ -161,6 +161,7 @@ class Passport
 
     end     
   end
+  
   def check_approved
     if self.status == 'Approved'
       return true
@@ -168,10 +169,15 @@ class Passport
       return false
     end
   end
+  
   def assign_ref_id
     time = Time.new
     coded_date = time.strftime("%y%m%d")
     self.ref_id = 'D'+coded_date+generate_string(3)
+  end
+  
+  def set_capitalized
+    self.full_name.upcase
   end
   
   def generate_string(length=5)

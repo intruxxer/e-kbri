@@ -4,7 +4,7 @@ class Visa
   include Mongoid::Paperclip
   
 
-  before_create :set_vipacounter #:assign_visa_fee  #, :assign_visa_type
+  before_create :set_vipacounter, :set_capitalized #:assign_visa_fee  #, :assign_visa_type
   belongs_to :user, :class_name => "User", :inverse_of => :visa
   
   
@@ -206,6 +206,7 @@ class Visa
       self.vipa_no = 1000
     end
   end
+  
   def check_verified
     if self.status == 'Verified'
       return true
@@ -213,6 +214,7 @@ class Visa
       return false
     end
   end
+  
   def check_not_reentry
     if self.application_type == 3
       return true
@@ -220,6 +222,7 @@ class Visa
       return false
     end
   end
+  
   def check_transit
     if self.category_type == 'transit'
       return true
@@ -227,6 +230,7 @@ class Visa
       return false
     end
   end
+  
   def check_limited_stay
     if self.category_type == 'limited-stay' || self.category_type == 'multiple' || self.category_type == 'dirjenim' || self.category_type == 'business-app' || self.category_type == 'social-app'
       return true
@@ -234,6 +238,7 @@ class Visa
       return false
     end
   end
+  
   def check_paid
     if self.status == 'Paid'
       return true
@@ -241,6 +246,7 @@ class Visa
       return false
     end
   end  
+  
   def check_approved
     if self.status == 'Approved'
       return true
@@ -248,9 +254,16 @@ class Visa
       return false
     end
   end
+  
+  def set_capitalized
+    self.first_name.upcase
+    self.last_name.upcase
+  end
+  
   def assign_ref_id
     self.ref_id = generate_string(3)+"-"+Random.new.rand(10**4..10**10).to_s
   end
+  
   def generate_string(length=5)
       chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
       random_characters = ''
