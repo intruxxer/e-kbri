@@ -1,9 +1,9 @@
 class WelcomeController < ApplicationController
    
   def index	
-=begin
+
     @ip_visitor = request.remote_ip
-    session[:ip_address]  = @ip_visitor
+    #session[:ip_address]  = @ip_visitor
     if !user_signed_in? then
       @visitorname = "Visitor"
       #session[:warned_on_login] = 0
@@ -23,7 +23,7 @@ class WelcomeController < ApplicationController
           flash[:warning] = warning.join("<br/>").html_safe
         end                         
     end
-=end                         
+                        
   	if user_signed_in?
   	  @userreport = Report.where(user_id: current_user.id)
   	                .where(is_valid: true).desc(:updated_at).page(params[:page]).per(10)

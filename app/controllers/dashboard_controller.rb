@@ -61,7 +61,7 @@ class DashboardController < ApplicationController
   
   def statistics
     @document = "dashboard/statistics"
-    @redis_sample = $redis.get('ali')
+    #@redis_sample = $redis.get('ali')
   end 
   
 
