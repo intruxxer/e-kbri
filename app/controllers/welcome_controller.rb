@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
    
   def index	
+=begin
     @ip_visitor = request.remote_ip
     session[:ip_address]  = @ip_visitor
     if !user_signed_in? then
@@ -20,10 +21,9 @@ class WelcomeController < ApplicationController
           message_two = "Your IP address is<b> #{@ip_visitor} </b>that is identified to be located in <b> #{@visitor.coordinates[0]}&deg; longitude </b> & <b> #{@visitor.coordinates[1]}&deg; latitude</b>."
           warning = [ message_one, message_two ]
           flash[:warning] = warning.join("<br/>").html_safe
-        end
-                           
+        end                         
     end
-                         
+=end                         
   	if user_signed_in?
   	  @userreport = Report.where(user_id: current_user.id)
   	                .where(is_valid: true).desc(:updated_at).page(params[:page]).per(10)
