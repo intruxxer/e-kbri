@@ -124,7 +124,7 @@ class Immigration::PassportController < ApplicationController
   end
   
 
-  #DELETE /passport
+  #DELETE /passport/:id
   def destroy 
    @passport = Passport.find(params[:id])
     reference = @passport.ref_id

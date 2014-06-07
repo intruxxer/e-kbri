@@ -3,7 +3,8 @@ EKbri::Application.routes.draw do
   resources :visafamilys, controller: 'immigration/visafamily'
   resources :visagroups, controller: 'immigration/visagroup'
   resources :passports, controller: 'immigration/passport'
-  resources :reports, controller: 'immigration/report'  
+  resources :reports, controller: 'immigration/report' 
+  resources :cases 
   
   get "dashboard/protocols", :to => "protocol#index"
   
@@ -33,6 +34,7 @@ EKbri::Application.routes.draw do
   get "infovisas", :to => "immigration/visa#info"   
   get "infopassports", :to => "immigration/passport#info"
   get "inforeports", :to => "immigration/report#info"
+  get "bantuan", :to => "cases#info"
   get "marriage/info", :to => "immigration/marriage#info"
   
   get "overview", :to => "immigration/flow#systemoverview"
@@ -134,6 +136,7 @@ EKbri::Application.routes.draw do
   #Experimental Controller#
   get "playground", :to => "playground#index"
   match "experiment", :to => "playground#experiment", via: :all
+  match '*path', via: :all, to: 'pages#error_404'
   
 
   # The priority is based upon order of creation: first created -> highest priority.
