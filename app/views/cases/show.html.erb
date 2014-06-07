@@ -16,7 +16,7 @@
 				
 			<!-- Red color scheme -->
 			<%= simple_form_for @case, url: cases_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
-				<header>Formulir Permintaan Bantuan Permasalahan WNI di Korea Selatan</header>				
+				<header>Formulir Permintaan Bantuan atas Permasalahan WNI di Korea Selatan</header>				
 				<fieldset style="text-align:justify;">
 					Silahkan mengisi formulir permintaan bantuan ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'. 
   					Silakan <b>gunakan karakter Latin dan huruf besar</b>. Gunakan huruf Hangeul untuk Alamat di Korea untuk memudahkan pelacakan masalah.
@@ -597,7 +597,21 @@
 						
 					</div>	
 				</fieldset>
-					
+				
+				<fieldset>
+					<section class="col col-6">
+							<label class="label">Foto atau Dokumen Pendukung</label>
+							<label for="file" class="input input-file">
+								<div class="button">									
+									<%= f.input_field :case_user_supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" name="photopath" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Catatan : </strong>Ukuran Maks. 2MB<br />
+							</div>
+					</section>		
+				</fieldset>
+				
 				<fieldset>
 					<section class="col col-6">
 						<div class="note">Tulis ulang kode di bawah ini untuk verifikasi:</div>					
