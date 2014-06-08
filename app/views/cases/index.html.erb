@@ -453,6 +453,28 @@
 						</section>
 
 					</div>
+					
+					<div class="row">
+						
+					  <section class="col col-6">
+							<label class="label">Tanggal Pengeluaran Visa/Ijin Tinggal</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :visa_kr_from, class: 'datePick' %>
+							</label>
+							<div class="note"><strong>Format : </strong>YYYY/MM/DD</div>
+						</section>
+						
+						<section class="col col-6">
+							<label class="label">Tanggal Habis Berlaku Visa/Ijin Tinggal</label>	
+							<label class="input">
+									<i class="icon-append icon-calendar"></i>
+									<%= f.input_field :visa_kr_to, class: 'datePick' %>
+							</label>
+							<div class="note"><strong>Format : </strong>YYYY/MM/DD</div>
+						</section>
+						
+					</div>
 
 				</fieldset>		
 				
