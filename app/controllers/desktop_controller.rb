@@ -293,6 +293,51 @@ class DesktopController < ApplicationController
     
   end
   
+  def show_all_cases
+    @cases = Case.desc(:created_at).all   
+    origin = @cases
+    
+    params.permit(:sSearch,:iDisplayLength,:iDisplayStart)
+    
+    unless (params[:sSearch].nil? || params[:sSearch] == "")    
+      searchparam = params[:sSearch]  
+      @cases = @cases.any_of({:full_name => /#{searchparam}/},{:case_embassy_staff_name => /#{searchparam}/},{:case_type => /#{searchparam}/})
+    end   
+    
+    unless (params[:iDisplayStart].nil? || params[:iDisplayLength] == '-1')
+      @cases = @cases.skip(params[:iDisplayStart]).limit(params[:iDisplayLength])      
+    end    
+    
+    iTotalRecords = origin.count
+    iTotalDisplayRecords = @cases.count
+    aaData = Array.new    
+    
+    i = 1
+    @cases.desc(:created_at)
+    @cases.each do |row|
+      
+      #revisionLink = '-'
+      #@revision = Report.where(:user_id => row.user_id).where(:created_at.gte => row.updated_at).where(:is_valid => false)
+      #if @revision.count > 0
+        #revisionLink = "<a href=\"/reports/" + @revision.last.id + "/check\">Revisi</a> (" + @revision.last.created_at.strftime("%Y %b %d %H:%M:%S").to_s + ")"
+      #end
+      
+      editLink = "<a href=\"/cases/" + row.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>Update</span></a>"
+      checkLink = "<a href=\"/cases/" + row.id + "/show\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>View</span></a>"
+      #printLink = "<a href=\"/visa/tosisari/" + visa.id + "\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SISARI</span></a>"
+      
+      
+      aaData.push([i, row.full_name, row.status, row.created_at.strftime("%Y %b %d %H:%M:%S").to_s, checkLink + "&nbsp;|&nbsp;" + editLink])
+      i += 1                        
+    end
+    
+    respond_to do |format|
+      format.xml { render xml: { 'aaData' => aaData, 'iTotalRecords' => iTotalRecords, 'iTotalDisplayRecords' => iTotalDisplayRecords } }
+      format.json { render json: {'sEcho' => params[:sEcho].to_i , 'aaData' => aaData , 'iTotalRecords' => iTotalRecords, 'iTotalDisplayRecords' => iTotalDisplayRecords } }
+    end
+    
+  end
+  
   
   
   def export_table

@@ -24,10 +24,8 @@ class Case
   
   field :visa_kr,                     type: String
   field :visa_kr_type,                type: String
-  #Belum
   field :visa_kr_from,                type: Date, default: Date.today
   field :visa_kr_to,                  type: Date, default: Date.today
-  #Belum
   field :address_kr,                  type: String
   field :city_kr,                     type: String
   field :province_kr,                 type: String

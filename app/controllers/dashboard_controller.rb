@@ -41,6 +41,10 @@ class DashboardController < ApplicationController
       
       @document = "dashboard/service_journal"
       
+    elsif params[:document] == "masalahwni"
+      
+      @document = "dashboard/service_case"
+      
     else  
 
     

@@ -73,6 +73,7 @@ EKbri::Application.routes.draw do
   get "lapordiri/show/all", :to => "desktop#show_all_lapordiri"
   get "lapordiri/show/history/:user_id", :to => "desktop#show_all_lapordiri_history"
   get "passport/show/all", :to => "desktop#show_all_spri"
+  get "case/list/all", :to => "desktop#show_all_cases"
   get "dashboard/service/:document", :to => "dashboard#immigration"
   get "admin/service/:document/:id", :to => "dashboard#immigration"
   get "dashboard/syncpanel", :to => "dashboard#syncpanel"
