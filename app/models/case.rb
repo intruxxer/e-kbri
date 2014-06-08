@@ -24,8 +24,10 @@ class Case
   
   field :visa_kr,                     type: String
   field :visa_kr_type,                type: String
+  #Belum + upload dokumen
   field :visa_kr_from,                type: Date, default: Date.today
   field :visa_kr_to,                  type: Date, default: Date.today
+  #Belum
   field :address_kr,                  type: String
   field :city_kr,                     type: String
   field :province_kr,                 type: String
@@ -34,7 +36,7 @@ class Case
   field :company_kr,                  type: String
   field :company_address_kr,          type: String
   field :company_city_kr,             type: String
-  field :company_province_kr,             type: String
+  field :company_province_kr,         type: String
   field :company_phone_kr,            type: String
   
   field :case_type,                   type: String
@@ -44,15 +46,20 @@ class Case
   field :case_embassy_staff_name,     type: String
   field :case_remarks,                type: String     
   
-  has_mongoid_attached_file :case_embassy_supporting_doc, :styles => { :thumb => "90x120>" }
+  has_mongoid_attached_file :case_embassy_supporting_doc
   validates_attachment_content_type :case_embassy_supporting_doc, :content_type => %w(application/octet-stream application/zip application/x-rar-compressed image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
-  validates_attachment_presence :case_embassy_supporting_doc
-  validates_attachment_size :case_embassy_supporting_doc, less_than: 2.megabytes   
+  #validates_attachment_presence :case_embassy_supporting_doc
+  validates_attachment_size :case_embassy_supporting_doc, less_than: 5.megabytes 
+  
+  has_mongoid_attached_file :case_embassy_supporting_photo, :styles => { :thumb => "90x120>" }
+  validates_attachment_content_type :case_embassy_supporting_photo, :content_type => %w(application/octet-stream application/zip application/x-rar-compressed image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+  #validates_attachment_presence :case_embassy_supporting_doc2
+  validates_attachment_size :case_embassy_supporting_photo, less_than: 5.megabytes  
   
   has_mongoid_attached_file :case_user_supporting_doc, :styles => { :thumb => "90x120>" }
   validates_attachment_content_type :case_user_supporting_doc, :content_type => %w(application/octet-stream application/zip application/x-rar-compressed image/jpeg image/jpg image/png application/pdf application/x-pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
-  validates_attachment_presence :case_user_supporting_doc
-  validates_attachment_size :case_user_supporting_doc, less_than: 5.megabytes     
+  #validates_attachment_presence :case_user_supporting_doc
+  validates_attachment_size :case_user_supporting_doc, less_than: 2.megabytes     
 
 end
 

@@ -6,23 +6,19 @@ class CasesController < ApplicationController
     @case = Case.new
   end
   
-  def info
-    
-  end
+  def info;  end
   
-  def new
-    
-  end
+  def new;  end
   
   def show
     @case = Case.find(params[:id])
       respond_to do |format|
-      format.html { render 'edit' }
+      format.html { render 'show' }
       format.json { render json: @case }
       format.xml { render xml: @case }
       format.pdf do
           render :pdf            => "Laporan Kasus WNI Bermasalah di Korea ["+"#{@case.full_name}"+"]_" + @case.id.to_s.upcase,
-                 :disposition    => "attachment", #{attachment, inline}                 
+                 :disposition    => "inline", #{attachment, inline}                 
                  :template       => "cases/report.html.erb",
                  :layout         => "pdf_layout.html",
                  :encoding       => "utf8"                 
@@ -44,7 +40,7 @@ class CasesController < ApplicationController
           #render 'pasporconfirm.html.erb'
           render 'edit'
       else        
-        @errors = { 'Secret Code' => 'Wrong Code Entered'}
+        @errors = { 'Kesalahan Kode Verifikasi' => 'Kode yang Anda Masukkan Salah'}
         render 'index'
       end
     else     
@@ -61,9 +57,9 @@ class CasesController < ApplicationController
     @case = Case.find(params[:id])
     if @case.update(post_params)
       if current_user.has_role? :admin or current_user.has_role? :moderator        
-        redirect_to :back, :notice => 'Data Kasus #{@case.id} telah berhasil diupdate.'
+        redirect_to :back, :notice => "Data Kasus #{@case.full_name} telah berhasil diupdate."
       else
-        redirect_to root_path, :notice => 'Data Kasus #{@case.id} telah berhasil diperbaharui.'
+        redirect_to root_path, :notice => "Data Kasus #{@case.full_name} telah berhasil diperbaharui."
       end     
       
     else
@@ -75,18 +71,19 @@ class CasesController < ApplicationController
   def destroy
     @case = Case.find(params[:id])
     if @case.delete
-      redirect_to :back, :notice => "Data Kasus dengan No. Ref. #{@case.id} telah berhasil dihapuskan dari sistem."
+      redirect_to :back, :notice => "Data Kasus dengan No. Ref. #{@case.full_name} telah berhasil dihapuskan dari sistem."
     else
-      redirect_to :back, :notice => "Data Kasus dengan No. Ref. #{@case.id} tidak dapat ditemukan."
+      redirect_to :back, :notice => "Data Kasus dengan No. Ref. #{@case.full_name} tidak dapat ditemukan."
     end
   end
   
   private  
     def post_params()
       params.require(:case).permit(
-      :full_name, :place_birth, :date_birth, :passport_no, :passport_place, :passport_date_from, :passport_date_to,  
-      :address_id, :kelurahan_id, :kecamatan_id, :kabupaten_id, :provinsi_id, :phone_id, :visa_kr, :visa_kr_from, :visa_kr_to, :address_kr, :city_kr,  :phone_kr,         
-      :company_kr, :company_address_kr, :company_city_kr, :company_phone_kr, :case_type, :case_desription, :case_embassy_assistance, :case_embassy_staff, :case_remarks)
+      :status, :full_name, :gender, :place_birth, :date_birth, :passport_no, :passport_place, :passport_date_from, :passport_date_to,  
+      :address_id, :kelurahan_id, :kecamatan_id, :kabupaten_id, :provinsi_id, :phone_id, :visa_kr, :visa_kr_type, :visa_kr_from, :visa_kr_to, :address_kr, :city_kr, :province_kr, :phone_kr,         
+      :company_kr, :company_address_kr, :company_city_kr, :company_province_kr, :company_phone_kr, :case_type, :case_description, :case_embassy_on_assistance, :case_embassy_post_assistance, 
+      :case_embassy_staff_name, :case_remarks, :case_embassy_supporting_doc, :case_embassy_supporting_photo, :case_user_supporting_doc)
       
       #Notes: to add attribute/variable after POST params received, do
       #def post_params

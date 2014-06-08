@@ -31,13 +31,17 @@ class WelcomeController < ApplicationController
   	    @uservisa = Visa.all.page(params[:page]).desc(:created_at,:ref_id).per(10)
   	    @userpassport = Passport.all.page(params[:page]).desc(:created_at,:ref_id).per(10)
   	    @userreport = Report.all.page(params[:page]).desc(:created_at,:ref_id).per(10)
+  	    @usercase = Case.all.page(params[:page]).desc(:created_at).per(10)
   	    
   	  else
-  	    visadata = Visa.where(user_id: current_user)
+  	    #visadata = Visa.where(user_id: current_user)
         @uservisa = Visa.where(user_id: current_user.id).desc(:created_at,:ref_id).page(params[:page]).per(5)
         
-        passportdata = Passport.where(user_id: current_user)
+        #passportdata = Passport.where(user_id: current_user)
         @userpassport = Passport.where(user_id: current_user.id).desc(:created_at,:ref_od).page(params[:page]).per(5)
+        
+        #casedata = Case.where(user_id: current_user)
+        @usercase = Case.where(user_id: current_user.id).desc(:created_at).page(params[:page]).per(5)
 
         
         

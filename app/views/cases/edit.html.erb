@@ -15,11 +15,11 @@
 			<%end%>	
 				
 			<!-- Red color scheme -->
-			<%= simple_form_for @case, url: cases_path(@case), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+			<%= simple_form_for @case, url: case_path(@case), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Formulir Permintaan Bantuan atas Permasalahan WNI di Korea Selatan</header>				
 				<fieldset style="text-align:justify;">
-					Silahkan mengisi formulir permintaan bantuan ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'. 
-  					Silakan <b>gunakan karakter Latin dan huruf besar</b>. Gunakan huruf Hangeul untuk Alamat di Korea untuk memudahkan pelacakan masalah.
+					Silakan mengisi formulir permintaan bantuan ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'. 
+  					Silakan <b>gunakan karakter Latin</b> dan gunakan <b>huruf Hangeul untuk Alamat di Korea</b> untuk memudahkan pelacakan masalah.
 				</fieldset>
 				<fieldset>
 					<div class="row">
@@ -27,15 +27,33 @@
 							<label class="label">Jenis Masalah</label>
 							<label class="select">
 								<%= f.input_field :case_type, :required => true,
-								collection: { 'Sakit' => 'sakit', 
-								          	  'Meninggal Dunia' => 'meninggal-dunia',
-								          	  'Kabur dari Tempat Kerja' => 'kabur-tempat-kerja'
+								collection: { 'Sakit' => 'Sakit', 
+											  'Gaji Tidak Dibayar' => 'Gaji tidak dibayar',
+											  'Dianiaya' => 'Dianiaya',
+											  'Ditipu' => 'Ditipu',
+											  'Tidak Sesuai Kontrak' => 'Tidak sesuai kontrak',
+								          	  'Meninggal Dunia' => 'Meninggal dunia',
+								          	  'Kabur dari Tempat Kerja' => 'Kabur dari tempat kerja',
+								          	  'Kecelakaan di Tempat Kerja' => 'Kecelakaan di tempat kerja',
+								          	  'Lain-Lainnya' => 'Lainnya'
 								          	  } %>
 							<i></i>
 							</label>
 						</section>
 						<% if current_user.has_role? :admin or :moderator %>
-						<section class="col col-9">
+						<section class="col col-3">
+							<label class="label">Status Masalah</label>
+							<label class="select">
+								<%= f.input_field :status, :required => true,
+								collection: { 'Diterima Sistem' => 'Diterima', 
+								          	  'Sedang Ditindaklanjuti' => 'Ditindaklanjuti',
+								          	  'Sedang Terhambat' => 'Terhambat',
+								          	  'Telah Selesai' => 'Selesai'
+								          	  } %>
+							<i></i>
+							</label>
+						</section>
+						<section class="col col-6">
 							<label class="label">Konklusi Masalah</label>
 							<label class="textarea textarea-expandable">
 								<i class="icon-append icon-comments"></i>
@@ -63,9 +81,9 @@
 							<label class="label">Staff KBRI</label>
 							<label class="select">
 								<%= f.input_field :case_embassy_staff_name, :required => true,
-								collection: { 'Jenny Manurung' => 'Jenny M', 
-								          	  'Heru Wibowo' => 'Heru W',
-								          	  'Deni Sugandi' => 'Deni S'
+								collection: { 'Jenny Manurung' => 'Jenny Manurung', 
+								          	  'Heru Wibowo' => 'Heru Wibowo',
+								          	  'Deni Sugandi' => 'Deni Sugandi'
 								          	  } %>
 							<i></i>
 							</label>
@@ -274,7 +292,7 @@
 				</fieldset>
 				
 				<fieldset>
-					<h3>Detail Pekerjaan</h3>	
+					<h3>Detail di Korea</h3>	
 					<hr /><br />
 					<div class="row">
 						<section class="col col-4">
@@ -445,6 +463,8 @@
 				</fieldset>		
 				
 				<fieldset>
+					<h3>Detail Perusahaan/Institusi/Sekolah</h3>	
+					<hr /><br />
 					<div class="row">
 						<section class="col col-6">
 							<label class="label">Nama Perusahaan/Sekolah/Instansi</label>
@@ -599,18 +619,75 @@
 				</fieldset>
 				
 				<fieldset>
+				<% if current_user.has_role? :admin or :moderator %>
 					<section class="col col-6">
-							<label class="label">Foto atau Dokumen Pendukung</label>
+							<label class="label">Dokumen Pendukung (Arsip KBRI)</label>
 							<label for="file" class="input input-file">
 								<div class="button">									
-									<%= f.input_field :case_user_supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
-									<input type="text" name="photopath" readonly="readonly" />
+									<%= f.input_field :case_embassy_supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" name="embassydocpath" readonly="readonly" />
 							</label>
 							<div class="note">
 								<strong>Catatan : </strong>Ukuran Maks. 2MB<br />
 							</div>
-					</section>		
+					</section>
+					<section class="col col-6">
+							<label class="label">Photo Pendukung (Arsip KBRI)</label>
+							<label for="file" class="input input-file">
+								<div class="button">									
+									<%= f.input_field :case_embassy_supporting_photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" name="embassydocpath" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Catatan : </strong>Ukuran Maks. 2MB<br />
+							</div>
+					</section>	
+				<% else %>
+					<section class="col col-6">
+							<label class="label">Foto atau Dokumen Pendukung Laporan</label>
+							<label for="file" class="input input-file">
+								<div class="button">									
+									<%= f.input_field :case_user_supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" name="userdocpath" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Catatan : </strong>Ukuran Maks. 2MB<br />
+							</div>
+					</section>	
+				<% end %>
 				</fieldset>
+				
+				<% if @case.case_embassy_supporting_photo.exists? || @case.case_embassy_supporting_doc.exists? || @case.case_user_supporting_doc.exists? %>
+				<fieldset>
+					<% if @case.case_embassy_supporting_photo.exists? && (current_user.has_role? :admin or current_user.has_role? :moderator) %>
+					    <section class="col col-4">
+					    	<label class="label">Foto dari KBRI</label>
+								<%= image_tag @case.case_embassy_supporting_photo.url(:thumb) %>
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download', @case.case_embassy_supporting_photo.url(:original, false), target: "_blank" %>
+								<%end%>
+						</section>
+					<% end %>
+					<% if @case.case_embassy_supporting_doc.exists? && (current_user.has_role? :admin or current_user.has_role? :moderator) %>
+					    <section class="col col-4">
+					    	<label class="label">Dokumen dari KBRI</label>
+								<%= image_tag("/assets/images/doc.gif", height: '120', width: '120') %>
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download', @case.case_embassy_supporting_doc.url(:original, false), target: "_blank" %>
+								<%end%>
+						</section>
+					<% end %>
+					<% if @case.case_user_supporting_doc.exists? %>
+					    <section class="col col-4">
+					    	<label class="label">Foto dari Pelapor</label>
+								<%= image_tag @case.case_user_supporting_doc.url(:thumb) %>
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download', @case.case_user_supporting_doc.url(:original, false), target: "_blank" %>
+								<%end%>
+						</section>
+					<% end %>
+				</fieldset>
+				<% end %>
 				
 				<fieldset>
 					<section class="col col-6">
@@ -625,14 +702,14 @@
 				<fieldset style="text-align:justify;">
 					<h4>Disclaimer</h4>
 					<hr /><br />
-					<p>Dengan mengisi form ini Saya menyatakan bahwa semua data yang diisikan merupakan informasi yang sebenar-benarnya. 
+					<p>Dengan mengubahsuaikan form ini Saya menyatakan bahwa semua data yang diisikan merupakan informasi yang sebenar-benarnya. 
 						Segala kesalahan informasi yang dapat menyebabkan kerugian adalah tanggung jawab Saya dan tidak dapat di tangguhkan pada pihak lain. 
 						KBRI Seoul dan staff terkait dapat menolak/meminta perubahan data dan informasi terkait permohonan jika tidak sesuai dengan syarat dan ketentuan.
 					</p>
 				</fieldset>
 
 				<footer>
-					<button type="submit" class="button">Ajukan Aplikasi</button>
+					<button type="submit" class="button">Ubah Data Permohonan Bantuan</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
 				</footer>
 			<% end %>
@@ -645,9 +722,9 @@
 				$('input[type=text]').keyup(function() {
 				    $(this).val($(this).val().toUpperCase());
 				});
-				$('textarea').keyup(function() {
-				    $(this).val($(this).val().toUpperCase());
-				});
+				//$('textarea').keyup(function() {
+				//    $(this).val($(this).val().toUpperCase());
+				//});
 				$('#passport_application_reason').change(function(){
 					if($(this).val() == 'lainnya'){
 						$('#pasporsebelumnya').hide();						

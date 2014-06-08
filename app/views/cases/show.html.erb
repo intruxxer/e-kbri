@@ -15,60 +15,37 @@
 			<%end%>	
 				
 			<!-- Red color scheme -->
-			<%= simple_form_for @case, url: cases_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
-				<header>Formulir Permintaan Bantuan atas Permasalahan WNI di Korea Selatan</header>				
-				<fieldset style="text-align:justify;">
-					Silahkan mengisi formulir permintaan bantuan ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'. 
-  					Silakan <b>gunakan karakter Latin dan huruf besar</b>. Gunakan huruf Hangeul untuk Alamat di Korea untuk memudahkan pelacakan masalah.
-				</fieldset>
+			<%= simple_form_for @case, url: case_path(@case), :method => :patch, :html => { :class => "sky-form", :multipart => true } do |f| %>
+				<header>Rekap Laporan Individual Permasalahan WNI di Korea Selatan</header>				
 				<fieldset>
 					<div class="row">
 						<section class="col col-3">
-							<label class="label">Jenis Masalah</label>
-							<label class="select">
-								<%= f.input_field :case_type, :required => true,
-								collection: { 'Sakit' => 'sakit', 
-								          	  'Meninggal Dunia' => 'meninggal-dunia',
-								          	  'Kabur dari Tempat Kerja' => 'kabur-tempat-kerja'
-								          	  } %>
-							<i></i>
+							<label class="label"><b>Jenis Masalah</b></label>
+							<%= @case.case_type.upcase %>
 							</label>
 						</section>
 						<% if current_user.has_role? :admin or :moderator %>
-						<section class="col col-9">
-							<label class="label">Konklusi Masalah</label>
-							<label class="textarea textarea-expandable">
-								<i class="icon-append icon-comments"></i>
-								<%= f.input_field :case_remarks, :required => true, 
-								:row => 10, :maxlength => 1000, as: :text %>
-							</label>		
-							<div class="note">Kesimpulan yg dapat diambil setelah kasus berakhir.</div>				
+						<section class="col col-3">
+							<label class="label"><b>Status Masalah</b></label>
+							<%= @case.status.capitalize %>
+						</section>
+						<section class="col col-6">
+							<label class="label"><b>Konklusi Masalah</b></label>
+							<%= @case.case_remarks.capitalize %>				
 						</section>
 						<% end %>
 					</div>
 					
 					<div class="row">
 						<section class="col col-9">
-							<label class="label">Deskripsi Masalah</label>
-							<label class="textarea textarea-expandable">
-								<i class="icon-append icon-comments"></i>
-								<%= f.input_field :case_description, :required => true, 
-								:row => 10, :maxlength => 5000, as: :text %>
-							</label>		
-							<div class="note">Uraikan permasalahan yang terjadi dengan berurutan, jelas, dan lengkap.</div>				
+							<label class="label"><b>Deskripsi Masalah</b></label>
+							<%= @case.case_description.capitalize %>				
 						</section>
 						
 						<% if current_user.has_role? :admin or :moderator %>
 						<section class="col col-3">
-							<label class="label">Staff KBRI</label>
-							<label class="select">
-								<%= f.input_field :case_embassy_staff_name, :required => true,
-								collection: { 'Jenny Manurung' => 'Jenny M', 
-								          	  'Heru Wibowo' => 'Heru W',
-								          	  'Deni Sugandi' => 'Deni S'
-								          	  } %>
-							<i></i>
-							</label>
+							<label class="label"><b>Staff KBRI</b></label>
+							<%= @case.case_embassy_staff_name.titleize %>
 						</section>
 						<% end %>
 					</div>	
@@ -78,23 +55,13 @@
 						<h4>Informasi Penanganan</h4>
 						<hr /><br />
 						<section class="col col-6">
-							<label class="label">Bantuan KBRI saat Masalah (Status Terkini)</label>
-							<label class="textarea textarea-expandable">
-								<i class="icon-append icon-comments"></i>
-								<%= f.input_field :case_embassy_on_assistance, :required => true, 
-								:row => 10, :maxlength => 1000, as: :text %>
-							</label>		
-							<div class="note">Uraikan bantuan dan penanganan yang diberikan dengan berurutan, jelas, dan lengkap.</div>				
+							<label class="label"><b>Bantuan KBRI saat Masalah</b></label>
+							<%= @case.case_embassy_on_assistance.capitalize %>				
 						</section>
 						
 						<section class="col col-6">
-							<label class="label">Bantuan KBRI sesudah Masalah (Status Selesai)</label>
-							<label class="textarea textarea-expandable">
-								<i class="icon-append icon-comments"></i>
-								<%= f.input_field :case_embassy_post_assistance, :required => true, 
-								:row => 10, :maxlength => 1000, as: :text %>
-							</label>		
-							<div class="note">Uraikan bantuan dan penanganan yang diberikan sejak awal hingga akhir dengan berurutan, jelas, dan lengkap.</div>				
+							<label class="label"><b>Bantuan KBRI sesudah Masalah</b></label>
+							<%= @case.case_embassy_post_assistance.capitalize %>				
 						</section>
 					</div>
 					<% end %>
@@ -106,35 +73,22 @@
 					<hr /><br />
 					<div class="row">
 						<section class="col col-4">
-							<label class="label">Nama Lengkap</label>
-							<label class="input">
-								<i class="icon-append icon-user"></i>
-								<%= f.input_field :full_name , :maxlength => 32  %>
-							</label>
+							<label class="label"><b>Nama Lengkap</b></label>
+							<%= @case.full_name.titleize %>
 						</section>	
 						<section class="col col-2">
-							<label class="label">Jenis Kelamin</label>
-							<label class="select">
-								<%= f.input_field :gender, 
-								collection: { 'Laki - laki' => 'L/M', 'Perempuan' => 'P/F' } %>
-							<i></i>
-							</label>
+							<label class="label"><b>Jenis Kelamin</b></label>
+							<%= @case.gender.upcase %>
 						</section>							
 						
 						<section class="col col-3">
-							<label class="label">Tempat Lahir</label>	
-							<label class="input">
-									<i class="icon-append icon-globe"></i>
-									<%= f.input_field :place_birth , :maxlength => 30  %>
-							</label>
+							<label class="label"><b>Tempat Lahir</b></label>	
+							<%= @case.place_birth.capitalize %>
 						</section>
 
 						<section class="col col-3">
-							<label class="label">Tanggal Lahir</label>	
-							<label class="input">
-									<i class="icon-append icon-calendar"></i>
-									<%= f.input_field :date_birth, class: 'datePick' %>
-							</label>
+							<label class="label"><b>Tanggal Lahir</b></label>	
+							<%= @case.date_birth %>
 							<div class="note"><strong>Format : </strong>YYYY/MM/DD</div>
 						</section>
 		
@@ -143,38 +97,26 @@
 					<div class="row">
 						
 						<section class="col col-3">
-							<label class="label">Nomor Paspor</label>	
-							<label class="input">
-									<i class="icon-append icon-globe"></i>
-									<%= f.input_field :passport_no , :maxlength => 10  %>
-							</label>
+							<label class="label"><b>Nomor Paspor</b></label>	
+							<%= @case.passport_no.upcase %>
 						</section>
 						
 						<section class="col col-3">
-							<label class="label">Tanggal Terbit Paspor</label>
-							<label class="input">
-								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :passport_date_from, class: 'datePick' %>
-							</label>
+							<label class="label"><b>Tanggal Terbit Paspor</b></label>
+							<%= @case.passport_date_from %>
 							<div class="note"><strong>Format : </strong>YYYY/MM/DD</div>
 						</section>
 						
 						<section class="col col-3">
-							<label class="label">Tanggal Habis Berlaku Paspor</label>
-							<label class="input">
-								<i class="icon-append icon-calendar"></i>
-								<%= f.input_field :passport_date_to, class: 'datePick' %>
-							</label>
+							<label class="label"><b>Tanggal Habis Berlaku Paspor</b></label>
+							<%= @case.passport_date_to %>
 							<div class="note"><strong>Format : </strong>YYYY/MM/DD</div>
 						</section>					
 						
 						
 						<section class="col col-3">
-							<label class="label">Kantor Imigrasi</label>
-							<label class="input">
-								<i class="icon-append icon-globe"></i>
-								<%= f.input_field :passport_place %>
-							</label>							
+							<label class="label"><b>Kantor Imigrasi</b></label>
+							<%= @case.passport_place %>							
 						</section>
 						
 					</div>				
@@ -185,21 +127,14 @@
 					<hr /><br />
 					<div class="row">
 				    
-						<section class="col col-9">
-							<label class="label">Alamat di Indonesia</label>
-							<label class="textarea textarea-expandable">
-								<i class="icon-append icon-home"></i>
-								<%= f.input_field :address_id, :row => 5, :maxlength => 50, as: :text %>
-							</label>
-							<div class="note"><strong>Note:</strong> Tuliskan alamat yang benar-benar bisa dihubungi saat darurat.</div>
+						<section class="col col-6">
+							<label class="label"><b>Alamat di Indonesia</b></label>
+							<%= @case.address_id.titleize %>
 						</section>
 						
-						<section class="col col-3">
-							<label class="label">Kelurahan/Desa</label>
-							<label class="input">
-								<i class="icon-append icon-road"></i>
-								<%= f.input_field :kelurahan_id, :maxlength => 20 %>
-							</label>
+						<section class="col col-6">
+							<label class="label"><b>Kelurahan/Desa</b></label>
+							<%= @case.kelurahan_id.titleize %>
 						</section>
 					
 				    </div>
@@ -207,237 +142,62 @@
 				    <div class="row">
 						
 						<section class="col col-3">
-							<label class="label">Kecamatan</label>
-							<label class="input">
-								<i class="icon-append icon-road"></i>
-								<%= f.input_field :kecamatan_id, :maxlength => 20 %>
-							</label>
+							<label class="label"><b>Kecamatan</b></label>
+							<%= @case.kecamatan_id.titleize %>
 						</section>
 						
 						<section class="col col-3">
-							<label class="label">Kabupaten/Kota</label>
-							<label class="input">
-								<i class="icon-append icon-road"></i>
-								<%= f.input_field :kabupaten_id, :maxlength => 20 %>
-					    	</label>
+							<label class="label"><b>Kabupaten/Kota</b></label>
+							<%= @case.kabupaten_id.titleize %>
 					   	</section>
 					  
 					   <section class="col col-3">
-						 <label class="label">Propinsi</label>
-						 <label class="select">
-							<%= f.input_field :provinsi_id, 
-							collection: { 
-							'DI ACEH'=>'ACEH',
-							'BANGKA BELITUNG'=>'BABEL',
-							'BENGKULU'=>'BENGKULU',
-							'BALI'=>'BALI',
-							'BANTEN'=>'BANTEN',
-							'GORONTALO'=>'GORONTALO',
-							'JAWA BARAT'=>'JABAR',
-							'JAWA TENGAH'=>'JATENG',
-							'DKI JAKARTA'=>'JAKARTA',
-							'JAWA TIMUR'=>'JATIM',
-							'JAMBI'=>'JAMBI',
-							'KALIMANTAN BARAT'=>'KALBAR',
-							'KALIMANTAN TENGAH'=>'KALTENG',
-							'KALIMANTAN SELATAN'=>'KALSEL',
-							'KALIMANTAN TIMUR'=>'KALTIM',
-							'KEP. RIAU' => 'KEPRI',
-							'LAMPUNG'=>'LAMPUNG',
-							'MALUKU'=>'MALUKU',
-							'MALUKU UTARA'=>'MALUKU.U',
-							'PAPUA'=>'PAPUA',
-							'RIAU'=>'RIAU',
-							'SUMATERA UTARA' => 'SUMUT',
-							'SUMATERA BARAT' => 'SUMBAR',
-							'SUMATERA SELATAN' => 'SUMSEL',
-							'NTB'=>'NTB',
-							'NTT'=>'NTT',
-							'SULAWESI TENGGARA'=>'SULTRA',
-							'SULAWESI SELATAN'=>'SULSEL',
-							'SULAWESI TENGAH'=>'SULTENG',
-							'SULAWESI UTARA'=>'SULUT',
-							'D.I. YOGYAKARTA'=>'YOGYAKARTA'
-							} %>
-							<i></i>
-					    </label>
+						 <label class="label"><b>Propinsi</b></label>
+						 <%= @case.provinsi_id.titleize %>
 					   </section>
 					
 					   <section class="col col-3">
-							<label class="label">No Telepon di Indonesia</label>
-							<label class="input">
-								<i class="icon-append icon-phone"></i>
-								<%= f.input_field :phone_id, :maxlength => 20 %>
-								</label>
+							<label class="label"><b>No Telepon di Indonesia</b></label>
+							<%= @case.phone_id %>
 					   </section>
 					</div>
 				</fieldset>
 				
 				<fieldset>
-					<h3>Detail Pekerjaan</h3>	
+					<h3>Detail di Korea</h3>	
 					<hr /><br />
 					<div class="row">
 						<section class="col col-4">
-							<label class="label">Pekerjaan di Korea</label>
-							<label class="select">
-								<%= f.input_field :visa_kr, 
-								collection: { 
-									"Tenaga Kerja Indonesia" => "E9" , 
-									"Profesional" => "E7" ,
-									"Mahasiswa/Pelajar" => "D2/D4",
-									"Lainnya" => "N/A" }, 
-									:selected => 'E9' %>
-							<i></i>
-							</label>
+							<label class="label"><b>Pekerjaan di Korea</b></label>
+							<%= @case.visa_kr.upcase %>
 						</section>
 						
 						<section class="col col-4">
-							<label class="label">Keterangan Pekerjaan</label>
-							<label class="input">
-								<i class="icon-append icon-cog"></i>
-								<%= f.input_field :visa_kr_type, :maxlength => 50 %>
-							</label>
-							<div class="note"><strong>Contoh :</strong> Perikanan, Pertanian, Manufaktur, Mahasiswa S2/S3, Dll</div>
+							<label class="label"><b>Keterangan Pekerjaan</b></label>
+							<%= @case.visa_kr_type.capitalize %>
 						</section>
 						
 						<section class="col col-4">
-							<label class="label">No Telepon di Korea</label>
-							<label class="input">
-								<i class="icon-append icon-phone"></i>
-								<%= f.input_field :phone_kr, :maxlength => 20 %>
-							</label>
+							<label class="label"><b>No Telepon di Korea</b></label>
+							<%= @case.phone_kr %>
 						</section>
 						
 				  </div>
 					
 					<div class="row">
 						<section class="col col-6">
-							<label class="label">Alamat Tinggal di Korea</label>
-							<label class="textarea textarea-expandable">
-							<i class="icon-append icon-home"></i>
-							<%= f.input_field :address_kr, :row => 5, :maxlength => 100, as: :text %>
-							</label>						
+							<label class="label"><b>Alamat Tinggal di Korea</b></label>
+							<%= @case.address_kr.capitalize %>						
 						</section>
 						
 						<section class="col col-3">
-							<label class="label">Kota</label>
-							<label class="input">
-								<i class="icon-append icon-road"></i>
-								<label class="select">
-								<%= f.input_field :city_kr, 
-								collection: { 'Andong' => 'Andong',
-											  'Ansan' => 'Ansan',
-											  'Anseong' => 'Anseong',
-											  'Anyang' => 'Anyang',
-											  'Asan' => 'Asan',
-											  'Boryeong' => 'Boryeong',
-											  'Bucheon' => 'Bucheon',
-											  'Busan' => 'Busan',
-											  'Changwon' => 'Changwon',
-											  'Cheonan' => 'Cheonan',
-											  'Cheongju' => 'Cheongju',
-											  'Chuncheon' => 'Chuncheon',
-											  'Chungju' => 'Chungju',
-											  'Daegu' => 'Daegu',
-											  'Daejeon' => 'Daejeon',
-											  'Dangjin' => 'Dangjin',
-											  'Donghae' => 'Donghae',
-											  'Gangneung' => 'Gangneung',
-											  'Geoje' => 'Geoje',
-											  'Gimcheon' => 'Gimcheon',
-											  'Gimhae' => 'Gimhae',
-											  'Gimje' => 'Gimje',
-											  'Gimpo' => 'Gimpo',
-											  'Gongju' => 'Gongju',
-											  'Goyang' => 'Goyang',
-											  'Gumi' => 'Gumi',
-											  'Gunpo' => 'Gunpo',
-											  'Gunsan'	=> 'Gunsan',
-											  'Guri' => 'Guri',
-											  'Gwacheon' => 'Gwacheon',
-											  'Gwangju' => 'Gwangju',
-											  'Gwangmyeong' => 'Gwangmyeong',
-											  'Gwangyang' => 'Gwangyang',
-											  'Gyeongju' => 'Gyeongju',
-											  'Gyeongsan' => 'Gyeongsan',
-											  'Gyeryong' => 'Gyeryong',
-											  'Hanam' => 'Hanam',
-											  'Hwaseong' => 'Hwaseong',
-											  'Icheon' => 'Icheon',
-											  'Iksan' => 'Iksan',
-											  'Incheon' => 'Incheon',
-											  'Jecheon' => 'Jecheon',
-											  'Jeongeup' => 'Jeongeup',
-											  'Jeonju' => 'Jeonju',
-											  'Jeju' => 'Jeju',
-											  'Jinju' => 'Jinju',
-											  'Naju' => 'Naju',
-											  'Namyangju' => 'Namyangju',
-											  'Namwon' => 'Namwon',
-											  'Nonsan' => 'Nonsan',
-											  'Miryang' => 'Miryang',
-											  'Mokpo' => 'Mokpo',
-											  'Mungyeong' => 'Mungyeong',
-											  'Osan' => 'Osan',
-											  'Paju' => 'Paju',
-											  'Pocheon' => 'Pocheon',
-											  'Pohang' => 'Pohang',
-											  'Pyeongtaek' => 'Pyeongtaek',
-											  'Sacheon' => 'Sacheon',
-											  'Sangju' => 'Sangju',
-											  'Samcheok' => 'Samcheok',
-											  'Sejong' => 'Sejong',
-											  'Seogwipo' => 'Seogwipo',
-											  'Seongnam' => 'Seongnam',
-											  'Seosan' => 'Seosan',
-											  'Seoul' => 'Seoul',
-											  'Siheung' => 'Siheung',
-											  'Sokcho' => 'Sokcho',
-											  'Suncheon' => 'Suncheon',
-											  'Suwon' => 'Suwon',
-											  'Taebaek' => 'Taebaek',
-											  'Tongyeong' => 'Tongyeong',
-											  'Uijeongbu' => 'Uijeongbu',
-											  'Uiwang' => 'Uiwang',
-											  'Ulsan' => 'Ulsan',
-											  'Wonju' => 'Wonju',
-											  'Yangju' => 'Yangju',
-											  'Yangsan' => 'Yangsan',
-											  'Yeoju' => 'Yeoju',
-											  'Yeongcheon' => 'Yeongcheon',
-											  'Yeongju' => 'Yeongju',
-											  'Yeosu' => 'Yeosu',
-											  'Yongin' => 'Yongin' 
-											  			  
-								} %>
-							<i></i>
-							</label>
+							<label class="label"><b>Kota</b></label>
+							<%= @case.city_kr.capitalize %>
 						</section>
 						
 						<section class="col col-3">
-							  <label class="label">Propinsi</label>
-							  <label class="select">
-								<%= f.input_field :province_kr, collection: { 
-									'Gyeonggi-do' => 'Gyeonggi-do',
-									'Gangwon-do' => 'Gangwon-do',
-									'Jeollabuk-do' => 'Jeollabuk-do',
-									'Jeollanam-do' => 'Jeollanam-do',
-									'Chungcheongnam-do' => 'Chungcheongnam-do',
-									'Chungcheongbuk-nam' => 'Chungcheongbuk-do',
-									'Gyeongsamnam-do' => 'Gyeongsam_nam-do',
-									'Gyeongsangbuk-do' => 'Gyeongsang_bu-do',
-									'Jeju Island' => 'Jeju',
-									'특별시 Seoul' => 'Seoul',
-									'광역시 Busan' => 'Busan',
-									'광역시 Daegu' => 'Daegu',
-									'광역시 Daejeon' => 'Daejeon',
-									'광역시 Gwangju' => 'Gwangju',
-									'광역시 Incheon' => 'Incheon',
-									'광역시 Ulsan' => 'Ulsan',
-									'특별자치시 Sejong' => 'Sejong'
-									 } %>
-								<i></i>
-							  </label>							
+							  <label class="label"><b>Propinsi</b></label>
+							  <%= @case.province_kr.capitalize %>							
 						</section>
 
 					</div>
@@ -445,195 +205,113 @@
 				</fieldset>		
 				
 				<fieldset>
+					<h3>Detail Perusahaan/Institusi/Sekolah</h3>	
+					<hr /><br />
 					<div class="row">
 						<section class="col col-6">
-							<label class="label">Nama Perusahaan/Sekolah/Instansi</label>
-							<label class="input">
-								<i class="icon-append icon-home"></i>
-								<%= f.input_field :company_kr, :maxlength => 30 %>
-							</label>		
-							<div class="note">Sebisa mungkin tulis dengan Huruf Korea.</div>				
+							<label class="label"><b>Nama Perusahaan/Sekolah/Instansi</b></label>
+							<%= @case.company_kr.capitalize %>				
 						</section>
 						
 						<section class="col col-6">
-							<label class="label">Alamat Perusahaan/Sekolah/Instansi</label>
-							<label class="textarea textarea-expandable">
-								<i class="icon-append icon-road"></i>
-								<%= f.input_field :company_address_kr, :row => 5, :maxlength => 50, as: :text %>
-							</label>		
-							<div class="note">Pastikan alamat sesuai dengan SLC/Kop Surat resmi Instansi terkait</div>				
+							<label class="label"><b>Alamat Perusahaan/Sekolah/Instansi</b></label>
+							<%= @case.company_address_kr %>				
 						</section>
 					</div>	
 					
 					<div class="row">
-						<section class="col col-4">
-							<label class="label">Kota</label>
-							<label class="input">
-								<i class="icon-append icon-road"></i>
-								<label class="select">
-								<%= f.input_field :company_city_kr, 
-								collection: { 'Andong' => 'Andong',
-											  'Ansan' => 'Ansan',
-											  'Anseong' => 'Anseong',
-											  'Anyang' => 'Anyang',
-											  'Asan' => 'Asan',
-											  'Boryeong' => 'Boryeong',
-											  'Bucheon' => 'Bucheon',
-											  'Busan' => 'Busan',
-											  'Changwon' => 'Changwon',
-											  'Cheonan' => 'Cheonan',
-											  'Cheongju' => 'Cheongju',
-											  'Chuncheon' => 'Chuncheon',
-											  'Chungju' => 'Chungju',
-											  'Daegu' => 'Daegu',
-											  'Daejeon' => 'Daejeon',
-											  'Dangjin' => 'Dangjin',
-											  'Donghae' => 'Donghae',
-											  'Gangneung' => 'Gangneung',
-											  'Geoje' => 'Geoje',
-											  'Gimcheon' => 'Gimcheon',
-											  'Gimhae' => 'Gimhae',
-											  'Gimje' => 'Gimje',
-											  'Gimpo' => 'Gimpo',
-											  'Gongju' => 'Gongju',
-											  'Goyang' => 'Goyang',
-											  'Gumi' => 'Gumi',
-											  'Gunpo' => 'Gunpo',
-											  'Gunsan'	=> 'Gunsan',
-											  'Guri' => 'Guri',
-											  'Gwacheon' => 'Gwacheon',
-											  'Gwangju' => 'Gwangju',
-											  'Gwangmyeong' => 'Gwangmyeong',
-											  'Gwangyang' => 'Gwangyang',
-											  'Gyeongju' => 'Gyeongju',
-											  'Gyeongsan' => 'Gyeongsan',
-											  'Gyeryong' => 'Gyeryong',
-											  'Hanam' => 'Hanam',
-											  'Hwaseong' => 'Hwaseong',
-											  'Icheon' => 'Icheon',
-											  'Iksan' => 'Iksan',
-											  'Incheon' => 'Incheon',
-											  'Jecheon' => 'Jecheon',
-											  'Jeongeup' => 'Jeongeup',
-											  'Jeonju' => 'Jeonju',
-											  'Jeju' => 'Jeju',
-											  'Jinju' => 'Jinju',
-											  'Naju' => 'Naju',
-											  'Namyangju' => 'Namyangju',
-											  'Namwon' => 'Namwon',
-											  'Nonsan' => 'Nonsan',
-											  'Miryang' => 'Miryang',
-											  'Mokpo' => 'Mokpo',
-											  'Mungyeong' => 'Mungyeong',
-											  'Osan' => 'Osan',
-											  'Paju' => 'Paju',
-											  'Pocheon' => 'Pocheon',
-											  'Pohang' => 'Pohang',
-											  'Pyeongtaek' => 'Pyeongtaek',
-											  'Sacheon' => 'Sacheon',
-											  'Sangju' => 'Sangju',
-											  'Samcheok' => 'Samcheok',
-											  'Sejong' => 'Sejong',
-											  'Seogwipo' => 'Seogwipo',
-											  'Seongnam' => 'Seongnam',
-											  'Seosan' => 'Seosan',
-											  'Seoul' => 'Seoul',
-											  'Siheung' => 'Siheung',
-											  'Sokcho' => 'Sokcho',
-											  'Suncheon' => 'Suncheon',
-											  'Suwon' => 'Suwon',
-											  'Taebaek' => 'Taebaek',
-											  'Tongyeong' => 'Tongyeong',
-											  'Uijeongbu' => 'Uijeongbu',
-											  'Uiwang' => 'Uiwang',
-											  'Ulsan' => 'Ulsan',
-											  'Wonju' => 'Wonju',
-											  'Yangju' => 'Yangju',
-											  'Yangsan' => 'Yangsan',
-											  'Yeoju' => 'Yeoju',
-											  'Yeongcheon' => 'Yeongcheon',
-											  'Yeongju' => 'Yeongju',
-											  'Yeosu' => 'Yeosu',
-											  'Yongin' => 'Yongin' 
-											  			  
-								} %>
-							<i></i>
-							</label>
+						<section class="col col-3">
+							<label class="label"><b>Kota</b></label>
+							<%= @case.company_city_kr.capitalize %>
 						</section>
 						
-						<section class="col col-4">
-							  <label class="label">Propinsi</label>
-							  <label class="select">
-								<%= f.input_field :company_province_kr, collection: { 
-									'Gyeonggi-do' => 'Gyeonggi-do',
-									'Gangwon-do' => 'Gangwon-do',
-									'Jeollabuk-do' => 'Jeollabuk-do',
-									'Jeollanam-do' => 'Jeollanam-do',
-									'Chungcheongnam-do' => 'Chungcheongnam-do',
-									'Chungcheongbuk-nam' => 'Chungcheongbuk-do',
-									'Gyeongsamnam-do' => 'Gyeongsam_nam-do',
-									'Gyeongsangbuk-do' => 'Gyeongsang_bu-do',
-									'Jeju Island' => 'Jeju',
-									'특별시 Seoul' => 'Seoul',
-									'광역시 Busan' => 'Busan',
-									'광역시 Daegu' => 'Daegu',
-									'광역시 Daejeon' => 'Daejeon',
-									'광역시 Gwangju' => 'Gwangju',
-									'광역시 Incheon' => 'Incheon',
-									'광역시 Ulsan' => 'Ulsan',
-									'특별자치시 Sejong' => 'Sejong'
-									 } %>
-								<i></i>
-							  </label>							
+						<section class="col col-3">
+							  <label class="label"><b>Propinsi</b></label>
+							  <%= @case.company_province_kr.capitalize %>							
 						</section>
 						
-						<section class="col col-4">
-							<label class="label">No Telepon Perusahaan/Sekolah/Instansi</label>
-							<label class="input">
-								<i class="icon-append icon-phone"></i>
-								<%= f.input_field :company_phone_kr, :maxlength => 20 %>
-							</label>
+						<section class="col col-6">
+							<label class="label"><b>No Telepon Perusahaan/Sekolah/Instansi</b></label>
+							<%= @case.company_phone_kr %>
 						</section>
 						
 					</div>	
 				</fieldset>
 				
 				<fieldset>
+				<% if @case.case_embassy_supporting_photo.exists? && (current_user.has_role? :admin or current_user.has_role? :moderator) %>
+				    <section class="col col-4">
+				    	<label class="label">Foto dari KBRI</label>
+							<%= image_tag @case.case_embassy_supporting_photo.url(:thumb) %>
+							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+								<%= link_to 'Download', @case.case_embassy_supporting_photo.url(:original, false), target: "_blank" %>
+							<%end%>
+					</section>
+				<% end %>
+				<% if @case.case_embassy_supporting_doc.exists? && (current_user.has_role? :admin or current_user.has_role? :moderator) %>
+				    <section class="col col-4">
+				    	<label class="label">Dokumen dari KBRI</label>
+							<%= image_tag("/assets/images/doc.gif", height: '120', width: '120') %>
+							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+								<%= link_to 'Download', @case.case_embassy_supporting_doc.url(:original, false), target: "_blank" %>
+							<%end%>
+					</section>
+				<% end %>
+				<% if @case.case_user_supporting_doc.exists? %>
+				    <section class="col col-4">
+				    	<label class="label">Foto dari Pelapor</label>
+							<%= image_tag @case.case_user_supporting_doc.url(:thumb) %>
+							<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+								<%= link_to 'Download', @case.case_user_supporting_doc.url(:original, false), target: "_blank" %>
+							<%end%>
+					</section>
+				<% end %>
+				<% if (!@case.case_embassy_supporting_photo.exists? && !@case.case_embassy_supporting_doc.exists?) and !@case.case_user_supporting_doc.exists? %>
+					<!--
 					<section class="col col-6">
-							<label class="label">Foto atau Dokumen Pendukung</label>
+							<label class="label"><b>Foto atau Dokumen Pendukung</b></label>
 							<label for="file" class="input input-file">
 								<div class="button">									
 									<%= f.input_field :case_user_supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
-									<input type="text" name="photopath" readonly="readonly" />
+									<input type="text" name="userdocpath" readonly="readonly" />
 							</label>
 							<div class="note">
 								<strong>Catatan : </strong>Ukuran Maks. 2MB<br />
 							</div>
-					</section>		
+					</section>	
+					<section class="col col-6">
+							<label class="label"><b>Foto atau Dokumen Pendukung (oleh staff KBRI)</b></label>
+							<label for="file" class="input input-file">
+								<div class="button">									
+									<%= f.input_field :case_embassy_supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" name="embassydocpath" readonly="readonly" />
+							</label>
+							<div class="note">
+								<strong>Catatan : </strong>Ukuran Maks. 2MB<br />
+							</div>
+					</section>	
+					-->
+					<section class="col col-6"><label class="label"><b>Foto atau Dokumen Pendukung tidak ditemukan.</b></label></section>
+				<% end %>
 				</fieldset>
 				
-				<fieldset>
-					<section class="col col-6">
-						<div class="note">Tulis ulang kode di bawah ini untuk verifikasi:</div>					
-
-						<label class="input">
-							  <%= show_simple_captcha %>
-						</label>
-					</section>
-				</fieldset>
-
 				<fieldset style="text-align:justify;">
+				<!-- 
 					<h4>Disclaimer</h4>
 					<hr /><br />
 					<p>Dengan mengisi form ini Saya menyatakan bahwa semua data yang diisikan merupakan informasi yang sebenar-benarnya. 
 						Segala kesalahan informasi yang dapat menyebabkan kerugian adalah tanggung jawab Saya dan tidak dapat di tangguhkan pada pihak lain. 
 						KBRI Seoul dan staff terkait dapat menolak/meminta perubahan data dan informasi terkait permohonan jika tidak sesuai dengan syarat dan ketentuan.
 					</p>
+				-->
 				</fieldset>
+				
 
 				<footer>
-					<button type="submit" class="button">Ajukan Aplikasi</button>
-					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+					<button type="button" class="button button-primary" onclick="window.print(); return false;">Print Dokumen Ini</button>
+					<button type="button" class="button button-secondary" onclick="window.close();">Tutup Dokumen Ini</button>
+					<button type="button" class="button button-secondary" onclick="location.href='<%= site_url %>';">Kembali ke Panel Utama</button>
+					<button type="button" class="button button-primary" onclick="location.href='<%= edit_case_path %>';">Edit Ulang Dokument Ini</button>
 				</footer>
 			<% end %>
 			<!--/ Red color scheme -->			
@@ -645,9 +323,9 @@
 				$('input[type=text]').keyup(function() {
 				    $(this).val($(this).val().toUpperCase());
 				});
-				$('textarea').keyup(function() {
-				    $(this).val($(this).val().toUpperCase());
-				});
+				//$('textarea').keyup(function() {
+				//    $(this).val($(this).val().toUpperCase());
+				//});
 				$('#passport_application_reason').change(function(){
 					if($(this).val() == 'lainnya'){
 						$('#pasporsebelumnya').hide();						

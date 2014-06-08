@@ -1,11 +1,12 @@
 EKbri::Application.routes.draw do
+
   resources :visas, controller: 'immigration/visa'
   resources :visafamilys, controller: 'immigration/visafamily'
   resources :visagroups, controller: 'immigration/visagroup'
   resources :passports, controller: 'immigration/passport'
-  resources :reports, controller: 'immigration/report' 
-  resources :cases 
-  
+  resources :reports, controller: 'immigration/report'  
+  resources :cases
+    
   get "dashboard/protocols", :to => "protocol#index"
   
   authenticated :user do
@@ -35,6 +36,7 @@ EKbri::Application.routes.draw do
   get "infopassports", :to => "immigration/passport#info"
   get "inforeports", :to => "immigration/report#info"
   get "bantuan", :to => "cases#info"
+  get "lapormasalah", :to => "cases#index"
   get "marriage/info", :to => "immigration/marriage#info"
   
   get "overview", :to => "immigration/flow#systemoverview"

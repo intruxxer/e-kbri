@@ -9,6 +9,7 @@ class User
   has_many :passports, :class_name => "Passport", :inverse_of => :user
   has_many :reports, :class_name => "Report", :inverse_of => :user
   has_many :journals, :class_name => "Journal", :inverse_of => :user
+  has_many :cases, :class_name => "Case", :inverse_of => :user
   has_one :sync
   
   #has_one :passport
