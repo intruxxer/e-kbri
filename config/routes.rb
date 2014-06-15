@@ -53,6 +53,8 @@ EKbri::Application.routes.draw do
   get "passports/reapply/:id", :to => "immigration/passport#reapply"
   
   get "dashboard/index"
+  get "dashboard/masalahwni", :to => "cases#masalahwni"
+  get "dashboard/deletemasalahwni/:id", to: "cases#destroy", as: "deletemasalahwni", via: :get
 
   get "dashboard/counsel"
   get "dashboard/immigration"
@@ -139,7 +141,7 @@ EKbri::Application.routes.draw do
   #Experimental Controller#
   get "playground", :to => "playground#index"
   match "experiment", :to => "playground#experiment", via: :all
-  match '*path', via: :all, to: 'pages#error_404'
+  #match '*path', via: :all, to: 'pages#error_404'
   
 
   # The priority is based upon order of creation: first created -> highest priority.

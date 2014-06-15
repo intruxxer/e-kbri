@@ -27,6 +27,12 @@ class CasesController < ApplicationController
     end
   end
   
+  def masalahwni
+    authorize! :showall, @cases, :message => 'Not authorized as an administrator.'
+    @cases = Case.all.page(params[:page]).per(20)
+    render layout: 'dashboard'
+  end
+  
   def create
     @case = [ Case.new(post_params) ]   
     tempcache = @case
@@ -71,9 +77,9 @@ class CasesController < ApplicationController
   def destroy
     @case = Case.find(params[:id])
     if @case.delete
-      redirect_to :back, :notice => "Data Kasus dengan No. Ref. #{@case.full_name} telah berhasil dihapuskan dari sistem."
+      redirect_to :back, :notice => "Data Kasus #{@case.full_name} telah berhasil dihapuskan dari sistem."
     else
-      redirect_to :back, :notice => "Data Kasus dengan No. Ref. #{@case.full_name} tidak dapat ditemukan."
+      redirect_to :back, :notice => "Data Kasus #{@case.full_name} tidak dapat ditemukan."
     end
   end
   

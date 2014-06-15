@@ -1,0 +1,52 @@
+<div class="body" style="padding-top: 20px;">
+<div style="text-align: center;">
+  <%= image_tag("/assets/images/garuda.png", height: '120', width: '120') %>
+</div>
+<h3 style="text-align: center;">Rekapitulasi Kasus WNI Bermasalah</h3>
+<!--
+<div class="span8">
+	<div class="col-md-12 text-center">
+		<div class="form-container">
+				<p id="response-form">
+					Find a user to lookup or modify. Simply key in their email or full name.
+				</p>
+				<%= form_for :user, url: searchuser_path, method: :post, remote: true, html: {id: "searchuser-form", class: "sky-form"} do |f| %>
+					<%= f.text_field :name, class: "input-large", :placeholder => "Enter user's name." %>
+					<%= f.text_field :email, class: "input-large", :placeholder => "Enter user's e-mail." %>
+					<%=	f.submit 'Search', class: "btn btn-primary btn-mini btn-submit" %>
+					<span id="loading" style="display: none;"><img src="/images/loadingBarBlue.gif" /></span>
+				<% end %>
+				<p id="response-form"></p>
+		</div>
+	</div>
+</div>
+
+<hr />
+-->
+<div class="span8">
+	<table class="table table-condensed">
+	  <thead>
+	    <tr>
+	      <th>Nama Lengkap</th>
+	      <th>Tempat</th>
+	      <th>Tanggal Aplikasi</th>
+	      <th>Status Kasus</th>
+	      <th></th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  <% @cases.each do |kasus| %>
+	    <tr>
+	      <td><%= link_to kasus.full_name, kasus %></td>
+	      <td><%= kasus.province_kr %></td>
+	      <td><%= kasus.updated_at.strftime("%-d %b %y") %></td>
+	      <td><%= kasus.status %></td>
+	      <td><%= link_to("Edit Kasus", edit_case_path(kasus), :class => 'btn btn-mini btn-primary') %></td>
+	      <td><%= link_to("Delete Kasus", deletemasalahwni_path(kasus), :class => 'btn btn-mini btn-danger') %></td>
+	    </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+	  <%= paginate @cases %>
+</div>
