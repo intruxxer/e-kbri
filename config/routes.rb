@@ -54,7 +54,8 @@ EKbri::Application.routes.draw do
   
   get "dashboard/index"
   get "dashboard/masalahwni", :to => "cases#masalahwni"
-  get "dashboard/deletemasalahwni/:id", to: "cases#destroy", as: "deletemasalahwni", via: :get
+  get "dashboard/formulirmasalahwni", :to => "cases#formulirmasalahwni", as: "formulirmasalahwni"
+  match "dashboard/deletemasalahwni/:id", to: "cases#destroy", as: "deletemasalahwni", via: :get
 
   get "dashboard/counsel"
   get "dashboard/immigration"

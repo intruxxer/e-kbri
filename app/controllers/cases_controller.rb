@@ -27,6 +27,10 @@ class CasesController < ApplicationController
     end
   end
   
+  def formulirmasalahwni
+    @case = Case.new
+  end
+  
   def masalahwni
     authorize! :showall, @cases, :message => 'Not authorized as an administrator.'
     @cases = Case.all.page(params[:page]).per(20)
