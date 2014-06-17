@@ -254,15 +254,15 @@
 							  <label class="label">Propinsi</label>
 							  <label class="select">
 								<%= f.input_field :sponsor_address_prov_kr, collection: { 
-									'Gyeonggi-do' => 'Gyeonggi-do',
-									'Gangwon-do' => 'Gangwon-do',
-									'Jeollabuk-do' => 'Jeollabuk-do',
-									'Jeollanam-do' => 'Jeollanam-do',
-									'Chungcheongnam-do' => 'Chungcheongnam-do',
-									'Chungcheongbuk-nam' => 'Chungcheongbuk-do',
-									'Gyeongsamnam-do' => 'Gyeongsam_nam-do',
-									'Gyeongsangbuk-do' => 'Gyeongsang_bu-do',
-									'Jeju Island' => 'Jeju',
+									'Gyeonggi-do (경기도)' => 'Gyeonggi-do',
+									'Gangwon-do (강원도)' => 'Gangwon-do',
+									'Jeollabuk-do (전라북도)' => 'Jeollabuk-do',
+									'Jeollanam-do (전라남도)' => 'Jeollanam-do',
+									'Chungcheongnam-do (충청남도)' => 'Chungcheongnam-do',
+									'Chungcheongbuk-nam (충청북도)' => 'Chungcheongbuk-do',
+									'Gyeongsamnam-do (경상남도)' => 'Gyeongsam_nam-do',
+									'Gyeongsangbuk-do (경상북도)' => 'Gyeongsang_bu-do',
+									'Jeju Island (제주도)' => 'Jeju',
 									'특별시 Seoul' => 'Seoul',
 									'광역시 Busan' => 'Busan',
 									'광역시 Daegu' => 'Daegu',
@@ -280,92 +280,7 @@
 							<label class="input">
 								<i class="icon-append icon-road"></i>
 								<label class="select">
-								<%= f.input_field :cityKorea, 
-								collection: { 'Andong' => 'Andong',
-											  'Ansan' => 'Ansan',
-											  'Anseong' => 'Anseong',
-											  'Anyang' => 'Anyang',
-											  'Asan' => 'Asan',
-											  'Boryeong' => 'Boryeong',
-											  'Bucheon' => 'Bucheon',
-											  'Busan' => 'Busan',
-											  'Changwon' => 'Changwon',
-											  'Cheonan' => 'Cheonan',
-											  'Cheongju' => 'Cheongju',
-											  'Chuncheon' => 'Chuncheon',
-											  'Chungju' => 'Chungju',
-											  'Daegu' => 'Daegu',
-											  'Daejeon' => 'Daejeon',
-											  'Dangjin' => 'Dangjin',
-											  'Donghae' => 'Donghae',
-											  'Gangneung' => 'Gangneung',
-											  'Geoje' => 'Geoje',
-											  'Gimcheon' => 'Gimcheon',
-											  'Gimhae' => 'Gimhae',
-											  'Gimje' => 'Gimje',
-											  'Gimpo' => 'Gimpo',
-											  'Gongju' => 'Gongju',
-											  'Goyang' => 'Goyang',
-											  'Gumi' => 'Gumi',
-											  'Gunpo' => 'Gunpo',
-											  'Gunsan'	=> 'Gunsan',
-											  'Guri' => 'Guri',
-											  'Gwacheon' => 'Gwacheon',
-											  'Gwangju' => 'Gwangju',
-											  'Gwangmyeong' => 'Gwangmyeong',
-											  'Gwangyang' => 'Gwangyang',
-											  'Gyeongju' => 'Gyeongju',
-											  'Gyeongsan' => 'Gyeongsan',
-											  'Gyeryong' => 'Gyeryong',
-											  'Hanam' => 'Hanam',
-											  'Hwaseong' => 'Hwaseong',
-											  'Icheon' => 'Icheon',
-											  'Iksan' => 'Iksan',
-											  'Incheon' => 'Incheon',
-											  'Jecheon' => 'Jecheon',
-											  'Jeongeup' => 'Jeongeup',
-											  'Jeonju' => 'Jeonju',
-											  'Jeju' => 'Jeju',
-											  'Jinju' => 'Jinju',
-											  'Naju' => 'Naju',
-											  'Namyangju' => 'Namyangju',
-											  'Namwon' => 'Namwon',
-											  'Nonsan' => 'Nonsan',
-											  'Miryang' => 'Miryang',
-											  'Mokpo' => 'Mokpo',
-											  'Mungyeong' => 'Mungyeong',
-											  'Osan' => 'Osan',
-											  'Paju' => 'Paju',
-											  'Pocheon' => 'Pocheon',
-											  'Pohang' => 'Pohang',
-											  'Pyeongtaek' => 'Pyeongtaek',
-											  'Sacheon' => 'Sacheon',
-											  'Sangju' => 'Sangju',
-											  'Samcheok' => 'Samcheok',
-											  'Sejong' => 'Sejong',
-											  'Seogwipo' => 'Seogwipo',
-											  'Seongnam' => 'Seongnam',
-											  'Seosan' => 'Seosan',
-											  'Seoul' => 'Seoul',
-											  'Siheung' => 'Siheung',
-											  'Sokcho' => 'Sokcho',
-											  'Suncheon' => 'Suncheon',
-											  'Suwon' => 'Suwon',
-											  'Taebaek' => 'Taebaek',
-											  'Tongyeong' => 'Tongyeong',
-											  'Uijeongbu' => 'Uijeongbu',
-											  'Uiwang' => 'Uiwang',
-											  'Ulsan' => 'Ulsan',
-											  'Wonju' => 'Wonju',
-											  'Yangju' => 'Yangju',
-											  'Yangsan' => 'Yangsan',
-											  'Yeoju' => 'Yeoju',
-											  'Yeongcheon' => 'Yeongcheon',
-											  'Yeongju' => 'Yeongju',
-											  'Yeosu' => 'Yeosu',
-											  'Yongin' => 'Yongin' 
-											  			  
-								} %>
+								<%= f.input_field :cityKorea, :maxlength => 30 %>
 							<i></i>
 							</label>
 						</section>
@@ -376,7 +291,7 @@
 							<label class="label">No Telepon di Indonesia</label>
 							<label class="input">
 								<i class="icon-append icon-phone"></i>
-								<%= f.input_field :phoneIndonesia, :maxlength => 50 %>
+								<%= f.input_field :phoneIndonesia, :maxlength => 20 %>
 							</label>
 						</section>
 					<section class="col col-6">
@@ -390,7 +305,7 @@
 					<section class="col col-3">
 						<label class="label">Propinsi</label>
 						<label class="input">
-							<%= f.input_field :sponsor_address_prov_id %>							
+							<%= f.input_field :sponsor_address_prov_id, :maxlength => 30 %>							
 					    </label>
 					</section>
 				    </div>
@@ -414,7 +329,7 @@
 						<section class="col col-3">
 							<label class="label">Kabupaten/Kota</label>
 							<label class="input">
-							<%= f.input_field :kabupatenIndonesia %>							
+							<%= f.input_field :kabupatenIndonesia, :maxlength => 30 %>							
 					    </label>
 					  </section>
 						
