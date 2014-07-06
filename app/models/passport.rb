@@ -58,7 +58,7 @@ class Passport
   field :reg_no,                 type: String
   field :lapordiri_no,           type: String
   
-  field :passportfee,           type: Integer, default : 6
+  field :passportfee,           type: Integer, default: 6
 
   field :vipacounter,           type: Integer
   field :comment,               type: String
