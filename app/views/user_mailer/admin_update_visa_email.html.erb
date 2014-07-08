@@ -307,7 +307,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 												</tr>
 												<tr>
 													<td>Application Type</td>
-													<td> (<%= @visa.category_type %>) :  <%= (@visa.status=='Verified' or @visa.status == 'Printed' )? Visafee.where(:id => @visa.visafee_ref).first.name_of_visa : 'Under Review' %> </td>
+													<td> (<%= @visa.category_type %>) :  <%= (@visa.status=='Verified' || @visa.status == 'Printed' || @visa.status == 'Approved' || @visa.status == 'Paid' )? Visafee.where(:id => @visa.visafee_ref).first.name_of_visa : 'Under Review' %> </td>
 												</tr>
 										</table></center>
 								</td>
