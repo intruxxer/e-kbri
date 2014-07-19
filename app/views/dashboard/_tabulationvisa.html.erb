@@ -6,7 +6,7 @@
 <div id="dialog-confirm" title="Delete this Data? " style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
 </div>
-<form class="sky-form" method="GET">
+<%= simple_form_for :sFilterz,method: 'GET', url: '', :html => { :class => "sky-form", :multipart => true } do |f| %>
 	<fieldset>
 		<div class="row">	
 			
@@ -29,11 +29,28 @@
 				</label>
 			</section>			
 		</div>
+		<hr />
+		<div class="row">
+		    <section class="col col-9">
+		   		<label class="label" style="width:auto;background:inherit">Visa Type</label>
+				<label class="select" style="width:200px;">
+						<% visafee_ref_def = ''
+							unless ( params[:sFilterz].nil? )
+								unless ( params[:sFilterz][:visafee_ref] == "" )
+									visafee_ref_def = params[:sFilterz][:visafee_ref]
+								end
+							end
+						%>
+						<%= f.input_field :visafee_ref, collection: Visafee.all, value_method: :_id, label_method: :name_of_visa, prompt: 'All type', selected: visafee_ref_def %>
+					<i></i>
+					</label>
+		    </section>
+	    </div>
 	</fieldset>	
 	<footer>
 					<button type="submit" class="button">Filter</button>
     </footer>
-</form>	
+<% end %>
 <div class="row" style="margin-top:8px; ">
 	<div class="col-md-12">
 							<!-- start: TABLE WITH IMAGES PANEL -->
@@ -82,7 +99,7 @@
 											      { "bSortable": false }											      
 											    ],
 											    "fnServerParams": function ( aoData ) {
-												  aoData.push( { "name" : "filterd", "value" : $("input:checked[name='filterd']").val() },{ "name" : "filterdstart", "value" : $("input[name='filterdstart']").val() },{ "name" : "filterdend", "value" : $("input[name='filterdend']").val() } );
+												  aoData.push( { "name" : "filterd", "value" : $("input:checked[name='filterd']").val() },{ "name" : "filterdstart", "value" : $("input[name='filterdstart']").val() },{ "name" : "filterdend", "value" : $("input[name='filterdend']").val() },{ "name" : "visafee_ref", "value" : $("#sFilterz_visafee_ref").val() } );
 												}
 										    });
 										});		

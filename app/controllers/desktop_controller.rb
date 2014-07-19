@@ -103,7 +103,7 @@ class DesktopController < ApplicationController
         VALUES('" + @visa.air_sea_port + "','" + @visa.sponsor_name_id + "','000000000','20','" + @visa.nationality + "','" + @visa.sex.to_s + " " + @visa.marital_status.to_s + "','B','" + @visa.profession.to_s + "'," + @visa.duration_stays.to_s + ",'" + @visa.duration_stays_unit.to_s + "','" + print_code + "','" + print_code + "','P','A', 'KBRI SEOUL', '" + @visa.created_at.strftime("%m/%d/%Y").to_s + "','" + @visa.passport_no.to_s + "','" + @visa.passport_date_expired.to_s + "','" + @visa.passport_date_issued.to_s + "','" + @visa.passport_issued.to_s + "','Y','" + @visa.last_name.to_s + "','" + @visa.first_name.to_s + "','" + @visa.dateBirth.strftime("%m/%d/%Y") + "','" + @visa.placeBirth.to_s + "','" + @visa.num_entry.to_s + "','" + @visa.created_at.strftime("%m/%d/%Y").to_s + "','" + @visa.updated_at.strftime("%m/%d/%Y").to_s + "')"
       else
       folderloc = TARGET_SISARI_FOLDER + 'Visa.mdb'
-	  consularname = Reference.first.consulat_name
+    consularname = Reference.first.consulat_name
       query = "INSERT INTO TTVISA(PORTINDONESIA, COMP_SPONSOR, JK, TIPE_VISA, KETPEKERJAAN, LAMA,TYPELAMA, NO_APLIKASI, JENIS, KDPERWAKILAN, NMPERWAKILAN, TGL_DOC, KODE_NEG, NO_PASPOR, TGL_VALID_PASPOR, TGL_KLUAR_PASPOR, KTR_KLUAR_PASPOR, FLAGACCLOKET, NAMA3, GIVEN_NAME, TGL_LAHIR, TMP_LAHIR, ENTRIES, TGLENTRY, TGL_UPDATE, KD_VISA, Pejabat_ttd, jabatan_ttd) 
         VALUES('" + @visa.air_sea_port + "','" + @visa.sponsor_name_id + "','" + @visa.sex.to_s + " " + @visa.marital_status.to_s + "','" + @visa.visa_type.to_s + "','" + @visa.profession.to_s + "'," + @visa.duration_stays.to_s + ",'" + @visa.duration_stays_unit.to_s + "','" + print_code + "','I','37A', 'SEOUL', '" + @visa.created_at.strftime("%m/%d/%Y").to_s + "','" + @visa.nationality + "','" + @visa.passport_no.to_s + "','" + @visa.passport_date_expired.to_s + "','" + @visa.passport_date_issued.to_s + "','" + @visa.passport_issued.to_s + "','Y','" + @visa.first_name.to_s + "','" + @visa.last_name.to_s + "','" + @visa.dateBirth.strftime("%m/%d/%Y") + "','" + @visa.placeBirth.to_s + "','" + @visa.num_entry.to_s + "','" + @visa.created_at.strftime("%m/%d/%Y").to_s + "','" + @visa.updated_at.strftime("%m/%d/%Y").to_s + "','Biasa','" + consularname + "','COUNSELLOR')"  
     end
@@ -148,6 +148,10 @@ class DesktopController < ApplicationController
         @visas = @visas.where(:created_at => { '$gte' => params[:filterdstart].to_s + " 00:00:00" , '$lte' => params[:filterdend].to_s + " 23:59:00" })
       end      
     end 
+    
+    unless ( params[:visafee_ref].nil? || params[:visafee_ref] == ""  )
+    @visas = @visas.where(:visafee_ref => params[:visafee_ref])
+  end
     
     @visas = @visas.all
     
