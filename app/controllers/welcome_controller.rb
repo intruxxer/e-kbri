@@ -1,6 +1,12 @@
 class WelcomeController < ApplicationController
    
   def index	
+    message_one = "Dear Visitor, Please kindly be notified that The Indonesian Embassy for Republic of Korea is closed upon the Eid-ul Fitr Event, Indonesian Annual National Holiday, 
+                  <br/><b>from 28 July 2014 - 3 August 2014.</b> The Embassy will resume its normal operation on 4 August 2014.".html_safe
+                       
+    message_two = "<br/>The Indonesian Embassy wishes all of you a Happy Eid Mubarak & Happy Summer Holiday!"
+    warning = [ message_one, message_two ]
+    flash[:warning] = warning.join("<br/>").html_safe
 =begin
     @ip_visitor = request.remote_ip
     #session[:ip_address]  = @ip_visitor
