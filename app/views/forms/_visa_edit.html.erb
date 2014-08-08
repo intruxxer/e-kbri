@@ -27,6 +27,8 @@
 					otherwise your application <u>would not</u> be processed. 
 				</fieldset>
 				<fieldset>
+					<h4>Application Classification</h4>
+					<br />
 					<div class="row">
 						<section class="col col-6">
 							<label class="label">Visa Reference No.:</label>
@@ -130,6 +132,21 @@
 								</label>
 						</section>	
 					</div>
+				</fieldset>
+				
+				<fieldset>
+					<h4>Pickup Location </h4>
+					<br />
+					<section class="col col-6">
+							<label class="label">Office</label>	
+							<label class="select">
+								<%= f.input_field :pickup_office, :required => true, :selected => 'seoul',
+								collection: { 'Indonesian Embassy Seoul Office' => 'seoul', 
+								          	  'Indonesian Consulate Busan Branch' => 'busan' } %>
+							<i></i>
+							</label>
+							<div class="note">Find out the location by clicking this link : <a target="_blank" href="http://kbriseoul.kr/kbriseoul/index.php/en/contact-us">Office Location</a></div>
+					</section>	
 				</fieldset>
 				
 				<fieldset class="newVisa specialFieldType no-show">

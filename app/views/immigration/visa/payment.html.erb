@@ -79,9 +79,10 @@
 							<label class="label" style='background:#FFCC00;'>Payment Date</label>	
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
-									<%= f.input_field :payment_date, class: 'datePick' %>
+									<%= f.input_field :slip_date, value: Date.today, placeholder: Date.today, disabled: "disabled" } %>
+									<%= f.input_field :payment_date, value: Time.now.strftime("%Y-%m-%d"), as: :hidden %>
 							</label>
-							<div class="note"><b>Reminder</b> : The date is the transaction date as in the payment slip</div>
+							<div class="note"><b>Note</b> : The date is today's date as you upload <b>The actual slip</b>. It is automatic, system-generated.</div>
 						</section>		
 					</div>
 				</fieldset>			

@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
    
   def index	
     message_one = "Dear Visitor, Please kindly be notified that The Indonesian Embassy for Republic of Korea has decided to make adjustment on fees pertaining to consular services such as Visas & Re-entry Application Fees, 
-                  effective <b>1 August 2014.</b> Please kindly check the new fees structure prior to making paymnet fur your respective application.".html_safe
+                  effective <b>1 August 2014.</b> Please kindly check the new fees structure prior to making payment for your respective application.".html_safe
                        
     message_two = "<br/>Thank You & Best Regards,<br/>The Indonesian Embassy for Republic of Korea."
     warning = [ message_one, message_two ]
