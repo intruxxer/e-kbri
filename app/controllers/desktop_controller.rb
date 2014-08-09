@@ -176,14 +176,14 @@ class DesktopController < ApplicationController
     end
     
     @visas.each do |visa|
-      if visa.pickup_office == "seoul" then
+      #if visa.pickup_office == "seoul" then
         
-      else
+      #else
         editLink = "<a target=\"_blank\" href=\"/visas/" + visa.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>&nbsp;Update</span></a>"
         checkLink = "<a target=\"_blank\" href=\"/visas/" + visa.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>&nbsp;Check</span></a>"
         deleteLink = "<a class=\"deldata\" rel=\"nofollow\" data-method=\"delete\" href=\"/deletevisaviadashboard/#{visa.id}\"><span class='glyphicon glyphicon-trash'></span><span class='glyphicon-class'>&nbsp;Delete</span></a>"
         #printLink = "<a href=\"/visa/tosisari/" + visa.id + "\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SISARI</span></a>"
-      end
+      #end
       
       paymentdate = !(visa.payment_date.nil?) ? visa.payment_date.strftime("%-d %b %Y") : '-'
       retrievedate = !(visa.pickup_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (visa.pickup_date).strftime("%-d %b %Y") + '</a>').html_safe : '-'
