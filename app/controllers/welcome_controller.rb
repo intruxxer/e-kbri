@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
   def index	
     message_one = "Dear Visitor, Please kindly be notified that: <br/><br/>(1) The Indonesian Embassy for Republic of Korea has decided to make adjustment on fees pertaining to consular services such as Visas & Re-entry Application Fees, 
                   effective <b>1 August 2014.</b> Please kindly check the new fees structure prior to making payment for your respective application.".html_safe
-    message_two = "<br/>(2) Starting from 18 August 2014, VISA pickup <b>is only available from 09.00 - 13.00</b>".html_safe                
+    message_two = "<br/>(2) Starting from 18 August 2014, VISA pickup <b>is only available from 09.00 - 12.30</b>".html_safe                
     message_three = "<br/>Thank You & Best Regards,<br/>The Indonesian Embassy for Republic of Korea."
     warning = [ message_one, message_two, message_three ]
     flash[:warning] = warning.join("<br/>").html_safe
