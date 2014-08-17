@@ -116,7 +116,7 @@ class DashboardController < ApplicationController
         respond_to do |format|
           format.pdf do
             render :pdf         => "Rekapitulasi Visa & Paspor " + params[:periodical][:startperiod] + " _ " + params[:periodical][:endperiod] + " (Payment Date Based)",
-                   :disposition => "attacment",
+                   :disposition => "attachment",
                    :template    => 'dashboard/report/rekap.html.erb',
                    :page_size   => 'A4',                           
                    :footer      => { :center => "The Embassy of Republic of Indonesia at Seoul" }

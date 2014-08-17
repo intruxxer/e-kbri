@@ -389,9 +389,10 @@
 			   <div class="inline-group" style="padding:4px;<% if @visa.status != 'Approved' %>display:none;<% end %>" id="pickupdatecont">
 				    <section class="col col-9">
 				   		<label class="label" style="width:auto;background:inherit">Pickup Date</label>
-						<label class="select" style="width:200px;">
-								<%= f.input_field :pickup_date, class: 'datePick' %>
-							</label>
+						<label class="input" style="width:200px;">
+							<i class="icon-append icon-calendar"></i>
+							<%= f.input_field :pickup_date, class: 'datePick' %>
+						</label>
 				    </section>
 			   </div>
 			   
@@ -413,6 +414,17 @@
 								<%= f.input_field :comment, :rows => 5, :maxlength => 200, as: :text %>							
 							</label>
 				    </section>
+			   </div>
+			   
+			   <div class="inline-group" style="padding:4px;">	
+			   		<section class="col col-9">		
+			   			<label class="label" style="width:auto;background:inherit">Actual Payment Date</label>	
+			   			<label class="input" style="width:200px;">
+ 							<i class="icon-append icon-calendar"></i>
+							<%= f.input_field :payment_date, class: 'datePick' %>
+ 						</label>
+ 						<div class="note"><b>Perhatian</b> : Hanya isi ini apabila anda <b>TELAH ASSIGN VISA (JENIS VISA SUDAH DITENTUKAN)</b>. Perbaikan tanggal bayar tentunya setelah staff tahu bahwa user sebelumnya sudah bayar.</div>
+ 					</section>
 			   </div>
 							  
 		  	
