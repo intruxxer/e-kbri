@@ -368,7 +368,37 @@
 							</label>
 				    </section>
 			   </div>
-							  
+			   
+			   <div class="inline-group" style="padding:4px;">	
+			   		<section class="col col-9">		
+			   			<label class="label" style="width:auto;background:inherit">Actual Payment Date</label>	
+			   			<label class="input" style="width:200px;">
+ 							<i class="icon-append icon-calendar"></i>
+							<%= f.input_field :payment_date, class: 'datePick' %>
+ 						</label>
+ 						<div class="note"><b>Perhatian</b> : Hanya isi ini apabila anda <b>TELAH ASSIGN PASSPORT (JENIS PASSPORT SUDAH DITENTUKAN)</b>. 
+ 							<br /> Tanggal bayar tentunya setelah staff tahu bahwa user sebelumnya sudah bayar. </div>
+ 					</section>
+			   </div>
+			   
+			   <div class="inline-group" style="padding:4px;">
+			  		 <section class="col col-6">
+							<label class="label" style='background:#FFCC00;'> Scan/Foto Bukti Pembayaran</label>
+							<label for="file" class="input input-file">
+								<div class="button">
+									<%= f.input_field :slip_photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
+									<input type="text" readonly="readonly" />
+							</label>
+							<% if @passport.slip_photo.exists? %>
+												
+								<% if current_user.has_role? :admin or current_user.has_role? :moderator %>
+									<%= link_to 'Download Slip', @passport.slip_photo.url(:original, false), target: "_blank" %>
+								<%end%>
+											
+							<%end%>
+							<div class="note"><strong>Catatan:</strong> Hanya berkas JPG/JPEG/PNG/PDF. Ukuran Maks. 2MB</div>
+						</section>
+				</div>			  
 		  	
 		<a href="http://serverkons:3000/admin/service/prep_spri/<%= @passport.id %>" ><button type="button" class="button" style="background-color:#009933">Insert to SPRI</button></a> 
 		<button type="submit" class="button">Simpan</button>
@@ -402,7 +432,12 @@
       				changeYear: true,
       				yearRange: '1900:2040'
 
-				});					
+				});		
+				
+				$('.fileplaceholder').change(function(){					
+					filename = $(this).val();
+					$(this).parent().next().val(filename.split("\\").pop());
+				});			
 			});			
 </script>
 

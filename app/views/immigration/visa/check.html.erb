@@ -426,6 +426,18 @@
  						<div class="note"><b>Perhatian</b> : Hanya isi ini apabila anda <b>TELAH ASSIGN VISA (JENIS VISA SUDAH DITENTUKAN)</b>. Perbaikan tanggal bayar tentunya setelah staff tahu bahwa user sebelumnya sudah bayar.</div>
  					</section>
 			   </div>
+			   
+			   <div class="inline-group" style="padding:4px;">
+			   		<section class="col col-6">
+						<label class="label" style='background:#FFCC00;'> Scan/Digital Copy of Payment Receipt</label>
+						<label for="file" class="input input-file">
+							<div class="button">
+								<%= f.input_field :slip_photo, as: :file, class: 'fileplaceholder' %>Upload</div>
+								<input type="text" readonly="readonly" />
+						</label>
+						<div class="note"><strong>Catatan:</strong> Hanya berkas JPG/JPEG/PNG/PDF. Ukuran Maks. 2MB</div>
+					</section>
+			   	</div>
 							  
 		  	
 		<a href="http://serverkons:3000/admin/service/prep_visa/<%= @visa.id %>" ><button type="button" class="button" style="background-color:#009933">Insert to SISARI</button></a> 
@@ -461,6 +473,11 @@
       				yearRange: '1900:2040'
 
 				});		
+				
+				$('.fileplaceholder').change(function(){					
+					filename = $(this).val();
+					$(this).parent().next().val(filename.split("\\").pop());
+				});
 			});			
 </script>
 
