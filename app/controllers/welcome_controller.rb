@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
    
   def index	
+    response.headers['Content-type'] = 'text/html; charset=utf-8'
 =begin
     message_one = "Dear Visitor, Please kindly be notified that: <br/><br/>(1) The Indonesian Embassy for Republic of Korea has decided to make adjustment on fees pertaining to consular services such as Visas & Re-entry Application Fees, 
                   effective <b>1 August 2014.</b> Please kindly check the new fees structure prior to making payment for your respective application.".html_safe
