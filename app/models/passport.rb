@@ -141,7 +141,7 @@ class Passport
       #7000 Normal capacity
       #1000 offset capcity
       begin
-        todayis = Date.today
+        todayis = Date.new(Date.today.year, Date.today.month, 1) 
         cur = Passport.all.where(:created_at => { '$gte' => todayis } ).max(:vipacounter) 
         if cur == nil
           self.vipacounter = 3000

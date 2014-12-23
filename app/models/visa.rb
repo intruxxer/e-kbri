@@ -196,7 +196,7 @@ class Visa
       #8000 Normal capacity
       #1000 offset capcity
       begin        
-        todayis = Date.today
+        todayis = Date.new(Date.today.year, Date.today.month, 1)    
         cur = Visa.all.where(:created_at => { '$gte' => todayis } ).max(:vipa_no) 
         if cur == nil
           self.vipa_no =  2000
