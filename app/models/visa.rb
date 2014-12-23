@@ -192,19 +192,29 @@ class Visa
   private
   def set_vipacounter
     if Visa.all.count > 0
+      #capacity : 9000 applications per day
+      #8000 Normal capacity
+      #1000 offset capcity
       begin        
         todayis = Date.today
         cur = Visa.all.where(:created_at => { '$gte' => todayis } ).max(:vipa_no) 
-        if cur > 9999 || cur == nil
-          self.vipa_no =  1000  
+        if cur == nil
+          self.vipa_no =  2000
+        elsif cur >= 9999
+            cur = Visa.all.where(:created_at => { '$gte' => todayis } ).where(:vipa_no => { '$lt' => 2000 } ).max(:vipa_no)
+            if cur == nil
+              self.vipa_no = 1000
+            else
+              self.vipa_no = cur + 1
+            end
         else
           self.vipa_no =  cur + 1
         end        
       rescue
-        self.vipa_no = 1000
+        self.vipa_no = 2000
       end      
     else
-      self.vipa_no = 1000
+      self.vipa_no = 2000
     end
   end
   

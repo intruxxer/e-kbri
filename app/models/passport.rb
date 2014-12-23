@@ -137,11 +137,21 @@ class Passport
 
   def set_vipacounter
     if Passport.all.count > 0
+      #capacity : 9000 applications per day
+      #7000 Normal capacity
+      #1000 offset capcity
       begin
         todayis = Date.today
         cur = Passport.all.where(:created_at => { '$gte' => todayis } ).max(:vipacounter) 
-        if cur > 9999 || cur == nil
+        if cur == nil
           self.vipacounter = 3000
+        elsif cur >= 9999
+          cur = Passport.all.where(:created_at => { '$gte' => todayis } ).where(:vipa_no => { '$lt' => 3000 } ).max(:vipacounter)
+            if cur == nil
+              self.vipacounter = 1000
+            else
+              self.vipacounter = cur + 1
+            end
         else
           self.vipacounter = cur + 1  
         end        
