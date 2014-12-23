@@ -192,9 +192,10 @@ class Visa
   private
   def set_vipacounter
     if Visa.all.count > 0
-      begin
-        cur = Visa.max(:vipa_no)
-        if cur > 9999
+      begin        
+        todayis = Time.today
+        cur = Visa.all.where(:created_at => { '$gte' => todayis } ).max(:vipa_no) 
+        if cur > 9999 || cur == nil
           self.vipa_no =  1000  
         else
           self.vipa_no =  cur + 1

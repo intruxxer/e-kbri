@@ -138,7 +138,13 @@ class Passport
   def set_vipacounter
     if Passport.all.count > 0
       begin
-        self.vipacounter = Passport.max(:vipacounter) + 1
+        todayis = Time.today
+        cur = Passport.all.where(:created_at => { '$gte' => todayis } ).max(:vipacounter) 
+        if cur > 9999 || cur == nil
+          self.vipacounter = 3000
+        else
+          self.vipacounter = cur + 1  
+        end        
       rescue
         self.vipacounter = 3000
       end      
