@@ -10,8 +10,6 @@ development:
       # of host:port pairs. (required)
       hosts:
         - 127.0.0.1:27017
-      #username: admin
-      #password: ekbri2014adm1n
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -69,9 +67,7 @@ production:
     default:
       database: e_kbri_production
       hosts:
-        - 127.0.0.1:27772
-      username: admin
-      password: ekbri2014adm1n
+        -  127.0.0.1:27017
       options:
         read: primary
         # In the test environment we lower the retries and retry interval to
